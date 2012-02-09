@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.inftel.ssa</groupId>
+  <artifactId>ssa</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>SSA</name>
+  
+  <url>http://code.google.com/p/inftel-scrum-grupo-uno/</url>
+  
+  <scm>
+    <connection>scm:svn:http://inftel-scrum-grupo-uno.googlecode.com/svn/trunk</connection>
+    <developerConnection>scm:svn:https://inftel-scrum-grupo-uno.googlecode.com/svn/trunk</developerConnection>
+    <url>http://inftel-scrum-grupo-uno.googlecode.com/svn/trunk</url>
+  </scm>
+  
+  <properties>
+    <maven.compiler.source>1.6</maven.compiler.source>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <modules>
+    <module>ssa-api</module>
+    <module>ssa-bundle</module>
+    <module>ssa-core</module>
+    <module>ssa-datamining</module>
+    <module>ssa-web</module>
+  </modules>
+  
+  
+  
+  <distributionManagement>
+    <site>
+      <id>lproyecto-javaee.googlecode.com</id>
+      <url>scp://proyecto-javaee.googlecode.com/svn</url>
+    </site>
+  </distributionManagement>
+  
+  <organization>
+    <name>Master INFTEL</name>
+    <url>http://masterinftel.uma.es/</url>
+  </organization>
+  
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>ssa-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>ssa-bundle</artifactId>
+        <version>${project.version}</version>
+        <type>ear</type>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>ssa-core</artifactId>
+        <version>${project.version}</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>ssa-datamining</artifactId>
+        <version>${project.version}</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>ssa-web</artifactId>
+        <version>${project.version}</version>
+        <type>war</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.source}</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.5</version>
+        <configuration>
+          <encoding>${project.build.sourceEncoding}</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.0</version>
+        <configuration>
+          <locales>en</locales>
+          <outputEncoding>UTF-8</outputEncoding>
+          <reportPlugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-project-info-reports-plugin</artifactId>
+              <version>2.4</version>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-javadoc-plugin</artifactId>
+              <version>2.8</version>
+            </plugin>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>cobertura-maven-plugin</artifactId>
+              <version>2.5.1</version>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-pmd-plugin</artifactId>
+              <version>2.6</version>
+              <configuration>
+                <linkXref>true</linkXref>
+                <sourceEncoding>utf-8</sourceEncoding>
+                <targetJdk>1.6</targetJdk>
+              </configuration>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-jxr-plugin</artifactId>
+              <version>2.3</version>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-checkstyle-plugin</artifactId>
+              <version>2.8</version>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-surefire-report-plugin</artifactId>
+              <version>2.11</version>
+            </plugin>
+            <plugin>
+              <groupId>net.sf</groupId>
+              <artifactId>stat-scm</artifactId>
+              <version>1.2.0</version>
+            </plugin>
+          </reportPlugins>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  
+  <repositories>
+    <repository>
+      <id>javageomodel-repo</id>
+      <name>GeocellJava Repository</name>
+      <url>http://javageomodel.googlecode.com/svn/repository</url>
+    </repository>
+    <repository>
+      <url>http://repository.primefaces.org/</url>
+      <id>primefaces</id>
+      <layout>default</layout>
+      <name>Repository for library Library[primefaces]</name>
+    </repository>
+    <repository>
+      <url>http://download.eclipse.org/rt/eclipselink/maven.repo/</url>
+      <id>eclipselink</id>
+      <layout>default</layout>
+      <name>Repository for library Library[eclipselink]</name>
+    </repository>
+    <repository>
+      <url>http://download.java.net/maven/2/</url>
+      <id>javaee-api-6.0</id>
+      <layout>default</layout>
+      <name>Repository for library Library[javaee-api-6.0]</name>
+    </repository>
+  </repositories>
+  
+</project>

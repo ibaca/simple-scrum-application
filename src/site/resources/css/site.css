@@ -1,0 +1,10 @@
+.topbar .dropdown-menu a, .dropdown-menu a {
+  white-space: nowrap;
+}
+.topbar ul.dropdown-menu {
+  max-width: 290px;
+}
+
+#leftColumn li.none {
+    margin-left: -1em;
+}
