@@ -29,12 +29,11 @@
     <module>ssa-web</module>
   </modules>
   
-  
-  
   <distributionManagement>
     <site>
-      <id>lproyecto-javaee.googlecode.com</id>
-      <url>scp://proyecto-javaee.googlecode.com/svn</url>
+      <id>code.google.com</id>
+      <name>googlecode scm</name>
+      <url>scm:svn:https://inftel-scrum-grupo-uno.googlecode.com/svn/site</url>
     </site>
   </distributionManagement>
   
@@ -113,6 +112,23 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
         <version>3.0</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.wagon</groupId>
+            <artifactId>wagon-scm</artifactId>
+            <version>1.0-beta-6</version>
+          </dependency>
+          <dependency>
+            <groupId>org.apache.maven.scm</groupId>
+            <artifactId>maven-scm-manager-plexus</artifactId>
+            <version>1.0</version>
+          </dependency>
+          <dependency>
+            <groupId>org.apache.maven.scm</groupId>
+            <artifactId>maven-scm-provider-svnexe</artifactId>
+            <version>1.0</version>
+          </dependency>
+        </dependencies>
         <configuration>
           <locales>en</locales>
           <outputEncoding>UTF-8</outputEncoding>
