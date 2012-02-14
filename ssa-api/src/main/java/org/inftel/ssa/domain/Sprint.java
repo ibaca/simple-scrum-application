@@ -32,6 +32,8 @@ public class Sprint extends BaseEntity {
     //@JoinColumn(name = "IDPROJECT", referencedColumnName = "IDPROJECT")
     @ManyToOne(optional = false)
     private Project idproject;
+    @ManyToOne(optional = false)
+    private Producto idproducto;
 
     /**
      * Descripción del Sprint
@@ -123,4 +125,13 @@ public class Sprint extends BaseEntity {
     public void setIdproject(Project idproject) {
         this.idproject = idproject;
     }
+    
+      public Producto getIdproducto() {
+        return idproducto;
+    }
+
+    public void setIdproducto(Producto idproducto) {
+        this.idproducto = idproducto;
+    }
+
 }
