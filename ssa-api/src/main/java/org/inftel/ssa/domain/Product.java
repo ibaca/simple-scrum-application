@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Producto p"),
     @NamedQuery(name = "Producto.findByIdproducto", query = "SELECT p FROM Producto p WHERE p.id = :idproducto"),
     @NamedQuery(name = "Producto.findByDescripcion", query = "SELECT p FROM Producto p WHERE p.descripcion = :descripcion")})
-public class Producto extends BaseEntity {
+public class Product extends BaseEntity {
     private static final long serialVersionUID = 1L;
     private String descripcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idproducto")

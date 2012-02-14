@@ -33,7 +33,7 @@ public class Sprint extends BaseEntity {
     @ManyToOne(optional = false)
     private Project idproject;
     @ManyToOne(optional = false)
-    private Producto idproducto;
+    private Product idproducto;
 
     /**
      * Descripción del Sprint
@@ -126,11 +126,11 @@ public class Sprint extends BaseEntity {
         this.idproject = idproject;
     }
     
-      public Producto getIdproducto() {
+      public Product getIdproducto() {
         return idproducto;
     }
 
-    public void setIdproducto(Producto idproducto) {
+    public void setIdproducto(Product idproducto) {
         this.idproducto = idproducto;
     }
 
