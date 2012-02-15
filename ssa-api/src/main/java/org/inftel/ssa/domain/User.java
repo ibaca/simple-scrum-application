@@ -29,7 +29,7 @@ public class User extends BaseEntity {
     private String password;
     @OneToMany(mappedBy = "user")
     private List<Task> tasks;
-    private String role;
+    private String userRole;
 
     public User() {
     }
@@ -75,12 +75,12 @@ public class User extends BaseEntity {
         this.tasks = tasks;
     }
 
-    public String getRole() {
-        return role;
+    public String getUserRole() {
+        return userRole;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setUserRole(String role) {
+        this.userRole = role;
     }
     
 }

@@ -22,4 +22,10 @@ public class UserFacade extends AbstractFacade<User> {
     super(User.class);
   }
   
+  // internal test usage
+  UserFacade(EntityManager em) {
+	  this();
+	  this.em = em;
+  }
+  
 }

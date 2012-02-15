@@ -1,7 +1,9 @@
 package org.inftel.ssa.domain;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -63,6 +65,7 @@ public abstract class AbstractFacade<T> {
 			cq.orderBy((asc) ? qb.asc(from.get(sortField)) : qb.desc(from.get(sortField)));
 		}
 
+		filters = (filters == null) ? Collections.<String, String>emptyMap() : filters;
 		for (String column : filters.keySet()) {
 			Expression<String> literal = qb.upper(qb.literal(filters.get(column)));
 			Predicate predicate = qb.like(qb.upper(from.<String>get(column)), literal);
@@ -70,8 +73,10 @@ public abstract class AbstractFacade<T> {
 		}
 
 		TypedQuery<T> q = getEntityManager().createQuery(select);
-		if (startPosition != null && maxResult != null) {
+		if (startPosition != null) {
 			q.setFirstResult(startPosition);
+		}
+		if (maxResult != null) {
 			q.setMaxResults(maxResult);
 		}
 

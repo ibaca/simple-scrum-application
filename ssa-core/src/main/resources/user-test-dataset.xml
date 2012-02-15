@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <users id='1000' nickname='Richard' password='Wright' userRole='role' email='richard@mail.com'/>
+    <users id='1001' nickname='Roger' password='Waters' userRole='role' email='waters@mail.com'/>
+    <users id='1002' nickname='Nick' password='Mason' userRole='role' email='mason@mail.com'/>
+    <users id='1003' nickname='David' password='Gilmour' userRole='role' email='gilmour@mail.com'/>
+    <users id='1004' nickname='Syd' password='Barrett' userRole='role' email='barrett@mail.com'/>
+</dataset>
