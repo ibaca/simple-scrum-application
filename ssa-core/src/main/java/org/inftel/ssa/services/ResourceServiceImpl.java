@@ -1,6 +1,7 @@
 package org.inftel.ssa.services;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -26,7 +27,7 @@ public class ResourceServiceImpl implements ResourceService {
 	}
 
 	@Override
-	public Collection<Project> findProjects(Integer startPosition, Integer maxResult, String sortField, Boolean ascOrder, Map<String, String> filters) {
+	public List<Project> findProjects(Integer startPosition, Integer maxResult, String sortField, Boolean ascOrder, Map<String, String> filters) {
 		return projects.find(startPosition, maxResult, sortField, ascOrder, filters);
 	}
 
