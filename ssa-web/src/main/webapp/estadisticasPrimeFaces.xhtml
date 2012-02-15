@@ -1,0 +1,26 @@
+<html 
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    
+    
+    
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+   
+    <h:body>
+       
+        
+<p:lineChart id="esfuerzo" value="#{estadisBean.esfuerzoModel}" legendPosition="e"  
+     title="Linear Chart" minY="0"  style="height:300px; width:500px "/>
+<p:lineChart id="tareas" value="#{estadisBean.tareasModel}" legendPosition="e"  
+     title="Linear Chart" minY="0"  style="height:300px; width:500px"/>
+<p:lineChart id="individual" value="#{estadisBean.individualModel}" legendPosition="e"  
+     title="Linear Chart" minY="0"  style="height:300px; width:500px"/>
+
+    </h:body>
+</html>
+
