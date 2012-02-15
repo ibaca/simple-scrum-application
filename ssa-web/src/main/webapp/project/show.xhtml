@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="content">
+            <h:form id="fProjects">
+                <h:outputText value="There is no project" rendered="#{projectManager.projects.rowCount}" />
+                <p:dataTable id="basic" var="project" value="#{projectManager.projects}" paginator="true"
+                             rows="5" rendered="#{projectManager.projects.rowCount > 0}">
+
+                    <p:column>
+                        <f:facet name="header"><h:outputText value="#" /></f:facet>
+                        <h:outputText value="#{projectManager.projects.rowIndex + 1}" />
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            Name:
+                        </f:facet>
+                        <h:outputText value="#{project.name}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            Description:
+                        </f:facet>
+                        <h:outputText value="#{project.description}" />
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            Start date:
+                        </f:facet>
+                        <h:outputText value="#{project.startDate}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            Finish date:
+                        </f:facet>
+                        <h:outputText value="#{project.finishDate}" />
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            Actions
+                        </f:facet>                        
+                        <h:commandButton  action="#{projectManager.showSprints}" value="Sprint"/>
+                        <h:commandButton  action="#{projectManager.edit}" value="Edit"  />
+                        <h:commandButton  action="#{projectManager.remove}" value="Delete" 
+                                          onclick="jsf.ajax.request(this, event, {execute: 'fProjects', render: 'fProjects'}); return false;" />
+                    </p:column>
+                </p:dataTable>
+                <p:column>
+                    <h:commandButton  action="#{projectManager.create}" value="New project"  />
+                </p:column>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

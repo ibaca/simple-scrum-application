@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">       
+        <ui:define name="content">
+            <h:form  id="createSprintForm">
+                <h:panelGrid columns="2" >
+                    <ui:include src="form.xhtml" />
+                    <f:facet name="action">
+                        <h:commandButton  action="#{sprintManager.save}" value="Save" />
+                        <h:commandButton  action="/sprint/show.xhtml" value="Cancel"  immediate="true" />
+                    </f:facet>
+                </h:panelGrid>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

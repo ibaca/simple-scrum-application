@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <h:panelGrid columns="2" >           
+            <h:outputLabel value="Name"/>
+            <h:inputText  value="#{sprintManager.currentSprint.id}" required="true"  requiredMessage="mensaje 1"  size="30" />
+            <h:outputLabel value="Description" />
+            <h:inputTextarea  value="#{sprintManager.currentSprint.description}" required="true" cols="31" rows="3" requiredMessage="mensaje 2"/>
+            <h:outputLabel value="Start date:" />
+            <h:panelGroup>
+                <p:calendar value="#{sprintManager.currentSprint.startDate}" mode="popup" showOn="focus" />
+            </h:panelGroup>
+            <h:outputLabel value="Finish date:" />
+            <h:panelGroup>
+                <p:calendar value="#{sprintManager.currentSprint.finishDate}" mode="popup" showOn="focus" />
+            </h:panelGroup>          
+
+        </h:panelGrid>
+    </ui:composition>
+
+</html>

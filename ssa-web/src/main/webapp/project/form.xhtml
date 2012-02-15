@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!--    Hay que añadir mensajes de error y validar que el nombre del proyecto sea unico-->
+    <ui:composition>
+        <h:panelGrid columns="2">
+            <h:outputLabel value="Name:" />
+            <h:inputText value="#{projectManager.currentProject.name}" required="true" requiredMessage="mensaje 1" />          
+
+            <h:outputLabel value="Start date:"  />
+            <h:panelGroup>
+                <p:calendar value="#{projectManager.currentProject.startDate}" mode="popup" showOn="focus" />
+            </h:panelGroup>
+            <h:outputLabel value="Finish date:"  />
+            <h:panelGroup>
+                <p:calendar value="#{projectManager.currentProject.finishDate}" mode="popup" showOn="focus" />                
+            </h:panelGroup>
+            <h:outputLabel value="Description:" />
+            <p:inputTextarea value="#{projectManager.currentProject.description}" rows="5" cols="30" requiredMessage="mensaje 2"/> 
+        </h:panelGrid>
+    </ui:composition>
+
+</html>
