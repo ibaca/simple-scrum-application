@@ -10,25 +10,25 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author jsbaes
  */
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findByIduser", query = "SELECT u FROM User u WHERE u.id = :iduser"),
     @NamedQuery(name = "User.findByNickname", query = "SELECT u FROM User u WHERE u.nickname = :nickname"),
-    @NamedQuery(name = "User.findByFullname", query = "SELECT u FROM User u WHERE u.fullname = :fullname"),
+    @NamedQuery(name = "User.findByFullname", query = "SELECT u FROM User u WHERE u.fullName = :fullname"),
     @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
 public class User extends BaseEntity {
     private static final long serialVersionUID = 1L;
     private String nickname;
-    private String fullname;
+    private String fullName;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     private String email;
 
     private String password;
-    @OneToMany(mappedBy = "iduser")
-    private List<Task> taskList;
+    @OneToMany(mappedBy = "user")
+    private List<Task> tasks;
     private String role;
 
     public User() {
@@ -42,12 +42,12 @@ public class User extends BaseEntity {
         this.nickname = nickname;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setFullName(String fullname) {
+        this.fullName = fullname;
     }
 
     public String getEmail() {
@@ -67,12 +67,12 @@ public class User extends BaseEntity {
     }
 
     @XmlTransient
-    public List<Task> getTaskList() {
-        return taskList;
+    public List<Task> getTasks() {
+        return tasks;
     }
 
-    public void setTaskList(List<Task> taskList) {
-        this.taskList = taskList;
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public String getRole() {

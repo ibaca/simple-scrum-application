@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author jsbaes
  */
 @Entity
-@Table(name = "comment")
+@Table(name = "comments")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Comment.findAll", query = "SELECT c FROM Comment c"),
@@ -20,9 +20,8 @@ public class Comment extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
     private String description;
-    //@JoinColumn(name = "IDTASK", referencedColumnName = "IDTASK")
     @ManyToOne
-    private Task idtask;
+    private Task task;
 
     /**
      * Descripción del comentario
@@ -47,8 +46,8 @@ public class Comment extends BaseEntity {
      *
      * @return tarea asociada
      */
-    public Task getIdtask() {
-        return idtask;
+    public Task getTask() {
+        return task;
     }
 
     /**
@@ -56,7 +55,7 @@ public class Comment extends BaseEntity {
      *
      * @param idtask Tarea asociada al comentario
      */
-    public void setIdsprint(Task idtask) {
-        this.idtask = idtask;
+    public void setIdsprint(Task task) {
+        this.task = task;
     }
 }

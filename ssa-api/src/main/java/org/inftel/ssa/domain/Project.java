@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author jsbaes
  */
 @Entity
-@Table(name = "project")
+@Table(name = "projects")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Project.findAll", query = "SELECT p FROM Project p"),
@@ -30,10 +30,10 @@ public class Project extends BaseEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date finishDate;
     private String company;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idproject")
-    private List<Task> taskList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idproject")
-    private List<Sprint> sprintList;
+    @OneToMany(mappedBy = "project")
+    private List<Task> tasks;
+    @OneToMany(mappedBy = "project")
+    private List<Sprint> sprints;
 
     /**
      * Nombre del proyecto
@@ -126,20 +126,20 @@ public class Project extends BaseEntity {
     }
 
     @XmlTransient
-    public List<Task> getTaskList() {
-        return taskList;
+    public List<Task> getTasks() {
+        return tasks;
     }
 
-    public void setTaskList(List<Task> taskList) {
-        this.taskList = taskList;
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     @XmlTransient
-    public List<Sprint> getSprintList() {
-        return sprintList;
+    public List<Sprint> getSprints() {
+        return sprints;
     }
 
-    public void setSprintList(List<Sprint> sprintList) {
-        this.sprintList = sprintList;
+    public void setSprints(List<Sprint> sprints) {
+        this.sprints = sprints;
     }
 }

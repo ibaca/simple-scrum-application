@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author jsbaes
  */
 @Entity
-@Table(name = "task")
+@Table(name = "tasks")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Task.findAll", query = "SELECT t FROM Task t"),
@@ -37,19 +37,15 @@ public class Task extends BaseEntity {
     private Date startDate;
     @Temporal(TemporalType.TIMESTAMP)
     private Date completionDate;
-    //@JoinColumn(name = "IDUSER", referencedColumnName = "IDUSER")
     @ManyToOne
-    private User iduser;
+    private User user;
     private String status;
-    //@JoinColumn(name = "IDSPRINT", referencedColumnName = "IDSPRINT")
     @ManyToOne
-    private Sprint idsprint;
-    //@JoinColumn(name = "IDPROJECT", referencedColumnName = "IDPROJECT")
+    private Sprint sprint;
     @ManyToOne(optional = false)
-    private Project idproject;
-    //@JoinColumn(name = "IDCOMMENT", referencedColumnName = "IDCOMMENT")
-    @OneToMany(mappedBy = "idtask")
-    private List<Comment> commentList;
+    private Project project;
+    @OneToMany(mappedBy = "task")
+    private List<Comment> comments;
 
     /**
      * Nombre de la tareas
@@ -162,11 +158,11 @@ public class Task extends BaseEntity {
      * @return usuario asignado
      */
     public User getIduser() {
-        return iduser;
+        return user;
     }
 
     public void setIduser(User iduser) {
-        this.iduser = iduser;
+        this.user = iduser;
     }
 
     /**
@@ -187,12 +183,12 @@ public class Task extends BaseEntity {
      *
      * @return fecha de comienzo
      */
-    public Sprint getIdsprint() {
-        return idsprint;
+    public Sprint getSprint() {
+        return sprint;
     }
 
-    public void setIdsprint(Sprint idsprint) {
-        this.idsprint = idsprint;
+    public void setSprint(Sprint sprint) {
+        this.sprint = sprint;
     }
 
     /**
@@ -200,12 +196,12 @@ public class Task extends BaseEntity {
      *
      * @return fecha de comienzo
      */
-    public Project getIdproject() {
-        return idproject;
+    public Project getProject() {
+        return project;
     }
 
-    public void setIdproject(Project idproject) {
-        this.idproject = idproject;
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     /**
@@ -214,12 +210,12 @@ public class Task extends BaseEntity {
      * @return fecha de comienzo
      */
     @XmlTransient
-    public List<Comment> getCommentList() {
-        return commentList;
+    public List<Comment> getComments() {
+        return comments;
     }
 
-    public void setCommentList(List<Comment> commentList) {
-        this.commentList = commentList;
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
     
 }

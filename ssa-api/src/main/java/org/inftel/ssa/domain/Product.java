@@ -5,6 +5,9 @@
 package org.inftel.ssa.domain;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Set;
+import java.util.TreeSet;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -14,32 +17,37 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author jsbaes
  */
 @Entity
-@Table(name = "producto")
+@Table(name = "products")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Product p"),
-    @NamedQuery(name = "Producto.findByIdproduct", query = "SELECT p FROM Product p WHERE p.id = :idproduct"),
-    @NamedQuery(name = "Producto.findByDescripcion", query = "SELECT p FROM Product p WHERE p.descripcion = :descripcion")})
+	@NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Product p"),
+	@NamedQuery(name = "Producto.findByProduct", query = "SELECT p FROM Product p WHERE p.id = :product"),
+	@NamedQuery(name = "Producto.findByDescription", query = "SELECT p FROM Product p WHERE p.description = :description")})
 public class Product extends BaseEntity {
-    private static final long serialVersionUID = 1L;
-    private String descripcion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idproduct")
-    private Collection<Sprint> sprintCollection;
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+	private static final long serialVersionUID = 1L;
+	
+	@Lob
+	private String description;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+	private Collection<Sprint> sprints;
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    @XmlTransient
-    public Collection<Sprint> getSprintCollection() {
-        return sprintCollection;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setSprintCollection(Collection<Sprint> sprintCollection) {
-        this.sprintCollection = sprintCollection;
-    }
+	@XmlTransient
+	public Collection<Sprint> getSprints() {
+		return sprints;
+	}
+
+	public void setSprints(Collection<Sprint> sprints) {
+		this.sprints = sprints;
+	}
+	
 }
