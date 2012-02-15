@@ -24,16 +24,14 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Task.findByPriority", query = "SELECT t FROM Task t WHERE t.priority = :priority"),
     @NamedQuery(name = "Task.findByStartDate", query = "SELECT t FROM Task t WHERE t.startDate = :startDate"),
     @NamedQuery(name = "Task.findByCompletionDate", query = "SELECT t FROM Task t WHERE t.completionDate = :completionDate"),
-    @NamedQuery(name = Task.FIND_HOURS_TOFINISH, query="SELECT t FROM Task t WHERE t.sprint.id = :idsprint AND t.user.id = :iduser"),
-    @NamedQuery(name = Task.FIND_USERS_SPRINT, query="SELECT t.user.id FROM Task t WHERE t.sprint.id = :idsprint"),
-    @NamedQuery(name = Task.FIND_TASKS_FINISHED, query="SELECT count(t) FROM Task t WHERE t.sprint.id = :idsprint AND t.user.id = :iduser AND t.toFinish = 0")})
+    @NamedQuery(name = Task.FIND_TOFINISH, query="SELECT t FROM Task t WHERE t.sprint.id = :idsprint AND t.user.id = :iduser AND t.toFinish > 0"),
+    @NamedQuery(name = Task.FIND_USERS_SPRINT, query="SELECT DISTINCT t.user.id FROM Task t WHERE t.sprint.id = :idsprint")})
 
 public class Task extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
-    public static final String FIND_HOURS_TOFINISH = "Task.findByUserAndSprint";
+    public static final String FIND_TOFINISH = "Task.findByUserAndSprint";
     public static final String FIND_USERS_SPRINT = "Task.findUsersBySprint";
-    public static final String FIND_TASKS_FINISHED = "Task.findNumTasksByUserAndSprint";
     private String name;
     private String description;
     private Integer estimated;
