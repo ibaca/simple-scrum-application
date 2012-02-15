@@ -72,6 +72,10 @@ public abstract class BaseEntity implements Serializable {
     public void setVersion(Long version) {
         this.version = version;
     }
+	
+	public boolean isNew() {
+        return (this.id == null);
+    }
 
     @PrePersist
     void onCreate() {
