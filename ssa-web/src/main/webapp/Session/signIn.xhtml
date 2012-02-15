@@ -1,0 +1,64 @@
+<html 
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="prueba.xhtml">
+        <ui:define name="content">
+            <h:form>  
+
+                <p:panel id="panel" header="Registro" style="">  
+
+                    <p:focus context="panel"/>  
+
+
+
+                    <h:panelGrid columns="3">  
+                        <h:outputLabel for="firstname" value="Nombre: *" />  
+                        <p:inputText id="firstname" required="true" label="firstname"  value="#{SessionBean.firstname}" >  
+                            <f:validateLength minimum="2" />  
+                        </p:inputText>  
+                        <p:message for="firstname" />  
+
+                        <h:outputLabel for="surname" value="Apellidos: *" />  
+                        <p:inputText id="surname" required="true" label="surname"  value="#{SessionBean.surname}" />  
+                        <p:message for="surname" /> 
+
+                        <h:outputLabel for="email" value="E-mail: *" />  
+                        <p:inputText id="email" required="true" label="email" value="#{SessionBean.email}" />  
+                        <p:message for="email" />
+
+                        <h:outputLabel for="company" value="Compañia: *" />  
+                        <p:inputText id="company" required="true" label="company"  value="#{SessionBean.company}" />  
+                        <p:message for="company" />
+
+                        <h:outputText for="password" value="Password: * " />  
+                        <p:password value="#{SessionBean.password}" required="true" id ="password" label="password"/>
+                        <p:message for="password" />
+
+                        <h:outputLabel for="address" value="Direccion: " />  
+                        <p:inputText id="address" label="address"  value="#{SessionBean.address}" />  
+                        <p:message for="address" />
+
+                        <h:outputLabel for="city" value="Ciudad:" />  
+                        <p:inputText id="city"  label="city"  value="#{SessionBean.city}" />  
+                        <p:message for="city" />
+
+                        <h:outputLabel for="cp" value="Cod. Postal:" />  
+                        <p:inputText id="cp"  label="cp"  value="#{SessionBean.cp}" />  
+                        <p:message for="cp" />
+                    </h:panelGrid>  
+
+                    <p:commandButton value="Registrar" update="panel"   
+                                     actionListener="#{SessionBean.signIn}" /> 
+                    
+                </p:panel>  
+
+            </h:form> 
+        </ui:define>
+    </ui:composition> 
+
+</html>
+
