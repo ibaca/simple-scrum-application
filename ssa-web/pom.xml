@@ -13,7 +13,6 @@
 
   <properties>
     <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-    <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
   </properties>
 
   <dependencies>

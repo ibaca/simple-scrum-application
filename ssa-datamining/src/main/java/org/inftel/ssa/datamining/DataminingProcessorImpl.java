@@ -41,16 +41,16 @@ import javax.jms.Session;
  * 
  * @author agumpg
  */
-@Stateless(name="DatamingProcessor")
+@Stateless(name="DataminingProcessor")
 @LocalBean
 public class DataminingProcessorImpl implements DataminingProcessor {
 
     private final static Logger logger = getLogger(DataminingProcessorImpl.class.getName());
     @EJB
     private DataminingDataFacade dataminingDataFacade;
-    @Resource(mappedName = "jms/dataminig")
+    @Resource(mappedName = "jms/datamining")
     private Queue dataming;
-    @Resource(mappedName = "jms/datamingFactory")
+    @Resource(mappedName = "jms/dataminingFactory")
     private ConnectionFactory datamingFactory;
 
     @Override

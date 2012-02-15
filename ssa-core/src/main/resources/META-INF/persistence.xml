@@ -3,9 +3,16 @@
   <persistence-unit name="ssa-persistence-unit" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbc/sample</jta-data-source>
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <class>org.inftel.ssa.domain.Comment</class>
+    <class>org.inftel.ssa.domain.Product</class>
+    <class>org.inftel.ssa.domain.Project</class>
+    <class>org.inftel.ssa.domain.Sprint</class>
+    <class>org.inftel.ssa.domain.Task</class>
+    <class>org.inftel.ssa.domain.User</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <shared-cache-mode>ALL</shared-cache-mode>
     <properties>
-      <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+      <property name="eclipselink.ddl-generation" value="create-tables"/>
     </properties>
   </persistence-unit>
 </persistence>

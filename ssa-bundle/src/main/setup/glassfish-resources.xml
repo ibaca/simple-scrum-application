@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
+<resources>
+  <admin-object-resource enabled="true" jndi-name="jms/datamining"  res-type="javax.jms.Queue"  res-adapter="jmsra">
+    <property name="Name" value="PhysicalQueue"/>
+  </admin-object-resource>
+    <!-- Posibles configuraciones de connector-connection-pool http://docs.oracle.com/cd/E19226-01/820-7693/giygu/index.html -->
+  <connector-connection-pool name="jms/dataminingFactoryPool"  connection-definition-name="javax.jms.QueueConnectionFactory"  
+                             resource-adapter-name="jmsra" steady-pool-size="0" max-pool-size="1" transaction-support="NoTransaction"/>
+  <connector-resource enabled="true" jndi-name="jms/dataminingFactory" pool-name="jms/dataminingFactoryPool"/>
+  <!-- esto no funciona todavia, deberia crear el recurso jdbc si no existiese -->
+  <jdbc-connection-pool name="java:jdbc/sample_pool" res-type="javax.sql.DataSource" datasource-classname="org.apache.derby.jdbc.EmbeddedDriver">
+    <property name="User" value="app"></property>
+    <property name="Password" value="app"></property>
+    <property name="dataBaseName" value="sample"></property>
+  </jdbc-connection-pool>
+  <jdbc-resource pool-name="java:jdbc/sample_pool" jndi-name="java:app/jdbc/sample"></jdbc-resource>
+</resources>

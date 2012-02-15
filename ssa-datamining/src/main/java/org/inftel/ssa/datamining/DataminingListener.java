@@ -23,7 +23,7 @@ import javax.jms.ObjectMessage;
  * MessageDriven es no transaccional, y se recomienda usar acceso a las tablas
  * no transaccional.
  */
-@MessageDriven(mappedName = "jms/statistics", activationConfig = {
+@MessageDriven(mappedName = "jms/datamining", activationConfig = {
     @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge"),
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 })

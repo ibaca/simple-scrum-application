@@ -19,7 +19,7 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class DataminingDataFacade extends AbstractFacade<DataminingData> {
 
-    @PersistenceContext(unitName = "ssa-datamining")
+    @PersistenceContext(unitName = "ssa-datamining-persistence-unit")
     private EntityManager em;
 
     @Override
