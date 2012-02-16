@@ -2,9 +2,9 @@ package org.inftel.ssa.domain;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -14,132 +14,109 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "projects")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Project.findAll", query = "SELECT p FROM Project p"),
-    @NamedQuery(name = "Project.findByIdproject", query = "SELECT p FROM Project p WHERE p.id = :idproject"),
-    @NamedQuery(name = "Project.findByName", query = "SELECT p FROM Project p WHERE p.name = :name"),
-    @NamedQuery(name = "Project.findByDescription", query = "SELECT p FROM Project p WHERE p.description = :description"),
-    @NamedQuery(name = "Project.findByStartDate", query = "SELECT p FROM Project p WHERE p.startDate = :startDate"),
-    @NamedQuery(name = "Project.findByFinishDate", query = "SELECT p FROM Project p WHERE p.finishDate = :finishDate")})
+	@NamedQuery(name = "Project.findAll", query = "SELECT p FROM Project p"),
+	@NamedQuery(name = "Project.findByProject", query = "SELECT p FROM Project p WHERE p.id = :idproject"),
+	@NamedQuery(name = "Project.findByName", query = "SELECT p FROM Project p WHERE p.name = :name"),
+	@NamedQuery(name = "Project.findByDescription", query = "SELECT p FROM Project p WHERE p.description = :description")})
 public class Project extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
-    private String name;
-    private String description;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date startDate;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date finishDate;
-    private String company;
-    @OneToMany(mappedBy = "project")
-    private List<Task> tasks;
-    @OneToMany(mappedBy = "project")
-    private List<Sprint> sprints;
+	private static final long serialVersionUID = 1L;
+	private String name;
+	@Lob
+	private String description;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date opened;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date started;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date closed;
+	private String company;
+	@OneToMany(mappedBy = "project")
+	private List<Task> tasks;
+	@OneToMany(mappedBy = "project")
+	private List<Sprint> sprints;
+	@OneToMany(mappedBy = "project")
+	private List<User> users;
+	@ElementCollection
+	private Map<String, String> links;
 
-    /**
-     * Nombre del proyecto
-     *
-     * @return cadena con el nombre del proyecto
-     */
-    public String getName() {
-        return name;
-    }
+	public Date getClosed() {
+		return closed;
+	}
 
-    /**
-     * Establece el nombre del proyecto
-     *
-     * @param name Texto con el nombre del proyecto
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setClosed(Date closed) {
+		this.closed = closed;
+	}
 
-    /**
-     * Descripción del proyecto
-     *
-     * @return cadena con la descripción del proyecto
-     */
-    public String getDescription() {
-        return description;
-    }
+	public String getCompany() {
+		return company;
+	}
 
-    /**
-     * Establece la descripción del proyecto
-     *
-     * @param description Texto con la descripción del proyecto
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setCompany(String company) {
+		this.company = company;
+	}
 
-    /**
-     * Fecha de comienzo del proyecto
-     *
-     * @return fecha de comienzo
-     */
-    public Date getStartDate() {
-        return startDate;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    /**
-     * Establece la fecha de comienzo del proyecto
-     *
-     * @param name starDate de comienzo
-     */
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    /**
-     * Fecha de finalización del proyecto
-     *
-     * @return fecha de finalización
-     */
-    public Date getFinishDate() {
-        return finishDate;
-    }
+	public Map<String, String> getLinks() {
+		return links;
+	}
 
-    /**
-     * Establece la fecha de finalización del proyecto
-     *
-     * @param finishDate fecha de fin
-     */
-    public void setFinishDate(Date finishDate) {
-        this.finishDate = finishDate;
-    }
+	public void setLinks(Map<String, String> links) {
+		this.links = links;
+	}
 
-    /**
-     * Empresa para la que se realiza el proyecto
-     *
-     * @return nombre de la empresa
-     */
-    public String getCompany() {
-        return company;
-    }
+	public String getName() {
+		return name;
+	}
 
-    /**
-     * Establece la empresa para la que se desrrolla el proyecto
-     *
-     * @param company cadena con el nombre de la empresa
-     */
-    public void setCompany(String company) {
-        this.company = company;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    @XmlTransient
-    public List<Task> getTasks() {
-        return tasks;
-    }
+	public Date getOpened() {
+		return opened;
+	}
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-    }
+	public void setOpened(Date opened) {
+		this.opened = opened;
+	}
 
-    @XmlTransient
-    public List<Sprint> getSprints() {
-        return sprints;
-    }
+	public List<Sprint> getSprints() {
+		return sprints;
+	}
 
-    public void setSprints(List<Sprint> sprints) {
-        this.sprints = sprints;
-    }
+	public void setSprints(List<Sprint> sprints) {
+		this.sprints = sprints;
+	}
+
+	public Date getStarted() {
+		return started;
+	}
+
+	public void setStarted(Date started) {
+		this.started = started;
+	}
+
+	public List<Task> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
 }

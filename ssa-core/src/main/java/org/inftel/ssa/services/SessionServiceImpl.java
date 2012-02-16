@@ -14,6 +14,7 @@ public class SessionServiceImpl implements SessionService {
 	public User currentUser() {
 		//TODO sistema de autenticacion
 		User current = new User();
+		current.setId(1l);
 		current.setEmail("test.user@mail.com");
 		current.setNickname("test-user");
 		current.setPassword("test-password");

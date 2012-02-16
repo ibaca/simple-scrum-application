@@ -25,6 +25,8 @@ public class User extends BaseEntity {
     private String fullName;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     private String email;
+	@ManyToOne
+    private Project project;
 
     private String password;
     @OneToMany(mappedBy = "user")
@@ -33,6 +35,14 @@ public class User extends BaseEntity {
 
     public User() {
     }
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
 
     public String getNickname() {
         return nickname;
