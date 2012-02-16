@@ -9,32 +9,30 @@
         <title>Prototipo</title>
     </h:head>
 
-    <h:body>
-        <div align="center">
-            <h:panelGrid width="990">
-                <div>
-                    <h:graphicImage value="/resources/images/menu/barraSuperior-04.png"></h:graphicImage>
-                </div>
+    <h:body style="font-size:10px;">
 
-                <h:form>   
-                    <p:menubar>
-                        <p:menuitem value="Home" url="/home.jsf" icon="ui-icon-gear" />
-                        <p:submenu label="Projects" icon="ui-icon-contact">  
-                            <p:menuitem value="View Projects" url="/project/show.jsf" /> 
-                        </p:submenu>
-                        <p:menuitem value="Settings" url="#" icon="ui-icon-close"/> 
-                        <p:menuitem value="Quit" url="#" icon="ui-icon-close" /> 
-                    </p:menubar>
-                </h:form> 
-                
-                <h:form>
-                    <div style="margin-top:5%">
-                        <ui:insert name="content"></ui:insert>
-                    </div>      
-                </h:form>                  
+		<p:layout fullPage="true">
 
+			<p:layoutUnit position="north" style="border: none;"> 
+				<h:form style="overflow: hidden;">   
+					<p:toolbar>
+						<p:toolbarGroup align="left">
+							<p:commandButton value="Home" action="/home" icon="ui-icon-home" ajax="false"/>
+							<p:commandButton value="Projects" action="/project/show" icon="ui-icon-document" ajax="false"/>  
+						</p:toolbarGroup>
+						<p:toolbarGroup align="right">
+							<p:commandButton value="Settings" url="#" icon="ui-icon-gear" ajax="false"/>
+							<p:commandButton value="Quit" url="#" icon="ui-icon-power" /> 
+						</p:toolbarGroup>
+					</p:toolbar>
+				</h:form> 
+			</p:layoutUnit>
 
-            </h:panelGrid>    
-        </div>
+			<p:layoutUnit position="center" style="border: none;">
+				<ui:insert id="content" name="content"></ui:insert>
+			</p:layoutUnit>
+
+		</p:layout>
+		
     </h:body>
 </html>
