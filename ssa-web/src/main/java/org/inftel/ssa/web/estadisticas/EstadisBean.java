@@ -2,15 +2,15 @@ package org.inftel.ssa.web.estadisticas;
 
 import java.io.Serializable;
 import java.text.DateFormat;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import org.inftel.ssa.datamining.DataminingDataPeriod;
 import org.inftel.ssa.datamining.DataminingProcessor;
+import org.inftel.ssa.domain.Project;
+import org.inftel.ssa.domain.Sprint;
+import org.inftel.ssa.domain.User;
 import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.LineChartSeries;
 
@@ -27,7 +27,7 @@ public class EstadisBean implements Serializable {
     public EstadisBean() {
         createEsfuerzoModel();
         createTareasModel();
-        createIndividualModel();
+       // createIndividualModel();
     }
 
     public CartesianChartModel getEsfuerzoModel() {
@@ -47,7 +47,7 @@ public class EstadisBean implements Serializable {
         LineChartSeries series = new LineChartSeries();
         Map<Date, Long> samples; // todos los datos por fecha
 
-        String name = "task." + "id_usuario" + "." + "sprint" + ".remaining";
+        String name = "task." + "id_usuario" + "." + "sprint" + ".remaining"; // Con id_usuario y sprint pasádo por parámetro
         samples = datamining.findStatistics(name, DataminingDataPeriod.DAYLY, new Date(0), new Date());
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es"));
 
@@ -65,7 +65,7 @@ public class EstadisBean implements Serializable {
         LineChartSeries series = new LineChartSeries();
         Map<Date, Long> samples; // todos los datos por fecha
 
-        String name = "task." + "id_usuario" + "." + "sprint" + ".remaining";
+        String name = "task." + "id_usuario" + "." + "sprint" + ".remaining"; // Con id_usuario y sprint pasádo por parámetro
         samples = datamining.findStatistics(name, DataminingDataPeriod.DAYLY, new Date(0), new Date());
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es"));
 
@@ -77,18 +77,20 @@ public class EstadisBean implements Serializable {
 
     }
 
-    private void createIndividualModel() {
+  /*  private void createIndividualModel() {
 
         individualModel = new CartesianChartModel();
-        List<User> listUsers = TaskFacade.findUsersBySprint(idSprint);  //Con idSprint el id del Sprint
-        Iterator iter = listUsers.iterator();
+        new Project().getUsers();
+        List<User> listUsers = project.getUsers();  //Con idSprint el id del Sprint 
+        Iterator iter = listUsers.iterator(); 
         while (iter.hasNext()) {
 
 
             LineChartSeries series = new LineChartSeries();
-            series.setLabel(iter.name); //Con nameUser el nombre del Usuario
+            series.setLabel(iter.nickname); //Con nickname el nombre del Usuario
 
 
+ 
             Map<Date, Long> samples; // todos los datos por fecha
             String name = "task." + "id_usuario" + "." + "sprint" + ".remaining";
             samples = datamining.findStatistics(name, DataminingDataPeriod.DAYLY, new Date(0), new Date());
@@ -100,5 +102,6 @@ public class EstadisBean implements Serializable {
 
             individualModel.addSeries(series);
         }
-    }
+    }  */
 }
+ 
