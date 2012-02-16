@@ -23,6 +23,7 @@ public class Project extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 	private String name;
+	private String summary;
 	@Lob
 	private String description;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -44,6 +45,14 @@ public class Project extends BaseEntity {
 	private Set<String> labels;
 	private String license;
 
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+	
 	public Set<String> getLabels() {
 		return labels;
 	}
