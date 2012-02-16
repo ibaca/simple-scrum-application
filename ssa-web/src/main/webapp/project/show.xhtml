@@ -9,7 +9,7 @@
     <ui:composition template="/template.xhtml">
         <ui:define name="content">
             <h:form id="fProjects">
-                <h:outputText value="There is no project" rendered="#{projectManager.projects.rowCount}" />
+                <h:outputText value="There is no project" rendered="#{projectManager.projects.rowCount == 0}" />
                 <p:dataTable id="basic" var="project" value="#{projectManager.projects}" paginator="true"
                              rows="5" rendered="#{projectManager.projects.rowCount > 0}">
 
