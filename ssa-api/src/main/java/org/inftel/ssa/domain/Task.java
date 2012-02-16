@@ -24,13 +24,22 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Task.findByPriority", query = "SELECT t FROM Task t WHERE t.priority = :priority"),
     @NamedQuery(name = "Task.findByStartDate", query = "SELECT t FROM Task t WHERE t.startDate = :startDate"),
     @NamedQuery(name = "Task.findByCompletionDate", query = "SELECT t FROM Task t WHERE t.completionDate = :completionDate"),
-    @NamedQuery(name = Task.FIND_TOFINISH, query="SELECT t FROM Task t WHERE t.sprint.id = :idsprint AND t.user.id = :iduser AND t.toFinish > 0"),
-    @NamedQuery(name = Task.FIND_USERS_SPRINT, query="SELECT DISTINCT t.user.id FROM Task t WHERE t.sprint.id = :idsprint")})
+    @NamedQuery(name = Task.FIND_HOURS_TOFINISH, query="SELECT SUM(t.toFinish) FROM Task t WHERE t.sprint.id = :idsprint AND t.user.id = :iduser AND t.toFinish > 0"),
+    @NamedQuery(name = Task.FIND_TASK_TOFINISH, query="SELECT count(t) FROM Task t WHERE t.sprint.id = :idsprint AND t.user.id = :iduser AND t.toFinish > 0"),
+    @NamedQuery(name = Task.FIND_TASK_STATUS_PROJECT, query="SELECT count(t) FROM Task t WHERE t.project.id = :idproject AND t.status = :idstatus"),
+    @NamedQuery(name = Task.FIND_TASK_STATUS_USER, query="SELECT count(t) FROM Task t WHERE t.user.id = :iduser AND t.status = :idstatus"),
+    @NamedQuery(name = Task.FIND_TASK_STATUS_SPRINT, query="SELECT count(t) FROM Task t WHERE t.sprint.id = :idsprint AND t.status = :idstatus"),
+    @NamedQuery(name = Task.FIND_USERS_SPRINT, query="SELECT DISTINCT t.user FROM Task t WHERE t.sprint.id = :idsprint")})
+
 
 public class Task extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
-    public static final String FIND_TOFINISH = "Task.findByUserAndSprint";
+    public static final String FIND_HOURS_TOFINISH = "Task.findHoursRemByUserAndSprint";
+    public static final String FIND_TASK_TOFINISH = "Task.findTaskRemByUserAndSprint";
+    public static final String FIND_TASK_STATUS_PROJECT = "countByProjectAndStatus";
+    public static final String FIND_TASK_STATUS_USER = "countByUserAndStatus";
+    public static final String FIND_TASK_STATUS_SPRINT = "countBySprintAndStatus";
     public static final String FIND_USERS_SPRINT = "Task.findUsersBySprint";
     private String name;
     private String description;
