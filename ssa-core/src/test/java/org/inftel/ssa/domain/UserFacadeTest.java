@@ -97,7 +97,7 @@ public class UserFacadeTest {
 		// Filter by relation
 		Map<String,String> filter1 = new IdentityHashMap<String, String>(1);
 		filter1.put("user.id", "1000");
-		assertEquals("Tarea Ejemplo",tasks.find(null, null, null, null, filter1).get(0).getName());
+		assertEquals("Tarea Ejemplo",tasks.find(null, null, null, null, filter1).get(0).getSummary());
 	}
 	
 }

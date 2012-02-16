@@ -6,6 +6,6 @@
     <users id='1003' nickname='David' password='Gilmour' userRole='role' email='gilmour@mail.com'/>
     <users id='1004' nickname='Syd' password='Barrett' userRole='role' email='barrett@mail.com'/>
 	
-	<tasks id='2001' name='Tarea Ejemplo' user_id='1000'/>
+	<tasks id='2001' summary='Tarea Ejemplo' user_id='1000'/>
 	
 </dataset>
