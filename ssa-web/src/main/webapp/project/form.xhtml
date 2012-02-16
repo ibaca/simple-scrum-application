@@ -11,19 +11,43 @@
     <!--    Hay que añadir mensajes de error y validar que el nombre del proyecto sea unico-->
     <ui:composition>
         <h:panelGrid columns="2">
-            <h:outputLabel value="Name:" />
-            <h:inputText value="#{projectManager.currentProject.name}" required="true" requiredMessage="mensaje 1" />          
+            
+             <h:outputLabel for="pName" value="Project Name:" />  
+             <p:inputText id="pName" required="true"  label="pName" size="61"  value="#{projectManager.currentProject.name}" />  
+                    <p:message for="pName" /> 
 
-            <h:outputLabel value="Start date:"  />
-            <h:panelGroup>
-                <p:calendar value="#{projectManager.currentProject.startDate}" mode="popup" showOn="focus" />
-            </h:panelGroup>
-            <h:outputLabel value="Finish date:"  />
-            <h:panelGroup>
-                <p:calendar value="#{projectManager.currentProject.finishDate}" mode="popup" showOn="focus" />                
-            </h:panelGroup>
-            <h:outputLabel value="Description:" />
-            <p:inputTextarea value="#{projectManager.currentProject.description}" rows="5" cols="30" requiredMessage="mensaje 2"/> 
+                    <h:outputLabel for="pSummary" value="Project summary:" />  
+                    <p:inputText id="pSummary" required="true" label="pSummary" size="61"  value="#{projectManager.currentProject.summary}" />  
+                    <p:message for="pSummary" />
+
+                    <h:outputLabel for="pDescription" value="Description:" />  
+                    <p:editor id="pDescription"  required="true" label="pDescription"  value="#{projectManager.currentProject.description}" />  
+                    <p:message for="pDescription" />
+
+                    <h:outputText for="pSVC" value="Version control system:" />  
+                    <p:selectOneRadio id="pSVC" required ="true" value="#{projectManager.currentProject.svc}">  
+                        <f:selectItem itemLabel="Git" itemValue="Git" />  
+                        <f:selectItem itemLabel="Mercurial" itemValue="Mercurial" />
+                        <f:selectItem itemLabel="Subversion" itemValue="Subversion" />  
+                    </p:selectOneRadio>
+                     <p:message for="pSVC" />
+
+                    <h:outputLabel for="pSourceCode" value="Source code license:" />  
+                    <p:selectOneMenu id="pSourceCode" required="true" value="#{projectManager.currentProject.sourceCode}">  
+                        <f:selectItem itemLabel="Select a license..." itemValue="" />  
+                        <f:selectItem itemLabel="Apache License 2.0" itemValue="Apache License 2.0" />  
+                        <f:selectItem itemLabel="Artistic License/GPL" itemValue="Artistic License/GPL" />  
+                        <f:selectItem itemLabel="Eclipse Public License 1.0" itemValue="Eclipse Public License 1.0" />
+                        <f:selectItem itemLabel="GNU GPL v2" itemValue="GNU GPL v2" />
+                        <f:selectItem itemLabel="GNU GPL v3" itemValue="GNU GPL v3" />
+                        <f:selectItem itemLabel="GNU Lesser GPL" itemValue="GNU Lesser GPL" />
+                        <f:selectItem itemLabel="MIT License" itemValue="MIT License" />
+                        <f:selectItem itemLabel="Mozilla Public License 1.1" itemValue="Mozilla Public License 1.1" />
+                        <f:selectItem itemLabel="New BSD License" itemValue="New BSD License"  />
+                        <f:selectItem itemLabel="Other Open Source" itemValue="Other Open Source" />
+                    </p:selectOneMenu>
+                     <p:message for="pSourceCode" /><br/>
+           
         </h:panelGrid>
     </ui:composition>
 
