@@ -9,6 +9,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import static org.inftel.ssa.datamining.DataminingDataPeriod.DAYLY;
+import org.inftel.ssa.domain.*;
 
 /**
  * Algunas estadisticas podrian generarse en el End Of Day, por ejemplo podrian registarse
@@ -42,23 +43,68 @@ public class DataminingEndOfDay {
   }
 
   private void generateEndOfDayStatistics(Date from, Date to) {
-    // Generar estadisticas diarias de tipo de alertas recibidas ayer
-//        for (AlertType type : AlertType.values()) {
-//            Long statCount = alertFacade.countByType(type, from, to);
-//            String statName = "alert.type." + type.name().toLowerCase();
-//
-//            DataminingData data = new DataminingData(statName, from, null, statCount);
-//            statisticProcessor.updateDaylyStatistic(data);
-//        }
-//
-//        // Generar estadisticas diarias de tipo de afectados registrados en el sistema
-//        for (AffectedType type : AffectedType.values()) {
-//            Long statCount = affectedFacade.countByType(type);
-//            String statName = "affected.type." + type.name().toLowerCase();
-//
-//            DataminingData data = new DataminingData(statName, from, null, statCount);
-//            statisticProcessor.updateDaylyStatistic(data);
-//        }
-  }
-  
+    // Generar estadisticas diarias de tiempo restante de tareas y número de 
+    // tareas pendientes por sprint y usuario
+    
+    /* Descomentar cuando estén implementados los servicios:
+      for (Sprint sprint : SprintFacade.findAll()) {
+          for (User user : UserFacade.findAll()) {
+              String statName = "task." + sprint.getId() + "." + user.getId() + ".remaining";
+              Double statSum = TaskFacade.findHoursRemByUserAndSprint(sprint.getId(), user.getId());
+              Long statCount = TaskFacade.findTaskRemByUserAndSprint(sprint.getId(), user.getId());
+
+              DataminingData data = new DataminingData(statName, from, statSum, statCount);
+              statisticProcessor.updateDaylyStatistic(data);
+          }
+      }
+    */
+      
+    // Generar estadisticas diarias sobre el número de tareas que están en un 
+    // determinado estado por proyecto.
+      
+      /* Descomentar cuando estén implementados los servicios:
+      for (Project project : ProjectFacade.findAll()) {
+          for (TaskStatus status : TaskStatus.values()) {
+              Long statCount = TaskFacade.countByProjectAndStatus(project.getId(), status);
+              String statName = project.getId() + ".task.status." + status.name().toLowerCase();
+
+              DataminingData data = new DataminingData(statName, from, null, statCount);
+              statisticProcessor.updateDaylyStatistic(data);
+          }
+
+      }
+  */
+      
+    // Generar estadisticas diarias sobre el número de tareas que están en un 
+    // determinado estado por usuario.
+      
+    /* Descomentar cuando estén implementados los servicios:
+      for (User user : UserFacade.findAll()) {
+          for (TaskStatus status : TaskStatus.values()) {
+              Long statCount = TaskFacade.countByUserAndStatus(user.getId(), status);
+              String statName = user.getId() + ".task.status." + status.name().toLowerCase();
+
+              DataminingData data = new DataminingData(statName, from, null, statCount);
+              statisticProcessor.updateDaylyStatistic(data);
+          }
+
+      }
+   */
+      
+    // Generar estadisticas diarias sobre el número de tareas que están en un 
+    // determinado estado por sprint.
+      
+    /* Descomentar cuando estén implementados los servicios:
+      for (Sprint sprint : SprintFacade.findAll()) {
+          for (TaskStatus status : TaskStatus.values()) {
+              Long statCount = TaskFacade.countBySprintAndStatus(sprint.getId(), status);
+              String statName = sprint.getId() + ".task.status." + status.name().toLowerCase();
+
+              DataminingData data = new DataminingData(statName, from, null, statCount);
+              statisticProcessor.updateDaylyStatistic(data);
+          }
+
+      }
+   */
+   }
 }
