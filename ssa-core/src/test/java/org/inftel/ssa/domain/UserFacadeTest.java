@@ -75,6 +75,7 @@ public class UserFacadeTest {
 	@Test
 	public void testAdvancedFind() {
 		UserFacade users = new UserFacade(em);
+		TaskFacade tasks = new TaskFacade(em);
 		
 		// Find all
 		assertEquals(5,users.find(null, null, null, null, null).size());
@@ -93,6 +94,10 @@ public class UserFacadeTest {
 		filter.put("email", "gilmour%");
 		assertEquals("David",users.find(null, null, null, null, filter).get(0).getNickname());
 		
+		// Filter by relation
+		Map<String,String> filter1 = new IdentityHashMap<String, String>(1);
+		filter1.put("user.id", "1000");
+		assertEquals("Tarea Ejemplo",tasks.find(null, null, null, null, filter1).get(0).getName());
 	}
 	
 }

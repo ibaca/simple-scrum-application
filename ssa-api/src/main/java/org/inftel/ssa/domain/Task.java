@@ -56,7 +56,7 @@ public class Task extends BaseEntity {
     private String status;
     @ManyToOne
     private Sprint sprint;
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Project project;
     @OneToMany(mappedBy = "task")
     private List<Comment> comments;

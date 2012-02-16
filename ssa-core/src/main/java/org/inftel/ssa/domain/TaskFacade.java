@@ -22,4 +22,10 @@ public class TaskFacade extends AbstractFacade<Task> {
     super(Task.class);
   }
   
+  // internal test usage
+  TaskFacade(EntityManager em) {
+	  this();
+	  this.em = em;
+  }
+  
 }

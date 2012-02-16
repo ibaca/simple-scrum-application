@@ -34,7 +34,7 @@ public abstract class AbstractFacade<T> {
 	public void remove(T entity) {
 		getEntityManager().remove(getEntityManager().merge(entity));
 	}
-	
+
 	public boolean contains(T entity) {
 		return getEntityManager().contains(entity);
 	}
@@ -71,9 +71,15 @@ public abstract class AbstractFacade<T> {
 
 		filters = (filters == null) ? Collections.<String, String>emptyMap() : filters;
 		for (String column : filters.keySet()) {
-			Expression<String> literal = qb.upper(qb.literal(filters.get(column)));
-			Predicate predicate = qb.like(qb.upper(from.<String>get(column)), literal);
-			cq.where(predicate);
+			if (column.endsWith(".id")) {
+				Expression<Long> literal = qb.literal(Long.decode(filters.get(column)));
+				Predicate predicate = qb.equal(from.<Long>get(column.split("\\.")[0]).get("id"), literal);
+				cq.where(predicate);
+			} else {
+				Expression<String> literal = qb.upper(qb.literal(filters.get(column)));
+				Predicate predicate = qb.like(qb.upper(from.<String>get(column)), literal);
+				cq.where(predicate);
+			}
 		}
 
 		TypedQuery<T> q = getEntityManager().createQuery(select);
