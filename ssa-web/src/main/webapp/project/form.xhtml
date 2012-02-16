@@ -24,16 +24,8 @@
                     <p:editor id="pDescription"  required="true" label="pDescription"  value="#{projectManager.currentProject.description}" />  
                     <p:message for="pDescription" />
 
-                    <h:outputText for="pSVC" value="Version control system:" />  
-                    <p:selectOneRadio id="pSVC" required ="true" value="#{projectManager.currentProject.svc}">  
-                        <f:selectItem itemLabel="Git" itemValue="Git" />  
-                        <f:selectItem itemLabel="Mercurial" itemValue="Mercurial" />
-                        <f:selectItem itemLabel="Subversion" itemValue="Subversion" />  
-                    </p:selectOneRadio>
-                     <p:message for="pSVC" />
-
                     <h:outputLabel for="pSourceCode" value="Source code license:" />  
-                    <p:selectOneMenu id="pSourceCode" required="true" value="#{projectManager.currentProject.sourceCode}">  
+                    <p:selectOneMenu id="pSourceCode" required="true" value="#{projectManager.currentProject.license}">  
                         <f:selectItem itemLabel="Select a license..." itemValue="" />  
                         <f:selectItem itemLabel="Apache License 2.0" itemValue="Apache License 2.0" />  
                         <f:selectItem itemLabel="Artistic License/GPL" itemValue="Artistic License/GPL" />  
