@@ -3,6 +3,7 @@ package org.inftel.ssa.domain;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -39,6 +40,25 @@ public class Project extends BaseEntity {
 	private List<User> users;
 	@ElementCollection
 	private Map<String, String> links;
+	@ElementCollection
+	private Set<String> labels;
+	private String license;
+
+	public Set<String> getLabels() {
+		return labels;
+	}
+
+	public void setLabels(Set<String> labels) {
+		this.labels = labels;
+	}
+
+	public String getLicense() {
+		return license;
+	}
+
+	public void setLicense(String license) {
+		this.license = license;
+	}
 
 	public Date getClosed() {
 		return closed;
