@@ -5,8 +5,12 @@
 package org.inftel.ssa.web;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -31,12 +35,16 @@ public class ProjectManager implements Serializable {
 
     public ProjectManager() {
         super();
+    }
+
+    @PostConstruct
+    public void initialize() {
         projects = new LazyDataModel() {
 
             @Override
             public List load(int first, int pageSize, String sortField, org.primefaces.model.SortOrder sortOrder, Map filters) {
-                
-                return resources.findProjects(first,pageSize,sortField,sortOrder.equals(SortOrder.ASCENDING),filters);
+                //filters.put("user",user.getId().toString());
+                return resources.findProjects(first, pageSize, sortField, sortOrder.equals(SortOrder.ASCENDING), filters);
             }
 
             @Override
@@ -70,6 +78,9 @@ public class ProjectManager implements Serializable {
     }
 
     public void setCurrentProject(Project currentProject) {
+        if (currentProject.getLinks() == null) {
+            currentProject.setLinks(Collections.<String,String>emptyMap());
+        }
         this.currentProject = currentProject;
     }
 
@@ -80,7 +91,7 @@ public class ProjectManager implements Serializable {
 
     public String remove() {
         Project project = projects.getRowData();
-        resources.removeProject(project);      
+        resources.removeProject(project);
         return "/project/show.xhtml";
     }
 
@@ -96,11 +107,13 @@ public class ProjectManager implements Serializable {
         }
         return "/project/show.xhtml";
     }
-    public String edit(){
+
+    public String edit() {
         setCurrentProject(projects.getRowData());
         return "/project/edit.xhtml";
     }
-    public String cancelEdit(){
+
+    public String cancelEdit() {
         return "/project/show.xhtml";
     }
 }

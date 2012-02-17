@@ -5,18 +5,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-       
+
+    <!--  -->
+    <ui:composition template="/template.xhtml">       
         <ui:define name="content">
-            <h:form id="editProjectForm">
-                <h:panelGrid columns="1" >
-                    <ui:include src="/project/form.xhtml" />
-                    <f:facet name="action">                        
-                            <h:commandButton id="btnEditUpdate" action="#{projectManager.save}" value="Update" />
-                            <h:commandButton id="btnEditCancel" action="#{projectManager.cancelEdit}" immediate="true" value="Cancel"  />                        
-                    </f:facet>
+            <h:form id="fProjects">
+                <p:panel header="Project Metadata">
+                    <h:panelGrid columns="1" >
+                        <h:outputText value="Sumary:"/>
+                        <p:inputText id="idSumary" value="#{projectManager.currentProject.summary}" required="true"/>
+                        <p:message for="idSumary"/>
+                        <h:outputText value="Description:"/>
+                        <p:editor id="idEditor" value="#{projectManager.currentProject.description}" width="600" required="true"/>
+                        <p:message for="idEditor"/>
+                    </h:panelGrid>  
+                </p:panel>
+                <p:panel header="Link">
+                    <p:dataTable value="#{projectManager.currentProject.links.keySet()}" var="key" >                        
+                        <h:panelGrid columns="2">
+                            <h:outputText value="Name:"/>
+                            <h:outputText value="Link:"/>
+                            <p:inputText value="#{key}"/>                            
+                            <p:inputText value="#{projectManager.currentProject.links.get(key)}"/>
+                        </h:panelGrid>                            
+                    </p:dataTable>                    
+<!--                    <p:commandButton value="Add row" action="#{projectManager.addLink}"/>-->                    
+                </p:panel>
+                <h:panelGrid columns="2">
+                    <p:commandButton value="Save" action="#{projectManager.save}" ajax="false"/>
+                    <p:commandButton value="Cancel" action="/project/show.xhtml" ajax="false"/>
                 </h:panelGrid>
             </h:form>
         </ui:define>

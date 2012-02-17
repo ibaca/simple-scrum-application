@@ -31,7 +31,7 @@
                         <h:outputText value="#{project.description}" />
                     </p:column>
 
-                    <p:column>
+<!--                    <p:column>
                         <f:facet name="header">
                             Start date:
                         </f:facet>
@@ -42,15 +42,15 @@
                             Finish date:
                         </f:facet>
                         <h:outputText value="#{project.finishDate}" />
-                    </p:column>
+                    </p:column>-->
                     <p:column>
                         <f:facet name="header">
                             Actions
                         </f:facet>                        
-                        <h:commandButton  action="#{projectManager.showSprints}" value="Sprint"/>
-                        <h:commandButton  action="#{projectManager.edit}" value="Edit"  />
-                        <h:commandButton  action="#{projectManager.remove}" value="Delete" 
-                                          onclick="jsf.ajax.request(this, event, {execute: 'fProjects', render: 'fProjects'}); return false;" />
+                        <p:commandButton  action="#{projectManager.showSprints}" value="Sprint" ajax="false"/>
+                        <p:commandButton  action="#{projectManager.edit}" value="Edit"  ajax="false"/>
+                        <p:commandButton  action="#{projectManager.remove}" value="Delete" 
+                                          onclick="jsf.ajax.request(this, event, {execute: 'fProjects', render: 'fProjects'}); return false;" ajax="false"/>
                     </p:column>
                 </p:dataTable>
                 <p:column>
