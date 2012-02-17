@@ -5,9 +5,8 @@
 package org.inftel.ssa.web;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -15,7 +14,9 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.inftel.ssa.domain.Project;
+import org.inftel.ssa.domain.User;
 import org.inftel.ssa.services.ResourceService;
+import org.inftel.ssa.services.SessionService;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
@@ -28,11 +29,13 @@ import org.primefaces.model.SortOrder;
 public class ProjectManager implements Serializable {
 
     @EJB
+    private SessionService sessionService;
+    @EJB
     private ResourceService resources;
     private static final long serialVersionUID = 8799656478674718638L;
     private LazyDataModel<Project> projects;
     private Project currentProject;
-
+    private User selectedUser;
     public ProjectManager() {
         super();
     }
@@ -60,7 +63,7 @@ public class ProjectManager implements Serializable {
                 }
             }
         };
-
+        
     }
 
     public LazyDataModel<Project> getProjects() {
@@ -79,7 +82,7 @@ public class ProjectManager implements Serializable {
 
     public void setCurrentProject(Project currentProject) {
         if (currentProject.getLinks() == null) {
-            currentProject.setLinks(Collections.<String,String>emptyMap());
+            currentProject.setLinks(Collections.<String, String>emptyMap());
         }
         this.currentProject = currentProject;
     }
@@ -96,13 +99,16 @@ public class ProjectManager implements Serializable {
     }
 
     public String create() {
-        Project medico = new Project();
-        setCurrentProject(medico);
+        Project project = new Project();
+        setCurrentProject(project);
         return "/project/create.xhtml";
     }
 
     public String save() {
         if (currentProject != null) {
+            List<User> currentUser = new ArrayList<User>();
+            currentUser.add(sessionService.currentUser());            
+            currentProject.setUsers(currentUser);
             resources.saveProject(currentProject);
         }
         return "/project/show.xhtml";
@@ -116,4 +122,27 @@ public class ProjectManager implements Serializable {
     public String cancelEdit() {
         return "/project/show.xhtml";
     }
+
+    public String userRole() {
+        return sessionService.currentUser().getUserRole();
+    }
+
+
+    public void addUser() {
+        
+        List<User> users = currentProject.getUsers();
+        users.add(getSelectedUser());
+        currentProject.setUsers(users);
+    }
+
+    public User getSelectedUser() {
+        return selectedUser;
+    }
+
+    public void setSelectedUser(User selectedUser) {
+        this.selectedUser = selectedUser;
+    }
+
+       
+    
 }

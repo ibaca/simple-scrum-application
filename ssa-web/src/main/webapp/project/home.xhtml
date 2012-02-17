@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <!--TODO: Poner los links-->
+    <ui:composition template="/template.xhtml">
+        <ui:define name="content">
+            <p:layout >  
+                <p:layoutUnit position="north"  >  
+                    <h:form>
+                        <p:commandLink  action="/project/home.xhtml" style="margin-right:20px;" ajax="false">  
+                            <h:outputText value="Sumary" />  
+                        </p:commandLink> 
+                        <p:commandLink  action="/project/users.xhtml" style="margin-right:20px;" ajax="false" rendered="#{projectManager.currentProject != null}">  
+                            <h:outputText value="People" />  
+                        </p:commandLink> 
+                    </h:form>
+                </p:layoutUnit>  
+
+                <p:layoutUnit position="west" header="Project Information" size="300" >  
+                    <h:form> 
+                        <h:outputText value="Select a project for view information" rendered="#{projectManager.currentProject == null}" />
+                        <h:panelGrid columns="2" rendered="#{projectManager.currentProject != null}">
+                            <h:outputLabel value="Company:" />
+                            <h:outputLabel value="#{projectManager.currentProject.company}"/>
+                            <h:outputLabel value="Code License:" />
+                            <h:outputLabel value="#{projectManager.currentProject.license}"/>
+                            <h:panelGrid columns="1">
+                                <h:outputLabel value="Members: " />
+                                <ui:repeat value="#{projectManager.currentProject.users}" var="user">                              
+                                    <h:outputText value="#{user.nickname}" style="margin-left: 10px"/> <br/>
+                                </ui:repeat>
+                                <h:panelGrid columns="2">
+                                    <h:outputText value="Your Role:" />
+                                    <h:outputText value="#{projectManager.userRole()}"/>
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+                        </h:panelGrid>  
+                    </h:form>  
+                </p:layoutUnit>    
+
+                <p:layoutUnit position="center" header="Project Information">  
+                    <h:form>  
+                        <h:outputText value="There are currently no project selected" rendered="#{projectManager.currentProject == null}" />
+                        <h:panelGrid columns="2" rendered="#{projectManager.currentProject != null}" >
+                            <h:outputText value="Sumary:"/>
+                            <h:outputText value="#{projectManager.currentProject.summary}"/>
+                            <h:outputText value="Description:"/>
+                            <h:outputText value="#{projectManager.currentProject.description}"/>
+
+                        </h:panelGrid>
+                      
+
+                    </h:form>  
+                </p:layoutUnit>  
+
+            </p:layout> 
+
+        </ui:define>
+    </ui:composition>
+</html>

@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <!--TODO: Poner los links-->
+    <ui:composition template="/template.xhtml">
+        <ui:define name="content">
+
+            <p:layout >  
+                <p:layoutUnit position="north"  >  
+                    <h:form>
+                        <p:commandLink  action="/project/home.xhtml" style="margin-right:20px;" ajax="false">  
+                            <h:outputText value="Sumary" />  
+                        </p:commandLink> 
+                        <p:commandLink  action="/project/users.xhtml" style="margin-right:20px;" ajax="false">  
+                            <h:outputText value="People" />  
+                        </p:commandLink> 
+                    </h:form>
+                </p:layoutUnit>  
+                <p:layoutUnit position="center" header="Project Information">
+
+                    <h:form>
+
+                        <p:dataTable value="#{projectManager.currentProject.users}" var="user">
+                            <p:column>
+                                <f:facet name="header">  
+                                    Name  
+                                </f:facet>  
+                                <h:outputText value="#{user.fullName}"/>  
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">  
+                                    Nickname  
+                                </f:facet>  
+                                <h:outputText value="#{user.nickname}"/>  
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">  
+                                    Email  
+                                </f:facet>  
+                                <h:outputText value="#{user.email}"/>  
+                            </p:column>
+                        </p:dataTable>
+                        <p:commandButton id="addButton" type="button" onclick="carDialog.show()" value="Add a User" image="ui-icon-gate"/> 
+
+
+                        <p:dialog widgetVar="carDialog"  header="New User"  width="200px" height="100px">
+                            <h:form>
+                                <h:panelGrid columns="1" >
+                                    <h:outputText value="Choose user:" />
+                                    <p:selectOneMenu value="#{projectManager.selectedUser}" immediate="true">
+<!--                                        <f:selectItems value="#{projectManager.users}" var="users" itemLabel="#{users.name}" itemValue="#{users}"/>                       -->
+                                    </p:selectOneMenu>                        
+                                    <p:commandButton value="Add" actionListener="#{projectManager.addUser()}" oncomplete="carDialog.hide()"  ajax="false"/>
+                                </h:panelGrid>
+                            </h:form>
+                        </p:dialog>
+                    </h:form>
+                </p:layoutUnit>  
+
+            </p:layout> 
+        </ui:define>
+    </ui:composition>
+</html>
