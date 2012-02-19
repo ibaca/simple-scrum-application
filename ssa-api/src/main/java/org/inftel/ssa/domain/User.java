@@ -48,7 +48,7 @@ public class User extends BaseEntity {
 		this.company = company;
 	}
 
-	public Set<Project> getProject() {
+	public Set<Project> getProjects() {
 		return projects;
 	}
 
