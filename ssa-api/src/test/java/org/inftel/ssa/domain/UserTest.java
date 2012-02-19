@@ -42,7 +42,7 @@ public class UserTest {
 		User user = new User();
 		user.setFullName("ambrosio");
 		user.setPassword("secreta");
-		user.setEmail("ambrosio@mail.com");
+		user.setEmail("create-user@mail.com");
 
 		tx.begin();
 		em.persist(user);
@@ -76,7 +76,7 @@ public class UserTest {
 		User user = new User();
 		user.setFullName("ambrosio");
 		user.setPassword("secreta");
-		user.setEmail("ambrosio@mail.com");
+		user.setEmail("delete-user@mail.com");
 
 		tx.begin();
 		em.persist(user);

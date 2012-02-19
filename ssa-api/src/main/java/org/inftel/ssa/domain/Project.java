@@ -33,17 +33,19 @@ public class Project extends BaseEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date closed;
 	private String company;
-	@OneToMany(mappedBy = "project")
-	private List<Task> tasks;
-	@OneToMany(mappedBy = "project")
-	private List<Sprint> sprints;
-	@OneToMany(mappedBy = "project")
-	private List<User> users;
 	@ElementCollection
 	private Map<String, String> links;
 	@ElementCollection
 	private Set<String> labels;
 	private String license;
+	
+	@OneToMany(mappedBy = "project")
+	private List<Task> tasks;
+	@OneToMany(mappedBy = "project")
+	private List<Sprint> sprints;
+	@ManyToMany
+	@JoinTable(name="project_users")
+	private Set<User> users;
 
 	public String getSummary() {
 		return summary;
@@ -141,11 +143,11 @@ public class Project extends BaseEntity {
 		this.tasks = tasks;
 	}
 
-	public List<User> getUsers() {
+	public Set<User> getUsers() {
 		return users;
 	}
 
-	public void setUsers(List<User> users) {
+	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
 }

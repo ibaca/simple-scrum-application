@@ -1,6 +1,7 @@
 package org.inftel.ssa.domain;
 
 import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -28,8 +29,8 @@ public class User extends BaseEntity {
 	private String email;
 	private String company;
 	
-	@ManyToOne
-    private Project project;
+	@ManyToMany(mappedBy="users")
+	private Set<Project> projects;
 
     private String password;
     @OneToMany(mappedBy = "user")
@@ -47,12 +48,12 @@ public class User extends BaseEntity {
 		this.company = company;
 	}
 
-	public Project getProject() {
-		return project;
+	public Set<Project> getProject() {
+		return projects;
 	}
 
-	public void setProject(Project project) {
-		this.project = project;
+	public void setProjects(Set<Project> projects) {
+		this.projects = projects;
 	}
 
     public String getNickname() {
