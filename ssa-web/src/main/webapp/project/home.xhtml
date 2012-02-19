@@ -9,58 +9,61 @@
     <!--TODO: Poner los links-->
     <ui:composition template="/template.xhtml">
         <ui:define name="content">
-            <p:layout >  
-                <p:layoutUnit position="north"  >  
-                    <h:form>
-                        <p:commandLink  action="/project/home.xhtml" style="margin-right:20px;" ajax="false">  
-                            <h:outputText value="Sumary" />  
-                        </p:commandLink> 
-                        <p:commandLink  action="/project/users.xhtml" style="margin-right:20px;" ajax="false" rendered="#{projectManager.currentProject != null}">  
-                            <h:outputText value="People" />  
-                        </p:commandLink> 
-                    </h:form>
-                </p:layoutUnit>  
+			<h:form>
+				<p:commandLink  action="/project/home.xhtml" style="margin-right:20px;" ajax="false">  
+					<h:outputText value="Sumary" />  
+				</p:commandLink> 
+				<p:commandLink  action="/project/users.xhtml" style="margin-right:20px;" ajax="false" rendered="#{projectManager.currentProject != null}">  
+					<h:outputText value="People" />  
+				</p:commandLink> 
+			</h:form>
 
-                <p:layoutUnit position="west" header="Project Information" size="300" >  
-                    <h:form> 
-                        <h:outputText value="Select a project for view information" rendered="#{projectManager.currentProject == null}" />
-                        <h:panelGrid columns="2" rendered="#{projectManager.currentProject != null}">
-                            <h:outputLabel value="Company:" />
-                            <h:outputLabel value="#{projectManager.currentProject.company}"/>
-                            <h:outputLabel value="Code License:" />
-                            <h:outputLabel value="#{projectManager.currentProject.license}"/>
-                            <h:panelGrid columns="1">
-                                <h:outputLabel value="Members: " />
-                                <ui:repeat value="#{projectManager.currentProject.users.toArray()}" var="user">                              
-                                    <h:outputText value="#{user.nickname}" style="margin-left: 10px"/> <br/>
-                                </ui:repeat>
-                                <h:panelGrid columns="2">
-                                    <h:outputText value="Your Role:" />
-                                    <h:outputText value="#{projectManager.userRole()}"/>
-                                </h:panelGrid>
-                            </h:panelGrid>
 
-                        </h:panelGrid>  
-                    </h:form>  
-                </p:layoutUnit>    
+			<div class="row">
+				<div class="span3">
+					<h:form> 
+						<h4>Información del proyecto</h4>
+						<dl>
+							<dt>Empresa</dt>
+							<dd>#{projectManager.currentProject.company}"</dd>
+							<br />
 
-                <p:layoutUnit position="center" header="Project Information">  
-                    <h:form>  
-                        <h:outputText value="There are currently no project selected" rendered="#{projectManager.currentProject == null}" />
-                        <h:panelGrid columns="2" rendered="#{projectManager.currentProject != null}" >
-                            <h:outputText value="Sumary:"/>
-                            <h:outputText value="#{projectManager.currentProject.summary}"/>
-                            <h:outputText value="Description:"/>
-                            <h:outputText value="#{projectManager.currentProject.description}"/>
+							<dt>Licencia</dt>
+							<dd>#{projectManager.currentProject.license}"</dd>
+							<br />
 
-                        </h:panelGrid>
-                      
+							<dt>Equipo</dt>
+							<ui:repeat value="#{projectManager.currentProject.users.toArray()}" var="user">                              
+								<dd>#{user.nickname}"</dd>
+							</ui:repeat>
+							<br />
 
-                    </h:form>  
-                </p:layoutUnit>  
+							<dt>Tu rol</dt>
+							<dd>#{projectManager.userRole()}"</dd>
+							<br />
 
-            </p:layout> 
+							<dt>Links</dt>
+							<c:forEach items="#{projectManager.currentProject.links}" var="entry">                              
+								<dd><a href="#{entry.value}">#{entry.key}"</a></dd>
+							</c:forEach>
+							<br />
+							
+						</dl>
+					</h:form>  
+				</div>
 
+				<div class="span9">
+					<h:form>  
+						<h:outputText value="There are currently no project selected" rendered="#{projectManager.currentProject == null}" />
+						<h:panelGrid columns="2" rendered="#{projectManager.currentProject != null}" >
+							<h:outputText value="Sumary:"/>
+							<h:outputText value="#{projectManager.currentProject.summary}"/>
+							<h:outputText value="Description:"/>
+							<h:outputText value="#{projectManager.currentProject.description}"/>
+						</h:panelGrid>
+					</h:form>  
+				</div>
+			</div>
         </ui:define>
     </ui:composition>
 </html>
