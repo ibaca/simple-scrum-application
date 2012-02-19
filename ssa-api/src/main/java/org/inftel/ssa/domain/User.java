@@ -24,7 +24,10 @@ public class User extends BaseEntity {
     private String nickname;
     private String fullName;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    private String email;
+    @Column(unique=true)
+	private String email;
+	private String company;
+	
 	@ManyToOne
     private Project project;
 
@@ -35,6 +38,14 @@ public class User extends BaseEntity {
 
     public User() {
     }
+
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
+	}
 
 	public Project getProject() {
 		return project;

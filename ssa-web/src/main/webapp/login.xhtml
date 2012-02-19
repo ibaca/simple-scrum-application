@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:c="http://java.sun.com/jsp/jstl/core"
+				template="./template.xhtml">
+
+    <ui:define name="htmlHead">
+        <title>#{bundle['nav.login']}</title>
+    </ui:define>
+
+	<ui:define name="topbar">
+		Welcome to Simple Scrum Application
+	</ui:define>
+
+    <ui:define name="content">
+		<div class="row">
+			<div class="span8">
+				<h:form class="form-horizontal"> 
+					<fieldset>
+
+						<legend>Iniciar sesión</legend>
+
+						<div class="control-group">
+							<h:outputLabel for="email" value="email" class="control-label" />  
+							<div class="controls">
+								<h:inputText id="email" required="true" label="id" value="#{userManager.email}" class="input-xlarge" />
+								<h:message for="email" class="help-block"/>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<h:outputLabel for="password" value="password" class="control-label" /> 
+							<div class="controls">
+								<h:inputText id="password" required="true" label="password" type="password" value="#{userManager.password}" class="input-xlarge" /> 
+								<h:message for="password" class="help-block"/>
+							</div>
+						</div>
+
+						<div class="form-actions">
+							<p:commandButton value="Iniciar sesión"  update="@form,growl" action="#{userManager.login}" styleClass="btn btn-primary" />&nbsp;
+							<p:commandButton value="Cancelar" type="reset" update="@form" action="#{userManager.loginReset()}" styleClass="btn" />
+						</div>
+
+					</fieldset>
+				</h:form>
+			</div>
+
+			<div class="span4">
+				<h3>¿Todavía no tienes cuenta?</h3>
+				<p>Date de alta en el sistema más moderno y dinamico que existe sobre la tierra
+					para la gestión de proyectos Scrum, no lo dejes para mañana! date de alta ahora mismo.
+				</p>
+				<h:form>
+					<p><h:commandLink value="Crear una cuenta »" action="/signin.jsf" class="btn btn-success" /></p>
+				</h:form>
+
+			</div>
+
+		</div>
+
+    </ui:define>
+
+</ui:composition>

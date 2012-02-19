@@ -60,7 +60,7 @@ public final class DataminingEndOfDayEvent {
 	 *
 	 * FIXME Pasar referencias de los ejbs entre metodos es incorrecto en la arquitectura JEE.
 	 */
-	static interface UpdateDataHelper {
+	public static interface UpdateDataHelper {
 
 		void updateDaily(String statName, Date from, Double statSum, Long statCount);
 	}

@@ -4,35 +4,74 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
-        <title>Prototipo</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<h:outputStylesheet name="css/bootstrap.css" value="#{param.location}" />
+
+		<ui:insert name="htmlHead" />
+		
     </h:head>
 
-    <h:body style="font-size:10px;">
+    <h:body style="font-size:10px;padding-top: 60px;padding-bottom: 40px;">
 
-		<p:layout fullPage="true">
 
-			<p:layoutUnit position="north" style="border: none;"> 
-				<h:form style="overflow: hidden;">   
-					<p:toolbar>
-						<p:toolbarGroup align="left">
-							<p:commandButton value="Home" action="/project/home" icon="ui-icon-home" ajax="false"/>
-							<p:commandButton value="Projects" action="/project/show" icon="ui-icon-document" ajax="false"/>  
-						</p:toolbarGroup>
-						<p:toolbarGroup align="right">
-							<p:commandButton value="Settings" url="#" icon="ui-icon-gear" ajax="false"/>
-							<p:commandButton value="Quit" url="#" icon="ui-icon-power" /> 
-						</p:toolbarGroup>
-					</p:toolbar>
-				</h:form> 
-			</p:layoutUnit>
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<!-- topbar -->
+					<c:if test="#{userManager.authenticated}">
+						<h:form>   
+							<h:commandLink value="Simple Scrum Application" action="/index.jsf" class="brand" />
+							<ul class="nav">
+								<li><h:commandLink value="Projects" action="/project/show" disabled="#{!userManager.authenticated}"/></li>
+							</ul>
+							<ul class="nav pull-right">
+								<li>Hola #{userManager.currentUser.email}!</li>
+								<li><p:commandLink value="Settings" url="#" /></li>
+								<li><h:commandLink value="Logout" action="#{userManager.logout()}" /></li>
+							</ul>
+						</h:form> 
+					</c:if>
+					<c:if test="#{!userManager.authenticated}">
+						<h:form>   
+							<h:commandLink value="Simple Scrum Application" action="/index.jsf" class="brand" />
+							<ul class="nav">
+								<li><a>Project</a></li>
+							</ul>
+							<ul class="nav pull-right">
+								<li><a>Settings</a></li>
+								<li><h:commandLink value="Login" action="/login.jsf" /></li>
+							</ul>
+						</h:form> 
+					</c:if>
+				</div>
+			</div>
+		</div>
 
-			<p:layoutUnit position="center" style="border: none;">
-				<ui:insert id="content" name="content"></ui:insert>
-			</p:layoutUnit>
+		<div class="container">
+			<c:if test="false">
+				<div>
+					<div class="thumbnail" style="width:60px;float:left;"><img alt="#{projectManager.currentProject.summary}" src="http://www.gravatar.com/avatar/00000000000000000000000000000000?default=retro"></img></div>
+					<h1>#{projectManager.currentProject.name}</h1>
+					<h2><small>#{projectManager.currentProject.summary}</small></h2>
+				</div>
+			</c:if>
 
-		</p:layout>
-		
+
+			<!-- Content -->
+			<ui:insert id="content" name="content"></ui:insert>
+
+			<hr />
+
+			<!-- Footer -->
+			<footer>
+				<p>© Inftel 2012 | Hello #{userManager.currentUser.nickname}, #{userManager.currentUser.email}</p>
+			</footer>
+		</div>
+
+		<p:growl id="growl" showDetail="true" globalOnly="true" />
+
     </h:body>
 </html>

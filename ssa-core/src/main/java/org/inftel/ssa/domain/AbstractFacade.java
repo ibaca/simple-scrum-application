@@ -3,7 +3,6 @@ package org.inftel.ssa.domain;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -25,6 +24,7 @@ public abstract class AbstractFacade<T> {
 
 	public void create(T entity) {
 		getEntityManager().persist(entity);
+		//getEntityManager().refresh(entity);
 	}
 
 	public void edit(T entity) {

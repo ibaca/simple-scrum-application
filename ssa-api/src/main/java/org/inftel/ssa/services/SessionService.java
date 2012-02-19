@@ -11,5 +11,9 @@ import org.inftel.ssa.domain.User;
 public interface SessionService {
 
 	User currentUser();
+
+	User findUser(Object id);
+
+	void saveUser(User task);
 	
 }

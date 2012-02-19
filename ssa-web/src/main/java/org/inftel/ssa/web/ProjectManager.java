@@ -63,7 +63,15 @@ public class ProjectManager implements Serializable {
                 }
             }
         };
-        
+		List<Project> projects = resources.findProjects(null, null, null, null, null);
+		if (projects.size()>0) {
+			currentProject = projects.get(0);
+		} else {
+			currentProject = new Project();
+			currentProject.setSummary("example summary");
+			currentProject.setName("Example Project Name");
+		}
+
     }
 
     public LazyDataModel<Project> getProjects() {
