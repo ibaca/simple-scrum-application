@@ -1,19 +1,21 @@
 package org.inftel.ssa.web;
 
 import java.io.Serializable;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.ejb.TransactionManagement;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
+import org.inftel.ssa.domain.Project;
 import org.inftel.ssa.domain.User;
 import org.inftel.ssa.services.SessionService;
 
@@ -71,6 +73,7 @@ public class UserManager implements Serializable {
 	public String login() {
 		Subject current = SecurityUtils.getSubject();
 		FacesContext context = FacesContext.getCurrentInstance();
+		Set<Project> tmpProjects = null;
 
 		logger.info("usuario actual authenticated? " + current.isAuthenticated());
 		if (!current.isAuthenticated()) {
@@ -102,8 +105,13 @@ public class UserManager implements Serializable {
 		}
 		if (!current.isAuthenticated()) {
 			return null; // no se ha conseguido autenticar
+		} else if ((tmpProjects = getCurrentUser().getProjects()).isEmpty()) {
+			return "project/create?faces-redirect=true";
 		} else {
-			return (getCurrentUser().getProjects().isEmpty()) ? "project/create?faces-redirect=true" : "project/home?faces-redirect=true";
+			// TODO mostrar el ultimo proyecto visitado
+			ProjectManager projectManager = (ProjectManager) context.getELContext().getELResolver().getValue(context.getELContext(), null, "projectManager");
+			projectManager.setCurrentProject(tmpProjects.iterator().next());
+			return "project/home?faces-redirect=true";
 		}
 	}
 
