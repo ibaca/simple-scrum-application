@@ -22,6 +22,10 @@ public class UserFacade extends AbstractFacade<User> {
     super(User.class);
   }
   
+  public User findByEmail() {
+	  return getEntityManager().createNamedQuery("User.findByEmail", User.class).getSingleResult();
+  }
+  
   // internal test usage
   UserFacade(EntityManager em) {
 	  this();

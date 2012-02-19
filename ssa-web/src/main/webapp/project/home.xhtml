@@ -31,7 +31,7 @@
                             <h:outputLabel value="#{projectManager.currentProject.license}"/>
                             <h:panelGrid columns="1">
                                 <h:outputLabel value="Members: " />
-                                <ui:repeat value="#{projectManager.currentProject.users}" var="user">                              
+                                <ui:repeat value="#{projectManager.currentProject.users.toArray()}" var="user">                              
                                     <h:outputText value="#{user.nickname}" style="margin-left: 10px"/> <br/>
                                 </ui:repeat>
                                 <h:panelGrid columns="2">

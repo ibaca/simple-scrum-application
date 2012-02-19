@@ -9,9 +9,11 @@
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<h:outputStylesheet name="css/bootstrap.css" value="#{param.location}" />
+		<h:outputScript name="js/bootstrap.js" value="#{param.location}" />
+		<h:outputScript name="js/bootstrap-dropdown.js" value="#{param.location}" />
 
 		<ui:insert name="htmlHead" />
-		
+
     </h:head>
 
     <h:body style="font-size:10px;padding-top: 60px;padding-bottom: 40px;">
@@ -23,12 +25,27 @@
 					<!-- topbar -->
 					<c:if test="#{userManager.authenticated}">
 						<h:form>   
-							<h:commandLink value="Simple Scrum Application" action="/index.jsf" class="brand" />
+							<h:commandLink value="#{ empty projectManager.currentProject.name ? 'Simple Scrum Application' : projectManager.currentProject.name}" action="/index.jsf" class="brand" />
 							<ul class="nav">
-								<li><h:commandLink value="Projects" action="/project/show" disabled="#{!userManager.authenticated}"/></li>
+								<li><h:commandLink value="Home" action="/project/show" /></li>
+								<li><h:commandLink value="Tareas" action="#" /></li>
+								<li><h:commandLink value="Sprints" action="#" /></li>
+								<li><h:commandLink value="Administrar" action="#" /></li>
 							</ul>
 							<ul class="nav pull-right">
 								<li>Hola #{userManager.currentUser.email}!</li>
+								<li id="projects-dropdown" class="dropdown">
+									<a class="dropdown-toggle" data-toggle="dropdown" href="#projects-dropdown">Projectos<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+										<c:forEach items="#{userManager.currentUser.projects}" var="project">
+											<li><h:commandLink value="#{project.name}" action="#{projectManager.changeCurrentProject(project)}" /></li>
+										</c:forEach>
+										<li class="divider"></li>
+										<li><h:commandLink action="#{projectManager.create}" value="Nuevo proyecto" /></li>
+									</ul>
+									<!-- al ser asincrono no inicializa el dropdown -->
+									<script>$('.dropdown-toggle').dropdown()</script>
+								</li>
 								<li><p:commandLink value="Settings" url="#" /></li>
 								<li><h:commandLink value="Logout" action="#{userManager.logout()}" /></li>
 							</ul>

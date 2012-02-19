@@ -25,7 +25,7 @@
 
                     <h:form>
 
-                        <p:dataTable value="#{projectManager.currentProject.users}" var="user">
+                        <p:dataTable value="#{projectManager.currentProject.users.toArray()}" var="user">
                             <p:column>
                                 <f:facet name="header">  
                                     Name  

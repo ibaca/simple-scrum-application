@@ -38,13 +38,12 @@ public class Project extends BaseEntity {
 	@ElementCollection
 	private Set<String> labels;
 	private String license;
-	
 	@OneToMany(mappedBy = "project")
 	private List<Task> tasks;
 	@OneToMany(mappedBy = "project")
 	private List<Sprint> sprints;
 	@ManyToMany
-	@JoinTable(name="project_users")
+	@JoinTable(name = "project_users")
 	private Set<User> users;
 
 	public String getSummary() {
@@ -54,7 +53,7 @@ public class Project extends BaseEntity {
 	public void setSummary(String summary) {
 		this.summary = summary;
 	}
-	
+
 	public Set<String> getLabels() {
 		return labels;
 	}

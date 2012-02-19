@@ -16,17 +16,6 @@ public class SessionServiceImpl implements SessionService {
 	private UserFacade users;
 	
 	@Override
-	public User currentUser() {
-		//TODO sistema de autenticacion
-		User current = new User();
-		current.setId(1l);
-		current.setEmail("test.user@mail.com");
-		current.setNickname("test-user");
-		current.setPassword("test-password");
-		return current;
-	}
-	
-	@Override
 	public void saveUser(User task) {
 		if (task.isNew()) {
 			users.create(task);
@@ -39,6 +28,13 @@ public class SessionServiceImpl implements SessionService {
 	public User findUser(Object id) {
 		return users.find(id);
 	}
+
+	@Override
+	public User findByEmail(String email) {
+		return users.findByEmail();
+	}
+	
+	
 
 	
 	

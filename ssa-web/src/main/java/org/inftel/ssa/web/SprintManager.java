@@ -23,7 +23,7 @@ import org.primefaces.model.LazyDataModel;
 public class SprintManager implements Serializable{
     @EJB
     private ResourceService resources;
-    private static final long serialVersionUID = 8799656478674798638L; 
+    private static final long serialVersionUID = 1L; 
     private LazyDataModel<Sprint> sprints;
     private Sprint currentSprint;
     

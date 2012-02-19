@@ -27,7 +27,7 @@
 						<div class="control-group">
 							<h:outputLabel for="email" value="email" class="control-label" />  
 							<div class="controls">
-								<h:inputText id="email" required="true" label="id" value="#{userManager.email}" class="input-xlarge" />
+								<p:inputText id="email" required="true" label="id" value="#{userManager.email}" />
 								<h:message for="email" class="help-block"/>
 							</div>
 						</div>
@@ -35,13 +35,13 @@
 						<div class="control-group">
 							<h:outputLabel for="password" value="password" class="control-label" /> 
 							<div class="controls">
-								<h:inputText id="password" required="true" label="password" type="password" value="#{userManager.password}" class="input-xlarge" /> 
+								<p:password id="password" required="true" label="password" value="#{userManager.password}" redisplay="true" feedback="false" /> 
 								<h:message for="password" class="help-block"/>
 							</div>
 						</div>
 
 						<div class="form-actions">
-							<p:commandButton value="Iniciar sesión"  update="@form,growl" action="#{userManager.login}" styleClass="btn btn-primary" />&nbsp;
+							<p:commandButton value="Iniciar sesión"  update="@form,:growl" action="#{userManager.login}" styleClass="btn btn-primary" />&nbsp;
 							<p:commandButton value="Cancelar" type="reset" update="@form" action="#{userManager.loginReset()}" styleClass="btn" />
 						</div>
 

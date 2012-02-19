@@ -25,8 +25,7 @@ import org.inftel.ssa.services.SessionService;
 @WebFilter(filterName = "AuthorizationFilter", urlPatterns = {"/*"})
 public class AuthorizationFilter implements Filter {
 
-	@EJB
-	private SessionService sessionService;
+	private UserManager sessionService;
 	private ServletContext servletContext;
 	private FilterConfig filterConfig;
 
@@ -41,13 +40,13 @@ public class AuthorizationFilter implements Filter {
 		FacesContext ctx = getFacesContext(request, response);
 		if (ctx != null) {
 			ELContext elContext = ctx.getELContext();
-			sessionService = (SessionService) elContext.getELResolver().getValue(elContext, null, "sessionManager");
+			sessionService = (UserManager) elContext.getELResolver().getValue(elContext, null, "userManager");
 		} 
-		if (sessionService == null || sessionService.currentUser() == null) {
-			System.out.println("AuthFilter: Usuario desconocidos");
+		if (sessionService == null || sessionService.getCurrentUser() == null) {
+			//System.out.println("AuthFilter: Usuario desconocidos");
 			//filterConfig.getServletContext().getRequestDispatcher("/Session/login.xhtml").forward(request, response);
 		} else if (filterConfig != null) {
-			System.out.println("AuthFilter: Usuario " + sessionService.currentUser().getEmail() + " logeado");
+			//System.out.println("AuthFilter: Usuario " + sessionService.currentUser().getEmail() + " logeado");
 			//chain.doFilter(request, response);
 		}
 		chain.doFilter(request, response);

@@ -1,5 +1,6 @@
 package org.inftel.ssa.web;
 
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -33,12 +34,12 @@ import org.inftel.ssa.services.SessionService;
  */
 @ManagedBean
 @SessionScoped
-public class UserManager {
+public class UserManager implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private final static Logger logger = Logger.getLogger(UserManager.class.getName());
 	@EJB
 	private SessionService sessionService;
-	private User currentUser;
 	// email y password usados en login
 	private String email;
 	private String password;
@@ -46,20 +47,25 @@ public class UserManager {
 	private User signinUser;
 
 	public UserManager() {
-		logger.info("new user session");
+		logger.info("new user session created");
 		signinUser = new User();
 	}
-	
+
+	/**
+	 * Devolvera cierto si actualmente hay un usuario autenticado.
+	 */
 	public boolean isAuthenticated() {
 		return getCurrentUser() != null;
 	}
 
+	// No es buena idea mantener currentUser, pero si se hace se debe ir actualizando refrescando
 	public User getCurrentUser() {
 		Subject subject;
-		if (currentUser == null && (subject = SecurityUtils.getSubject()).isAuthenticated()) {
-			currentUser = sessionService.findUser(subject.getPrincipal());
+		if ((subject = SecurityUtils.getSubject()).isAuthenticated()) {
+			return sessionService.findUser(subject.getPrincipal());
+		} else {
+			return null;
 		}
-		return currentUser;
 	}
 
 	public String login() {
@@ -78,15 +84,15 @@ public class UserManager {
 				this.password = "";
 			} catch (UnknownAccountException uae) {
 				//username wasn't in the system, show them an error message?
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario desconocdio", null));
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Autenticación incorrecta", "Usuario desconocdio"));
 				logger.info("Usuario desconocdio");
 			} catch (IncorrectCredentialsException ice) {
 				//password didn't match, try again?
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Clave incorrecta", null));
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Autenticación incorrecta", "Clave incorrecta"));
 				logger.info("Clave incorrecta");
 			} catch (LockedAccountException lae) {
 				//account for that username is locked - can't login.  Show them a message?
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Cuenta de usuario bloqueada", null));
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Autenticación incorrecta", "Cuenta de usuario bloqueada"));
 				logger.info("Cuenta de usuario bloqueada");
 			} catch (AuthenticationException ae) {
 				//unexpected condition - error?
@@ -94,9 +100,13 @@ public class UserManager {
 				logger.info("Fallo de autenticación");
 			}
 		}
-		return (current.isAuthenticated()) ? "home?faces-redirect=true" : null;
+		if (!current.isAuthenticated()) {
+			return null; // no se ha conseguido autenticar
+		} else {
+			return (getCurrentUser().getProjects().isEmpty()) ? "project/create?faces-redirect=true" : "project/home?faces-redirect=true";
+		}
 	}
-	
+
 	public String goSignin() {
 		signinUser = new User();
 		signinUser.setEmail(email);
@@ -113,9 +123,7 @@ public class UserManager {
 			// Se hace login del usuario recien creado
 			this.email = signinUser.getEmail();
 			this.password = signinUser.getPassword();
-			String isLogin = login();
-			// Si loguin == null, algo ha pasado al hacer login
-			return (isLogin == null) ? null : "project/create?faces-redirect=true";
+			return login();
 		} catch (Exception e) {
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Problema creando cuenta", e.getCause().getLocalizedMessage()));
@@ -128,18 +136,18 @@ public class UserManager {
 	}
 
 	public String logout() {
-		logger.info("desconectando usuario " + currentUser);
+		logger.info("desconectando usuario " + getCurrentUser());
 		SecurityUtils.getSubject().logout();
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		return "/login.jsp?faces-redirect=true";
 	}
-	
+
 	public String loginReset() {
 		this.email = null;
 		this.password = null;
 		return "login";
 	}
-	
+
 	public String signinReset() {
 		this.signinUser = new User();
 		return "signin";

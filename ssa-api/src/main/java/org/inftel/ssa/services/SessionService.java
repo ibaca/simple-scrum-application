@@ -10,10 +10,10 @@ import org.inftel.ssa.domain.User;
 @Local
 public interface SessionService {
 
-	User currentUser();
-
 	User findUser(Object id);
 
 	void saveUser(User task);
+
+	User findByEmail(String email);
 	
 }

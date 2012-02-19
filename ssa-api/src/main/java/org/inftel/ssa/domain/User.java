@@ -29,7 +29,7 @@ public class User extends BaseEntity {
 	private String email;
 	private String company;
 	
-	@ManyToMany(mappedBy="users")
+	@ManyToMany(mappedBy="users",cascade = CascadeType.ALL)
 	private Set<Project> projects;
 
     private String password;
