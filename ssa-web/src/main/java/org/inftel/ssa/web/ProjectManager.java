@@ -118,7 +118,7 @@ public class ProjectManager implements Serializable {
 				addUser(user);
 			}
 		}
-		return "/project/show.xhtml";
+		return "/project/home.xhtml";
 	}
 
 	public String addUser(String email) {
