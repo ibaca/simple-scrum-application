@@ -7,9 +7,12 @@ package org.inftel.ssa.web;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import org.inftel.ssa.domain.Project;
 import org.inftel.ssa.domain.Sprint;
 import org.inftel.ssa.services.ResourceService;
 import org.primefaces.model.LazyDataModel;
@@ -18,7 +21,7 @@ import org.primefaces.model.LazyDataModel;
  *
  * @author Jesus Ruiz Oliva
  */
-@ManagedBean
+@ManagedBean(name="sprintManager")
 @SessionScoped
 public class SprintManager implements Serializable{
     @EJB
@@ -26,18 +29,29 @@ public class SprintManager implements Serializable{
     private static final long serialVersionUID = 1L; 
     private LazyDataModel<Sprint> sprints;
     private Sprint currentSprint;
+    @ManagedProperty("#{projectManager}")
+    private ProjectManager projectManager;
+    
     
     
     public SprintManager() {
-        super();
+        super();       
+            
+    }
+    @PostConstruct
+    public void init(){
         sprints= new LazyDataModel() {            
 
             @Override
             public List load(int first, int pageSize, String sortField, org.primefaces.model.SortOrder sortOrder, Map filters) {
                 int[] range = {first,first + pageSize};
-                List<Sprint> list = null;
-                // ¿Vienen ordenados?¿Como identifico los sprints?
-                //list = resources.findRange(range);  
+                List<Sprint> list;
+                List<Sprint> sprintsCurrentProject = projectManager.getCurrentProject().getSprints();
+                int max = sprintsCurrentProject.size();
+                if (first + pageSize > max)
+                    list = sprintsCurrentProject.subList(first, max);
+                else
+                    list = sprintsCurrentProject.subList(first, first + pageSize);    
                 return list;
             }
              @Override
@@ -54,13 +68,11 @@ public class SprintManager implements Serializable{
                 }
             }            
             };
-            
+        
     }
 
     public LazyDataModel<Sprint> getSprint() {
-        int totalRowCount = 0;
-        //totalRowCount = resources.count();
-        sprints.setRowCount(totalRowCount); 
+        sprints.setRowCount(projectManager.getCurrentProject().getSprints().size()); 
         return sprints;
     }
 
@@ -93,10 +105,18 @@ public class SprintManager implements Serializable{
     }
     public String save(){
         if (currentSprint != null){
-            //Almacenar currentSprint
+            currentSprint.setProject(projectManager.getCurrentProject());
+            resources.saveSprint(currentSprint);
         }
         return "/sprint/show.xhtml";
     }
 
+    public ProjectManager getProjectManager() {
+        return projectManager;
+    }
+
+    public void setProjectManager(ProjectManager projectManager) {
+        this.projectManager = projectManager;
+    }
     
 }

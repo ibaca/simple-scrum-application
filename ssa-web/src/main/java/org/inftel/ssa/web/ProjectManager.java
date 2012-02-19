@@ -24,7 +24,7 @@ import org.primefaces.model.SortOrder;
  *
  * @author Jesus Ruiz Oliva
  */
-@ManagedBean
+@ManagedBean(name = "projectManager")
 @SessionScoped
 public class ProjectManager implements Serializable {
 
