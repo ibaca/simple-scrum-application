@@ -10,37 +10,62 @@
 
     <!--    Hay que añadir mensajes de error y validar que el nombre del proyecto sea unico-->
     <ui:composition>
-        <h:panelGrid columns="1">
+        <div class="row">
+            <div class="span12">
+                <h:form class="form-horizontal"> 
+                    <fieldset>
+                        
+                        <legend>Create your project</legend>
 
-            <h:outputLabel for="pName" value="Project Name:" /> 
-            <p:inputText id="pName" required="true"  label="pName" size="91"  value="#{projectManager.currentProject.name}" />  
-            <p:message for="pName" /> 
 
-            <h:outputLabel for="pSummary" value="Project summary:" />  
-            <p:inputText id="pSummary" required="true" label="pSummary" size="91"  value="#{projectManager.currentProject.summary}" />  
-            <p:message for="pSummary" />
+                        <div class="control-group"> 							
+                            <h:outputLabel for="name" value="Name" class="control-label" />  
+                            <div class="controls">
+                                <p:inputText id="name" required="true" label="name" value="#{projectManager.currentProject.name}" />  
+                                <h:message for="name" class="help-inline" />
+                            </div>
+                        </div>
 
-            <h:outputLabel for="pDescription" value="Description:" />  
-            <p:editor id="pDescription"  required="true" label="pDescription"  value="#{projectManager.currentProject.description}" />  
-            <p:message for="pDescription" />
+                        <div class="control-group"> 							
+                            <h:outputLabel for="summary" value="Summary" class="control-label" />  
+                            <div class="controls">
+                                <p:inputText id ="summary" required="true" label="summary" value="#{projectManager.currentProject.summary}" />
+                                <h:message for="summary" class="help-inline" />
+                            </div>
+                        </div>
 
-            <h:outputLabel for="pSourceCode" value="Source code license:" />
-            <p:selectOneMenu id="pSourceCode" required="true" value="#{projectManager.currentProject.license}">  
-                <f:selectItem itemLabel="Select a license..." itemValue="" />  
-                <f:selectItem itemLabel="Apache License 2.0" itemValue="Apache License 2.0" />  
-                <f:selectItem itemLabel="Artistic License/GPL" itemValue="Artistic License/GPL" />  
-                <f:selectItem itemLabel="Eclipse Public License 1.0" itemValue="Eclipse Public License 1.0" />
-                <f:selectItem itemLabel="GNU GPL v2" itemValue="GNU GPL v2" />
-                <f:selectItem itemLabel="GNU GPL v3" itemValue="GNU GPL v3" />
-                <f:selectItem itemLabel="GNU Lesser GPL" itemValue="GNU Lesser GPL" />
-                <f:selectItem itemLabel="MIT License" itemValue="MIT License" />
-                <f:selectItem itemLabel="Mozilla Public License 1.1" itemValue="Mozilla Public License 1.1" />
-                <f:selectItem itemLabel="New BSD License" itemValue="New BSD License"  />
-                <f:selectItem itemLabel="Other Open Source" itemValue="Other Open Source" />
-            </p:selectOneMenu>
-            <p:message for="pSourceCode" /><br/>
+                        <div class="control-group"> 							
+                            <h:outputLabel for="description" value="Description" class="control-label" />  
+                            <div class="controls">
+                                <p:editor id="description"  required="true"   value="#{projectManager.currentProject.description}" />  
+                                <h:message for="description" class="help-inline" /> 
+                            </div>
+                        </div>
 
-        </h:panelGrid>
+                        <div class="control-group"> 							
+                            <h:outputLabel for="license" value="Source code license:" class="control-label" />  
+                            <div class="controls">
+                                <p:selectOneMenu id="license" required="true" value="#{projectManager.currentProject.license}">  
+                                    <f:selectItem itemLabel="Select a license..." itemValue="" />  
+                                    <f:selectItem itemLabel="Apache License 2.0" itemValue="Apache License 2.0" />  
+                                    <f:selectItem itemLabel="Artistic License/GPL" itemValue="Artistic License/GPL" />  
+                                    <f:selectItem itemLabel="Eclipse Public License 1.0" itemValue="Eclipse Public License 1.0" />
+                                    <f:selectItem itemLabel="GNU GPL v2" itemValue="GNU GPL v2" />
+                                    <f:selectItem itemLabel="GNU GPL v3" itemValue="GNU GPL v3" />
+                                    <f:selectItem itemLabel="GNU Lesser GPL" itemValue="GNU Lesser GPL" />
+                                    <f:selectItem itemLabel="MIT License" itemValue="MIT License" />
+                                    <f:selectItem itemLabel="Mozilla Public License 1.1" itemValue="Mozilla Public License 1.1" />
+                                    <f:selectItem itemLabel="New BSD License" itemValue="New BSD License"  />
+                                    <f:selectItem itemLabel="Other Open Source" itemValue="Other Open Source" />
+                                </p:selectOneMenu>  
+                                <h:message for="license"  class="help-inline" /> 
+                            </div>
+                        </div>
+                    </fieldset>
+                </h:form>
+            </div>
+        </div>
+        
     </ui:composition>
 
 </html>
