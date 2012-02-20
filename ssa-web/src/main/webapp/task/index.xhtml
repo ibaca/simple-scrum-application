@@ -15,7 +15,7 @@
 			<p>
 				<h:outputText value="There is no task" rendered="#{taskManager.tasks.rowCount == 0}" />
 				<p:dataTable value="#{taskManager.tasks}" var="task"  rendered="#{taskManager.tasks.rowCount > 0}" 
-							 paginator="true" rows="25" id="dtTasks">
+							 paginator="true" paginatorPosition="bottom" rows="25" id="dtTasks">
 
 					<p:column>
 						<f:facet name="header">
