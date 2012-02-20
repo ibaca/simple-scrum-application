@@ -7,15 +7,17 @@ package org.inftel.ssa.web;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import org.inftel.ssa.domain.Project;
 import org.inftel.ssa.domain.Sprint;
 import org.inftel.ssa.services.ResourceService;
 import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 /**
  *
@@ -24,6 +26,8 @@ import org.primefaces.model.LazyDataModel;
 @ManagedBean(name="sprintManager")
 @SessionScoped
 public class SprintManager implements Serializable{
+	
+	private final static Logger logger = Logger.getLogger(SprintManager.class.getName());
     @EJB
     private ResourceService resources;
     private static final long serialVersionUID = 1L; 
@@ -43,16 +47,10 @@ public class SprintManager implements Serializable{
         sprints= new LazyDataModel() {            
 
             @Override
-            public List load(int first, int pageSize, String sortField, org.primefaces.model.SortOrder sortOrder, Map filters) {
-                int[] range = {first,first + pageSize};
-                List<Sprint> list;
-                List<Sprint> sprintsCurrentProject = projectManager.getCurrentProject().getSprints();
-                int max = sprintsCurrentProject.size();
-                if (first + pageSize > max)
-                    list = sprintsCurrentProject.subList(first, max);
-                else
-                    list = sprintsCurrentProject.subList(first, first + pageSize);    
-                return list;
+            public List load(int first, int pageSize, String sortField, SortOrder sortOrder, Map filters) {
+				logger.log(Level.INFO,"lazy data model [first={0}, pageSize={1}, sortField={2}, sortOrder={3}, filters={4}",
+					new Object[]{first, pageSize, sortField, sortOrder, filters});
+				return resources.findSprintsByProject(projectManager.getCurrentProject(), first, pageSize, sortField, sortOrder.equals(SortOrder.ASCENDING), filters);
             }
              @Override
             public void setRowIndex(int rowIndex) {
@@ -71,12 +69,14 @@ public class SprintManager implements Serializable{
         
     }
 
-    public LazyDataModel<Sprint> getSprint() {
-        sprints.setRowCount(projectManager.getCurrentProject().getSprints().size()); 
+    public LazyDataModel<Sprint> getSprints() {
+		int rows = projectManager.getCurrentProject(true).getSprints().size();
+		logger.info("list row count="+rows);
+        sprints.setRowCount(rows); 
         return sprints;
     }
 
-    public void setSprint(LazyDataModel<Sprint> sprints) {
+    public void setSprints(LazyDataModel<Sprint> sprints) {
         this.sprints = sprints;
     }
 

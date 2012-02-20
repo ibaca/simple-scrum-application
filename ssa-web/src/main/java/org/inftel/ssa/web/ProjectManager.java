@@ -41,7 +41,7 @@ public class ProjectManager implements Serializable {
 
 		@Override
 		public List load(int first, int pageSize, String sortField, org.primefaces.model.SortOrder sortOrder, Map filters) {
-			filters.put("users.id", userManager.getCurrentUser().getId().toString());
+			filters.put("users.id", userManager.getCurrentUser().getId().toString()); //TODO mover esto a resources
 			return resources.findProjects(first, pageSize, sortField, sortOrder.equals(SortOrder.ASCENDING), filters);
 		}
 

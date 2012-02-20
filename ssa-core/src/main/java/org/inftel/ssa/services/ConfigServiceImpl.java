@@ -1,17 +1,13 @@
 package org.inftel.ssa.services;
 
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.LocalBean;
-import javax.ejb.Schedule;
 import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,10 +17,7 @@ import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.eclipse.persistence.internal.jpa.EntityManagerImpl;
-import org.inftel.ssa.domain.Project;
-import org.inftel.ssa.domain.Task;
-import org.inftel.ssa.domain.TaskStatus;
-import org.inftel.ssa.domain.User;
+import org.inftel.ssa.domain.*;
 
 /**
  *
@@ -69,9 +62,7 @@ public class ConfigServiceImpl {
 		manhattan.getLinks().put("Bomba Atómica", "http://es.wikipedia.org/wiki/Bomba_at%C3%B3mica");
 		manhattan.setName("Proyecto Manhattan");
 		manhattan.setSummary("Proyecto para la investigación de bombas atómicas");
-		manhattan.setUsers(new HashSet<User>());
 		manhattan.getUsers().add(demo);
-		manhattan.setTasks(new ArrayList<Task>());
 		demo.getProjects().add(manhattan);
 		resourceService.saveProject(manhattan);
 
@@ -98,6 +89,15 @@ public class ConfigServiceImpl {
 		dos.setUser(demo);
 		demo.getTasks().add(dos);
 		resourceService.saveTask(dos);
+		
+		logger.info("Creando sprint Sprint Uno en Manhattan");
+		Sprint sUno = new Sprint();
+		sUno.setDescription("Sprint uno de ejemplo");
+		sUno.setFinishDate(new Date(System.currentTimeMillis() + 3200 * 10));
+		sUno.setProject(manhattan);
+		manhattan.getSprints().add(sUno);
+		sUno.setStartDate(new Date());
+		resourceService.saveSprint(sUno);
 
 		logger.info("Datos iniciales programaticos creados con exito");
 		

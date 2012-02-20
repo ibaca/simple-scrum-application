@@ -12,15 +12,15 @@
             <h:form id="fSprint">
                 <h:panelGrid columns="2">
 
-                    <h:outputText value="There is no sprint"  rendered="#{sprintManager.sprint.rowCount eq 0}" />
-                    <p:dataTable id="basic" var="sprint" value="#{sprintManager.sprint}" paginator="true"
-                                 rows="5" rendered="#{sprintManager.sprint.rowCount > 0}">
+                    <h:outputText value="There is no sprint"  rendered="#{sprintManager.sprints.rowCount eq 0}" />
+                    <p:dataTable id="basic" var="sprint" value="#{sprintManager.sprints}" paginator="true"
+                                 rows="5" rendered="#{sprintManager.sprints.rowCount > 0}">
 
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#" />
                             </f:facet>
-                            <h:outputText value="#{sprintManager.sprint.rowIndex + 1}" />
+                            <h:outputText value="#{sprintManager.sprints.rowIndex + 1}" />
                         </p:column>
                         <p:column>
                             <f:facet name="header">

@@ -30,9 +30,9 @@ public class Sprint extends BaseEntity {
 	private Date finishDate;
 	@OneToMany(mappedBy = "sprint")
 	private List<Task> tasks;
-	@ManyToOne(optional = false)
+	@ManyToOne
 	private Project project;
-	@ManyToOne(optional = false)
+	@ManyToOne
 	private Product product;
 
 	/**

@@ -82,7 +82,7 @@ public class TaskManager implements Serializable {
 
     public LazyDataModel<Task> getTasks() {
 		int rows = projectManager.getCurrentProject(true).getTasks().size();
-		Logger.getAnonymousLogger().info("row count="+rows);
+		logger.info("row count="+rows);
         tasks.setRowCount(rows);
         return tasks;
     }

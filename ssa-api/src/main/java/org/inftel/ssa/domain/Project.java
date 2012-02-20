@@ -1,6 +1,8 @@
 package org.inftel.ssa.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -119,7 +121,7 @@ public class Project extends BaseEntity {
 	}
 
 	public List<Sprint> getSprints() {
-		return sprints;
+		return (sprints == null) ? sprints = new ArrayList<Sprint>(0) : sprints;
 	}
 
 	public void setSprints(List<Sprint> sprints) {
@@ -134,8 +136,8 @@ public class Project extends BaseEntity {
 		this.started = started;
 	}
 
-	public List<Task> getTasks() {
-		return tasks;
+	public List<Task> getTasks() { 
+		return (tasks == null) ? tasks = new ArrayList<Task>(0) : tasks;
 	}
 
 	public void setTasks(List<Task> tasks) {
@@ -143,7 +145,7 @@ public class Project extends BaseEntity {
 	}
 
 	public Set<User> getUsers() {
-		return users;
+		return (users == null) ? users = new HashSet<User>(0) : users;
 	}
 
 	public void setUsers(Set<User> users) {
