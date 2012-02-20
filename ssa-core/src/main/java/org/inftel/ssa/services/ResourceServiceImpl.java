@@ -96,4 +96,13 @@ public class ResourceServiceImpl implements ResourceService {
 		filters.put("user.id", user.getId().toString());
 		return tasks.find(startPosition, maxResult, sortField, ascOrder, filters);
 	}
+	
+	@Override
+	public List<Sprint> findSprintsByProject(Project project, Integer startPosition, Integer maxResult, String sortField, Boolean ascOrder, Map<String, String> filters) {
+		if (filters == null) {
+			filters = new HashMap<String, String>(1);
+		}
+		filters.put("project.id", project.getId().toString());
+		return sprints.find(startPosition, maxResult, sortField, ascOrder, filters);
+	}
 }

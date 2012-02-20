@@ -29,4 +29,6 @@ public interface ResourceService {
 
 	public java.util.List<org.inftel.ssa.domain.Task> findTaksByUser(org.inftel.ssa.domain.User user, java.lang.Integer startPosition, java.lang.Integer maxResult, java.lang.String sortField, java.lang.Boolean ascOrder, java.util.Map<java.lang.String, java.lang.String> filters);
 
+	public java.util.List<org.inftel.ssa.domain.Sprint> findSprintsByProject(org.inftel.ssa.domain.Project project, java.lang.Integer startPosition, java.lang.Integer maxResult, java.lang.String sortField, java.lang.Boolean ascOrder, java.util.Map<java.lang.String, java.lang.String> filters);
+
 }
