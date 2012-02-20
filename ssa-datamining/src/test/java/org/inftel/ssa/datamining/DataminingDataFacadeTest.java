@@ -83,7 +83,7 @@ public class DataminingDataFacadeTest {
     calendar.set(2011, 0, 1, 0, 0, 0);
     Date date = calendar.getTime();
     System.out.println("date: " + date.getTime() + "=" + date);
-    for (DataminingData data : service.findAll()) {
+    for (DataminingDataEntity data : service.findAll()) {
       System.out.println(data.getName() + " > " + data.getPeriodType() + " > "
               + data.getPeriodDate().getTime() + "=" + data.getPeriodDate() + " :: "
               + data.getDataValue());
@@ -105,7 +105,7 @@ public class DataminingDataFacadeTest {
     System.out.println("First date: " + firstDay.getTime() + "=" + firstDay);
     System.out.println("Last date: " + lastDay.getTime() + "=" + lastDay);
 
-    Map<Date, Long> result = service.findStatistics("alert.type."
+    Map<Date, DataminingData> result = service.findStatistics("alert.type."
             + "user", DAYLY, firstDay, lastDay);
     for (Date date : result.keySet()) {
       System.out.println(date + " := " + result.get(date));
@@ -140,7 +140,7 @@ public class DataminingDataFacadeTest {
     calendar.set(2012, 1, 27, 0, 0, 0);
     System.out.println("FECHA A BUSCAR: " + calendar.getTime());
 
-    DataminingData sd = service.findByDate("alert.reciverProcessTime", calendar.getTime());
+    DataminingDataEntity sd = service.findByDate("alert.reciverProcessTime", calendar.getTime());
 
     System.out.println("id: " + sd.getId() + ">" + sd.getName() + ">" + sd.getPeriodDate()
             + ">" + sd.getPeriodType() + ">" + sd.getDataCount() + ">" + sd.getDataValue()

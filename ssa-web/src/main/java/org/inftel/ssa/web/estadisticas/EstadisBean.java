@@ -6,6 +6,7 @@ import java.util.*;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import org.inftel.ssa.datamining.DataminingData;
 import org.inftel.ssa.datamining.DataminingDataPeriod;
 import org.inftel.ssa.datamining.DataminingProcessor;
 import org.inftel.ssa.domain.Project;
@@ -45,14 +46,14 @@ public class EstadisBean implements Serializable {
     private void createEsfuerzoModel() {
         esfuerzoModel = new CartesianChartModel();
         LineChartSeries series = new LineChartSeries();
-        Map<Date, Long> samples; // todos los datos por fecha
+        Map<Date, DataminingData> samples; // todos los datos por fecha
 
         String name = "task." + "id_usuario" + "." + "sprint" + ".remaining"; // Con id_usuario y sprint pasádo por parámetro
         samples = datamining.findStatistics(name, DataminingDataPeriod.DAYLY, new Date(0), new Date());
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es"));
 
         for (Date date : samples.keySet()) {
-            series.set(df.format(date), samples.get(date));
+            series.set(df.format(date), samples.get(date).getDataSum());
         }
 
         esfuerzoModel.addSeries(series);
@@ -63,14 +64,14 @@ public class EstadisBean implements Serializable {
 
         tareasModel = new CartesianChartModel();
         LineChartSeries series = new LineChartSeries();
-        Map<Date, Long> samples; // todos los datos por fecha
+        Map<Date, DataminingData> samples; // todos los datos por fecha
 
         String name = "task." + "id_usuario" + "." + "sprint" + ".remaining"; // Con id_usuario y sprint pasádo por parámetro
         samples = datamining.findStatistics(name, DataminingDataPeriod.DAYLY, new Date(0), new Date());
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es"));
 
         for (Date date : samples.keySet()) {
-            series.set(df.format(date), samples.get(date));
+            series.set(df.format(date), samples.get(date).getDataCount());
         }
 
         tareasModel.addSeries(series);

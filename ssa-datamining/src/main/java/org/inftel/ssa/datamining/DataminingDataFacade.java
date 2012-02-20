@@ -17,7 +17,7 @@ import javax.persistence.TypedQuery;
  * @author agumpg
  */
 @Stateless
-public class DataminingDataFacade extends AbstractFacade<DataminingData> {
+public class DataminingDataFacade extends AbstractFacade<DataminingDataEntity> {
 
     @PersistenceContext(unitName = "ssa-datamining-persistence-unit")
     private EntityManager em;
@@ -28,7 +28,7 @@ public class DataminingDataFacade extends AbstractFacade<DataminingData> {
     }
 
     public DataminingDataFacade() {
-        super(DataminingData.class);
+        super(DataminingDataEntity.class);
     }
 
     /**
@@ -47,20 +47,20 @@ public class DataminingDataFacade extends AbstractFacade<DataminingData> {
      */
     public Map<String, BigDecimal> sumStatictics(String startWith, DataminingDataPeriod period,
             Date fromDate, Date toDate) {
-        TypedQuery<DataminingData> query = em.createQuery("SELECT o FROM DataminingData o "
+        TypedQuery<DataminingDataEntity> query = em.createQuery("SELECT o FROM DataminingDataEntity o "
                 + "WHERE o.name LIKE :name AND o.periodType = :period "
-                + "AND o.periodDate BETWEEN :fromDate AND :toDate", DataminingData.class);
+                + "AND o.periodDate BETWEEN :fromDate AND :toDate", DataminingDataEntity.class);
         query.setParameter("name", startWith + "%");
         query.setParameter("period", period);
         query.setParameter("fromDate", fromDate);
         query.setParameter("toDate", toDate);
 
-        List<DataminingData> queryResult = query.getResultList();
+        List<DataminingDataEntity> queryResult = query.getResultList();
         Map<String, BigDecimal> result = new HashMap<String, BigDecimal>(2);
         // Initialize result
         result.put("sum", new BigDecimal(0));
         result.put("count", new BigDecimal(0));
-        for (DataminingData data : queryResult) {
+        for (DataminingDataEntity data : queryResult) {
             if (data.getDataSum() != null) {
                 result.put("sum", result.get("sum").add(new BigDecimal(data.getDataSum())));
             }
@@ -83,14 +83,14 @@ public class DataminingDataFacade extends AbstractFacade<DataminingData> {
      * @return parejas de nombre de estadistica y valor para el periodo y facha pasados
      */
     public Map<String, Long> findStatistics(String startWith, DataminingDataPeriod period, Date date) {
-        TypedQuery<DataminingData> query = em.createQuery("SELECT o FROM DataminingData o "
+        TypedQuery<DataminingDataEntity> query = em.createQuery("SELECT o FROM DataminingDataEntity o "
                 + "WHERE o.name LIKE :name AND o.periodType = :period AND o.periodDate = :date",
-                DataminingData.class);
+                DataminingDataEntity.class);
         query.setParameter("name", startWith + "%");
         query.setParameter("period", period);
         query.setParameter("date", date);
         Map<String, Long> result = new TreeMap<String, Long>();
-        for (DataminingData data : query.getResultList()) {
+        for (DataminingDataEntity data : query.getResultList()) {
             // FIXME deberia devolverse BigDecimal
             result.put(data.getName(), data.getDataValue().longValue());
         }
@@ -115,45 +115,45 @@ public class DataminingDataFacade extends AbstractFacade<DataminingData> {
      *            fin de intervalo
      * @return
      */
-    public Map<Date, Long> findStatistics(String name, DataminingDataPeriod period, Date fromDate,
+    public Map<Date, DataminingData> findStatistics(String name, DataminingDataPeriod period, Date fromDate,
             Date toDate) {
         fromDate = period.beginsAt(fromDate);
         toDate = period.endsAt(toDate);
 
-        TypedQuery<DataminingData> query = em.createQuery("SELECT o "
-                + "FROM DataminingData o WHERE o.name = :name AND o.periodType = :period "
-                + "AND o.periodDate " + "BETWEEN :fromDate AND :toDate", DataminingData.class);
+        TypedQuery<DataminingDataEntity> query = em.createQuery("SELECT o "
+                + "FROM DataminingDataEntity o WHERE o.name = :name AND o.periodType = :period "
+                + "AND o.periodDate " + "BETWEEN :fromDate AND :toDate", DataminingDataEntity.class);
         query.setParameter("name", name);
         query.setParameter("period", period);
         query.setParameter("fromDate", fromDate);
         query.setParameter("toDate", toDate);
 
-        Map<Date, Long> result = new TreeMap<Date, Long>();
-        for (DataminingData data : query.getResultList()) {
-            result.put(data.getPeriodDate(), data.getDataValue().longValue());
+        Map<Date, DataminingData> result = new TreeMap<Date, DataminingData>();
+        for (DataminingDataEntity data : query.getResultList()) {
+            result.put(data.getPeriodDate(), data);
         }
         return result;
     }
 
-    public DataminingData findByDate(String startWith, Date date) {
-        TypedQuery<DataminingData> query = em.createQuery("SELECT o FROM DataminingData o "
-                + "WHERE o.name LIKE :name AND o.periodDate = :date", DataminingData.class);
+    public DataminingDataEntity findByDate(String startWith, Date date) {
+        TypedQuery<DataminingDataEntity> query = em.createQuery("SELECT o FROM DataminingDataEntity o "
+                + "WHERE o.name LIKE :name AND o.periodDate = :date", DataminingDataEntity.class);
         query.setParameter("name", startWith + "%");
         query.setParameter("date", date);
         query.setMaxResults(1); // aunq el modelo no debe devolver mas de uno
 
-        List<DataminingData> result = query.getResultList();
+        List<DataminingDataEntity> result = query.getResultList();
         return (result.size() > 0) ? result.get(0) : null;
     }
 
     public List<String> findStatisticsNames(String startWith) {
         TypedQuery<String> query = em.createQuery("SELECT DISTINCT o.name "
-                + "FROM DataminingData o WHERE o.name LIKE :name", String.class);
+                + "FROM DataminingDataEntity o WHERE o.name LIKE :name", String.class);
         return query.setParameter("name", startWith + "%").getResultList();
     }
 
     DataminingDataFacade(EntityManager em) {
-        super(DataminingData.class);
+        super(DataminingDataEntity.class);
         this.em = em;
     }
 }

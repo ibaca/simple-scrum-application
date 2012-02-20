@@ -107,8 +107,8 @@ public interface DataminingProcessor {
      * @return mapa donde las claves son los nombre completos estadisticos y los enteros son el
      *         valor para la muestra y periodo concretoF
      */
-    public Map<Date, Long> findStatistics(String name, DataminingDataPeriod period, Date fromDate,
-            Date toDate);
+    public Map<Date, DataminingData> findStatistics(String name, DataminingDataPeriod period, 
+			Date fromDate, Date toDate);
 
     /**
      * Devuelve todos los nombres estadisticos que coincidan con el token pasado.

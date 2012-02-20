@@ -44,7 +44,7 @@ public class DataminingEndOfDay {
 	}
 
 	private void updateDaily(String statName, Date from, Double statSum, Long statCount) {
-		DataminingData data = new DataminingData(statName, from, statSum, statCount);
+		DataminingDataEntity data = new DataminingDataEntity(statName, from, statSum, statCount);
 		statisticProcessor.updateDaylyStatistic(data);
 	}
 

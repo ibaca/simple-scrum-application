@@ -3,7 +3,7 @@
   <persistence-unit name="ssa-datamining-persistence-unit" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbc/sample</jta-data-source>
-    <class>org.inftel.ssa.datamining.DataminingData</class>
+    <class>org.inftel.ssa.datamining.DataminingDataEntity</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>ALL</shared-cache-mode>
     <properties>

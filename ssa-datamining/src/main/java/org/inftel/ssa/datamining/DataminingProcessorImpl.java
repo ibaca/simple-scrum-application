@@ -71,8 +71,8 @@ public class DataminingProcessorImpl implements DataminingProcessor {
     @Override
     public void process(String name, Date date, Double accumulated, Long samples) {
         try {
-            // Crea una DataminingData temporal, es decir, sin periodo definido
-            sendJMSMessageToDatamining(new DataminingData(name, date, accumulated, samples));
+            // Crea una DataminingDataEntity temporal, es decir, sin periodo definido
+            sendJMSMessageToDatamining(new DataminingDataEntity(name, date, accumulated, samples));
         } catch (JMSException ex) {
             logger.log(WARNING, "fallo enviando estadistica a la cola de proceso", ex);
         }
@@ -158,15 +158,15 @@ public class DataminingProcessorImpl implements DataminingProcessor {
      * periodo minimo es diario. Los periodos superiores, como mensual o anual, se van actualizando
      * cuando de forma independiente.
      */
-    public void updateDaylyStatistic(DataminingData dataOrigin) {
+    public void updateDaylyStatistic(DataminingDataEntity dataOrigin) {
         // Actualmente el nivel minimo de periodo es DAILY
         Date processDate = DAYLY.beginsAt(dataOrigin.getPeriodDate());
-        DataminingData data = dataminingDataFacade.findByDate(dataOrigin.getName(), processDate);
+        DataminingDataEntity data = dataminingDataFacade.findByDate(dataOrigin.getName(), processDate);
 
         // ¿Hay datos de hoy?
         if (data == null) {
             // No existe ninguna entrada
-            data = new DataminingData();
+            data = new DataminingDataEntity();
             data.setName(dataOrigin.getName());
             data.setPeriodType(DAYLY);
             data.setPeriodDate(processDate);
@@ -174,7 +174,7 @@ public class DataminingProcessorImpl implements DataminingProcessor {
             data.setDataSum(dataOrigin.getDataSum());
             dataminingDataFacade.create(data);
         } else {
-            // Ya existe una entrada en DataminingData y lo actualizamos
+            // Ya existe una entrada en DataminingDataEntity y lo actualizamos
             data.setPeriodType(DAYLY); // FIXME no deberia ser necesario
             data.setDataCount(data.getDataCount() + dataOrigin.getDataCount());
             data.setDataSum(data.getDataSum() + dataOrigin.getDataSum());
@@ -197,7 +197,7 @@ public class DataminingProcessorImpl implements DataminingProcessor {
      */
     private void saveStatisticData(String name, DataminingDataPeriod period, Calendar date,
             Long count, Double sum) {
-        DataminingData data = new DataminingData();
+        DataminingDataEntity data = new DataminingDataEntity();
         data.setName(name);
         data.setPeriodType(period);
         data.setPeriodDate(period.beginsAt(date).getTime());
@@ -207,7 +207,7 @@ public class DataminingProcessorImpl implements DataminingProcessor {
     }
 
     @Override
-    public Map<Date, Long> findStatistics(String name, DataminingDataPeriod period, Date fromDate,
+    public Map<Date, DataminingData> findStatistics(String name, DataminingDataPeriod period, Date fromDate,
             Date toDate) {
         logger.log(INFO, "consultando estadisticas {0} para periodo {1} y fechas entre {2} y {3}",
                 new Object[] { name, period, fromDate, toDate });

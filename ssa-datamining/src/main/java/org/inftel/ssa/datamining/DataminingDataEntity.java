@@ -26,9 +26,9 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "datamining")
-public class DataminingData implements Serializable {
+public class DataminingDataEntity implements Serializable, DataminingData {
 
-	private final static Logger logger = Logger.getLogger(DataminingData.class.getName());
+	private final static Logger logger = Logger.getLogger(DataminingDataEntity.class.getName());
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,25 +41,25 @@ public class DataminingData implements Serializable {
 	private Double dataSum;
 	private Long dataCount;
 
-	public DataminingData() {
+	public DataminingDataEntity() {
 	}
 
-	public DataminingData(String name, DataminingDataPeriod period, Date date, Long count) {
+	public DataminingDataEntity(String name, DataminingDataPeriod period, Date date, Long count) {
 		this(name, period, date, null, count);
 	}
 
-	public DataminingData(String name, DataminingDataPeriod period, Date date, Double sum) {
+	public DataminingDataEntity(String name, DataminingDataPeriod period, Date date, Double sum) {
 		this(name, period, date, sum, null);
 	}
 
 	/**
 	 * Este metodo crea estadisticas temporales, ya que el periodo es un campo obligatorio.
 	 */
-	public DataminingData(String name, Date date, Double sum, Long count) {
+	public DataminingDataEntity(String name, Date date, Double sum, Long count) {
 		this(name, null, date, sum, count);
 	}
 
-	public DataminingData(String name, DataminingDataPeriod period, Date date, Double sum, Long count) {
+	public DataminingDataEntity(String name, DataminingDataPeriod period, Date date, Double sum, Long count) {
 		this.name = name;
 		this.periodType = period;
 		this.periodDate = date;
@@ -67,6 +67,7 @@ public class DataminingData implements Serializable {
 		this.dataCount = count; // Salta la restriccion de valores negativos o nulos
 	}
 
+	@Override
 	public BigDecimal getDataValue() {
 		if (dataSum == null) {
 			// Si sum es null se devuelve el valor del contador
@@ -79,6 +80,7 @@ public class DataminingData implements Serializable {
 		}
 	}
 
+	@Override
 	public Long getDataCount() {
 		return (dataCount == null) ? 0l : dataCount;
 	}
@@ -91,6 +93,7 @@ public class DataminingData implements Serializable {
 		this.dataCount = dataCount;
 	}
 
+	@Override
 	public Date getPeriodDate() {
 		return periodDate;
 	}
@@ -99,6 +102,7 @@ public class DataminingData implements Serializable {
 		this.periodDate = periodDate;
 	}
 
+	@Override
 	public DataminingDataPeriod getPeriodType() {
 		return periodType;
 	}
@@ -107,6 +111,7 @@ public class DataminingData implements Serializable {
 		this.periodType = periodType;
 	}
 
+	@Override
 	public Double getDataSum() {
 		return (dataSum == null) ? 0d : dataSum;
 	}
@@ -115,6 +120,7 @@ public class DataminingData implements Serializable {
 		this.dataSum = dataSum;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -141,10 +147,10 @@ public class DataminingData implements Serializable {
 	@Override
 	public boolean equals(Object object) {
 		// TODO: Warning - this method won't work in the case the id fields are not set
-		if (!(object instanceof DataminingData)) {
+		if (!(object instanceof DataminingDataEntity)) {
 			return false;
 		}
-		DataminingData other = (DataminingData) object;
+		DataminingDataEntity other = (DataminingDataEntity) object;
 		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
 			return false;
 		}

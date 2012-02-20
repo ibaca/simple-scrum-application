@@ -42,9 +42,9 @@ public class DataminingListener implements MessageListener {
     public void onMessage(Message message) {
         try {
             Object content = ((ObjectMessage) message).getObject();
-            if (content instanceof DataminingData) {
+            if (content instanceof DataminingDataEntity) {
                 logger.log(FINE, "mensaje recibido: " + content);
-                statisticProcessor.updateDaylyStatistic((DataminingData) content);
+                statisticProcessor.updateDaylyStatistic((DataminingDataEntity) content);
             } else {
                 logger.log(WARNING, "mensaje recibido de tipo desconocido: " + content);
             }
