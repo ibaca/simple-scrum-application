@@ -28,7 +28,8 @@
 							<h:outputLabel for="email" value="email" class="control-label" />  
 							<div class="controls">
 								<p:inputText id="email" required="true" label="id" value="#{userManager.email}" />
-								<h:message for="email" class="help-block"/>
+								<c:if test="#{not facesContext.validationFailed}"><p class="help-block">e.g: demo@mail.com</p></c:if>
+								<h:message for="email" class="help-block" rendered="true" />
 							</div>
 						</div>
 
@@ -36,6 +37,7 @@
 							<h:outputLabel for="password" value="password" class="control-label" /> 
 							<div class="controls">
 								<p:password id="password" required="true" label="password" value="#{userManager.password}" redisplay="true" feedback="false" /> 
+								<c:if test="#{not facesContext.validationFailed}"><p class="help-block">e.g: demo</p></c:if>
 								<h:message for="password" class="help-block"/>
 							</div>
 						</div>
@@ -57,6 +59,14 @@
 				<h:form>
 					<p><h:commandLink value="Crear una cuenta »" action="/signin.jsf" class="btn btn-success" /></p>
 				</h:form>
+				
+				<hr />
+				
+				<h3>Modo desarrollo</h3>
+				<p>Por defecto SSA crea el usuario <code>demo@mail.com</code> con clave 
+					<code>demo</code>. Este usuario contiene algunos datos de ejemplo para poder
+					ver como funciona la aplicación.
+				</p>
 
 			</div>
 
