@@ -4,9 +4,13 @@
  */
 package org.inftel.ssa.web;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -26,7 +30,9 @@ import org.primefaces.model.SortOrder;
  */
 @ManagedBean
 @SessionScoped
-public class TaskManager {
+public class TaskManager implements Serializable {
+	
+	private final static Logger logger = Logger.getLogger(TaskManager.class.getName());
 
     @EJB
     private ResourceService resources;
@@ -36,12 +42,13 @@ public class TaskManager {
     private ProjectManager projectManager;
     private static final long serialVersionUID = 1L;
     private Task currentTask;
-    private LazyDataModel<Project> tasks = new LazyDataModel() {
+    private LazyDataModel<Task> tasks = new LazyDataModel() {
 
         @Override
         public List load(int first, int pageSize, String sortField, org.primefaces.model.SortOrder sortOrder, Map filters) {
-
-            return resources.findTaksBySprint(projectManager.getCurrentProject(), first, pageSize, sortField, sortOrder.equals(SortOrder.ASCENDING), filters);
+			logger.log(Level.INFO,"lazy data model [first={0}, pageSize={1}, sortField={2}, sortOrder={3}, filters={4}",
+					new Object[]{first, pageSize, sortField, sortOrder, filters});
+            return resources.findTaksByProject(projectManager.getCurrentProject(), first, pageSize, sortField, sortOrder.equals(SortOrder.ASCENDING), filters);
 
         }
 
@@ -73,12 +80,14 @@ public class TaskManager {
         this.sprintManager = sprintManager;
     }
 
-    public LazyDataModel<Project> getTasks() {
-        tasks.setRowCount(projectManager.getCurrentProject(true).getTasks().size());
+    public LazyDataModel<Task> getTasks() {
+		int rows = projectManager.getCurrentProject(true).getTasks().size();
+		Logger.getAnonymousLogger().info("row count="+rows);
+        tasks.setRowCount(rows);
         return tasks;
     }
 
-    public void setTasks(LazyDataModel<Project> tasks) {
+    public void setTasks(LazyDataModel<Task> tasks) {
         this.tasks = tasks;
     }
 

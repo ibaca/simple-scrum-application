@@ -55,7 +55,7 @@ a {
 }
 .ui-widget-content a
 {
-    color: #4f4f4f;
+    /* color: #4f4f4f; SSA confilcto bootstrap */
 }
 .ui-widget-header
 {
