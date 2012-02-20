@@ -139,11 +139,10 @@
 				<version>2.0.5</version>
 				<executions>
 					<execution>
-						<id>process</id>
+						<phase>generate-sources</phase>
 						<goals>
 							<goal>process</goal>
 						</goals>
-						<phase>generate-sources</phase>
 						<configuration>
 							<outputDirectory>${project.build.directory}/generated-sources/metamodel</outputDirectory>
 							<compilerArguments>-Aeclipselink.persistencexml=${project.basedir}/src/main/resources/META-INF/persistence.xml</compilerArguments>
