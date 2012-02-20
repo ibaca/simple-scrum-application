@@ -29,13 +29,13 @@ public class DataminingEndOfDayTest {
   @BeforeClass
   public static void setUpClass() throws Exception {
     // Inicializar EntityManager, obtener connection y cargar datos XML
-    emf = Persistence.createEntityManagerFactory("tms-statistic-mocked");
+    emf = Persistence.createEntityManagerFactory("ssa-datamining-test");
     em = emf.createEntityManager();
     connection = new DatabaseConnection(
             ((EntityManagerImpl) (em.getDelegate())).getServerSession().getAccessor().getConnection());
     FlatXmlDataSetBuilder builder = new FlatXmlDataSetBuilder();
     dataset = builder.build(
-            Thread.currentThread().getContextClassLoader().getResourceAsStream("statistics-test-dataset.xml"));
+            Thread.currentThread().getContextClassLoader().getResourceAsStream("datamining-test-dataset.xml"));
     // Todo lo realizado hasta ahora se puede hacer una unica vez para todos los test
   }
 
