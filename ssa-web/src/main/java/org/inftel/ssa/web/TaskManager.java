@@ -117,18 +117,18 @@ public class TaskManager implements Serializable {
     public String save() {
         if (currentTask != null) {
             Project project = projectManager.getCurrentProject();
-            Sprint sprint = sprintManager.getCurrentSprint();
-            currentTask.setSprint(sprint);
             currentTask.setProject(project);
             resources.saveTask(currentTask);
            
         }
-        return "/task/show.xhtml";
+        return "/task/index.xhtml";
     }
 
     public void remove() {
     }
 
-    public void edit() {
+    public String edit() {
+        setCurrentTask(tasks.getRowData());
+        return "/task/create.xhtml";
     }
 }
