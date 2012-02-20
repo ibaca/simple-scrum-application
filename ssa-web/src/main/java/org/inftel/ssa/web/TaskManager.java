@@ -34,8 +34,6 @@ public class TaskManager {
     private SprintManager sprintManager;
     @ManagedProperty(value = "#{projectManager}")
     private ProjectManager projectManager;
-    @ManagedProperty(value = "#{userManager}")
-    private UserManager userManager;
     private static final long serialVersionUID = 1L;
     private Task currentTask;
     private LazyDataModel<Project> tasks = new LazyDataModel() {
@@ -76,7 +74,7 @@ public class TaskManager {
     }
 
     public LazyDataModel<Project> getTasks() {
-        tasks.setRowCount(sprintManager.getCurrentSprint().getTasks().size());
+        tasks.setRowCount(projectManager.getCurrentProject(true).getTasks().size());
         return tasks;
     }
 

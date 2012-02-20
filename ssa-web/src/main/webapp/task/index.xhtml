@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+        <ui:define name="content">
+            <h:form id="frmListTasks">
+                <h:panelGrid columns="3" headerClass="tituloForm" footerClass="footerForm">
+                    <h:outputText value="There is no task" rendered="#{taskManager.tasks.rowCount == 0}" />
+                    <h:dataTable value="#{taskManager.tasks}" var="task"  rendered="#{taskManager.tasks.rowCount > 0}" id="dtTasks">
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#" />
+                            </f:facet>
+                            <h:outputText value="#{taskManager.tasks.rowIndex + 1}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Name" />
+                            </f:facet>
+                            <h:outputText value="#{task.name}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Description"/>
+                            </f:facet>
+                            <h:outputText value="#{task.description}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Created" />
+                            </f:facet>
+                            <h:outputText value="#{task.created}"  />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Started"/>
+                            </f:facet>
+                            <h:outputText value="#{task.started}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Closed" />
+                            </f:facet>
+                            <h:outputText value="#{task.closed}"  />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Actions"/>
+                            </f:facet>
+                            <p:commandButton  action="#{taskManager.edit}" value="Edit" ajax="false" />
+                            <p:commandButton  action="#{taskManager.remove}" value="Remove"  ajax="false" />
+                        </h:column>
+
+                    </h:dataTable>
+                    <h:panelGrid >
+                        <p:commandButton  action="#{taskManager.create}" value="New Task" />
+                    </h:panelGrid>
+                </h:panelGrid>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

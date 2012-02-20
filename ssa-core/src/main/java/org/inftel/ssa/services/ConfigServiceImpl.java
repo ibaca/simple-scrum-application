@@ -116,7 +116,7 @@ public class ConfigServiceImpl {
 			IDatabaseConnection connection = new DatabaseConnection(wrap);
 			FlatXmlDataSetBuilder builder = new FlatXmlDataSetBuilder();
 			IDataSet dataset = builder.build(Thread.currentThread().getContextClassLoader().getResourceAsStream(getDataSet()));
-			DatabaseOperation.INSERT.execute(connection, dataset);
+			DatabaseOperation.CLEAN_INSERT.execute(connection, dataset);
 			logger.info("Datos iniciales XML creados con exito");
 		} catch (Exception e) {
 			logger.log(Level.WARNING, "Fallo mientras se intentaba añadir datos iniciales al modelo", e);

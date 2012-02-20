@@ -28,8 +28,8 @@
 							<h:commandLink value="#{ empty projectManager.currentProject.name ? 'Simple Scrum Application' : projectManager.currentProject.name}" action="/index.jsf" class="brand" />
 							<ul class="nav">
 								<li><h:commandLink value="Home" action="/project/home" /></li>
-								<li><h:commandLink value="Tareas" action="#" /></li>
-								<li><h:commandLink value="Sprints" action="#" /></li>
+								<li><h:commandLink value="Tareas" action="/task/index" /></li>
+								<li><h:commandLink value="Sprints" action="/sprint/index" /></li>
 								<li><h:commandLink value="Administrar" action="/project/edit.xhtml" /></li>
 							</ul>
 							<ul class="nav pull-right">

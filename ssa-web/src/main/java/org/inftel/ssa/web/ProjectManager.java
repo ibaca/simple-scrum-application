@@ -79,6 +79,13 @@ public class ProjectManager implements Serializable {
 	public Project getCurrentProject() {
 		return currentProject;
 	}
+	
+	public Project getCurrentProject(boolean refresh) {
+		if (refresh && currentProject != null && currentProject.getId() != null) {
+			currentProject = resources.findProjects(currentProject.getId());
+		}
+		return getCurrentProject();
+	}
 
 	public void setCurrentProject(Project currentProject) {
 		if (currentProject.getLinks() == null) {

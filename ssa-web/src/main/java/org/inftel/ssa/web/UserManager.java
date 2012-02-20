@@ -34,7 +34,7 @@ import org.inftel.ssa.services.SessionService;
  *
  * @author ibaca
  */
-@ManagedBean
+@ManagedBean(name = "userManager")
 @SessionScoped
 public class UserManager implements Serializable {
 
