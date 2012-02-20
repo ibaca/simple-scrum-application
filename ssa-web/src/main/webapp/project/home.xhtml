@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//h3D XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/h3D/xhtml1-transitional.h3d">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
@@ -9,58 +9,46 @@
     <!--TODO: Poner los links-->
     <ui:composition template="/template.xhtml">
         <ui:define name="content">
-			<h:form>
-				<p:commandLink  action="/project/home.xhtml" style="margin-right:20px;" ajax="false">  
-					<h:outputText value="Sumary" />  
-				</p:commandLink> 
-				<p:commandLink  action="/project/users.xhtml" style="margin-right:20px;" ajax="false" rendered="#{projectManager.currentProject != null}">  
-					<h:outputText value="People" />  
-				</p:commandLink> 
-			</h:form>
-
-
 			<div class="row">
 				<div class="span3">
 					<h:form> 
-						<h4>Información del proyecto</h4>
-						<dl>
-							<dt>Empresa</dt>
-							<dd>#{projectManager.currentProject.company}"</dd>
-							<br />
+						<div class="well" style="padding: 14px 6px;">
+							<ul class="nav nav-list">
+								<li class="nav-header">Empresa</li>
+								<li>#{projectManager.currentProject.company}</li>
 
-							<dt>Licencia</dt>
-							<dd>#{projectManager.currentProject.license}"</dd>
-							<br />
 
-							<dt>Equipo</dt>
-							<ui:repeat value="#{projectManager.currentProject.users.toArray()}" var="user">                              
-								<dd>#{user.nickname}"</dd>
-							</ui:repeat>
-							<br />
+								<li class="nav-header">Licencia</li>
+								<li>#{projectManager.currentProject.license}</li>
 
-							<dt>Tu rol</dt>
-							<dd>#{projectManager.userRole()}"</dd>
-							<br />
 
-							<dt>Links</dt>
-							<c:forEach items="#{projectManager.currentProject.links}" var="entry">                              
-								<dd><a href="#{entry.value}">#{entry.key}"</a></dd>
-							</c:forEach>
-							<br />
-							
-						</dl>
+								<li class="nav-header">Equipo</li>
+								<ui:repeat value="#{projectManager.currentProject.users.toArray()}" var="user">                              
+									<li>#{user.nickname}</li>
+								</ui:repeat>
+								<li><h:commandLink value="Administrar equipo"  action="/project/users.xhtml" ajax="false" rendered="#{projectManager.currentProject != null}" /></li>
+
+								<li class="nav-header">Tu rol</li>
+								<li>#{projectManager.userRole()}</li>
+
+								<li class="nav-header">Links</li>
+								<c:forEach items="#{projectManager.currentProject.links}" var="entry">                              
+									<li><a href="#{entry.value}">#{entry.key}</a></li>
+								</c:forEach>
+							</ul>
+						</div>
 					</h:form>  
 				</div>
 
 				<div class="span9">
 					<h:form>  
-						<h:outputText value="There are currently no project selected" rendered="#{projectManager.currentProject == null}" />
-						<h:panelGrid columns="2" rendered="#{projectManager.currentProject != null}" >
-							<h:outputText value="Sumary:"/>
-							<h:outputText value="#{projectManager.currentProject.summary}"/>
-							<h:outputText value="Description:"/>
-							<h:outputText value="#{projectManager.currentProject.description}"/>
-						</h:panelGrid>
+						<h1>#{projectManager.currentProject.name} <small>#{projectManager.currentProject.summary}</small></h1>
+						<p>
+							<div class="thumbnail"><img src="http://upload.wikimedia.org/wikipedia/commons/5/59/EjemploDeDiagramaBurnDown.png" /></div>
+						</p>
+
+						<h:outputText escape="false" value="#{projectManager.currentProject.description}"/>
+
 					</h:form>  
 				</div>
 			</div>
