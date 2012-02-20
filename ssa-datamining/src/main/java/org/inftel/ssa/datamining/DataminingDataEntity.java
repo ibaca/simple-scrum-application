@@ -67,7 +67,6 @@ public class DataminingDataEntity implements Serializable, DataminingData {
 		this.dataCount = count; // Salta la restriccion de valores negativos o nulos
 	}
 
-	@Override
 	public BigDecimal getDataValue() {
 		if (dataSum == null) {
 			// Si sum es null se devuelve el valor del contador
@@ -80,7 +79,6 @@ public class DataminingDataEntity implements Serializable, DataminingData {
 		}
 	}
 
-	@Override
 	public Long getDataCount() {
 		return (dataCount == null) ? 0l : dataCount;
 	}
@@ -93,7 +91,6 @@ public class DataminingDataEntity implements Serializable, DataminingData {
 		this.dataCount = dataCount;
 	}
 
-	@Override
 	public Date getPeriodDate() {
 		return periodDate;
 	}
@@ -102,7 +99,6 @@ public class DataminingDataEntity implements Serializable, DataminingData {
 		this.periodDate = periodDate;
 	}
 
-	@Override
 	public DataminingDataPeriod getPeriodType() {
 		return periodType;
 	}
@@ -111,7 +107,6 @@ public class DataminingDataEntity implements Serializable, DataminingData {
 		this.periodType = periodType;
 	}
 
-	@Override
 	public Double getDataSum() {
 		return (dataSum == null) ? 0d : dataSum;
 	}
@@ -120,7 +115,6 @@ public class DataminingDataEntity implements Serializable, DataminingData {
 		this.dataSum = dataSum;
 	}
 
-	@Override
 	public String getName() {
 		return name;
 	}
