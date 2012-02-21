@@ -13,8 +13,8 @@
                 <h:panelGrid columns="2">
 
                     <h:outputText value="There is no sprint"  rendered="#{sprintManager.sprints.rowCount eq 0}" />
-                    <p:dataTable id="basic" var="sprint" value="#{sprintManager.sprints}" paginator="true"
-                                 rows="5" rendered="#{sprintManager.sprints.rowCount > 0}">
+                    <p:dataTable id="dtSprints" var="sprint" value="#{sprintManager.sprints}" paginator="true"
+                                 paginatorPosition="bottom" rows="25" rendered="#{sprintManager.sprints.rowCount > 0}">
 
                         <p:column>
                             <f:facet name="header">
@@ -24,7 +24,7 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Nombre}" />
+                                <h:outputText value="Nombre" />
                             </f:facet>
                             <h:outputText value="#{sprint.id}" />
                         </p:column>
@@ -52,16 +52,13 @@
                             <f:facet name="header">
                                 <h:outputText value="Actions"/>
                             </f:facet>
-                            <h:commandButton  action="/sprint/show.xhtml" value="Edit"  />
-                            <h:commandButton  action="#{sprintManager.remove}" value="Delete" 
-                                              onclick="jsf.ajax.request(this, event, {execute: 'fSprint', render: 'fSprint'}); return false;" />
-                            <h:commandButton styleClass="botaoPostIt" action="/sprint/show.xhtml" value="Dashboard"  />
-                            <h:commandButton styleClass="botaoPostIt" action="/sprint/show.xhtml" value="Show"  />
+                            <p:commandLink  action="#{sprintManager.edit}" value="Edit" ajax="false" styleClass="btn" />&nbsp;
+                            <p:commandLink  action="#{sprintManager.remove}" value="Remove"  ajax="false" styleClass="btn btn-danger" />&nbsp;
+                            <p:commandLink  action="#" value="Dashboard" styleClass="btn" />
                         </p:column>
                     </p:dataTable>
                 </h:panelGrid>                
-                <h:commandButton  action="#{sprintManager.create}" value="New sprint" />
-                <h:commandButton  action="/project/show.xhtml" value="Projects" />
+                <p:commandButton  action="#{sprintManager.create}" value="New sprint" ajax="false" styleClass="btn"/>
             </h:form>
 
         </ui:define>

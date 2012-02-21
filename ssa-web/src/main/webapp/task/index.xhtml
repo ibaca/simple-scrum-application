@@ -35,6 +35,12 @@
 						</f:facet>
 						<h:outputText value="#{task.description}"/>
 					</p:column>
+                                        <p:column>
+						<f:facet name="header">
+							<h:outputText value="Priority" />
+						</f:facet>
+                                            <h:outputText value="#{task.priority}"  />
+					</p:column>
 					<p:column>
 						<f:facet name="header">
 							<h:outputText value="Created" />

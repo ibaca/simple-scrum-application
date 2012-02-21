@@ -6,38 +6,38 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 
     <!--  -->
     <ui:composition template="/template.xhtml">       
         <ui:define name="content">
             <h:form id="fProjects">
-                <p:panel header="Project Metadata">
-                    <h:panelGrid columns="1" >
-                        <h:outputText value="Sumary:"/>
-                        <p:inputText id="idSumary" value="#{projectManager.currentProject.summary}" required="true"/>
-                        <p:message for="idSumary"/>
-                        <h:outputText value="Description:"/>
-                        <p:editor id="idEditor" value="#{projectManager.currentProject.description}" width="600" required="true"/>
-                        <p:message for="idEditor"/>
-                    </h:panelGrid>  
-                </p:panel>
-                <p:panel header="Link">
-                    <p:dataTable value="#{projectManager.currentProject.links.keySet()}" var="key" >                        
+                <p>
+                    <h:outputText value="Sumary: "/>
+                    <p:inputText id="idSumary" value="#{projectManager.currentProject.summary}" required="true"/>
+                    <p:message for="idSumary"/>
+                    <h:outputText value="Description: "/>
+                    <p:editor id="idEditor" value="#{projectManager.currentProject.description}" width="600" required="true"/>
+                    <p:message for="idEditor"/>
+                </p>
+                <p>
+                    <c:forEach items="#{projectManager.currentProject.links}" var="entry"> 
                         <h:panelGrid columns="2">
                             <h:outputText value="Name:"/>
                             <h:outputText value="Link:"/>
-                            <p:inputText value="#{key}"/>                            
-                            <p:inputText value="#{projectManager.currentProject.links.get(key)}"/>
-                        </h:panelGrid>                            
-                    </p:dataTable>                    
-<!--                    <p:commandButton value="Add row" action="#{projectManager.addLink}"/>-->                    
-                </p:panel>
-                <h:panelGrid columns="2">
+                            <p:inputText value="#{entry.key}"/>                            
+                            <p:inputText value="#{entry.value}"/>
+                        </h:panelGrid>
+                    </c:forEach>
+                </p>    
+                <p/>
+                <p>
+                    <p:commandButton value="Add Link" action="#{projectManager.addLink()}" ajax="false" />&nbsp;
                     <p:commandButton value="Save" action="#{projectManager.save}" ajax="false"/>
-                    <p:commandButton value="Cancel" action="/project/show.xhtml" ajax="false"/>
-                </h:panelGrid>
+                    
+                </p>
             </h:form>
         </ui:define>
     </ui:composition>

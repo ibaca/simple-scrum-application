@@ -89,14 +89,10 @@ public class SprintManager implements Serializable{
     public void setCurrentSprint(Sprint currentSprint) {
         this.currentSprint = currentSprint;
     }
-    public String showMedicos(){
-        setCurrentSprint(sprints.getRowData());
-        return "/sprint/show.xhtml";
-    }
     public String remove(){
-        Sprint currentSprint =sprints.getRowData();
+        Sprint currentSprint =sprints.getRowData();        
         //Remover currentSprint;        
-        return "/sprint/show.xhtml";
+        return "/sprint/index.xhtml";
     }
     public String create(){
         Sprint sprint = new Sprint();
@@ -108,7 +104,7 @@ public class SprintManager implements Serializable{
             currentSprint.setProject(projectManager.getCurrentProject());
             resources.saveSprint(currentSprint);
         }
-        return "/sprint/show.xhtml";
+        return "/sprint/index.xhtml";
     }
 
     public ProjectManager getProjectManager() {
@@ -117,6 +113,9 @@ public class SprintManager implements Serializable{
 
     public void setProjectManager(ProjectManager projectManager) {
         this.projectManager = projectManager;
+    }
+    public void edit(){
+        
     }
     
 }
