@@ -1,62 +1,57 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//h3D XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/h3D/xhtml1-transitional.h3d">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
-
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <!--TODO: Poner los links-->
     <ui:composition template="/template.xhtml">
         <ui:define name="content">
-            <h:form id="fProjects">
-                <h:outputText value="There is no project" rendered="#{projectManager.projects.rowCount == 0}" />
-                <p:dataTable id="basic" var="project" value="#{projectManager.projects}" paginator="true"
-                             rows="5" rendered="#{projectManager.projects.rowCount > 0}">
+			<div class="row">
+				<div class="span3">
+					<h:form> 
+						<div class="well" style="padding: 14px 6px;">
+							<ul class="nav nav-list">
+								<li class="nav-header">Empresa</li>
+								<li>#{projectManager.currentProject.company}</li>
 
-                    <p:column>
-                        <f:facet name="header"><h:outputText value="#" /></f:facet>
-                        <h:outputText value="#{projectManager.projects.rowIndex + 1}" />
-                    </p:column>
 
-                    <p:column>
-                        <f:facet name="header">
-                            Name:
-                        </f:facet>
-                        <h:outputText value="#{project.name}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            Description:
-                        </f:facet>
-                        <h:outputText value="#{project.description}" />
-                    </p:column>
+								<li class="nav-header">Licencia</li>
+								<li>#{projectManager.currentProject.license}</li>
 
-<!--                    <p:column>
-                        <f:facet name="header">
-                            Start date:
-                        </f:facet>
-                        <h:outputText value="#{project.startDate}" />
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            Finish date:
-                        </f:facet>
-                        <h:outputText value="#{project.finishDate}" />
-                    </p:column>-->
-                    <p:column>
-                        <f:facet name="header">
-                            Actions
-                        </f:facet>                        
-                        <p:commandButton  action="#{projectManager.showSprints}" value="Sprint" ajax="false"/>
-                        <p:commandButton  action="#{projectManager.edit}" value="Edit"  ajax="false"/>
-                        <p:commandButton  action="#{projectManager.remove}" value="Delete" 
-                                          onclick="jsf.ajax.request(this, event, {execute: 'fProjects', render: 'fProjects'}); return false;" ajax="false"/>
-                    </p:column>
-                </p:dataTable>
-                <p:column>
-                    <h:commandButton  action="#{projectManager.create}" value="New project"  />
-                </p:column>
-            </h:form>
+
+								<li class="nav-header">Equipo</li>
+								<ui:repeat value="#{projectManager.currentProject.users.toArray()}" var="user">                              
+									<li>#{user.nickname}</li>
+								</ui:repeat>
+								<li><h:commandLink value="Administrar equipo"  action="/project/users.xhtml" ajax="false" rendered="#{projectManager.currentProject != null}" /></li>
+
+								<li class="nav-header">Tu rol</li>
+								<li>#{projectManager.userRole()}</li>
+
+								<li class="nav-header">Links</li>
+								<c:forEach items="#{projectManager.currentProject.links}" var="entry">                              
+									<li><a href="#{entry.value}">#{entry.key}</a></li>
+								</c:forEach>
+							</ul>
+						</div>
+					</h:form>  
+				</div>
+
+				<div class="span9">
+					<h:form>  
+						<h1>#{projectManager.currentProject.name} <small>#{projectManager.currentProject.summary}</small></h1>
+						<p>
+							<div class="thumbnail"><img src="http://upload.wikimedia.org/wikipedia/commons/5/59/EjemploDeDiagramaBurnDown.png" /></div>
+						</p>
+
+						<h:outputText escape="false" value="#{projectManager.currentProject.description}"/>
+
+					</h:form>  
+				</div>
+			</div>
         </ui:define>
     </ui:composition>
 </html>

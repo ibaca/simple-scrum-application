@@ -29,7 +29,7 @@
 							<div class="controls">
 								<p:inputText id="email" required="true" label="id" value="#{userManager.email}" />
 								<c:if test="#{not facesContext.validationFailed}"><p class="help-block">e.g: demo@mail.com</p></c:if>
-								<h:message for="email" class="help-block" rendered="true" />
+								<h:message for="email" class="help-block" />
 							</div>
 						</div>
 
@@ -57,7 +57,7 @@
 					para la gestión de proyectos Scrum, no lo dejes para mañana! date de alta ahora mismo.
 				</p>
 				<h:form>
-					<p><h:commandLink value="Crear una cuenta »" action="/signin.jsf" class="btn btn-success" /></p>
+					<p><h:link value="Crear una cuenta »" outcome="/signin" class="btn btn-success" /></p>
 				</h:form>
 				
 				<hr />

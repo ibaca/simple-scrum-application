@@ -1,6 +1,12 @@
 package org.inftel.ssa.services;
 
+import java.util.List;
+import java.util.Map;
 import javax.ejb.Local;
+import org.inftel.ssa.domain.Project;
+import org.inftel.ssa.domain.Sprint;
+import org.inftel.ssa.domain.Task;
+import org.inftel.ssa.domain.User;
 
 /**
  *
@@ -9,26 +15,26 @@ import javax.ejb.Local;
 @Local
 public interface ResourceService {
 
-	public org.inftel.ssa.domain.Project findProjects(java.lang.Long id);
-
-	public java.util.List<org.inftel.ssa.domain.Project> findProjects(java.lang.Integer startPosition, java.lang.Integer maxResult, java.lang.String sortField, java.lang.Boolean ascOrder, java.util.Map<java.lang.String, java.lang.String> filters);
-
-	public void saveProject(org.inftel.ssa.domain.Project project);
+	public Project saveProject(Project project);
 	
-	public void saveSprint(org.inftel.ssa.domain.Sprint sprint);
+	public Sprint saveSprint(Sprint sprint);
 	
-	public void saveTask(org.inftel.ssa.domain.Task task);
+	public Task saveTask(Task task);
 
-	public void removeProject(org.inftel.ssa.domain.Project project);
+	public void removeProject(Project project);
 
 	public int countProjects();
+	
+	public Project findProjects(Long id);
+	
+	public List<Project> findProjects(Integer startPosition, Integer maxResult, String sortField, Boolean ascOrder, Map<String, String> filters);
 
-	public java.util.List<org.inftel.ssa.domain.Task> findTaksByProject(org.inftel.ssa.domain.Project project, java.lang.Integer startPosition, java.lang.Integer maxResult, java.lang.String sortField, java.lang.Boolean ascOrder, java.util.Map<java.lang.String, java.lang.String> filters);
+	public List<Task> findTaksByProject(Project project, Integer startPosition, Integer maxResult, String sortField, Boolean ascOrder, Map<String, String> filters);
 
-	public java.util.List<org.inftel.ssa.domain.Task> findTaksBySprint(org.inftel.ssa.domain.Project project, java.lang.Integer startPosition, java.lang.Integer maxResult, java.lang.String sortField, java.lang.Boolean ascOrder, java.util.Map<java.lang.String, java.lang.String> filters);
+	public List<Task> findTaksBySprint(Project project, Integer startPosition, Integer maxResult, String sortField, Boolean ascOrder, Map<String, String> filters);
 
-	public java.util.List<org.inftel.ssa.domain.Task> findTaksByUser(org.inftel.ssa.domain.User user, java.lang.Integer startPosition, java.lang.Integer maxResult, java.lang.String sortField, java.lang.Boolean ascOrder, java.util.Map<java.lang.String, java.lang.String> filters);
+	public List<Task> findTaksByUser(User user, Integer startPosition, Integer maxResult, String sortField, Boolean ascOrder, Map<String, String> filters);
 
-	public java.util.List<org.inftel.ssa.domain.Sprint> findSprintsByProject(org.inftel.ssa.domain.Project project, java.lang.Integer startPosition, java.lang.Integer maxResult, java.lang.String sortField, java.lang.Boolean ascOrder, java.util.Map<java.lang.String, java.lang.String> filters);
+	public List<Sprint> findSprintsByProject(Project project, Integer startPosition, Integer maxResult, String sortField, Boolean ascOrder, Map<String, String> filters);
 
 }

@@ -1,26 +1,64 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:c="http://java.sun.com/jsp/jstl/core"
+				template="/template.xhtml">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="content">
-            <h:form id="createProjectForm">
-                <h:panelGrid columns="1">
-                    <h:panelGroup>
-                        <ui:include src="/project/form.xhtml"/>
-                    </h:panelGroup>
-                    <h:panelGroup>
-                        <h:commandButton  action="#{projectManager.save}" value="Create"/>
-                        <h:commandButton action="/project/show.xhtml" value="Cancel"  immediate="true" />
-                    </h:panelGroup>
-                </h:panelGrid>
-            </h:form>
 
-        </ui:define>
-    </ui:composition>
-</html>
+	<ui:define name="content">
+		<div class="row">
+			<div class="span8">
+				<h:form class="form-horizontal">
+					<fieldset>
+						<legend>Nuevo proyecto</legend>
+
+						<div class="control-group">
+							<h:outputLabel for="summary" value="Resumen" class="control-label" />
+							<div class="controls">
+								<h:inputText id="summary" required="true" label="summary" value="#{projectManager.createProject.name}" />
+								<h:message for="summary" class="help-block" />
+							</div>
+						</div>
+
+						<div class="control-group">
+							<h:outputLabel for="description" value="Descripcion" class="control-label" />
+							<div class="controls">
+								<p:editor id="description" value="#{projectManager.createProject.description}" />
+								<h:message for="description" class="help-block" />
+							</div>
+						</div>
+
+						<div class="control-group">
+							<h:outputLabel for="license" value="Licencia del codigo:" class="control-label" />  
+							<div class="controls">
+								<p:selectOneMenu id="license" required="true" value="#{projectManager.createProject.license}">  
+									<f:selectItem itemLabel="Select a license..." noSelectionOption="true" />  
+									<f:selectItem itemLabel="Apache License 2.0" itemValue="Apache License 2.0"  />  
+									<f:selectItem itemLabel="Artistic License/GPL" itemValue="Artistic License/GPL" />  
+									<f:selectItem itemLabel="Eclipse Public License 1.0" itemValue="Eclipse Public License 1.0" />
+									<f:selectItem itemLabel="GNU GPL v2" itemValue="GNU GPL v2" />
+									<f:selectItem itemLabel="GNU GPL v3" itemValue="GNU GPL v3" />
+									<f:selectItem itemLabel="GNU Lesser GPL" itemValue="GNU Lesser GPL" />
+									<f:selectItem itemLabel="MIT License" itemValue="MIT License" />
+									<f:selectItem itemLabel="Mozilla Public License 1.1" itemValue="Mozilla Public License 1.1" />
+									<f:selectItem itemLabel="New BSD License" itemValue="New BSD License"  />
+									<f:selectItem itemLabel="Other Open Source" itemValue="Other Open Source" />
+								</p:selectOneMenu>  
+								<h:message for="license" class="help-block" /> 
+							</div>
+						</div>
+
+						<div class="form-actions">
+							<p:commandButton value="Crear nuevo proyecto" update="@form" action="#{projectManager.createSave()}" styleClass="btn btn-success" />&nbsp;
+							<p:commandButton value="Cancelar" type="reset" update="@form" styleClass="btn" />
+						</div>
+					</fieldset>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

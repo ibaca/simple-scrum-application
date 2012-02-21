@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import org.inftel.ssa.domain.*;
 
 /**
@@ -16,12 +18,12 @@ public class ResourceServiceImpl implements ResourceService {
 
 	@EJB
 	private ProjectFacade projects;
-	
 	@EJB
 	private TaskFacade tasks;
-	
 	@EJB
 	private SprintFacade sprints;
+	@PersistenceContext(unitName = "ssa-persistence-unit")
+	private EntityManager em;
 
 	@Override
 	public Project findProjects(Long id) {
@@ -34,29 +36,32 @@ public class ResourceServiceImpl implements ResourceService {
 	}
 
 	@Override
-	public void saveProject(Project project) {
+	public Project saveProject(Project project) {
 		if (project.isNew()) {
 			projects.create(project);
+			return project;
 		} else {
-			projects.edit(project);
+			return projects.edit(project);
 		}
 	}
-	
+
 	@Override
-	public void saveSprint(Sprint sprint) {
+	public Sprint saveSprint(Sprint sprint) {
 		if (sprint.isNew()) {
 			sprints.create(sprint);
+			return sprint;
 		} else {
-			sprints.edit(sprint);
+			return sprints.edit(sprint);
 		}
 	}
-	
+
 	@Override
-	public void saveTask(Task task) {
+	public Task saveTask(Task task) {
 		if (task.isNew()) {
 			tasks.create(task);
+			return task;
 		} else {
-			tasks.edit(task);
+			return tasks.edit(task);
 		}
 	}
 
@@ -69,7 +74,7 @@ public class ResourceServiceImpl implements ResourceService {
 	public int countProjects() {
 		return projects.count();
 	}
-	
+
 	@Override
 	public List<Task> findTaksByProject(Project project, Integer startPosition, Integer maxResult, String sortField, Boolean ascOrder, Map<String, String> filters) {
 		if (filters == null) {
@@ -78,7 +83,7 @@ public class ResourceServiceImpl implements ResourceService {
 		filters.put("project.id", project.getId().toString());
 		return tasks.find(startPosition, maxResult, sortField, ascOrder, filters);
 	}
-	
+
 	@Override
 	public List<Task> findTaksBySprint(Project project, Integer startPosition, Integer maxResult, String sortField, Boolean ascOrder, Map<String, String> filters) {
 		if (filters == null) {
@@ -87,7 +92,7 @@ public class ResourceServiceImpl implements ResourceService {
 		filters.put("sprint.id", project.getId().toString());
 		return tasks.find(startPosition, maxResult, sortField, ascOrder, filters);
 	}
-	
+
 	@Override
 	public List<Task> findTaksByUser(User user, Integer startPosition, Integer maxResult, String sortField, Boolean ascOrder, Map<String, String> filters) {
 		if (filters == null) {
@@ -96,7 +101,7 @@ public class ResourceServiceImpl implements ResourceService {
 		filters.put("user.id", user.getId().toString());
 		return tasks.find(startPosition, maxResult, sortField, ascOrder, filters);
 	}
-	
+
 	@Override
 	public List<Sprint> findSprintsByProject(Project project, Integer startPosition, Integer maxResult, String sortField, Boolean ascOrder, Map<String, String> filters) {
 		if (filters == null) {

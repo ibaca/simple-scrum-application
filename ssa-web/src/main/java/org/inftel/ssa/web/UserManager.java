@@ -9,7 +9,6 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.apache.shiro.SecurityUtils;
@@ -34,7 +33,7 @@ import org.inftel.ssa.services.SessionService;
  *
  * @author ibaca
  */
-@ManagedBean(name = "userManager")
+@ManagedBean
 @SessionScoped
 public class UserManager implements Serializable {
 
@@ -46,18 +45,17 @@ public class UserManager implements Serializable {
 	private String email;
 	private String password;
 	// usuario usado para dar de alta
-	private User signinUser;
+	private transient User signinUser;
 
 	public UserManager() {
 		logger.info("new user session created");
-		signinUser = new User();
 	}
 
 	/**
 	 * Devolvera cierto si actualmente hay un usuario autenticado.
 	 */
 	public boolean isAuthenticated() {
-		return getCurrentUser() != null;
+		return getCurrentUser() != null && getCurrentUser().getId() != null;
 	}
 
 	// No es buena idea mantener currentUser, pero si se hace se debe ir actualizando refrescando
@@ -66,23 +64,23 @@ public class UserManager implements Serializable {
 		if ((subject = SecurityUtils.getSubject()).isAuthenticated()) {
 			return sessionService.findUser(subject.getPrincipal());
 		} else {
-			return null;
+			return new User();
 		}
 	}
 
 	public String login() {
 		Subject current = SecurityUtils.getSubject();
 		FacesContext context = FacesContext.getCurrentInstance();
-		Set<Project> tmpProjects = null;
+		Set<Project> tmpProjects;
 
-		logger.info("usuario actual authenticated? " + current.isAuthenticated());
+		logger.log(Level.INFO, "usuario actual authenticated? {0}", current.isAuthenticated());
 		if (!current.isAuthenticated()) {
 			UsernamePasswordToken token = new UsernamePasswordToken(email, password);
 			//token.setRememberMe(true);
 			try {
 				current.login(token);
 				//if no exception, that's it, we're done!
-				logger.info("user " + email + " autenticated");
+				logger.log(Level.INFO, "user {0} autenticated", email);
 				this.email = "";
 				this.password = "";
 			} catch (UnknownAccountException uae) {
@@ -111,7 +109,7 @@ public class UserManager implements Serializable {
 			// TODO mostrar el ultimo proyecto visitado
 			ProjectManager projectManager = (ProjectManager) context.getELContext().getELResolver().getValue(context.getELContext(), null, "projectManager");
 			projectManager.setCurrentProject(tmpProjects.iterator().next());
-			return "project/home?faces-redirect=true";
+			return "project/show?faces-redirect=true";
 		}
 	}
 
@@ -127,7 +125,7 @@ public class UserManager implements Serializable {
 	public String signin() {
 		try {
 			sessionService.saveUser(signinUser);
-			logger.info("usuario " + signinUser + " registrdo");
+			logger.log(Level.INFO, "usuario {0} registrdo", signinUser);
 			// Se hace login del usuario recien creado
 			this.email = signinUser.getEmail();
 			this.password = signinUser.getPassword();
@@ -144,10 +142,10 @@ public class UserManager implements Serializable {
 	}
 
 	public String logout() {
-		logger.info("desconectando usuario " + getCurrentUser());
+		logger.log(Level.INFO, "desconectando usuario {0}", getCurrentUser());
 		SecurityUtils.getSubject().logout();
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		return "/login.jsp?faces-redirect=true";
+		return "/index?faces-redirect=true";
 	}
 
 	public String loginReset() {
@@ -178,7 +176,7 @@ public class UserManager implements Serializable {
 	}
 
 	public User getSigninUser() {
-		return signinUser;
+		return (signinUser == null) ? signinUser = new User() : signinUser;
 	}
 
 	public void setSigninUser(User signinUser) {

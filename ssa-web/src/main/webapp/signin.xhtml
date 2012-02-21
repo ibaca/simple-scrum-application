@@ -18,18 +18,17 @@
 
     <ui:define name="content">
 		<div class="row">
-			<div class="span12">
+			<div class="span8">
 				<h:form class="form-horizontal"> 
 					<fieldset>
 
 						<legend>Crea tu cuenta de S.S.A.</legend>
 
-
 						<div class="control-group"> 							
 							<h:outputLabel for="email" value="E-mail" class="control-label" />  
 							<div class="controls">
 								<p:inputText id="email" required="true" label="email" value="#{userManager.signinUser.email}" />  
-								<h:message for="email" class="help-inline" />
+								<h:message for="email" class="help-block" />
 							</div>
 						</div>
 
@@ -37,7 +36,7 @@
 							<h:outputLabel for="password" value="Password" class="control-label" />  
 							<div class="controls">
 								<p:password  id ="password" required="true" label="password" value="#{userManager.signinUser.password}" />
-								<h:message for="password" class="help-inline" />
+								<h:message for="password" class="help-block" />
 							</div>
 						</div>
 
@@ -47,7 +46,7 @@
 								<p:inputText id="fullName" required="true" label="fullName"  value="#{userManager.signinUser.fullName}" >  
 									<f:validateLength minimum="2" />  
 								</p:inputText>  
-								<h:message for="fullName" class="help-inline" /> 
+								<h:message for="fullName" class="help-block" /> 
 							</div>
 						</div>
 
@@ -55,7 +54,7 @@
 							<h:outputLabel for="nickname" value="Apodo" class="control-label" />  
 							<div class="controls">
 								<p:inputText id="nickname" required="true" label="nickname"  value="#{userManager.signinUser.nickname}" />  
-								<h:message for="nickname"  class="help-inline" /> 
+								<h:message for="nickname"  class="help-block" /> 
 							</div>
 						</div>
 
@@ -63,16 +62,35 @@
 							<h:outputLabel for="company" value="Empresa" class="control-label" />  
 							<div class="controls">
 								<p:inputText id="company" required="true" label="company"  value="#{userManager.signinUser.company}" />  
-								<h:message for="company"  class="help-inline" />
+								<h:message for="company"  class="help-block" />
 							</div>
 						</div>
 
 						<div class="form-actions">
-							<p:commandButton value="Registrar nuevo usuario" update="@form,:growl" action="#{userManager.signin}" styleClass="btn btn-primary" />&nbsp;
+							<p:commandButton value="Registrar nuevo usuario" update="@form,:growl" action="#{userManager.signin}" styleClass="btn btn-success" />&nbsp;
 							<p:commandButton value="Cancelar" type="reset" update="@form" action="#{userManager.signinReset()}" styleClass="btn" />
 						</div>
 					</fieldset>
 				</h:form>
+			</div>
+			
+			<div class="span4">
+				<h3>¿Ya estas dado de alta?</h3>
+				<p>Accede con tu cuenta SSA al sistema, y empieza a gestionar tus proyectos o 
+					crea nuevos proyectos Scrum.
+				</p>
+				<h:form>
+					<p><h:link value="Accede a tu cuenta »" outcome="/login" class="btn btn-primary" /></p>
+				</h:form>
+				
+				<hr />
+				
+				<h3>Modo desarrollo</h3>
+				<p>Por defecto SSA crea el usuario <code>demo@mail.com</code> con clave 
+					<code>demo</code>. Este usuario contiene algunos datos de ejemplo para poder
+					ver como funciona la aplicación.
+				</p>
+
 			</div>
 		</div>
 

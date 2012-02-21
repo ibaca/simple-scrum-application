@@ -46,8 +46,8 @@
                             <h:outputLabel for="license" value="Source code license:" class="control-label" />  
                             <div class="controls">
                                 <p:selectOneMenu id="license" required="true" value="#{projectManager.currentProject.license}">  
-                                    <f:selectItem itemLabel="Select a license..." itemValue="" />  
-                                    <f:selectItem itemLabel="Apache License 2.0" itemValue="Apache License 2.0" />  
+                                    <f:selectItem itemLabel="Select a license..." noSelectionOption="true" />  
+                                    <f:selectItem itemLabel="Apache License 2.0" itemValue="Apache License 2.0"  />  
                                     <f:selectItem itemLabel="Artistic License/GPL" itemValue="Artistic License/GPL" />  
                                     <f:selectItem itemLabel="Eclipse Public License 1.0" itemValue="Eclipse Public License 1.0" />
                                     <f:selectItem itemLabel="GNU GPL v2" itemValue="GNU GPL v2" />

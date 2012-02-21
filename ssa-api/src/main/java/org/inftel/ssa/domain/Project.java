@@ -2,6 +2,7 @@ package org.inftel.ssa.domain;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -57,7 +58,7 @@ public class Project extends BaseEntity {
 	}
 
 	public Set<String> getLabels() {
-		return labels;
+		return (labels == null) ? labels = new HashSet<String>(0) : labels;
 	}
 
 	public void setLabels(Set<String> labels) {
@@ -97,7 +98,7 @@ public class Project extends BaseEntity {
 	}
 
 	public Map<String, String> getLinks() {
-		return links;
+		return (links == null) ? links = new HashMap<String, String>(0) : links;
 	}
 
 	public void setLinks(Map<String, String> links) {
@@ -136,7 +137,7 @@ public class Project extends BaseEntity {
 		this.started = started;
 	}
 
-	public List<Task> getTasks() { 
+	public List<Task> getTasks() {
 		return (tasks == null) ? tasks = new ArrayList<Task>(0) : tasks;
 	}
 

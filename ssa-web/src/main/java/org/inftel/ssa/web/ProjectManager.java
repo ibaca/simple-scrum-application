@@ -1,11 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.inftel.ssa.web;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -13,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.apache.commons.lang3.StringUtils;
 import org.inftel.ssa.domain.Project;
 import org.inftel.ssa.domain.User;
 import org.inftel.ssa.services.ResourceService;
@@ -28,163 +27,263 @@ import org.primefaces.model.SortOrder;
 @SessionScoped
 public class ProjectManager implements Serializable {
 
-    @EJB
-    private SessionService sessionService;
-    @EJB
-    private ResourceService resources;
-    @ManagedProperty(value = "#{userManager}")
-    private UserManager userManager;
-    private static final long serialVersionUID = 1L;
-    private Project currentProject;
-    private User selectedUser;
-    private LazyDataModel<Project> projects = new LazyDataModel() {
+	private final static Logger logger = Logger.getLogger(ProjectManager.class.getName());
+	@EJB
+	private SessionService sessionService;
+	@EJB
+	private ResourceService resources;
+	@ManagedProperty(value = "#{userManager}")
+	private UserManager userManager;
+	private static final long serialVersionUID = 1L;
+	private Project currentProject;
+	private User selectedUser;
+	private Project createProject;
+	private LazyDataModel<Project> projects = new LazyDataModel() {
 
-        @Override
-        public List load(int first, int pageSize, String sortField, org.primefaces.model.SortOrder sortOrder, Map filters) {
-            filters.put("users.id", userManager.getCurrentUser().getId().toString()); //TODO mover esto a resources
-            return resources.findProjects(first, pageSize, sortField, sortOrder.equals(SortOrder.ASCENDING), filters);
-        }
+		@Override
+		public List load(int first, int pageSize, String sortField, org.primefaces.model.SortOrder sortOrder, Map filters) {
+			filters.put("users.id", userManager.getCurrentUser().getId().toString()); //TODO mover esto a resources
+			return resources.findProjects(first, pageSize, sortField, sortOrder.equals(SortOrder.ASCENDING), filters);
+		}
 
-        @Override
-        public void setRowIndex(int rowIndex) {
-            /*
-             * The following is in ancestor (LazyDataModel): this.rowIndex =
-             * rowIndex == -1 ? rowIndex : (rowIndex % pageSize);
-             */
-            if (rowIndex == -1 || getPageSize() == 0) {
-                super.setRowIndex(-1);
-            } else {
-                super.setRowIndex(rowIndex);
-            }
-        }
-    };
+		@Override
+		public void setRowIndex(int rowIndex) {
+			/*
+			 * The following is in ancestor (LazyDataModel): this.rowIndex = rowIndex == -1 ?
+			 * rowIndex : (rowIndex % pageSize);
+			 */
+			if (rowIndex == -1 || getPageSize() == 0) {
+				super.setRowIndex(-1);
+			} else {
+				super.setRowIndex(rowIndex);
+			}
+		}
+	};
 
-    public ProjectManager() {
-    }
+	public ProjectManager() {
+	}
 
-    @PostConstruct
-    public void initialize() {
-        this.currentProject = new Project();
-    }
+	@PostConstruct
+	public void initialize() {
+		this.currentProject = new Project();
+	}
 
-    public LazyDataModel<Project> getProjects() {
-        projects.setRowCount(resources.countProjects());
-        return projects;
-    }
+	public LazyDataModel<Project> getProjects() {
+		projects.setRowCount(resources.countProjects());
+		return projects;
+	}
 
-    public void setProjects(LazyDataModel<Project> projects) {
-        this.projects = projects;
-    }
+	public void setProjects(LazyDataModel<Project> projects) {
+		this.projects = projects;
+	}
 
-    public Project getCurrentProject() {
-        return currentProject;
-    }
+	public Project getCurrentProject() {
+		return currentProject;
+	}
 
-    public Project getCurrentProject(boolean refresh) {
-        if (refresh && currentProject != null && currentProject.getId() != null) {
-            currentProject = resources.findProjects(currentProject.getId());
-        }
-        return getCurrentProject();
-    }
+	public Project getCurrentProject(boolean refresh) {
+		if (refresh && currentProject != null && currentProject.getId() != null) {
+			currentProject = resources.findProjects(currentProject.getId());
+		}
+		return getCurrentProject();
+	}
 
-    public void setCurrentProject(Project currentProject) {
-        if (currentProject.getLinks() == null) {
-            currentProject.setLinks(Collections.<String, String>emptyMap());
-        }
-        this.currentProject = currentProject;
-    }
+	public void setCurrentProject(Project currentProject) {
+		if (currentProject.getLinks() == null) {
+			currentProject.setLinks(Collections.<String, String>emptyMap());
+		}
+		this.editableLinks = null;
+		this.currentProject = currentProject;
+	}
 
-    public String changeCurrentProject(Project newProject) {
-        setCurrentProject(newProject);
-        return "/project/home.xhtml";
-    }
+	public String changeCurrentProject(Project newProject) {
+		setCurrentProject(resources.findProjects(newProject.getId()));
+		return "/project/show";
+	}
 
-    public String showSprints() {
-        setCurrentProject(projects.getRowData());
-        return "/sprint/show.xhtml";
-    }
+	public String showSprints() {
+		setCurrentProject(projects.getRowData());
+		return "/sprint/show";
+	}
 
-    public String remove() {
-        Project project = projects.getRowData();
-        resources.removeProject(project);
-        return "/project/show.xhtml";
-    }
+	public String remove() {
+		Project project = projects.getRowData();
+		resources.removeProject(project);
+		return "/project/show";
+	}
 
-    public String create() {
-        Project project = new Project();
-        setCurrentProject(project);
-        return "/project/create.xhtml";
-    }
+	public String create() {
+		return "/project/create";
+	}
 
-    public String save() {
-        if (currentProject != null) {
-            User user = userManager.getCurrentUser();
-            resources.saveProject(currentProject);
-            // Si reciencreado o si no contiene el usuario actual se añade
-            if (currentProject.getUsers() == null || !currentProject.getUsers().contains(user)) {
-                addUser(user);
-            }
-        }
-        return "/project/home.xhtml";
-    }
+	public String save() {
+		if (currentProject != null) {
+			User user = userManager.getCurrentUser();
+			saveEditableLinks(); // Se copian los editable links a currentProject
+			currentProject = resources.saveProject(currentProject);
+			// Si reciencreado o si no contiene el usuario actual se añade
+			if (currentProject.getUsers() == null || !currentProject.getUsers().contains(user)) {
+				addUser(user);
+			}
+		}
+		return null;
+	}
 
-    public String addUser(String email) {
-        User user = sessionService.findByEmail(email);
-        if (user == null) {
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage("No se ha podido añadir usuario", "El email no esta registrado en la base de datos"));
-            return null;
-        } else {
-            return addUser(user);
-        }
-    }
+	public String createSave() {
+		if (createProject != null) {
+			User current = userManager.getCurrentUser();
+			getCreateProject().getUsers().add(current);
+			current.getProjects().add(createProject);
+			sessionService.saveUser(current); //FIXME esto no es lo correcto! pero es necesario
+			changeCurrentProject(resources.saveProject(createProject));
+			createProject = null;
+		}
+		return "/project/show?faces-redirect=true";
+	}
 
-    public String addUser(User user) {
-        if (currentProject.getUsers() == null) {
-            currentProject.setUsers(new HashSet<User>());
-        }
-        currentProject.getUsers().add(user);
-        user.getProjects().add(currentProject);
-        sessionService.saveUser(user);
-        return null;
-    }
+	public String addUser(String email) {
+		User user = sessionService.findByEmail(email);
+		if (user == null) {
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage("No se ha podido añadir usuario", "El email no esta registrado en la base de datos"));
+			return null;
+		} else {
+			return addUser(user);
+		}
+	}
 
-    public String edit() {
-        setCurrentProject(projects.getRowData());
-        return "/project/edit.xhtml";
-    }
+	public String addUser(User user) {
+		if (currentProject.getUsers() == null) {
+			currentProject.setUsers(new HashSet<User>());
+		}
+		currentProject.getUsers().add(user);
+		user.getProjects().add(currentProject);
+		sessionService.saveUser(user);
+		return null;
+	}
 
-    public String cancelEdit() {
-        return "/project/show.xhtml";
-    }
+	public String edit() {
+		setCurrentProject(projects.getRowData());
+		editableLinks = null;
+		return "/project/edit.xhtml";
+	}
 
-    public String userRole() {
-        return userManager.getCurrentUser().getUserRole();
-    }
+	public String cancelEdit() {
+		return "/project/show.xhtml";
+	}
 
-    public void addUser() {
-        Set<User> users = currentProject.getUsers();
-        users.add(getSelectedUser());
-        currentProject.setUsers(users);
-    }
+	public String userRole() {
+		return userManager.getCurrentUser().getUserRole();
+	}
 
-    public User getSelectedUser() {
-        return selectedUser;
-    }
+	public void addUser() {
+		Set<User> users = currentProject.getUsers();
+		users.add(getSelectedUser());
+		currentProject.setUsers(users);
+	}
 
-    public void setSelectedUser(User selectedUser) {
-        this.selectedUser = selectedUser;
-    }
+	public User getSelectedUser() {
+		return selectedUser;
+	}
 
-    public UserManager getUserManager() {
-        return userManager;
-    }
+	public void setSelectedUser(User selectedUser) {
+		this.selectedUser = selectedUser;
+	}
 
-    public void setUserManager(UserManager userManager) {
-        this.userManager = userManager;
-    }
+	public UserManager getUserManager() {
+		return userManager;
+	}
 
-    public String addLink() {
-        return "project/edit.xhtml";
-    }
+	public void setUserManager(UserManager userManager) {
+		this.userManager = userManager;
+	}
+
+	public Project getCreateProject() {
+		return (createProject == null) ? createProject = new Project() : createProject;
+	}
+
+	public void setCreateProject(Project createProject) {
+		this.createProject = createProject;
+	}
+
+	// -------------------------------------------------------------------------.---- Editable Links
+	public final static class Link implements Serializable {
+
+		private String text;
+		private String url;
+
+		public Link() {
+		}
+
+		public Link(String text, String url) {
+			this.text = text;
+			this.url = url;
+		}
+
+		public String getText() {
+			return text;
+		}
+
+		public void setText(String text) {
+			this.text = text;
+		}
+
+		public String getUrl() {
+			return url;
+		}
+
+		public void setUrl(String url) {
+			this.url = url;
+		}
+
+		public boolean empty() {
+			return StringUtils.isBlank(url) && StringUtils.isBlank(text);
+		}
+	}
+	private List<Link> editableLinks;
+
+	public List<Link> getEditableLinks() {
+		if (editableLinks == null) {
+			Map<String, String> origin = getCurrentProject().getLinks();
+			List<Link> destination = new ArrayList<Link>(origin.size());
+			for (String key : origin.keySet()) {
+				destination.add(new Link(key, origin.get(key)));
+			}
+			if (destination.isEmpty()) {
+				destination.add(new Link());
+			}
+			editableLinks = destination;
+		}
+		return editableLinks;
+	}
+
+	public void setEditableLinks(List<Link> links) {
+		logger.log(Level.INFO, "setting links {0}", links);
+		// save in current project
+	}
+
+	/**
+	 * Añade un nuevo link a la lista de links editable.
+	 */
+	public String addLink() {
+		editableLinks.add(new Link());
+		return null;
+	}
+
+	/**
+	 * Copia los valores de editable link a current project.
+	 */
+	private void saveEditableLinks() {
+		if (editableLinks != null && currentProject != null) {
+
+			Map<String, String> links = currentProject.getLinks();
+			links.clear();
+			for (Link link : getEditableLinks()) {
+				if (!link.empty()) {
+					links.put(link.text, link.url);
+				}
+			}
+		}
+		editableLinks = null;
+	}
 }

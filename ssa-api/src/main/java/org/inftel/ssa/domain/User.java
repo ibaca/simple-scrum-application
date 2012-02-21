@@ -1,5 +1,7 @@
 package org.inftel.ssa.domain;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
@@ -49,7 +51,7 @@ public class User extends BaseEntity {
 	}
 
 	public Set<Project> getProjects() {
-		return projects;
+		return (projects == null) ? projects = new HashSet<Project>(0) : projects;
 	}
 
 	public void setProjects(Set<Project> projects) {
@@ -90,7 +92,7 @@ public class User extends BaseEntity {
 
     @XmlTransient
     public List<Task> getTasks() {
-        return tasks;
+        return (tasks == null) ? tasks = new ArrayList<Task>(0) : tasks;
     }
 
     public void setTasks(List<Task> tasks) {

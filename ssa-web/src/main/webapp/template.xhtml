@@ -11,7 +11,7 @@
 		<h:outputStylesheet name="css/bootstrap.css" value="#{param.location}" />
 		<h:outputScript name="js/bootstrap.js" value="#{param.location}" />
 		<h:outputScript name="js/bootstrap-dropdown.js" value="#{param.location}" />
-		
+
 		<style>
 			.ui-dt-c { white-space: nowrap; }
 		</style>
@@ -29,12 +29,12 @@
 					<!-- topbar -->
 					<c:if test="#{userManager.authenticated}">
 						<h:form>   
-							<h:commandLink value="#{ empty projectManager.currentProject.name ? 'Simple Scrum Application' : projectManager.currentProject.name}" action="/index.jsf" class="brand" />
+							<h:link value="#{ empty projectManager.currentProject.name ? 'Simple Scrum Application' : projectManager.currentProject.name}" outcome="/index" class="brand" />
 							<ul class="nav">
-								<li><h:commandLink value="Home" action="/project/home" /></li>
-								<li><h:commandLink value="Tareas" action="/task/index" /></li>
-								<li><h:commandLink value="Sprints" action="/sprint/index" /></li>
-								<li><h:commandLink value="Administrar" action="/project/edit" /></li>
+								<li><h:link value="Home" outcome="/project/show" /></li>
+								<li><h:link value="Tareas" outcome="/task/index" /></li>
+								<li><h:link value="Sprints" outcome="/sprint/index" /></li>
+								<li><h:link value="Administrar" outcome="/project/edit" /></li>
 							</ul>
 							<ul class="nav pull-right">
 								<li>Hola #{userManager.currentUser.email}!</li>
@@ -50,20 +50,20 @@
 									<!-- al ser asincrono no inicializa el dropdown -->
 									<script>$('.dropdown-toggle').dropdown()</script>
 								</li>
-								<li><p:commandLink value="Settings" url="#" /></li>
+								<li><h:commandLink value="Settings" url="#" /></li>
 								<li><h:commandLink value="Logout" action="#{userManager.logout()}" /></li>
 							</ul>
 						</h:form> 
 					</c:if>
 					<c:if test="#{!userManager.authenticated}">
 						<h:form>   
-							<h:commandLink value="Simple Scrum Application" action="/index.jsf" class="brand" />
+							<h:link value="Simple Scrum Application" outcome="index" class="brand" />
 							<ul class="nav">
-								<li><a>Project</a></li>
+								<!--<li><a>Project</a></li>-->
 							</ul>
 							<ul class="nav pull-right">
-								<li><a>Settings</a></li>
-								<li><h:commandLink value="Login" action="/login.jsf" /></li>
+								<!--<li><a>Settings</a></li>-->
+								<li><h:link value="Login" outcome="login" /></li>
 							</ul>
 						</h:form> 
 					</c:if>
@@ -71,28 +71,19 @@
 			</div>
 		</div>
 
-		<div class="container">
-			<c:if test="false">
-				<div>
-					<div class="thumbnail" style="width:60px;float:left;"><img alt="#{projectManager.currentProject.summary}" src="http://www.gravatar.com/avatar/00000000000000000000000000000000?default=retro"></img></div>
-					<h1>#{projectManager.currentProject.name}</h1>
-					<h2><small>#{projectManager.currentProject.summary}</small></h2>
-				</div>
-			</c:if>
-
-
+		<h:panelGroup id="container" class="container" layout="block">
 			<!-- Content -->
-			<ui:insert id="content" name="content"></ui:insert>
+			<ui:insert name="content"></ui:insert>
 
 			<hr />
 
 			<!-- Footer -->
 			<footer>
-				<p>© Inftel 2012 | Hello #{userManager.currentUser.nickname}, #{userManager.currentUser.email}</p>
+				<p>© Inftel 2012 | Hello #{userManager.currentUser.nickname}</p>
 			</footer>
-		</div>
+		</h:panelGroup>
 
-		<p:growl id="growl" showDetail="true" globalOnly="true" />
+		<p:growl id="growl" showDetail="true" globalOnly="true" autoUpdate="true" />
 
     </h:body>
 </html>
