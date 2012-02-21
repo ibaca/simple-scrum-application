@@ -185,6 +185,6 @@ public class ProjectManager implements Serializable {
     }
 
     public String addLink() {
-        return "/project/edit.xhtml";
+        return "project/edit.xhtml";
     }
 }
