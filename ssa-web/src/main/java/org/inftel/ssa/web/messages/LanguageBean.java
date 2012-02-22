@@ -1,17 +1,21 @@
 
 package org.inftel.ssa.web.messages;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 
 
-@Stateless
 @ManagedBean
-@RequestScoped
-public class LanguageBean {
+@SessionScoped
 
-  private String locale="es";
+public class LanguageBean {
+    
+    
+    private String locale;
+    
+    public void LanguageBean(){
+        locale="es";
+    }
 
   public void setLocale(String locale) {
     this.locale = locale;
@@ -26,3 +30,6 @@ public class LanguageBean {
   }
 
 }
+
+
+
