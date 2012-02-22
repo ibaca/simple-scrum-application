@@ -39,7 +39,7 @@
 							</ul>
 							<ul class="nav pull-right">
 								<li id="projects-dropdown" class="dropdown">
-									<a class="dropdown-toggle" data-toggle="dropdown" href="#projects-dropdown">Projectos<b class="caret"></b></a>
+									<a class="dropdown-toggle" data-toggle="dropdown" href="#projects-dropdown">Proyectos<b class="caret"></b></a>
 									<ul class="dropdown-menu">
 										<c:forEach items="#{userManager.currentUser.projects}" var="project">
 											<li><h:commandLink value="#{project.name}" action="#{projectManager.changeCurrentProject(project)}" /></li>
