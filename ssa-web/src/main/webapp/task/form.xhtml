@@ -14,17 +14,15 @@
             <div class="span12">
                 <h:form class="form-horizontal"> 
                     <fieldset>
-                        
-                        <legend>Create your Task</legend>
 
-                         <div class="control-group"> 							
+                        <div class="control-group"> 							
                             <h:outputLabel for="summary" value="Summary" class="control-label" />  
                             <div class="controls">
                                 <p:inputText id ="summary" required="true" label="summary" value="#{taskManager.currentTask.summary}" />
                                 <h:message for="summary" class="help-inline" />
                             </div>
                         </div>
-                        
+
                         <div class="control-group"> 							
                             <h:outputLabel for="priority" value="Priority" class="control-label" />  
                             <div class="controls">
@@ -42,18 +40,44 @@
                         </div>
 
                         <div class="control-group"> 							
+                            <h:outputLabel  value="Start Date" class="control-label" />  
+                            <div class="controls">
+                                <p:calendar value="#{taskManager.currentTask.beginDate}"  showOn="button" />  
+                            </div>
+                        </div>
+                        <div class="control-group"> 							
+                            <h:outputLabel  value="Finish Date" class="control-label" />  
+                            <div class="controls">
+                                <p:calendar value="#{taskManager.currentTask.endDate}"  showOn="button" />  
+                            </div>
+                        </div>
+
+                        <div>
+                            <h:outputText value="Accept&nbsp;&nbsp;"/>
+                            <p:selectBooleanCheckbox value="#{taskManager.accepted}"  disabled="#{taskManager.currentTask.user !=null}"/> 
+                        </div>
+                        <br/>
+                        <div>
+                            <p:selectOneMenu value="#{taskManager.taskStatus}">
+                                <f:selectItem itemLabel="TODO" itemValue="0" />  
+                                <f:selectItem itemLabel="DOING" itemValue="1"/>  
+                                <f:selectItem itemLabel="DONE" itemValue="2" />  
+                            </p:selectOneMenu>
+                        </div>
+
+                        <div class="control-group"> 							
                             <h:outputLabel for="description" value="Description" class="control-label" />  
                             <div class="controls">
                                 <p:editor id="description"  required="true"   value="#{taskManager.currentTask.description}" />  
                                 <h:message for="description" class="help-inline" /> 
                             </div>
                         </div>                       
-                       
+
                     </fieldset>
                 </h:form>
             </div>
         </div>
-        
+
     </ui:composition>
 
 </html>

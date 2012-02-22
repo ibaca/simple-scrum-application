@@ -9,8 +9,8 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="content">
-            <h:form id="createTaskForm">
-                <h:panelGrid columns="1">
+            <h:form id="createTaskForm">                 
+                <p:panel >
                     <h:panelGroup>
                         <ui:include src="/task/form.xhtml"/>
                     </h:panelGroup>
@@ -18,7 +18,7 @@
                         <p:commandButton  action="#{taskManager.save()}" value="Save" update="@form" styleClass="btn" />&nbsp;
                         <p:commandButton type="reset" value="Cancel" styleClass="btn"/>
                     </h:panelGroup>
-                </h:panelGrid>
+                </p:panel>
             </h:form>
 
         </ui:define>

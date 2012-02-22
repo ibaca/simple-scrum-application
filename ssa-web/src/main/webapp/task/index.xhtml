@@ -14,64 +14,65 @@
 		<h:form id="frmListTasks">
 			<p>
 				<h:outputText value="There is no task" rendered="#{taskManager.tasks.rowCount == 0}" />
+                                
 				<p:dataTable value="#{taskManager.tasks}" var="task"  rendered="#{taskManager.tasks.rowCount > 0}" 
 							 paginator="true" paginatorPosition="bottom" rows="25" id="dtTasks">
-
-					<p:column>
+                                    
+                                        <p:column >
 						<f:facet name="header">
 							<h:outputText value="#" />
 						</f:facet>
-						<h:outputText value="#{taskManager.tasks.rowIndex + 1}" />
+                                            <h:outputText value="#{taskManager.tasks.rowIndex + 1}" />
 					</p:column>
-					<p:column>
+					<p:column >
 						<f:facet name="header">
-							<h:outputText value="Name" />
+							<h:outputText value="Summary" />
 						</f:facet>
-						<h:outputText value="#{task.summary}" />
+                                            <p:commandLink value="#{task.summary}" action="#{taskManager.edit}" update="@form" ajax="false"/>
 					</p:column>
-					<p:column>
+                                        <p:column sortBy="#{task.status}" >
 						<f:facet name="header">
-							<h:outputText value="Description"/>
+							<h:outputText value="Status&nbsp;&nbsp;"/>
 						</f:facet>
-						<h:outputText value="#{task.description}"/>
+                                            <h:outputText value="#{task.status}"/>
 					</p:column>
-                                        <p:column>
+                                        <p:column sortBy="#{task.user.nickname}" >
 						<f:facet name="header">
-							<h:outputText value="Priority" />
+							<h:outputText value="User&nbsp;&nbsp;"/>
 						</f:facet>
+                                            <h:outputText value="#{task.user.nickname}"/>
+					</p:column>
+                                        <p:column  headerText="Priority&nbsp;&nbsp;"  sortBy="#{task.priority}" >
                                             <h:outputText value="#{task.priority}"  />
 					</p:column>
-					<p:column>
+                                        <p:column sortBy="#{task.created}">
 						<f:facet name="header">
 							<h:outputText value="Created" />
 						</f:facet>
-						<h:outputText value="#{task.created}"  />
+                                            <h:outputText value="#{task.created}" >
+                                                <f:convertDateTime pattern="d/M/yyyy"/>
+                                            </h:outputText>
+                                                    
 					</p:column>
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Started"/>
-						</f:facet>
-						<h:outputText value="#{task.beginDate}"/>
-					</p:column>
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Closed" />
-						</f:facet>
-						<h:outputText value="#{task.endDate}"  />
-					</p:column>
+<!--					
 					<p:column>
 						<f:facet name="header">
 							<h:outputText value="Actions" />
 						</f:facet>
 						<p:commandLink  action="#{taskManager.edit}" value="Edit" ajax="false" styleClass="btn" />&nbsp;
 						<p:commandLink  action="#{taskManager.remove}" value="Remove"  ajax="false" styleClass="btn btn-danger" />
-					</p:column>
+					</p:column>-->
 
 				</p:dataTable>
 			</p>
 			<p>
 				<p:commandButton  action="#{taskManager.create}" value="New Task" styleClass="btn" ajax="false"/>
 			</p>
+                    
+                          
 		</h:form>
 	</ui:define>
 </ui:composition>
+                                
+                                   
+                                
