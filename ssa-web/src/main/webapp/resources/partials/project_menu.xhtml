@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:cc="http://java.sun.com/jsf/composite"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:c="http://java.sun.com/jsp/jstl/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<!-- INTERFACE -->
+	<cc:interface>
+	</cc:interface>
+
+	<!-- IMPLEMENTATION -->
+	<cc:implementation>
+		<h:form> 
+			<div class="well" style="padding: 14px 6px;">
+				<ul class="nav nav-list">
+					<li class="nav-header">Empresa</li>
+					<li>#{projectManager.currentProject.company}</li>
+
+
+					<li class="nav-header">Licencia</li>
+					<li>#{projectManager.currentProject.license}</li>
+
+
+					<li class="nav-header">Equipo</li>
+					<ui:repeat value="#{projectManager.currentProject.users.toArray()}" var="user">                              
+						<li>#{user.nickname}</li>
+					</ui:repeat>
+					<li><h:link value="Compartir" outcome="/project/users" /></li>
+
+					<li class="nav-header">Tu rol</li>
+					<li>#{projectManager.userRole()}</li>
+
+					<li class="nav-header">Links</li>
+					<c:forEach items="#{projectManager.currentProject.links}" var="entry">                              
+						<li><a href="#{entry.value}">#{entry.key}</a></li>
+					</c:forEach>
+				</ul>
+			</div>
+		</h:form>  
+	</cc:implementation>
+</html>

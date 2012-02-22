@@ -38,6 +38,7 @@ public class ProjectManager implements Serializable {
 	private Project currentProject;
 	private User selectedUser;
 	private Project createProject;
+	private String addUserDialogEmail;
 	private LazyDataModel<Project> projects = new LazyDataModel() {
 
 		@Override
@@ -142,12 +143,14 @@ public class ProjectManager implements Serializable {
 	}
 
 	public String addUser(String email) {
+		logger.log(Level.INFO, "buscando usuario con mail {0} al proyecto {1}", new Object[]{email, currentProject.getName()});
 		User user = sessionService.findByEmail(email);
 		if (user == null) {
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage("No se ha podido añadir usuario", "El email no esta registrado en la base de datos"));
 			return null;
 		} else {
+			this.addUserDialogEmail = "";
 			return addUser(user);
 		}
 	}
@@ -204,6 +207,14 @@ public class ProjectManager implements Serializable {
 
 	public void setCreateProject(Project createProject) {
 		this.createProject = createProject;
+	}
+
+	public String getAddUserDialogEmail() {
+		return addUserDialogEmail;
+	}
+
+	public void setAddUserDialogEmail(String addUserDialogEmail) {
+		this.addUserDialogEmail = addUserDialogEmail;
 	}
 
 	// -------------------------------------------------------------------------.---- Editable Links

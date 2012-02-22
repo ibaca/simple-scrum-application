@@ -31,7 +31,7 @@ public class SessionServiceImpl implements SessionService {
 
 	@Override
 	public User findByEmail(String email) {
-		return users.findByEmail();
+		return users.findByEmail(email);
 	}
 	
 	
