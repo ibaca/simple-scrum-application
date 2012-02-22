@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PostPersist;
@@ -33,8 +34,9 @@ public abstract class BaseEntity implements Serializable {
     @Temporal(TIMESTAMP)
     private Date created;
     @Id
-    @TableGenerator(name = "base_entity_generator", initialValue = 10000)
-    @GeneratedValue(strategy = TABLE, generator = "base_entity_generator")
+    //@TableGenerator(name = "base_entity_generator", initialValue = 10000)
+    //@GeneratedValue(strategy = TABLE, generator = "base_entity_generator")
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     @Temporal(TIMESTAMP)
     private Date updated;

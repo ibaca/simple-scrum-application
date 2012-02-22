@@ -175,4 +175,14 @@ public class Task extends BaseEntity {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder build = new StringBuilder(super.toString());
+		build.subSequence(0, build.length());
+		build.append(", summary=").append(getSummary());
+		build.append(", status=").append(getStatus());
+		build.append("]");
+		return build.toString();
+	}
 }

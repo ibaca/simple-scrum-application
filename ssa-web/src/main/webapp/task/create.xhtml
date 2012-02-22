@@ -15,8 +15,8 @@
                         <ui:include src="/task/form.xhtml"/>
                     </h:panelGroup>
                     <h:panelGroup>
-                        <p:commandButton  action="#{taskManager.save()}"  value="Save" ajax="false" styleClass="btn" />&nbsp;
-                        <p:commandButton action="/task/show.xhtml" value="Cancel"  immediate="true" ajax="false" styleClass="btn"/>
+                        <p:commandButton  action="#{taskManager.save()}" value="Save" update="@form" styleClass="btn" />&nbsp;
+                        <p:commandButton type="reset" value="Cancel" styleClass="btn"/>
                     </h:panelGroup>
                 </h:panelGrid>
             </h:form>

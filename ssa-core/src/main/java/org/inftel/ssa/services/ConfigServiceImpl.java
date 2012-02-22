@@ -104,10 +104,10 @@ public class ConfigServiceImpl {
 		logger.info("Creando sprint Sprint Uno en Manhattan");
 		Sprint sUno = new Sprint();
 		sUno.setDescription("Sprint uno de ejemplo");
-		sUno.setFinishDate(new Date(System.currentTimeMillis() + 3200 * 10));
+		sUno.setEndDate(new Date(System.currentTimeMillis() + 3200 * 10));
 		sUno.setProject(manhattan);
 		manhattan.getSprints().add(sUno);
-		sUno.setStartDate(new Date());
+		sUno.setBeginDate(new Date());
 		resourceService.saveSprint(sUno);
 
 		logger.info("Datos iniciales programaticos creados con exito");
@@ -127,7 +127,7 @@ public class ConfigServiceImpl {
 			IDatabaseConnection connection = new DatabaseConnection(wrap);
 			FlatXmlDataSetBuilder builder = new FlatXmlDataSetBuilder();
 			IDataSet dataset = builder.build(Thread.currentThread().getContextClassLoader().getResourceAsStream(getDataSet()));
-			DatabaseOperation.CLEAN_INSERT.execute(connection, dataset);
+			DatabaseOperation.INSERT.execute(connection, dataset);
 			logger.info("Datos iniciales XML creados con exito");
 		} catch (Exception e) {
 			logger.log(Level.WARNING, "Fallo mientras se intentaba añadir datos iniciales al modelo", e);

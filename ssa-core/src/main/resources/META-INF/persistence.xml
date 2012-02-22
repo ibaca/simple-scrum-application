@@ -10,7 +10,7 @@
     <class>org.inftel.ssa.domain.Task</class>
     <class>org.inftel.ssa.domain.User</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
-    <shared-cache-mode>ALL</shared-cache-mode>
+    <shared-cache-mode>NONE</shared-cache-mode>
     <properties>
       <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
     </properties>
