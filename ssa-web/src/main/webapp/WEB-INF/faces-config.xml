@@ -9,10 +9,10 @@
 
     <application>
         
-        <resource-bundle>
+<!--        <resource-bundle>
             <base-name>org.inftel.ssa.web.messages.messages</base-name>
             <var>bundle</var>
-        </resource-bundle>
+        </resource-bundle>-->
         
         <locale-config>
             <default-locale>es</default-locale>
