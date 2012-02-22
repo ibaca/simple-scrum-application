@@ -35,7 +35,7 @@
 						</p:dataTable>
 						<p:commandButton id="addButton" type="button" onclick="projectTeamAddDialog.show()" value="Add a User" image="ui-icon-gate" styleClass="btn btn-success"/> 
 
-						<p:dialog widgetVar="projectTeamAddDialog"  header="Añadir usuario al proyecto" resizable="false" width="344" styleClass="well">
+						<p:dialog widgetVar="projectTeamAddDialog"  header="Añadir usuario al proyecto" resizable="false" minWidth="344" styleClass="well" >
 							email:&nbsp;&nbsp;
 							<p:inputText value="#{projectManager.addUserDialogEmail}" style="display:inline-block"/> 
 							&nbsp;&nbsp;

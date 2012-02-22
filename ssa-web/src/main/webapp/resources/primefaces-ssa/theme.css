@@ -36,7 +36,7 @@ a {
 .ui-widget
 {
     font-family: Arial,sans-serif;
-    font-size: 1.1em;
+    font-size: 12px; /* 1.1em; */
 }
 .ui-widget .ui-widget
 {
