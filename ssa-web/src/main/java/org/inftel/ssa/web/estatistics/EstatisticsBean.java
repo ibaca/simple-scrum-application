@@ -1,38 +1,55 @@
-package org.inftel.ssa.web.estadisticas;
+package org.inftel.ssa.web.estatistics;
 
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.*;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import org.inftel.ssa.datamining.DataminingData;
 import org.inftel.ssa.datamining.DataminingDataPeriod;
 import org.inftel.ssa.datamining.DataminingProcessor;
 import org.inftel.ssa.domain.Project;
 import org.inftel.ssa.domain.Sprint;
+import org.inftel.ssa.domain.Task;
 import org.inftel.ssa.domain.User;
+import org.inftel.ssa.web.ProjectManager;
 import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.LineChartSeries;
+import org.primefaces.model.chart.PieChartModel;
 
 @ManagedBean
 @RequestScoped
-public class EstadisBean implements Serializable {
+public class EstatisticsBean implements Serializable {
 
     @EJB
     private DataminingProcessor datamining;
-    private CartesianChartModel esfuerzoModel;
-    private CartesianChartModel tareasModel;
+    private CartesianChartModel stressModel;
+    private CartesianChartModel taskModel;
     private CartesianChartModel individualModel;
+    private PieChartModel pieTaskModel;
+    
+    @ManagedProperty(value = "#{projectManager}")
+    private ProjectManager projectManager;
 
-    public EstadisBean() {
-        createEsfuerzoModel();
-        createTareasModel();
+    public ProjectManager getProjectManager() {
+        return projectManager;
+    }
+
+    public void setProjectManager(ProjectManager projectManager) {
+        this.projectManager = projectManager;
+    }
+
+    public EstatisticsBean() {
+        createStressModel();
+        createTaskModel();
+        createPieTaskModel();
        // createIndividualModel();
     }
 
     public CartesianChartModel getEsfuerzoModel() {
-        return esfuerzoModel;
+        return stressModel;
     }
 
     public CartesianChartModel getIndividualModel() {
@@ -40,11 +57,15 @@ public class EstadisBean implements Serializable {
     }
 
     public CartesianChartModel getTareasModel() {
-        return tareasModel;
+        return taskModel;
+    }
+    
+    public PieChartModel getPieTaskModel() {
+        return pieTaskModel;
     }
 
-    private void createEsfuerzoModel() {
-        esfuerzoModel = new CartesianChartModel();
+    private void createStressModel() {
+        stressModel = new CartesianChartModel();
         LineChartSeries series = new LineChartSeries();
         Map<Date, DataminingData> samples; // todos los datos por fecha
 
@@ -56,13 +77,13 @@ public class EstadisBean implements Serializable {
             series.set(df.format(date), samples.get(date).getDataSum());
         }
 
-        esfuerzoModel.addSeries(series);
+        stressModel.addSeries(series);
 
     }
 
-    private void createTareasModel() {
+    private void createTaskModel() {
 
-        tareasModel = new CartesianChartModel();
+        taskModel = new CartesianChartModel();
         LineChartSeries series = new LineChartSeries();
         Map<Date, DataminingData> samples; // todos los datos por fecha
 
@@ -74,8 +95,31 @@ public class EstadisBean implements Serializable {
             series.set(df.format(date), samples.get(date).getDataCount());
         }
 
-        tareasModel.addSeries(series);
+        taskModel.addSeries(series);
 
+    }
+    
+    private void createPieTaskModel() {
+        pieTaskModel = new PieChartModel();
+        int todocount = 0, doingcount = 0, donecount = 0;
+        List<Task> tasks = getProjectManager().getCurrentProject().getTasks();
+        for (Task task : tasks) {
+            switch (task.getStatus()) {
+                case TODO:
+                    todocount++;
+                    break;
+                case DOING:
+                    doingcount++;
+                    break;
+                case DONE:
+                    donecount++;
+                    break;
+            }
+        }
+
+        pieTaskModel.set("To Do", todocount);
+        pieTaskModel.set("Doing", doingcount);
+        pieTaskModel.set("Done", donecount);
     }
 
   /*  private void createIndividualModel() {
