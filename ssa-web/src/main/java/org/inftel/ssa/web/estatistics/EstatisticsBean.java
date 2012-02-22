@@ -146,14 +146,14 @@ public class EstatisticsBean implements Serializable {
         for (User user : users) {
             series.setLabel(user.getNickname());
 
-            Map<Date, Long> samples; // todos los datos por fecha
+            Map<Date, DataminingData> samples; // todos los datos por fecha
             String name = "task." + "id_usuario" + "." + "sprint" + ".remaining";
-    /*        samples = datamining.findStatistics(name, DataminingDataPeriod.DAYLY, new Date(0), new Date());
+            samples = datamining.findStatistics(name, DataminingDataPeriod.DAYLY, new Date(0), new Date());
             DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es"));
 
             for (Date date : samples.keySet()) {
-                series.set(df.format(date), samples.get(date));
-            } */
+                series.set(df.format(date), samples.get(date).getDataCount());
+            } 
 
             individualModel.addSeries(series);
 
