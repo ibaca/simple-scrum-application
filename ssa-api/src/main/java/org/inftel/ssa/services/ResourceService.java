@@ -25,7 +25,9 @@ public interface ResourceService {
 
 	public int countProjects();
 	
-	public Project findProjects(Long id);
+	public Project findProject(Long id);
+	
+	public Task findTask(Long id);
 	
 	public List<Project> findProjects(Integer startPosition, Integer maxResult, String sortField, Boolean ascOrder, Map<String, String> filters);
 

@@ -26,16 +26,6 @@ public class ResourceServiceImpl implements ResourceService {
 	private EntityManager em;
 
 	@Override
-	public Project findProjects(Long id) {
-		return projects.find(id);
-	}
-
-	@Override
-	public List<Project> findProjects(Integer startPosition, Integer maxResult, String sortField, Boolean ascOrder, Map<String, String> filters) {
-		return projects.find(startPosition, maxResult, sortField, ascOrder, filters);
-	}
-
-	@Override
 	public Project saveProject(Project project) {
 		if (project.isNew()) {
 			projects.create(project);
@@ -73,6 +63,21 @@ public class ResourceServiceImpl implements ResourceService {
 	@Override
 	public int countProjects() {
 		return projects.count();
+	}
+	
+	@Override
+	public Project findProject(Long id) {
+		return projects.find(id);
+	}
+	
+	@Override
+	public Task findTask(Long id) {
+		return tasks.find(id);
+	}
+
+	@Override
+	public List<Project> findProjects(Integer startPosition, Integer maxResult, String sortField, Boolean ascOrder, Map<String, String> filters) {
+		return projects.find(startPosition, maxResult, sortField, ascOrder, filters);
 	}
 
 	@Override

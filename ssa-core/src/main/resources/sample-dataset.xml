@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
 	
-	<users id='-100' nickname='test' fullName='Test User Name' email='test@mail.com' password='test' company='Test Company' userRole='team' />
-	<users id='-101' nickname='test-a' fullName='Test User Name A' email='test-a@mail.com' password='test' company='Test Company' userRole='team' />
-	<users id='-102' nickname='test-b' fullName='Test User Name B' email='test-b@mail.com' password='test' company='Test Company' userRole='team' />
+	<users id='-100' nickname='test' fullName='Test User Name' email='test@mail.com' password='test' company='Test Company' userRole='team' version='1' />
+	<users id='-101' nickname='test-a' fullName='Test User Name A' email='test-a@mail.com' password='test' company='Test Company' userRole='team' version='1' />
+	<users id='-102' nickname='test-b' fullName='Test User Name B' email='test-b@mail.com' password='test' company='Test Company' userRole='team' version='1' />
 	
-	<projects id='-200' name='Test project Zero' summary='Simple test project' description='Simple description' license='OpenSource' company='Test Company' />
+	<projects id='-200' name='Test project Zero' summary='Simple test project' description='Simple description' license='OpenSource' company='Test Company' version='1' />
 	<project_users users_id='-100' projects_id='-200' />
 	<project_users users_id='-101' projects_id='-200' />
 	<project_users users_id='-102' projects_id='-200' />
 	<project_users users_id='0001' projects_id='-200' />
 	
-	<projects id='-201' name='Test project A' summary='Simple test project' description='Simple description' license='OpenSource' company='Test Company' />
+	<projects id='-201' name='Test project A' summary='Simple test project' description='Simple description' license='OpenSource' company='Test Company' version='1' />
 	<project_users users_id='-100' projects_id='-201' />
 	<project_users users_id='-101' projects_id='-201' />
 	<project_users users_id='0001' projects_id='-201' />
 	
-	<projects id='-202' name='Test project B' summary='Simple test project' description='Simple description' license='OpenSource' company='Test Company' />
+	<projects id='-202' name='Test project B' summary='Simple test project' description='Simple description' license='OpenSource' company='Test Company' version='1' />
 	<project_users users_id='-100' projects_id='-202' />
 	<project_users users_id='0001' projects_id='-202' />
 	
-	<tasks id='-300' user_id='-100' project_id='-200' summary='Primera tarea' description='Descripcion sencilla.' estimated='4' burned='0' remaining='4' priority='2' beginDate='2011-12-01' endDate='2011-12-10' status='0' />
-	<tasks id='-301' user_id='0001' project_id='0001' summary='Tarea #1' description='Descripcion sencilla 1.' estimated='2' burned='0' remaining='2' priority='10' status='0' />
-	<tasks id='-302' user_id='0001' project_id='0001' summary='Tarea #2' description='Descripcion sencilla 2.' estimated='2' burned='0' remaining='2' priority='10' status='0' />
-	<tasks id='-303'                project_id='0001' summary='Tarea #3' description='Descripcion sencilla 3.' estimated='1' burned='0' remaining='2' priority='10' status='0' />
-	<tasks id='-304'                project_id='0001' summary='Tarea #4' description='Descripcion sencilla 4.' estimated='3' burned='0' remaining='2' priority='10' status='0' />
-	<tasks id='-305'                project_id='0001' summary='Tarea #5' description='Descripcion sencilla 5.' estimated='1' burned='0' remaining='2' priority='10' status='0' />
-	<tasks id='-306'                project_id='0001' summary='Tarea #6' description='Descripcion sencilla 6.' estimated='1' burned='1' remaining='0' priority='10' status='0' beginDate='2011-12-01' endDate='2011-12-10' />
-	<tasks id='-307'                project_id='0001' summary='Tarea #7' description='Descripcion sencilla 7.' estimated='2' burned='3' remaining='0' priority='10' status='0' beginDate='2011-12-01' endDate='2011-12-10' />
-	<tasks id='-308' user_id='0001' project_id='0001' summary='Tarea #8' description='Descripcion sencilla 8.' estimated='2' burned='0' remaining='2' priority='10' status='0' />
-	<tasks id='-309' user_id='0001' project_id='0001' summary='Tarea #9' description='Descripcion sencilla 9.' estimated='2' burned='0' remaining='2' priority='10' status='0' />
-	<tasks id='-310'                project_id='0001' summary='Tarea #10' description='Descripcion sencilla 10.' estimated='1' burned='0' remaining='2' priority='10' status='0' />
-	<tasks id='-311'                project_id='0001' summary='Tarea #11' description='Descripcion sencilla 11.' estimated='3' burned='0' remaining='2' priority='10' status='0' />
-	<tasks id='-312'                project_id='0001' summary='Tarea #12' description='Descripcion sencilla 12.' estimated='1' burned='0' remaining='2' priority='10' status='0' />
-	<tasks id='-313'                project_id='0001' summary='Tarea #13' description='Descripcion sencilla 13.' estimated='1' burned='1' remaining='0' priority='10' status='0' beginDate='2011-12-01' endDate='2011-12-10' />
-	<tasks id='-314'                project_id='0001' summary='Tarea #14' description='Descripcion sencilla 14.' estimated='2' burned='3' remaining='0' priority='10' status='0' beginDate='2011-12-01' endDate='2011-12-10' />
-	<tasks id='-315' user_id='0001' project_id='0001' summary='Tarea #15' description='Descripcion sencilla 15.' estimated='2' burned='0' remaining='2' priority='10' status='0' />
-	<tasks id='-316' user_id='0001' project_id='0001' summary='Tarea #16' description='Descripcion sencilla 16.' estimated='2' burned='0' remaining='2' priority='10' status='0' />
-	<tasks id='-317'                project_id='0001' summary='Tarea #17' description='Descripcion sencilla 17.' estimated='1' burned='0' remaining='2' priority='10' status='0' />
-	<tasks id='-318'                project_id='0001' summary='Tarea #18' description='Descripcion sencilla 18.' estimated='3' burned='0' remaining='2' priority='10' status='0' />
-	<tasks id='-319'                project_id='0001' summary='Tarea #19' description='Descripcion sencilla 19.' estimated='1' burned='0' remaining='2' priority='10' status='0' />
-	<tasks id='-320'                project_id='0001' summary='Tarea #20' description='Descripcion sencilla 20.' estimated='1' burned='1' remaining='0' priority='10' status='0' beginDate='2011-12-01' endDate='2011-12-10' />
-	<tasks id='-321'                project_id='0001' summary='Tarea #21' description='Descripcion sencilla 21.' estimated='2' burned='3' remaining='0' priority='10' status='0' beginDate='2011-12-01' endDate='2011-12-10' />
-	<tasks id='-322'                project_id='0001' summary='Tarea #22' description='Descripcion sencilla 22.' estimated='1' burned='0' remaining='2' priority='10' status='0' />
-	<tasks id='-323'                project_id='0001' summary='Tarea #23' description='Descripcion sencilla 23.' estimated='1' burned='1' remaining='0' priority='10' status='0' beginDate='2011-12-01' endDate='2011-12-10' />
-	<tasks id='-324'                project_id='0001' summary='Tarea #24' description='Descripcion sencilla 24.' estimated='2' burned='3' remaining='0' priority='10' status='0' beginDate='2011-12-01' endDate='2011-12-10' />
-	<tasks id='-325' user_id='0001' project_id='0001' summary='Tarea #25' description='Descripcion sencilla 25.' estimated='2' burned='0' remaining='2' priority='10' status='0' />
-	<tasks id='-326' user_id='0001' project_id='0001' summary='Tarea #26' description='Descripcion sencilla 26.' estimated='2' burned='0' remaining='2' priority='10' status='0' />
-	<tasks id='-327'                project_id='0001' summary='Tarea #27' description='Descripcion sencilla 27.' estimated='1' burned='0' remaining='2' priority='10' status='0' />
+	<tasks id='-300' user_id='-100' project_id='-200' summary='Primera tarea' description='Descripcion sencilla.' estimated='4' burned='0' remaining='4' priority='2' beginDate='2011-12-01' endDate='2011-12-10' status='0' version='1' />
+	<tasks id='-301' user_id='0001' project_id='0001' summary='Tarea #1'  description='Descripcion sencilla 1.'  estimated='2' burned='0' remaining='2' priority='10' status='0' version='1' />
+	<tasks id='-302' user_id='0001' project_id='0001' summary='Tarea #2'  description='Descripcion sencilla 2.'  estimated='2' burned='0' remaining='2' priority='10' status='0' version='1' />
+	<tasks id='-303'                project_id='0001' summary='Tarea #3'  description='Descripcion sencilla 3.'  estimated='1' burned='0' remaining='2' priority='10' status='0' version='1' />
+	<tasks id='-304'                project_id='0001' summary='Tarea #4'  description='Descripcion sencilla 4.'  estimated='3' burned='0' remaining='2' priority='10' status='0' version='1' />
+	<tasks id='-305'                project_id='0001' summary='Tarea #5'  description='Descripcion sencilla 5.'  estimated='1' burned='0' remaining='2' priority='10' status='0' version='1' />
+	<tasks id='-306'                project_id='0001' summary='Tarea #6'  description='Descripcion sencilla 6.'  estimated='1' burned='1' remaining='0' priority='10' status='0' beginDate='2011-12-01' endDate='2011-12-10' version='1' />
+	<tasks id='-307'                project_id='0001' summary='Tarea #7'  description='Descripcion sencilla 7.'  estimated='2' burned='3' remaining='0' priority='10' status='0' beginDate='2011-12-01' endDate='2011-12-10' version='1' />
+	<tasks id='-308' user_id='0001' project_id='0001' summary='Tarea #8'  description='Descripcion sencilla 8.'  estimated='2' burned='0' remaining='2' priority='10' status='0' version='1' />
+	<tasks id='-309' user_id='0001' project_id='0001' summary='Tarea #9'  description='Descripcion sencilla 9.'  estimated='2' burned='0' remaining='2' priority='10' status='0' version='1' />
+	<tasks id='-310' user_id='-100' project_id='0001' summary='Tarea #10' description='Descripcion sencilla 10.' estimated='1' burned='0' remaining='2' priority='10' status='0' version='1' />
+	<tasks id='-311' user_id='-100' project_id='0001' summary='Tarea #11' description='Descripcion sencilla 11.' estimated='3' burned='0' remaining='2' priority='10' status='1' version='1' />
+	<tasks id='-312' user_id='-100' project_id='0001' summary='Tarea #12' description='Descripcion sencilla 12.' estimated='1' burned='0' remaining='2' priority='10' status='1' version='1' />
+	<tasks id='-313' user_id='-100' project_id='0001' summary='Tarea #13' description='Descripcion sencilla 13.' estimated='1' burned='1' remaining='0' priority='10' status='1' beginDate='2011-12-01' endDate='2011-12-10' version='1' />
+	<tasks id='-314' user_id='-100' project_id='0001' summary='Tarea #14' description='Descripcion sencilla 14.' estimated='2' burned='3' remaining='0' priority='10' status='1' beginDate='2011-12-01' endDate='2011-12-10' version='1' />
+	<tasks id='-315' user_id='0001' project_id='0001' summary='Tarea #15' description='Descripcion sencilla 15.' estimated='2' burned='0' remaining='2' priority='10' status='1' version='1' />
+	<tasks id='-316' user_id='0001' project_id='0001' summary='Tarea #16' description='Descripcion sencilla 16.' estimated='2' burned='0' remaining='2' priority='10' status='1' version='1' />
+	<tasks id='-317'                project_id='0001' summary='Tarea #17' description='Descripcion sencilla 17.' estimated='1' burned='0' remaining='2' priority='10' status='1' version='1' />
+	<tasks id='-318'                project_id='0001' summary='Tarea #18' description='Descripcion sencilla 18.' estimated='3' burned='0' remaining='2' priority='10' status='1' version='1' />
+	<tasks id='-319'                project_id='0001' summary='Tarea #19' description='Descripcion sencilla 19.' estimated='1' burned='0' remaining='2' priority='10' status='2' version='1' />
+	<tasks id='-320'                project_id='0001' summary='Tarea #20' description='Descripcion sencilla 20.' estimated='1' burned='1' remaining='0' priority='10' status='2' beginDate='2011-12-01' endDate='2011-12-10' version='1' />
+	<tasks id='-321'                project_id='0001' summary='Tarea #21' description='Descripcion sencilla 21.' estimated='2' burned='3' remaining='0' priority='10' status='2' beginDate='2011-12-01' endDate='2011-12-10' version='1' />
+	<tasks id='-322'                project_id='0001' summary='Tarea #22' description='Descripcion sencilla 22.' estimated='1' burned='0' remaining='2' priority='10' status='2' version='1' />
+	<tasks id='-323'                project_id='0001' summary='Tarea #23' description='Descripcion sencilla 23.' estimated='1' burned='1' remaining='0' priority='10' status='2' beginDate='2011-12-01' endDate='2011-12-10' version='1' />
+	<tasks id='-324'                project_id='0001' summary='Tarea #24' description='Descripcion sencilla 24.' estimated='2' burned='3' remaining='0' priority='10' status='2' beginDate='2011-12-01' endDate='2011-12-10' version='1' />
+	<tasks id='-325' user_id='0001' project_id='0001' summary='Tarea #25' description='Descripcion sencilla 25.' estimated='2' burned='0' remaining='2' priority='10' status='2' version='1' />
+	<tasks id='-326' user_id='0001' project_id='0001' summary='Tarea #26' description='Descripcion sencilla 26.' estimated='2' burned='0' remaining='2' priority='10' status='2' version='1' />
+	<tasks id='-327'                project_id='0001' summary='Tarea #27' description='Descripcion sencilla 27.' estimated='1' burned='0' remaining='2' priority='10' status='2' version='1' />
 	
 	<sprints id='-400' project_id='-200' summary='Sprint tar' description='Description sencilla.' />
 	
