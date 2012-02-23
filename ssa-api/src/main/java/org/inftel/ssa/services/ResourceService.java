@@ -29,6 +29,8 @@ public interface ResourceService {
 	
 	public Task findTask(Long id);
 	
+	public int countTaksByProject(Project project, String sortField, Boolean ascOrder, Map<String, String> filters);
+	
 	public List<Project> findProjects(Integer startPosition, Integer maxResult, String sortField, Boolean ascOrder, Map<String, String> filters);
 
 	public List<Task> findTaksByProject(Project project, Integer startPosition, Integer maxResult, String sortField, Boolean ascOrder, Map<String, String> filters);

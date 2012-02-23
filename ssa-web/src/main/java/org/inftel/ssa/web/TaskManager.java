@@ -34,139 +34,124 @@ import org.primefaces.model.SortOrder;
 @SessionScoped
 public class TaskManager implements Serializable {
 
-    private final static Logger logger = Logger.getLogger(TaskManager.class.getName());
-    @EJB
-    private ResourceService resources;
-    @ManagedProperty(value = "#{sprintManager}")
-    private SprintManager sprintManager;
-    @ManagedProperty(value = "#{projectManager}")
-    private ProjectManager projectManager;
-    @ManagedProperty(value = "#{userManager}")
-    private UserManager userManager;
-    private static final long serialVersionUID = 1L;
-    private Task currentTask;
-    private boolean accepted;
-    private int taskStatus;
-    private LazyDataModel<Task> tasks = new LazyDataModel() {
+	private final static Logger logger = Logger.getLogger(TaskManager.class.getName());
+	@EJB
+	private ResourceService resources;
+	@ManagedProperty(value = "#{sprintManager}")
+	private SprintManager sprintManager;
+	@ManagedProperty(value = "#{projectManager}")
+	private ProjectManager projectManager;
+	@ManagedProperty(value = "#{userManager}")
+	private UserManager userManager;
+	private static final long serialVersionUID = 1L;
+	private Task currentTask;
+	private boolean accepted;
+	private int taskStatus;
+	private LazyDataModel<Task> tasks = new LazyDataModel() {
 
-        @Override
-        public List load(int first, int pageSize, String sortField, org.primefaces.model.SortOrder sortOrder, Map filters) {
-            logger.log(Level.INFO, "lazy data model [first={0}, pageSize={1}, sortField={2}, sortOrder={3}, filters={4}",
-                    new Object[]{first, pageSize, sortField, sortOrder, filters});
-            
-            Map<String,String> filter = new HashMap<String, String>();
-            filter.put("summary","prototipo");
-            Boolean asc = sortOrder == SortOrder.ASCENDING;
-            return resources.findTaksByProject(projectManager.getCurrentProject(), first, pageSize, sortField, asc, filter);
-            
-        }
+		@Override
+		public List load(int first, int pageSize, String sortField, org.primefaces.model.SortOrder sortOrder, Map filters) {
+			int count = resources.countTaksByProject(projectManager.getCurrentProject(), sortField, sortOrder == SortOrder.ASCENDING, filters);
+			logger.log(Level.INFO, "lazy data model [first={0}, pageSize={1}, sortField={2}, sortOrder={3}, filters={4}, count={5}]", new Object[]{first, pageSize, sortField, sortOrder, filters, count});
+			setRowCount(count);
+			return resources.findTaksByProject(projectManager.getCurrentProject(), first, pageSize, sortField, sortOrder == SortOrder.ASCENDING, filters);
+		}
 
-        @Override
-        public void setRowIndex(int rowIndex) {
-            /*
-             * The following is in ancestor (LazyDataModel): this.rowIndex =
-             * rowIndex == -1 ? rowIndex : (rowIndex % pageSize);
-             */
-            if (rowIndex == -1 || getPageSize() == 0) {
-                super.setRowIndex(-1);
-            } else {
-                super.setRowIndex(rowIndex);
-            }
-        }
-    };
-    
+		@Override
+		public void setRowIndex(int rowIndex) {
+			/*
+			 * The following is in ancestor (LazyDataModel): this.rowIndex = rowIndex == -1 ?
+			 * rowIndex : (rowIndex % pageSize);
+			 */
+			if (rowIndex == -1 || getPageSize() == 0) {
+				super.setRowIndex(-1);
+			} else {
+				super.setRowIndex(rowIndex);
+			}
+		}
+	};
 
-    /**
-     * Creates a new instance of taskManager
-     */
-    public TaskManager() {
-    }
+	public String create() {
+		Task task = new Task();
+		task.setStatus(TaskStatus.TODO);
+		task.setProject(projectManager.getCurrentProject());
+		setCurrentTask(task);
+		return "/task/create?faces-redirect=true";
 
-    public SprintManager getSprintManager() {
-        return sprintManager;
-    }
+	}
 
-    public void setSprintManager(SprintManager sprintManager) {
-        this.sprintManager = sprintManager;
-    }
+	public String save() {
+		if (currentTask != null) {
+			resources.saveTask(currentTask);
+		}
+		return "/task/index?faces-redirect=true";
+	}
 
-    public LazyDataModel<Task> getTasks() {
-        int rows = projectManager.getCurrentProject(true).getTasks().size();
-        logger.info("row count=" + rows);
-        tasks.setRowCount(rows);
-        return tasks;
-    }
+	public void remove() {
+	}
 
-    public void setTasks(LazyDataModel<Task> tasks) {
-        this.tasks = tasks;
-    }
+	public String edit() {
+		setCurrentTask(tasks.getRowData());
+		accepted = tasks.getRowData().getUser() != null;
+		return "/task/edit?faces-redirect=true";
+	}
+	
+	// --------------------------------------------------------------------------- Getters & Setters
+	
+	public SprintManager getSprintManager() {
+		return sprintManager;
+	}
 
-    public ProjectManager getProjectManager() {
-        return projectManager;
-    }
+	public void setSprintManager(SprintManager sprintManager) {
+		this.sprintManager = sprintManager;
+	}
 
-    public void setProjectManager(ProjectManager projectManager) {
-        this.projectManager = projectManager;
-    }
+	public LazyDataModel<Task> getTasks() {
+		return tasks;
+	}
 
-    public Task getCurrentTask() {
-        return currentTask;
-    }
+	public void setTasks(LazyDataModel<Task> tasks) {
+		this.tasks = tasks;
+	}
 
-    public void setCurrentTask(Task currentTask) {
-        this.currentTask = currentTask;
-    }
+	public ProjectManager getProjectManager() {
+		return projectManager;
+	}
 
-    public String create() {
-        Task task = new Task();
-        task.setStatus(TaskStatus.TODO);
-        task.setProject(projectManager.getCurrentProject());
-        setCurrentTask(task);
-        return "/task/create?faces-redirect=true";
+	public void setProjectManager(ProjectManager projectManager) {
+		this.projectManager = projectManager;
+	}
 
-    }
+	public Task getCurrentTask() {
+		return currentTask;
+	}
 
-    public String save() {
-        if (currentTask != null) {            
-            resources.saveTask(currentTask);
+	public void setCurrentTask(Task currentTask) {
+		this.currentTask = currentTask;
+	}
 
-        }
-        return "/task/index?faces-redirect=true";
-    }
+	public boolean getAccepted() {
+		return accepted;
+	}
 
-    public void remove() {        
-    }
+	public void setAccepted(boolean accepted) {
+		currentTask.setUser(getUserManager().getCurrentUser());
+	}
 
-    public String edit() {
-        setCurrentTask(tasks.getRowData());
-        accepted = tasks.getRowData().getUser()!=null;
-        return "/task/edit?faces-redirect=true";
-    }
+	public UserManager getUserManager() {
+		return userManager;
+	}
 
-    public boolean getAccepted(){
-        return accepted;
-    }
+	public void setUserManager(UserManager userManager) {
+		this.userManager = userManager;
+	}
 
-    public void setAccepted(boolean accepted) {
-        currentTask.setUser(getUserManager().getCurrentUser());
-    }
-      
+	public int getTaskStatus() {
+		return currentTask.getStatus().ordinal();
+	}
 
-    public UserManager getUserManager() {
-        return userManager;
-    }
-
-    public void setUserManager(UserManager userManager) {
-        this.userManager = userManager;
-    }
-
-    public int getTaskStatus() {
-        return currentTask.getStatus().ordinal();
-    }
-
-    public void setTaskStatus(int taskStatus) {
-        currentTask.setStatus(TaskStatus.values()[taskStatus]);
-        this.taskStatus = taskStatus;
-    }
-
+	public void setTaskStatus(int taskStatus) {
+		currentTask.setStatus(TaskStatus.values()[taskStatus]);
+		this.taskStatus = taskStatus;
+	}
 }

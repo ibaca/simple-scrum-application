@@ -93,6 +93,7 @@ public class UserFacadeTest {
 		Map<String,String> filter = new IdentityHashMap<String, String>(1);
 		filter.put("email", "gilmour%");
 		assertEquals("David",users.find(null, null, null, null, filter).get(0).getNickname());
+		assertEquals(0000001,users.find(0, 15, "nickname", true, filter).size());
 		
 		// Filter by relation
 		Map<String,String> filter1 = new IdentityHashMap<String, String>(1);

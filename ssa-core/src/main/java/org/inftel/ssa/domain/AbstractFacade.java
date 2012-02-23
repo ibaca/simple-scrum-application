@@ -1,5 +1,6 @@
 package org.inftel.ssa.domain;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -62,26 +63,9 @@ public abstract class AbstractFacade<T> {
 		CriteriaBuilder qb = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<T> cq = qb.createQuery(entityClass);
 		Root<T> from = cq.from(entityClass);
+		addCriterias(sortField, ascOrder, cq, qb, from, filters);
+		// select entity from entity...
 		CriteriaQuery<T> select = cq.select(from);
-
-		if (sortField != null && sortField.trim().length() > 0) {
-			boolean asc = (ascOrder == null) ? true : (ascOrder == Boolean.TRUE) ? true : false;
-			cq.orderBy((asc) ? qb.asc(from.get(sortField)) : qb.desc(from.get(sortField)));
-		}
-
-		filters = (filters == null) ? Collections.<String, String>emptyMap() : filters;
-		for (String column : filters.keySet()) {
-			if (column.endsWith(".id")) {
-				Expression<Long> literal = qb.literal(Long.decode(filters.get(column)));
-				Predicate predicate = qb.equal(from.<Long>get(column.split("\\.")[0]).get("id"), literal);
-				cq.where(predicate);
-			} else {
-				Expression<String> literal = qb.upper(qb.literal(filters.get(column)));
-				Predicate predicate = qb.like(qb.upper(from.<String>get(column)), literal);
-				cq.where(predicate);
-			}
-		}
-
 		TypedQuery<T> q = getEntityManager().createQuery(select);
 		if (startPosition != null) {
 			q.setFirstResult(startPosition);
@@ -91,6 +75,40 @@ public abstract class AbstractFacade<T> {
 		}
 
 		return q.getResultList();
+	}
+	
+	public int count(String sortField, Boolean ascOrder, Map<String, String> filters) {
+		CriteriaBuilder qb = getEntityManager().getCriteriaBuilder();
+		CriteriaQuery cq = qb.createQuery(entityClass);
+		javax.persistence.criteria.Root<T> from = cq.from(entityClass);
+		addCriterias(null, null, cq, qb, from, filters);
+		// select count(entity) from entity...
+		CriteriaQuery<Long> select = cq.select(qb.count(from));
+		TypedQuery<Long> q = getEntityManager().createQuery(select);
+		return q.getSingleResult().intValue();
+	}
+
+	private void addCriterias(String sortField, Boolean ascOrder, CriteriaQuery<T> cq, CriteriaBuilder qb, Root<T> from, Map<String, String> filters) throws NumberFormatException {
+		if (sortField != null && sortField.trim().length() > 0) {
+			boolean asc = (ascOrder == null) ? true : (ascOrder == Boolean.TRUE) ? true : false;
+			cq.orderBy((asc) ? qb.asc(from.get(sortField)) : qb.desc(from.get(sortField)));
+		}
+
+		filters = (filters == null) ? Collections.<String, String>emptyMap() : filters;
+		List<Predicate> predicates = new ArrayList<Predicate>(filters.size());
+		for (String column : filters.keySet()) {
+			if (column.endsWith(".id")) {
+				Expression<Long> literal = qb.literal(Long.decode(filters.get(column)));
+				Predicate predicate = qb.equal(from.<Long>get(column.split("\\.")[0]).get("id"), literal);
+				predicates.add(predicate);
+			} else {
+				System.out.println("filtrando por: " + column + ":" + filters.get(column));
+				Expression<String> literal = qb.upper(qb.literal(filters.get(column)));
+				Predicate predicate = qb.like(qb.upper(from.<String>get(column)), literal);
+				predicates.add(predicate);
+			}
+		}
+		cq.where(predicates.toArray(new Predicate[0]));
 	}
 
 	public int count() {

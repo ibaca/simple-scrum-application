@@ -11,76 +11,65 @@
     template="/template.xhtml">
 
     <ui:define name="content">
+		<style> .ui-datatable input.ui-column-filter { display: inline-block; padding: 0; margin-left: 10px; } </style>
+		<h1>BackLog <small>Listado de tareas del proyecto</small></h1>
         <div class="row">
-            <div class="span8">
-                <h:form id="frmListTasks">
-                    <h1>BackLog <small>Listado de tareas del proyecto</small></h1>
-                    <p>
-                        <h:outputText value="There is no task" rendered="#{taskManager.tasks.rowCount == 0}" />
+            <div class="span8" style="position: relative">
+				<h:form style="position: absolute; right: 0px;top: -34px;">
+					<h:commandButton  action="#{taskManager.create}" value="Crear nueva tarea" styleClass="btn btn-success" />
+				</h:form>
+                <h:form id="task_list_form">
+					<p:dataTable value="#{taskManager.tasks}" var="task" 
+								 paginator="true" paginatorPosition="bottom" rows="15" emptyMessage="No hay tareas">
 
-                        <p:dataTable value="#{taskManager.tasks}" var="task"  rendered="#{taskManager.tasks.rowCount > 0}" 
-                                     paginator="true" paginatorPosition="bottom" rows="20" id="dtTasks">
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="id" />
+							</f:facet>
+							<h:outputText value="#{task.id}" />
+						</p:column>
 
-                            <p:column >
-                                <f:facet name="header">
-                                    <h:outputText value="#" />
-                                </f:facet>
-                                <h:outputText value="#{taskManager.tasks.rowIndex + 1}" />
-                            </p:column>
-                            <p:column >
-                                <f:facet name="header">
-                                    <h:outputText value="Summary" />
-                                </f:facet>
-                                <p:commandLink value="#{task.summary}" action="#{taskManager.edit}" ajax="false" />
-                            </p:column>
-                            <p:column sortBy="#{task.status}" >
-                                <f:facet name="header">
-                                    <h:outputText value="Status&nbsp;&nbsp;"/>
-                                </f:facet>
-                                <h:outputText value="#{task.status}"/>
-                            </p:column>
-                            <p:column sortBy="#{task.user.nickname}" >
-                                <f:facet name="header">
-                                    <h:outputText value="User&nbsp;&nbsp;"/>
-                                </f:facet>
-                                <h:outputText value="#{task.user.nickname}"/>
-                            </p:column>
-                            <p:column  headerText="Priority&nbsp;&nbsp;"  sortBy="#{task.priority}" >
-                                <h:outputText value="#{task.priority}"  />
-                            </p:column>
-                            <p:column sortBy="#{task.created}">
-                                <f:facet name="header">
-                                    <h:outputText value="Created" />
-                                </f:facet>
-                                <h:outputText value="#{task.created}" >
-                                    <f:convertDateTime pattern="d/M/yyyy"/>
-                                </h:outputText>
-
-                            </p:column>
-
-                        </p:dataTable>
-                    </p>
-                    <p>
-                        <p:commandButton  action="#{taskManager.create}" value="New Task" styleClass="btn" ajax="false"/>
-                    </p>
+						<p:column sortBy="#{task.status}" >
+							<f:facet name="header">
+								<h:outputText value="Status&nbsp;&nbsp;"/>
+							</f:facet>
+							<h:outputText value="#{task.status}"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="User&nbsp;&nbsp;"/>
+							</f:facet>
+							<h:outputText value="#{task.user.nickname}"/>
+						</p:column>
+						<p:column  headerText="Priority&nbsp;&nbsp;"  sortBy="#{task.priority}" >
+							<h:outputText value="#{task.priority}"  />
+						</p:column>
+						<p:column sortBy="#{task.created}">
+							<f:facet name="header">
+								<h:outputText value="Created" />
+							</f:facet>
+							<h:outputText value="#{task.created}" >
+								<f:convertDateTime pattern="d/M/yyyy"/>
+							</h:outputText>
+						</p:column>
+						<p:column filterBy="#{task.summary}" sortBy="#{task.summary}">
+							<f:facet name="header">
+								<h:outputText value="Summary" />
+							</f:facet>
+							<h:commandLink value="#{task.summary}" action="#{taskManager.edit}" />
+						</p:column>
+					</p:dataTable>
                 </h:form>
             </div>
-
             <div class="span4">
                 <h3>Estad&iacute;stico de tareas </h3>
-                <p> En el gr&aacute;fico circular representa de forma porcentual y absoluta el 
-                    n&uacute;mero de tareas, contenidas en el proyecto <code> #{projectManager.currentProject.name}</code>
-                    , agrupadas seg&uacute;n su estado
-                </p>
-                <h:form>
-                    <p:pieChart id="sample" value="#{statisticsBean.pieTaskModel}" legendPosition="w"  
-                                title="Estado de las tareas" style="width:400px;height:300px" />
-                </h:form>
-
+                <p> En el gr&aacute;fico circular representa de forma porcentual el n&uacute;mero de
+					tareas, contenidas en el proyecto <code> #{projectManager.currentProject.name}
+					</code>, agrupadas seg&uacute;n su estado.
+					<h6 style="text-align: center">N&uacute;mero de tareas/Estado de la tarea</h6>
+					<p:pieChart id="sample" value="#{statisticsBean.pieTaskModel}" style="width:300px;height:300px" />
+				</p>
             </div>
         </div>
     </ui:define>
 </ui:composition>
-
-
-

@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import org.eclipse.persistence.annotations.Index;
 
 /**
  *
@@ -31,6 +31,7 @@ public class Task extends BaseEntity {
 	public static final String FIND_TASK_STATUS_USER = "countByUserAndStatus";
 	public static final String FIND_TASK_STATUS_SPRINT = "countBySprintAndStatus";
 	public static final String FIND_USERS_SPRINT = "Task.findUsersBySprint";
+	@Index
 	private String summary;
 	@Lob
 	private String description;

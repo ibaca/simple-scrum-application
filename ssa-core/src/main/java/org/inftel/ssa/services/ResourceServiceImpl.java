@@ -1,5 +1,6 @@
 package org.inftel.ssa.services;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,8 +86,19 @@ public class ResourceServiceImpl implements ResourceService {
 		if (filters == null) {
 			filters = new HashMap<String, String>(1);
 		}
-		filters.put("project.id", project.getId().toString());
-		return tasks.find(startPosition, maxResult, sortField, ascOrder, filters);
+		Map<String, String> modified = new HashMap<String, String>(filters);
+		modified.put("project.id", project.getId().toString());
+		return tasks.find(startPosition, maxResult, sortField, ascOrder, modified);
+	}
+	
+	@Override
+	public int countTaksByProject(Project project, String sortField, Boolean ascOrder, Map<String, String> filters) {
+		if (filters == null) {
+			filters = new HashMap<String, String>(1);
+		}
+		Map<String, String> modified = new HashMap<String, String>(filters);
+		modified.put("project.id", project.getId().toString());
+		return tasks.count(sortField, ascOrder, modified);
 	}
 
 	@Override
@@ -94,8 +106,9 @@ public class ResourceServiceImpl implements ResourceService {
 		if (filters == null) {
 			filters = new HashMap<String, String>(1);
 		}
-		filters.put("sprint.id", project.getId().toString());
-		return tasks.find(startPosition, maxResult, sortField, ascOrder, filters);
+		Map<String, String> modified = new HashMap<String, String>(filters);
+		modified.put("sprint.id", project.getId().toString());
+		return tasks.find(startPosition, maxResult, sortField, ascOrder, modified);
 	}
 
 	@Override
@@ -103,8 +116,9 @@ public class ResourceServiceImpl implements ResourceService {
 		if (filters == null) {
 			filters = new HashMap<String, String>(1);
 		}
-		filters.put("user.id", user.getId().toString());
-		return tasks.find(startPosition, maxResult, sortField, ascOrder, filters);
+		Map<String, String> modified = new HashMap<String, String>(filters);
+		modified.put("user.id", user.getId().toString());
+		return tasks.find(startPosition, maxResult, sortField, ascOrder, modified);
 	}
 
 	@Override
@@ -112,7 +126,8 @@ public class ResourceServiceImpl implements ResourceService {
 		if (filters == null) {
 			filters = new HashMap<String, String>(1);
 		}
-		filters.put("project.id", project.getId().toString());
-		return sprints.find(startPosition, maxResult, sortField, ascOrder, filters);
+		Map<String, String> modified = new HashMap<String, String>(filters);
+		modified.put("project.id", project.getId().toString());
+		return sprints.find(startPosition, maxResult, sortField, ascOrder, modified);
 	}
 }
