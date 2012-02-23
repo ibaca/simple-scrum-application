@@ -48,9 +48,9 @@ public class StatisticsBean implements Serializable {
 
     public StatisticsBean() {
     }
-    
-  @PostConstruct
-    private void init(){
+
+    @PostConstruct
+    private void init() {
         createStressModel();
         createTaskModel();
         createPieTaskModel();
@@ -72,7 +72,7 @@ public class StatisticsBean implements Serializable {
     public PieChartModel getPieTaskModel() {
         return pieTaskModel;
     }
-    
+
     public SprintManager getSprintManager() {
         return sprintManager;
     }
@@ -99,9 +99,9 @@ public class StatisticsBean implements Serializable {
         Long idUser = currentUser.getId();
         //Long idSprint = currentSprint.getId();
         String nickname = currentUser.getNickname();
-        stressSeries.setLabel(nickname); 
+        stressSeries.setLabel(nickname);
 
-        String name = "task."+idProject+"."+idUser+".remaining"; 
+        String name = "task." + idProject + "." + idUser + ".remaining";
         samples = datamining.findStatistics(name, DataminingDataPeriod.DAYLY, new Date(0), new Date());
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es"));
 
@@ -124,9 +124,9 @@ public class StatisticsBean implements Serializable {
         Long idProject = getProjectManager().getCurrentProject().getId();
         Long idUser = currentUser.getId();
         String nickname = currentUser.getNickname();
-        taskSeries.setLabel(nickname); 
+        taskSeries.setLabel(nickname);
 
-        String name = "task."+idProject+"."+idUser+".remaining"; 
+        String name = "task." + idProject + "." + idUser + ".remaining";
         samples = datamining.findStatistics(name, DataminingDataPeriod.DAYLY, new Date(0), new Date());
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es"));
 
@@ -174,18 +174,16 @@ public class StatisticsBean implements Serializable {
             Long idUser = user.getId();
 
             Map<Date, DataminingData> samples; // todos los datos por fecha
-            String name = "task."+idProject+"."+idUser+".remaining";
+            String name = "task." + idProject + "." + idUser + ".remaining";
             samples = datamining.findStatistics(name, DataminingDataPeriod.DAYLY, new Date(0), new Date());
             DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es"));
 
             for (Date date : samples.keySet()) {
                 series.set(df.format(date), samples.get(date).getDataCount());
-            } 
+            }
 
             individualModel.addSeries(series);
 
         }
     }
-
-    
 }
