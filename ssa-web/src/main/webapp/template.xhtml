@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html lang="#{localeBean.language}"
+	  xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
@@ -31,27 +32,27 @@
 						<h:form>   
 							<h:link value="#{ empty projectManager.currentProject.name ? 'Simple Scrum Application' : projectManager.currentProject.name}" outcome="/index" class="brand" />
 							<ul class="nav">
-								<li><h:link value="Home" outcome="/project/show" /></li>
-								<li><h:link value="Tablón" outcome="/project/dashboard" /></li>
-								<li><h:link value="Tareas" outcome="/task/index" /></li>
-								<li><h:link value="Sprints" outcome="/sprint/index" /></li>
-								<li><h:link value="Administrar" outcome="/project/edit" /></li>
+								<li><h:link value="${bundle['nav.home']}" outcome="/project/show" /></li>
+								<li><h:link value="${bundle['nav.dashboard']}" outcome="/project/dashboard" /></li>
+								<li><h:link value="${bundle['nav.task']}" outcome="/task/index" /></li>
+								<li><h:link value="${bundle['nav.sprint']}" outcome="/sprint/index" /></li>
+								<li><h:link value="${bundle['nav.admin']}" outcome="/project/edit" /></li>
 							</ul>
 							<ul class="nav pull-right">
 								<li id="projects-dropdown" class="dropdown">
-									<a class="dropdown-toggle" data-toggle="dropdown" href="#projects-dropdown">Proyectos<b class="caret"></b></a>
+									<a class="dropdown-toggle" data-toggle="dropdown" href="#projects-dropdown">#{bundle['nav.projects']}<b class="caret"></b></a>
 									<ul class="dropdown-menu">
 										<c:forEach items="#{userManager.currentUser.projects}" var="project">
 											<li><h:commandLink value="#{project.name}" action="#{projectManager.changeCurrentProject(project)}" /></li>
 										</c:forEach>
 										<li class="divider"></li>
-										<li><h:commandLink action="#{projectManager.create}" value="Nuevo proyecto" /></li>
+										<li><h:commandLink action="#{projectManager.create}" value="#{bundle['action.new.project']}" /></li>
 									</ul>
 									<!-- al ser asincrono no inicializa el dropdown -->
 									<script>$('.dropdown-toggle').dropdown()</script>
 								</li>
-								<li><h:commandLink value="Settings" url="#" /></li>
-								<li><h:commandLink value="Logout" action="#{userManager.logout()}" /></li>
+								<li><h:commandLink value="#{bundle['nav.settings']}" url="#" /></li>
+								<li><h:commandLink value="#{bundle['action.logout']}" action="#{userManager.logout()}" /></li>
 							</ul>
 						</h:form> 
 					</c:if>
@@ -63,7 +64,7 @@
 							</ul>
 							<ul class="nav pull-right">
 								<!--<li><a>Settings</a></li>-->
-								<li><h:link value="Login" outcome="login" /></li>
+								<li><h:link value="#{bundle['action.login']}" outcome="login" /></li>
 							</ul>
 						</h:form> 
 					</c:if>
@@ -79,7 +80,14 @@
 
 			<!-- Footer -->
 			<footer>
-				<p>© Inftel 2012 | Hello #{userManager.currentUser.nickname}</p>
+				<p>
+					<h:form style="display:inline-block">
+						<h:commandLink action="#{localeBean.setLanguage('')}" value="Español" />  |
+						<h:commandLink action="#{localeBean.setLanguage('en')}" value="English" />
+					</h:form>
+					| © Inftel 2012 | Hello #{userManager.currentUser.nickname}
+
+				</p>
 			</footer>
 		</h:panelGroup>
 

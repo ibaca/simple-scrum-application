@@ -3,28 +3,23 @@
 <!-- =========== FULL CONFIGURATION FILE ================================== -->
 
 <faces-config version="2.0"
-              xmlns="http://java.sun.com/xml/ns/javaee" 
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+			  xmlns="http://java.sun.com/xml/ns/javaee" 
+			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
-    <application>
-        
-<!--        <resource-bundle>
-            <base-name>org.inftel.ssa.web.messages.messages</base-name>
-            <var>bundle</var>
-        </resource-bundle>-->
-        
-        <locale-config>
-            <default-locale>es</default-locale>
-            <supported-locale>en</supported-locale>
-        </locale-config>
-        
-        <converter>
-            <converter-id>task</converter-id>
-            <converter-class>org.inftel.ssa.web.TaskConverter</converter-class>
-        </converter>
-      
-    </application>
-   
-
+	<application>
+		<locale-config>
+			<default-locale>es</default-locale>
+			<supported-locale>en</supported-locale>
+		</locale-config>
+		<resource-bundle>
+			<base-name>org.inftel.ssa.web.messages.Messages</base-name>
+			<var>bundle</var>
+		</resource-bundle>
+		<converter>
+			<converter-id>task</converter-id>
+			<converter-class>org.inftel.ssa.web.TaskConverter</converter-class>
+		</converter>
+	</application>
+	
 </faces-config>

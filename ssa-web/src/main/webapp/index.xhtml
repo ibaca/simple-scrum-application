@@ -10,16 +10,11 @@
 
 	<ui:define name="content">
 		<div class="hero-unit">
-			<h1>Bienvenido a S.S.A.</h1>
+			<h1>#{bundle['welcome.title']}</h1>
 			<h2><small>Simple Scrum Application</small></h2>
-			<p>
-				Scrum is a form of agile project management.
-				Although the Scrum approach was originally suggested for controlling manufacturing, its use has shifted on the management
-				of other projects, and it can be used to run manufacturing maintenance groups or as a general restaurant management type 
-				daily chore with a repeated machine driven effort that does not require any creativity or intelligence.
-			</p>
+			<p>#{bundle['welcome.text']}}</p>
 			<h:form>
-			<p><h:link value="Crear una cuenta »" outcome="signin" class="btn btn-success btn-large" /></p>
+				<p><h:link value="#{bundle['action.create.account']}" outcome="signin" class="btn btn-success btn-large" /></p>
 			</h:form>
 		</div>
 	</ui:define>
