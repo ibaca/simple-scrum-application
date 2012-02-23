@@ -14,7 +14,7 @@
                     <h:form  class="form-horizontal"> 
 
                         <fieldset>
-                            <legend>Datos de la tarea</legend>
+                            <legend>Datos del Sprint</legend>
                             <div class="control-group"> 							
                                 <h:outputLabel for="summary" value="Summary" class="control-label" />  
                                 <div class="controls">
@@ -37,7 +37,20 @@
                                 </div>
                             </div>
                             <br/>
-                         
+                            <div class="control-group">
+                                <h:outputLabel  value="Añadir tareas" class="control-label" />
+                                <div class="controls">
+                                    <p:pickList id="pickList" value="#{sprintManager.tasks}" var="spTask" converter="spTask" itemValue="#{spTask}" showSourceControls="true"
+                                                showTargetControls="true" >
+                                        <f:facet name="sourceCaption">Available</f:facet>  
+                                        <f:facet name="targetCaption">Added</f:facet> 
+                                        <p:column style="width:75%">  
+                                            <b>#{spTask.summary}</b>
+                                        </p:column>   
+                                    </p:pickList> 
+                                </div>
+                            </div>
+                            <br/>
                             <div class="control-group"> 							
                                 <h:outputLabel for="description" value="Description" class="control-label" /> 
                                 <div class="controls">
@@ -47,7 +60,7 @@
                             </div> 
                             <br/>
                             <div class="form-actions">
-                                <p:commandButton  action="#{sprintManager.save}" value="Guardar Cambios" update="@form" styleClass="btn btn-primary"/>&nbsp;
+                                <p:commandButton  action="#{sprintManager.saveEdit()}" value="Guardar Cambios" update="@form" styleClass="btn btn-primary"/>&nbsp;
                                 <p:commandButton type="reset" value="Cancel" action="/sprint/index?faces-redirect=true" styleClass="btn"/>
                             </div>
                         </fieldset>

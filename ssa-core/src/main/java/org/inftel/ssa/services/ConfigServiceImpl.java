@@ -103,6 +103,7 @@ public class ConfigServiceImpl {
 
 		logger.info("Creando sprint Sprint Uno en Manhattan");
 		Sprint sUno = new Sprint();
+                sUno.setSummary("Sprint 1");
 		sUno.setDescription("Sprint uno de ejemplo");
 		sUno.setEndDate(new Date(System.currentTimeMillis() + 3200 * 10));
 		sUno.setProject(manhattan);

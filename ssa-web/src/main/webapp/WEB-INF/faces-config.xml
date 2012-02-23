@@ -18,6 +18,11 @@
             <default-locale>es</default-locale>
             <supported-locale>en</supported-locale>
         </locale-config>
+        
+        <converter>
+            <converter-id>spTask</converter-id>
+            <converter-class>org.inftel.ssa.web.ConverterPickList</converter-class>
+        </converter>
       
     </application>
    
