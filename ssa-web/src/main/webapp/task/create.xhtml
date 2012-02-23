@@ -9,18 +9,54 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="content">
-            <h:form id="createTaskForm">                 
-                <p:panel >
-                    <h:panelGroup>
-                        <ui:include src="/task/form.xhtml"/>
-                    </h:panelGroup>
-                    <h:panelGroup>
-                        <p:commandButton  action="#{taskManager.save()}" value="Save" update="@form" styleClass="btn" />&nbsp;
-                        <p:commandButton type="reset" value="Cancel" styleClass="btn"/>
-                    </h:panelGroup>
-                </p:panel>
-            </h:form>
+            <div class="row">
+                <div class="span8">
+                    <h:form  class="form-horizontal"> 
 
+                        <fieldset>
+                            <legend>Datos de la tarea</legend>
+                            <div class="control-group"> 							
+                                <h:outputLabel for="summary" value="Summary" class="control-label" />  
+                                <div class="controls">
+                                    <p:inputText id ="summary" required="true" label="summary" value="#{taskManager.currentTask.summary}" />
+                                    <h:message for="summary" class="help-inline" />
+                                </div>
+                            </div>
+
+                            <div class="control-group"> 							
+                                <h:outputLabel for="priority" value="Priority" class="control-label" />  
+                                <div class="controls">
+                                    <p:inputText id="priority" required="true" label="priority" value="#{taskManager.currentTask.priority}" />  
+                                    <h:message for="priority" class="help-inline" />
+                                </div>
+                            </div>
+
+                            <div class="control-group"> 							
+                                <h:outputLabel for="estimated" value="Estimated" class="control-label" />  
+                                <div class="controls">
+                                    <p:inputText id ="estimated" required="true" label="estimated" value="#{taskManager.currentTask.estimated}" />
+                                    <h:message for="estimated" class="help-inline" />
+                                </div>
+                            </div>
+
+                            <br/>
+                            
+                            <div class="control-group"> 							
+                                <h:outputLabel for="description" value="Description" class="control-label" /> 
+                                <div class="controls">
+                                    <p:editor id="description"  required="true"   value="#{taskManager.currentTask.description}" />  
+                                    <h:message for="description" class="help-inline" /> 
+                                </div>
+                            </div> 
+                         
+                            <div class="form-actions">
+                                <p:commandButton  action="#{taskManager.save()}" value="Guardar Cambios" update="@form" styleClass="btn btn-primary" />&nbsp;
+                                <p:commandButton type="reset" value="Cancel" styleClass="btn"/>
+                            </div>
+                        </fieldset>
+                    </h:form>
+                </div>
+            </div>
         </ui:define>
     </ui:composition>
 </html>

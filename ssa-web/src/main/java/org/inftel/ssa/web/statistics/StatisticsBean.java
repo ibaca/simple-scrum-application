@@ -51,8 +51,8 @@ public class StatisticsBean implements Serializable {
 
     @PostConstruct
     private void init() {
-        createStressModel();
-        createTaskModel();
+        //createStressModel();
+        //createTaskModel();
         createPieTaskModel();
         //createIndividualModel();
     }
@@ -88,7 +88,7 @@ public class StatisticsBean implements Serializable {
     public void setUserManager(UserManager userManager) {
         this.userManager = userManager;
     }
-
+    
     private void createStressModel() {
         stressModel = new CartesianChartModel();
         LineChartSeries stressSeries = new LineChartSeries();

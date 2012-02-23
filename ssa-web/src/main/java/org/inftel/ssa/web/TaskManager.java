@@ -119,37 +119,36 @@ public class TaskManager implements Serializable {
 
     public String create() {
         Task task = new Task();
+        task.setStatus(TaskStatus.TODO);
+        task.setProject(projectManager.getCurrentProject());
         setCurrentTask(task);
         return "/task/create.xhtml";
 
     }
 
     public String save() {
-        if (currentTask != null) {
-            Project project = projectManager.getCurrentProject();
-            currentTask.setProject(project);
+        if (currentTask != null) {            
             resources.saveTask(currentTask);
 
         }
         return "/task/index.xhtml";
     }
 
-    public void remove() {
+    public void remove() {        
     }
 
     public String edit() {
         setCurrentTask(tasks.getRowData());
-        return "/task/create.xhtml";
+        accepted = tasks.getRowData().getUser()!=null;
+        return "/task/edit.xhtml";
     }
 
     public boolean getAccepted(){
-        setAccepted(currentTask.getUser()!=null);
         return accepted;
     }
 
     public void setAccepted(boolean accepted) {
         currentTask.setUser(getUserManager().getCurrentUser());
-        this.accepted = accepted;
     }
       
 
@@ -169,5 +168,5 @@ public class TaskManager implements Serializable {
         currentTask.setStatus(TaskStatus.values()[taskStatus]);
         this.taskStatus = taskStatus;
     }
-    
+
 }

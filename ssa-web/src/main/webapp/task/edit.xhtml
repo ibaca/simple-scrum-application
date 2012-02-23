@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="content">
+            <div class="row">
+                <div class="span8">
+                    <h:form  class="form-horizontal"> 
+
+                        <fieldset>
+                            <legend>Datos de la tarea</legend>
+                            <div class="control-group"> 							
+                                <h:outputLabel for="summary" value="Summary" class="control-label" />  
+                                <div class="controls">
+                                    <p:inputText id ="summary" required="true" label="summary" value="#{taskManager.currentTask.summary}" />
+                                    <h:message for="summary" class="help-inline" />
+                                </div>
+                            </div>
+
+                            <div class="control-group"> 							
+                                <h:outputLabel for="priority" value="Priority" class="control-label" />  
+                                <div class="controls">
+                                    <p:inputText id="priority" required="true" label="priority" value="#{taskManager.currentTask.priority}" />  
+                                    <h:message for="priority" class="help-inline" />
+                                </div>
+                            </div>
+
+                            <div class="control-group"> 							
+                                <h:outputLabel for="estimated" value="Estimated" class="control-label" />  
+                                <div class="controls">
+                                    <p:inputText id ="estimated" required="true" label="estimated" value="#{taskManager.currentTask.estimated}" />
+                                    <h:message for="estimated" class="help-inline" />
+                                </div>
+                            </div>
+
+                            <div class="control-group"> 							
+                                <h:outputLabel  value="Start Date" class="control-label" />  
+                                <div class="controls">
+                                    <p:calendar value="#{taskManager.currentTask.beginDate}"  showOn="button" />  
+                                </div>
+                            </div>
+                            <div class="control-group"> 							
+                                <h:outputLabel  value="Finish Date" class="control-label" />  
+                                <div class="controls">
+                                    <p:calendar value="#{taskManager.currentTask.endDate}"  showOn="button" />  
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="control-group">
+                                <h:outputLabel  value="Status" class="control-label" />
+                                <div class="controls">
+                                    <p:selectOneMenu value="#{taskManager.taskStatus}">
+                                        <f:selectItem itemLabel="TODO" itemValue="0" />  
+                                        <f:selectItem itemLabel="DOING" itemValue="1"/>  
+                                        <f:selectItem itemLabel="DONE" itemValue="2" />  
+                                    </p:selectOneMenu>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="control-group"> 							
+                                <h:outputLabel for="description" value="Description" class="control-label" /> 
+                                <div class="controls">
+                                    <p:editor id="description"  required="true"   value="#{taskManager.currentTask.description}" />  
+                                    <h:message for="description" class="help-inline" /> 
+                                </div>
+                            </div> 
+                            <br/>
+                            <div class="controls">
+                                <h:outputLabel value="Aceptar tarea" rendered="#{taskManager.accepted == false}"/>  
+                                <p:selectBooleanCheckbox   value="#{taskManager.accepted}" rendered="#{taskManager.accepted == false}" />
+
+                            </div>
+                            <div class="controls">
+                                <h:outputLabel value="Owner:&nbsp;&nbsp;#{taskManager.currentTask.user.nickname}"  rendered="#{taskManager.accepted == true}" style="color: #da4f49" />
+                            </div>
+                            <div class="form-actions">
+                                <p:commandButton  action="#{taskManager.save()}" value="Guardar Cambios" update="@form" styleClass="btn btn-primary" />&nbsp;
+                                <p:commandButton type="reset" value="Cancel" styleClass="btn"/>
+                            </div>
+                        </fieldset>
+                    </h:form>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

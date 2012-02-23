@@ -3,76 +3,84 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <ui:composition 
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	template="/template.xhtml">
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    template="/template.xhtml">
 
-	<ui:define name="content">
-		<h:form id="frmListTasks">
-			<p>
-				<h:outputText value="There is no task" rendered="#{taskManager.tasks.rowCount == 0}" />
-                                
-				<p:dataTable value="#{taskManager.tasks}" var="task"  rendered="#{taskManager.tasks.rowCount > 0}" 
-							 paginator="true" paginatorPosition="bottom" rows="25" id="dtTasks">
-                                    
-                                        <p:column >
-						<f:facet name="header">
-							<h:outputText value="#" />
-						</f:facet>
-                                            <h:outputText value="#{taskManager.tasks.rowIndex + 1}" />
-					</p:column>
-					<p:column >
-						<f:facet name="header">
-							<h:outputText value="Summary" />
-						</f:facet>
-                                            <p:commandLink value="#{task.summary}" action="#{taskManager.edit}" update="@form" ajax="false"/>
-					</p:column>
-                                        <p:column sortBy="#{task.status}" >
-						<f:facet name="header">
-							<h:outputText value="Status&nbsp;&nbsp;"/>
-						</f:facet>
-                                            <h:outputText value="#{task.status}"/>
-					</p:column>
-                                        <p:column sortBy="#{task.user.nickname}" >
-						<f:facet name="header">
-							<h:outputText value="User&nbsp;&nbsp;"/>
-						</f:facet>
-                                            <h:outputText value="#{task.user.nickname}"/>
-					</p:column>
-                                        <p:column  headerText="Priority&nbsp;&nbsp;"  sortBy="#{task.priority}" >
-                                            <h:outputText value="#{task.priority}"  />
-					</p:column>
-                                        <p:column sortBy="#{task.created}">
-						<f:facet name="header">
-							<h:outputText value="Created" />
-						</f:facet>
-                                            <h:outputText value="#{task.created}" >
-                                                <f:convertDateTime pattern="d/M/yyyy"/>
-                                            </h:outputText>
-                                                    
-					</p:column>
-<!--					
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Actions" />
-						</f:facet>
-						<p:commandLink  action="#{taskManager.edit}" value="Edit" ajax="false" styleClass="btn" />&nbsp;
-						<p:commandLink  action="#{taskManager.remove}" value="Remove"  ajax="false" styleClass="btn btn-danger" />
-					</p:column>-->
+    <ui:define name="content">
+        <div class="row">
+            <div class="span8">
+                <h:form id="frmListTasks">
+                    <h1>BackLog <small>Listado de tareas del proyecto</small></h1>
+                    <p>
+                        <h:outputText value="There is no task" rendered="#{taskManager.tasks.rowCount == 0}" />
 
-				</p:dataTable>
-			</p>
-			<p>
-				<p:commandButton  action="#{taskManager.create}" value="New Task" styleClass="btn" ajax="false"/>
-			</p>
-                    
-                          
-		</h:form>
-	</ui:define>
+                        <p:dataTable value="#{taskManager.tasks}" var="task"  rendered="#{taskManager.tasks.rowCount > 0}" 
+                                     paginator="true" paginatorPosition="bottom" rows="20" id="dtTasks">
+
+                            <p:column >
+                                <f:facet name="header">
+                                    <h:outputText value="#" />
+                                </f:facet>
+                                <h:outputText value="#{taskManager.tasks.rowIndex + 1}" />
+                            </p:column>
+                            <p:column >
+                                <f:facet name="header">
+                                    <h:outputText value="Summary" />
+                                </f:facet>
+                                <p:commandLink value="#{task.summary}" action="#{taskManager.edit}" ajax="false" />
+                            </p:column>
+                            <p:column sortBy="#{task.status}" >
+                                <f:facet name="header">
+                                    <h:outputText value="Status&nbsp;&nbsp;"/>
+                                </f:facet>
+                                <h:outputText value="#{task.status}"/>
+                            </p:column>
+                            <p:column sortBy="#{task.user.nickname}" >
+                                <f:facet name="header">
+                                    <h:outputText value="User&nbsp;&nbsp;"/>
+                                </f:facet>
+                                <h:outputText value="#{task.user.nickname}"/>
+                            </p:column>
+                            <p:column  headerText="Priority&nbsp;&nbsp;"  sortBy="#{task.priority}" >
+                                <h:outputText value="#{task.priority}"  />
+                            </p:column>
+                            <p:column sortBy="#{task.created}">
+                                <f:facet name="header">
+                                    <h:outputText value="Created" />
+                                </f:facet>
+                                <h:outputText value="#{task.created}" >
+                                    <f:convertDateTime pattern="d/M/yyyy"/>
+                                </h:outputText>
+
+                            </p:column>
+
+                        </p:dataTable>
+                    </p>
+                    <p>
+                        <p:commandButton  action="#{taskManager.create}" value="New Task" styleClass="btn" ajax="false"/>
+                    </p>
+                </h:form>
+            </div>
+
+            <div class="span4">
+                <h3>Estad&iacute;stico de tareas </h3>
+                <p> En el gr&aacute;fico circular representa de forma porcentual y absoluta el 
+                    n&uacute;mero de tareas, contenidas en el proyecto <code> #{projectManager.currentProject.name}</code>
+                    , agrupadas seg&uacute;n su estado
+                </p>
+                <h:form>
+                    <p:pieChart id="sample" value="#{statisticsBean.pieTaskModel}" legendPosition="w"  
+                                title="Estado de las tareas" style="width:400px;height:300px" />
+                </h:form>
+
+            </div>
+        </div>
+    </ui:define>
 </ui:composition>
-                                
-                                   
-                                
+
+
+
