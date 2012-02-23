@@ -48,6 +48,9 @@ public class MailBean {
         this.subject = subject;
     }
 
+   /**
+    * Método principal para el envío de correos vía TLS
+    */ 
     public void send() {
 
         Properties props = new Properties();
@@ -56,7 +59,6 @@ public class MailBean {
         props.setProperty("mail.smtp.port", PORT);
         props.setProperty("mail.smtp.user", SENDER);
         props.setProperty("mail.smtp.auth", "true");
-
 
         Session session = Session.getInstance(props);
 
@@ -81,6 +83,12 @@ public class MailBean {
         }
     }
 
+    /**
+     * Envía un correo a un recurso cuando se le asigna a un proyecto
+     *
+     * @param receiver Dirección de correo del recurso
+     * @param project Descripción del proyecto
+     */
     public void sendMailProjAssigned(String receiver, String project) {
 
         this.subject = MailProperties.getValor("subject_mail_project") + " " + project;
@@ -89,6 +97,12 @@ public class MailBean {
         send();
     }
 
+    /**
+     * Envía un correo a un miembro del equipo con la tarea asignada
+     *
+     * @param receiver Dirección de correo del recurso
+     * @param task Descripción de la tarea
+     */
     public void sendMailTaskAssigned(String receiver, String task) {
 
         this.subject = MailProperties.getValor("subject_mail_task") + " " + task;
@@ -97,6 +111,14 @@ public class MailBean {
         send();
     }
     
+   /**
+     * Envía un correo a un miembro del equipo con un cambio de status de la
+     * tarea asignada.
+     *
+     * @param receiver Dirección de correo del recurso
+     * @param task Descripción de la tarea
+     * @param status Nuevo estado de la tarea
+     */
     public void sendMailTaskStatus(String receiver, String task, String status) {
 
         this.subject = MailProperties.getValor("subject_mail_status") + " " + task;
