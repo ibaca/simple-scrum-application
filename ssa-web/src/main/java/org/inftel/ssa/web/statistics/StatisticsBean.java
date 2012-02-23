@@ -93,14 +93,15 @@ public class StatisticsBean implements Serializable {
         stressModel = new CartesianChartModel();
         LineChartSeries stressSeries = new LineChartSeries();
         Map<Date, DataminingData> samples; // todos los datos por fecha
+        Long idProject = getProjectManager().getCurrentProject().getId();
         User currentUser = userManager.getCurrentUser();
-        Sprint currentSprint = sprintManager.getCurrentSprint();
+        //Sprint currentSprint = sprintManager.getCurrentSprint();
         Long idUser = currentUser.getId();
-        Long idSprint = currentSprint.getId();
+        //Long idSprint = currentSprint.getId();
         String nickname = currentUser.getNickname();
         stressSeries.setLabel(nickname); 
 
-        String name = "task.by-project."+idUser+"."+idSprint+".remaining"; 
+        String name = "task."+idProject+"."+idUser+".remaining"; 
         samples = datamining.findStatistics(name, DataminingDataPeriod.DAYLY, new Date(0), new Date());
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es"));
 
@@ -118,13 +119,14 @@ public class StatisticsBean implements Serializable {
         LineChartSeries taskSeries = new LineChartSeries();
         Map<Date, DataminingData> samples; // todos los datos por fecha
         User currentUser = userManager.getCurrentUser();
-        Sprint currentSprint = sprintManager.getCurrentSprint();
-        Long idSprint = currentSprint.getId();
+        //Sprint currentSprint = sprintManager.getCurrentSprint();
+        //Long idSprint = currentSprint.getId();
+        Long idProject = getProjectManager().getCurrentProject().getId();
         Long idUser = currentUser.getId();
         String nickname = currentUser.getNickname();
         taskSeries.setLabel(nickname); 
 
-        String name = "task.by-project."+idUser+"."+idSprint+".remaining"; 
+        String name = "task."+idProject+"."+idUser+".remaining"; 
         samples = datamining.findStatistics(name, DataminingDataPeriod.DAYLY, new Date(0), new Date());
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es"));
 
@@ -165,13 +167,14 @@ public class StatisticsBean implements Serializable {
         LineChartSeries series = new LineChartSeries();
         Set<User> users = getProjectManager().getCurrentProject().getUsers();
         Sprint currentSprint = sprintManager.getCurrentSprint();
+        Long idProject = getProjectManager().getCurrentProject().getId();
         long idSprint = currentSprint.getId();
         for (User user : users) {
             series.setLabel(user.getNickname());
             Long idUser = user.getId();
 
             Map<Date, DataminingData> samples; // todos los datos por fecha
-            String name = "task." + idUser + "." + idSprint + ".remaining";
+            String name = "task."+idProject+"."+idUser+".remaining";
             samples = datamining.findStatistics(name, DataminingDataPeriod.DAYLY, new Date(0), new Date());
             DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es"));
 
