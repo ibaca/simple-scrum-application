@@ -42,6 +42,33 @@
     <url>http://masterinftel.uma.es/</url>
   </organization>
   
+  <developers>
+	<developer>
+		<email>ignacio.bacamt@gmail.com</email>
+		<id>ibaca</id>
+		<name>Ignacio Baca Moreno-Torres</name>
+		<timezone>CET</timezone>
+	</developer>
+	<developer>
+		<email>juanan20@gmail.com</email>
+		<id>juanan</id>
+		<name>Juan Antonio Cobo Zamora</name>
+		<timezone>CET</timezone>
+	</developer>
+	<developer>
+		<email>jsbaes@gmail.com</email>
+		<id>jsbaes</id>
+		<name>Jesús S. Barriga Antonio</name>
+		<timezone>CET</timezone>
+	</developer>
+	<developer>
+		<email>jrovillano@gmail.com</email>
+		<id>jrovillano</id>
+		<name>Jesús Ruiz Oliva</name>
+		<timezone>CET</timezone>
+	</developer>
+</developers>
+  
   <dependencyManagement>
     <dependencies>
       <dependency>
