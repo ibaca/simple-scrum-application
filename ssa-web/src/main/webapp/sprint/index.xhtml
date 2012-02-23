@@ -11,29 +11,19 @@
     template="/template.xhtml">
 
     <ui:define name="content">
+		<h1>Sprint Backlog <small>Listado de sprints del proyecto</small></h1>
         <div class="row">
             <div class="span8">
-                <h:form id="frmListTasks">
-                    <h1>Sprint <small>Listado de sprints del proyecto</small></h1>
+                <h:form>
                     <p>
-                        <h:outputText value="There is no sprint" rendered="#{sprintManager.sprints.rowCount == 0}" />
-
-                        <p:dataTable value="#{sprintManager.sprints}" var="sprint"  rendered="#{sprintManager.sprints.rowCount > 0}" 
-                                     paginator="true" paginatorPosition="bottom" rows="20" id="dtSprints">
-
-                            <p:column >
+                        <p:dataTable value="#{sprintManager.sprints}" var="sprint" paginator="true" paginatorPosition="bottom" rows="14" emptyMessage="No hay ningun sprint asociado al proyecto actual">
+							<p:column>
                                 <f:facet name="header">
-                                    <h:outputText value="#" />
+                                    <h:outputText value="id" />
                                 </f:facet>
-                                <h:outputText value="#{sprintManager.sprints.rowIndex + 1}" />
+                                <h:outputText value="#{sprint.id}" />
                             </p:column>
-                            <p:column >
-                                <f:facet name="header">
-                                    <h:outputText value="Summary" />
-                                </f:facet>
-                                <p:commandLink value="#{sprint.summary}" action="#{sprintManager.edit}" update="@form" />
-                            </p:column>
-                            <p:column>
+							<p:column>
                                 <f:facet name="header">
                                     <h:outputText value="Tasks"/>
                                 </f:facet>
@@ -55,7 +45,6 @@
                                 <h:outputText value="#{sprint.beginDate}" >
                                     <f:convertDateTime pattern="d/M/yyyy"/>
                                 </h:outputText>
-
                             </p:column>
                             <p:column sortBy="#{sprint.endDate}">
                                 <f:facet name="header">
@@ -64,10 +53,13 @@
                                 <h:outputText value="#{sprint.endDate}" >
                                     <f:convertDateTime pattern="d/M/yyyy"/>
                                 </h:outputText>
-
                             </p:column>
-                            
-
+							<p:column >
+                                <f:facet name="header">
+                                    <h:outputText value="Summary" />
+                                </f:facet>
+                                <h:commandLink value="#{sprint.summary}" action="#{sprintManager.edit}" />
+                            </p:column>
                         </p:dataTable>
                     </p>
                     <p>

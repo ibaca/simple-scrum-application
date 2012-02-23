@@ -29,7 +29,13 @@ public interface ResourceService {
 	
 	public Task findTask(Long id);
 	
-	public int countTaksByProject(Project project, String sortField, Boolean ascOrder, Map<String, String> filters);
+	public Sprint findSprint(Long id);
+	
+	public int countTasksByProject(Project project, String sortField, Boolean ascOrder, Map<String, String> filters);
+	
+	public int countTasksByUser(User user, String sortField, Boolean ascOrder, Map<String, String> filters);
+	
+	public int countSprintsByProject(Project project, String sortField, Boolean ascOrder, Map<String, String> filters);
 	
 	public List<Project> findProjects(Integer startPosition, Integer maxResult, String sortField, Boolean ascOrder, Map<String, String> filters);
 

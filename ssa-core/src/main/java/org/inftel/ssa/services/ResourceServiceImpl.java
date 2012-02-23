@@ -75,6 +75,11 @@ public class ResourceServiceImpl implements ResourceService {
 	public Task findTask(Long id) {
 		return tasks.find(id);
 	}
+	
+	@Override
+	public Sprint findSprint(Long id) {
+		return sprints.find(id);
+	}
 
 	@Override
 	public List<Project> findProjects(Integer startPosition, Integer maxResult, String sortField, Boolean ascOrder, Map<String, String> filters) {
@@ -92,13 +97,33 @@ public class ResourceServiceImpl implements ResourceService {
 	}
 	
 	@Override
-	public int countTaksByProject(Project project, String sortField, Boolean ascOrder, Map<String, String> filters) {
+	public int countTasksByProject(Project project, String sortField, Boolean ascOrder, Map<String, String> filters) {
 		if (filters == null) {
 			filters = new HashMap<String, String>(1);
 		}
 		Map<String, String> modified = new HashMap<String, String>(filters);
 		modified.put("project.id", project.getId().toString());
 		return tasks.count(sortField, ascOrder, modified);
+	}
+
+	@Override
+	public int countSprintsByProject(Project project, String sortField, Boolean ascOrder, Map<String, String> filters) {
+		if (filters == null) {
+			filters = new HashMap<String, String>(1);
+		}
+		Map<String, String> modified = new HashMap<String, String>(filters);
+		modified.put("project.id", project.getId().toString());
+		return sprints.count(sortField, ascOrder, modified);
+	}
+
+	@Override
+	public int countTasksByUser(User user, String sortField, Boolean ascOrder, Map<String, String> filters) {
+		if (filters == null) {
+			filters = new HashMap<String, String>(1);
+		}
+		Map<String, String> modified = new HashMap<String, String>(filters);
+		modified.put("user.id", user.getId().toString());
+		return sprints.count(sortField, ascOrder, modified);
 	}
 
 	@Override

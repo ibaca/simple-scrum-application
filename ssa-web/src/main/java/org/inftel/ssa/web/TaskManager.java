@@ -5,24 +5,17 @@
 package org.inftel.ssa.web;
 
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import org.inftel.ssa.domain.Project;
 import org.inftel.ssa.domain.Task;
 import org.inftel.ssa.domain.TaskStatus;
 import org.inftel.ssa.services.ResourceService;
-import org.primefaces.event.SelectEvent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
@@ -51,24 +44,12 @@ public class TaskManager implements Serializable {
 
 		@Override
 		public List load(int first, int pageSize, String sortField, org.primefaces.model.SortOrder sortOrder, Map filters) {
-			int count = resources.countTaksByProject(projectManager.getCurrentProject(), sortField, sortOrder == SortOrder.ASCENDING, filters);
-			logger.log(Level.INFO, "lazy data model [first={0}, pageSize={1}, sortField={2}, sortOrder={3}, filters={4}, count={5}]", new Object[]{first, pageSize, sortField, sortOrder, filters, count});
-			setRowCount(count);
+			logger.log(Level.INFO, "lazy data model [first={0}, pageSize={1}, sortField={2}, sortOrder={3}, filters={4}]", new Object[]{first, pageSize, sortField, sortOrder, filters});
+			setRowCount(resources.countTasksByProject(projectManager.getCurrentProject(), sortField, sortOrder == SortOrder.ASCENDING, filters));
 			return resources.findTaksByProject(projectManager.getCurrentProject(), first, pageSize, sortField, sortOrder == SortOrder.ASCENDING, filters);
 		}
 
-		@Override
-		public void setRowIndex(int rowIndex) {
-			/*
-			 * The following is in ancestor (LazyDataModel): this.rowIndex = rowIndex == -1 ?
-			 * rowIndex : (rowIndex % pageSize);
-			 */
-			if (rowIndex == -1 || getPageSize() == 0) {
-				super.setRowIndex(-1);
-			} else {
-				super.setRowIndex(rowIndex);
-			}
-		}
+		
 	};
 
 	public String create() {

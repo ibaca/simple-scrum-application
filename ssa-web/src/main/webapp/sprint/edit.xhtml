@@ -1,72 +1,74 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
-
-    <ui:composition template="/template.xhtml">
-        <ui:define name="content">
-            <div class="row">
-                <div class="span8">
-                    <h:form  class="form-horizontal"> 
-
-                        <fieldset>
-                            <legend>Datos del Sprint</legend>
-                            <div class="control-group"> 							
-                                <h:outputLabel for="summary" value="Summary" class="control-label" />  
-                                <div class="controls">
-                                    <p:inputText id ="summary" required="true" label="summary" value="#{sprintManager.currentSprint.summary}" />
-                                    <h:message for="summary" class="help-inline" />
-                                </div>
-                            </div>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:c="http://java.sun.com/jsp/jstl/core"
+				template="/template.xhtml">
+	<ui:define name="content">
+		<div class="row">
+			<div class="span8">
+				<h:form  class="form-horizontal"> 
+					<fieldset>
+						<legend>Datos del Sprint</legend>
+						<div class="control-group"> 							
+							<h:outputLabel for="summary" value="Summary" class="control-label" />  
+							<div class="controls">
+								<p:inputText id ="summary" required="true" label="summary" value="#{sprintManager.currentSprint.summary}" />
+								<h:message for="summary" class="help-inline" />
+							</div>
+						</div>
 
 
-                            <div class="control-group"> 							
-                                <h:outputLabel  value="Start Date" class="control-label" />  
-                                <div class="controls">
-                                    <p:calendar value="#{sprintManager.currentSprint.beginDate}"  showOn="button" />  
-                                </div>
-                            </div>
-                            <div class="control-group"> 							
-                                <h:outputLabel  value="Finish Date" class="control-label" />  
-                                <div class="controls">
-                                    <p:calendar value="#{sprintManager.currentSprint.endDate}"  showOn="button" />  
-                                </div>
-                            </div>
-                            <br/>
-                            <div class="control-group">
-                                <h:outputLabel  value="Añadir tareas" class="control-label" />
-                                <div class="controls">
-                                    <p:pickList id="pickList" value="#{sprintManager.tasks}" var="spTask" converter="spTask" itemValue="#{spTask}" showSourceControls="true"
-                                                showTargetControls="true" >
-                                        <f:facet name="sourceCaption">Available</f:facet>  
-                                        <f:facet name="targetCaption">Added</f:facet> 
-                                        <p:column style="width:75%">  
-                                            <b>#{spTask.summary}</b>
-                                        </p:column>   
-                                    </p:pickList> 
-                                </div>
-                            </div>
-                            <br/>
-                            <div class="control-group"> 							
-                                <h:outputLabel for="description" value="Description" class="control-label" /> 
-                                <div class="controls">
-                                    <p:editor id="description"  required="true"   value="#{sprintManager.currentSprint.description}" />  
-                                    <h:message for="description" class="help-inline" /> 
-                                </div>
-                            </div> 
-                            <br/>
-                            <div class="form-actions">
-                                <p:commandButton  action="#{sprintManager.saveEdit()}" value="Guardar Cambios" update="@form" styleClass="btn btn-primary"/>&nbsp;
-                                <p:commandButton type="reset" value="Cancel" action="/sprint/index?faces-redirect=true" styleClass="btn"/>
-                            </div>
-                        </fieldset>
-                    </h:form>
-                </div>
-            </div>
-        </ui:define>
-    </ui:composition>
-</html>
+						<div class="control-group"> 							
+							<h:outputLabel  value="Start Date" class="control-label" />  
+							<div class="controls">
+								<p:calendar value="#{sprintManager.currentSprint.beginDate}"  showOn="button" />  
+							</div>
+						</div>
+						<div class="control-group"> 							
+							<h:outputLabel  value="Finish Date" class="control-label" />  
+							<div class="controls">
+								<p:calendar value="#{sprintManager.currentSprint.endDate}"  showOn="button" />  
+							</div>
+						</div>
+						<br/>
+						<div class="control-group">
+							<h:outputLabel for="tasks" value="Tareas" class="control-label" />
+							<div class="controls">
+								<p:pickList id="tasks"
+											value="#{sprintManager.tasks}" 
+											var="task" 
+											converter="task" 
+											itemValue="#{task}">
+									<f:facet name="sourceCaption">Available</f:facet>  
+									<f:facet name="targetCaption">Added</f:facet> 
+									<p:column style="width:75%">  
+										<h6 style="white-space: nowrap;overflow: hidden;width: 175px;color:black;">#{task.summary}</h6>
+										<small>Prioridad: #{task.priority} - Estimado: #{task.estimated}</small>
+									</p:column>   
+								</p:pickList> 
+								<h:message for="tasks" class="help-block" />
+							</div>
+						</div>
+						<br/>
+						<div class="control-group"> 							
+							<h:outputLabel for="description" value="Description" class="control-label" /> 
+							<div class="controls">
+								<p:editor id="description"  required="true"   value="#{sprintManager.currentSprint.description}" />  
+								<h:message for="description" class="help-inline" /> 
+							</div>
+						</div> 
+						<br/>
+						<div class="form-actions">
+							<p:commandButton action="#{sprintManager.saveEdit()}" value="Guardar Cambios..." update="@form,:growl" styleClass="btn btn-primary" />&nbsp;
+							<h:commandButton type="reset" value="Cancel" styleClass="btn"/>
+						</div>
+					</fieldset>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

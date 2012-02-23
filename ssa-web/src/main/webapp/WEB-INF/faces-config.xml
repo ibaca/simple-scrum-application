@@ -20,8 +20,8 @@
         </locale-config>
         
         <converter>
-            <converter-id>spTask</converter-id>
-            <converter-class>org.inftel.ssa.web.ConverterPickList</converter-class>
+            <converter-id>task</converter-id>
+            <converter-class>org.inftel.ssa.web.TaskConverter</converter-class>
         </converter>
       
     </application>
