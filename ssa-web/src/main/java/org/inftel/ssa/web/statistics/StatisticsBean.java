@@ -1,8 +1,9 @@
-package org.inftel.ssa.web.estatistics;
+package org.inftel.ssa.web.statistics;
 
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.*;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -22,7 +23,7 @@ import org.primefaces.model.chart.PieChartModel;
 
 @ManagedBean
 @RequestScoped
-public class EstatisticsBean implements Serializable {
+public class StatisticsBean implements Serializable {
 
     @EJB
     private DataminingProcessor datamining;
@@ -45,14 +46,18 @@ public class EstatisticsBean implements Serializable {
         this.projectManager = projectManager;
     }
 
-    public EstatisticsBean() {
+    public StatisticsBean() {
+    }
+    
+  @PostConstruct
+    private void init(){
         createStressModel();
         createTaskModel();
         createPieTaskModel();
-        // createIndividualModel();
+        //createIndividualModel();
     }
 
-    public CartesianChartModel getEsfuerzoModel() {
+    public CartesianChartModel getStressModel() {
         return stressModel;
     }
 
@@ -60,58 +65,74 @@ public class EstatisticsBean implements Serializable {
         return individualModel;
     }
 
-    public CartesianChartModel getTareasModel() {
+    public CartesianChartModel getTaskModel() {
         return taskModel;
     }
 
     public PieChartModel getPieTaskModel() {
         return pieTaskModel;
     }
+    
+    public SprintManager getSprintManager() {
+        return sprintManager;
+    }
+
+    public void setSprintManager(SprintManager sprintManager) {
+        this.sprintManager = sprintManager;
+    }
+
+    public UserManager getUserManager() {
+        return userManager;
+    }
+
+    public void setUserManager(UserManager userManager) {
+        this.userManager = userManager;
+    }
 
     private void createStressModel() {
         stressModel = new CartesianChartModel();
-        LineChartSeries series = new LineChartSeries();
+        LineChartSeries stressSeries = new LineChartSeries();
         Map<Date, DataminingData> samples; // todos los datos por fecha
         User currentUser = userManager.getCurrentUser();
         Sprint currentSprint = sprintManager.getCurrentSprint();
         Long idUser = currentUser.getId();
         Long idSprint = currentSprint.getId();
         String nickname = currentUser.getNickname();
-        series.setLabel(nickname);
+        stressSeries.setLabel(nickname); 
 
-        String name = "task." + idUser + "." + idSprint + ".remaining"; // Con id_usuario y sprint pasádo por parámetro
+        String name = "task.by-project."+idUser+"."+idSprint+".remaining"; 
         samples = datamining.findStatistics(name, DataminingDataPeriod.DAYLY, new Date(0), new Date());
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es"));
 
         for (Date date : samples.keySet()) {
-            series.set(df.format(date), samples.get(date).getDataSum());
+            stressSeries.set(df.format(date), samples.get(date).getDataSum());
         }
 
-        stressModel.addSeries(series);
+        stressModel.addSeries(stressSeries);
 
     }
 
     private void createTaskModel() {
 
         taskModel = new CartesianChartModel();
-        LineChartSeries series = new LineChartSeries();
+        LineChartSeries taskSeries = new LineChartSeries();
         Map<Date, DataminingData> samples; // todos los datos por fecha
         User currentUser = userManager.getCurrentUser();
         Sprint currentSprint = sprintManager.getCurrentSprint();
         Long idSprint = currentSprint.getId();
         Long idUser = currentUser.getId();
         String nickname = currentUser.getNickname();
-        series.setLabel(nickname);
+        taskSeries.setLabel(nickname); 
 
-        String name = "task." + idUser + "." + idSprint + ".remaining"; // Con id_usuario y sprint pasádo por parámetro
+        String name = "task.by-project."+idUser+"."+idSprint+".remaining"; 
         samples = datamining.findStatistics(name, DataminingDataPeriod.DAYLY, new Date(0), new Date());
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es"));
 
         for (Date date : samples.keySet()) {
-            series.set(df.format(date), samples.get(date).getDataCount());
+            taskSeries.set(df.format(date), samples.get(date).getDataCount());
         }
 
-        taskModel.addSeries(series);
+        stressModel.addSeries(taskSeries);
 
     }
 
@@ -143,11 +164,14 @@ public class EstatisticsBean implements Serializable {
         individualModel = new CartesianChartModel();
         LineChartSeries series = new LineChartSeries();
         Set<User> users = getProjectManager().getCurrentProject().getUsers();
+        Sprint currentSprint = sprintManager.getCurrentSprint();
+        long idSprint = currentSprint.getId();
         for (User user : users) {
             series.setLabel(user.getNickname());
+            Long idUser = user.getId();
 
             Map<Date, DataminingData> samples; // todos los datos por fecha
-            String name = "task." + "id_usuario" + "." + "sprint" + ".remaining";
+            String name = "task." + idUser + "." + idSprint + ".remaining";
             samples = datamining.findStatistics(name, DataminingDataPeriod.DAYLY, new Date(0), new Date());
             DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es"));
 
@@ -159,4 +183,6 @@ public class EstatisticsBean implements Serializable {
 
         }
     }
+
+    
 }
