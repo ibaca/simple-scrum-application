@@ -127,7 +127,7 @@ public class ProjectManager implements Serializable {
 				addUser(user);
 			}
 		}
-		return null;
+		return null;//return "/project/show?faces-redirect=true";¿Por alguna razon quieres permanecer en la pagina de edit?
 	}
 
 	public String createSave() {

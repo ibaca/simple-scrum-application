@@ -81,7 +81,7 @@
                             </div>
                             <div class="form-actions">
                                 <p:commandButton  action="#{taskManager.save()}" value="Guardar Cambios" update="@form" styleClass="btn btn-primary" />&nbsp;
-                                <p:commandButton type="reset" value="Cancel" styleClass="btn"/>
+                                <p:commandButton type="reset" value="Cancel" action="/task/edit?faces-redirect=true" styleClass="btn"/>
                             </div>
                         </fieldset>
                     </h:form>

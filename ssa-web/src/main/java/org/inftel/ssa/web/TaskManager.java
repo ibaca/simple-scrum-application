@@ -122,7 +122,7 @@ public class TaskManager implements Serializable {
         task.setStatus(TaskStatus.TODO);
         task.setProject(projectManager.getCurrentProject());
         setCurrentTask(task);
-        return "/task/create.xhtml";
+        return "/task/create?faces-redirect=true";
 
     }
 
@@ -131,7 +131,7 @@ public class TaskManager implements Serializable {
             resources.saveTask(currentTask);
 
         }
-        return "/task/index.xhtml";
+        return "/task/index?faces-redirect=true";
     }
 
     public void remove() {        
@@ -140,7 +140,7 @@ public class TaskManager implements Serializable {
     public String edit() {
         setCurrentTask(tasks.getRowData());
         accepted = tasks.getRowData().getUser()!=null;
-        return "/task/edit.xhtml";
+        return "/task/edit?faces-redirect=true";
     }
 
     public boolean getAccepted(){
