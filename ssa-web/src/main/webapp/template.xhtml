@@ -1,97 +1,100 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang="#{localeBean.language}"
+<html xml:lang="#{localeBean.language}"
 	  xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:c="http://java.sun.com/jsp/jstl/core">
-    <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<h:outputStylesheet name="css/bootstrap.css" value="#{param.location}" />
-		<h:outputScript name="js/bootstrap.js" value="#{param.location}" />
-		<h:outputScript name="js/bootstrap-dropdown.js" value="#{param.location}" />
+	<f:view locale="#{localeBean.locale}">
+		<h:head>
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<h:outputStylesheet name="css/bootstrap.css" value="#{param.location}" />
+			<h:outputScript name="js/bootstrap.js" value="#{param.location}" />
+			<h:outputScript name="js/bootstrap-dropdown.js" value="#{param.location}" />
 
-		<style>
-			.ui-dt-c { white-space: nowrap; }
-		</style>
+			<style>
+				.ui-dt-c { white-space: nowrap; }
+			</style>
 
-		<ui:insert name="htmlHead" />
+			<ui:insert name="htmlHead" />
 
-    </h:head>
+		</h:head>
 
-    <h:body style="padding-top: 60px;padding-bottom: 40px;">
+		<h:body style="padding-top: 60px;padding-bottom: 40px;">
 
 
-		<div class="navbar navbar-fixed-top">
-			<div class="navbar-inner">
-				<div class="container">
-					<!-- topbar -->
-					<c:if test="#{userManager.authenticated}">
-						<h:form>   
-							<h:link value="#{ empty projectManager.currentProject.name ? 'Simple Scrum Application' : projectManager.currentProject.name}" outcome="/index" class="brand" />
-							<ul class="nav">
-								<li><h:link value="${bundle['nav.home']}" outcome="/project/show" /></li>
-								<li><h:link value="${bundle['nav.dashboard']}" outcome="/project/dashboard" /></li>
-								<li><h:link value="${bundle['nav.task']}" outcome="/task/index" /></li>
-								<li><h:link value="${bundle['nav.sprint']}" outcome="/sprint/index" /></li>
-								<li><h:link value="${bundle['nav.admin']}" outcome="/project/edit" /></li>
-							</ul>
-							<ul class="nav pull-right">
-								<li id="projects-dropdown" class="dropdown">
-									<a class="dropdown-toggle" data-toggle="dropdown" href="#projects-dropdown">#{bundle['nav.projects']}<b class="caret"></b></a>
-									<ul class="dropdown-menu">
-										<c:forEach items="#{userManager.currentUser.projects}" var="project">
-											<li><h:commandLink value="#{project.name}" action="#{projectManager.changeCurrentProject(project)}" /></li>
-										</c:forEach>
-										<li class="divider"></li>
-										<li><h:commandLink action="#{projectManager.create}" value="#{bundle['action.new.project']}" /></li>
-									</ul>
-									<!-- al ser asincrono no inicializa el dropdown -->
-									<script>$('.dropdown-toggle').dropdown()</script>
-								</li>
-								<li><h:commandLink value="#{bundle['nav.settings']}" url="#" /></li>
-								<li><h:commandLink value="#{bundle['action.logout']}" action="#{userManager.logout()}" /></li>
-							</ul>
-						</h:form> 
-					</c:if>
-					<c:if test="#{!userManager.authenticated}">
-						<h:form>   
-							<h:link value="Simple Scrum Application" outcome="index" class="brand" />
-							<ul class="nav">
-								<!--<li><a>Project</a></li>-->
-							</ul>
-							<ul class="nav pull-right">
-								<!--<li><a>Settings</a></li>-->
-								<li><h:link value="#{bundle['action.login']}" outcome="login" /></li>
-							</ul>
-						</h:form> 
-					</c:if>
+			<div class="navbar navbar-fixed-top">
+				<div class="navbar-inner">
+					<div class="container">
+						<!-- topbar -->
+						<c:if test="#{userManager.authenticated}">
+							<h:form>   
+								<h:link value="#{ empty projectManager.currentProject.name ? 'Simple Scrum Application' : projectManager.currentProject.name}" outcome="/index" class="brand" />
+								<ul class="nav">
+									<li><h:link value="${bundle['nav.home']}" outcome="/project/show" /></li>
+									<li><h:link value="${bundle['nav.dashboard']}" outcome="/project/dashboard" /></li>
+									<li><h:link value="${bundle['nav.task']}" outcome="/task/index" /></li>
+									<li><h:link value="${bundle['nav.sprint']}" outcome="/sprint/index" /></li>
+									<li><h:link value="${bundle['nav.admin']}" outcome="/project/edit" /></li>
+								</ul>
+								<ul class="nav pull-right">
+									<li id="projects-dropdown" class="dropdown">
+										<a class="dropdown-toggle" data-toggle="dropdown" href="#projects-dropdown">#{bundle['nav.projects']}<b class="caret"></b></a>
+										<ul class="dropdown-menu">
+											<c:forEach items="#{userManager.currentUser.projects}" var="project">
+												<li><h:commandLink value="#{project.name}" action="#{projectManager.changeCurrentProject(project)}" /></li>
+											</c:forEach>
+											<li class="divider"></li>
+											<li><h:commandLink action="#{projectManager.create}" value="#{bundle['action.new.project']}" /></li>
+										</ul>
+										<!-- al ser asincrono no inicializa el dropdown -->
+										<script>$('.dropdown-toggle').dropdown()</script>
+									</li>
+									<li><h:commandLink value="#{bundle['nav.settings']}" url="#" /></li>
+									<li><h:commandLink value="#{bundle['action.logout']}" action="#{userManager.logout()}" /></li>
+								</ul>
+							</h:form> 
+						</c:if>
+						<c:if test="#{!userManager.authenticated}">
+							<h:form>   
+								<h:link value="Simple Scrum Application" outcome="index" class="brand" />
+								<ul class="nav">
+									<!--<li><a>Project</a></li>-->
+								</ul>
+								<ul class="nav pull-right">
+									<!--<li><a>Settings</a></li>-->
+									<li><h:link value="#{bundle['action.login']}" outcome="login" /></li>
+								</ul>
+							</h:form> 
+						</c:if>
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<h:panelGroup id="container" class="container" layout="block">
-			<!-- Content -->
-			<ui:insert name="content"></ui:insert>
+			<h:panelGroup id="container" class="container" layout="block">
+				<!-- Content -->
+				<ui:insert name="content"></ui:insert>
 
-			<hr />
+				<hr />
 
-			<!-- Footer -->
-			<footer>
-				<p>
-					<h:form style="display:inline-block">
-						<h:commandLink action="#{localeBean.setLanguage('')}" value="Español" />  |
-						<h:commandLink action="#{localeBean.setLanguage('en')}" value="English" />
-					</h:form>
-					| © Inftel 2012 | Hello #{userManager.currentUser.nickname}
+				<!-- Footer -->
+				<footer>
+					<p>
+						<h:form style="display:inline-block">
+							<h:commandLink action="#{localeBean.setLanguage('')}" value="Español" />  |
+							<h:commandLink action="#{localeBean.setLanguage('en')}" value="English" />
+						</h:form>
+						| © Inftel 2012 | #{bundle['nav.hello']} #{userManager.currentUser.nickname}
 
-				</p>
-			</footer>
-		</h:panelGroup>
+					</p>
+				</footer>
+			</h:panelGroup>
 
-		<p:growl id="growl" showDetail="true" globalOnly="true" autoUpdate="true" />
+			<p:growl id="growl" showDetail="true" globalOnly="true" autoUpdate="true" />
 
-    </h:body>
+		</h:body>
+	</f:view>
 </html>
+
