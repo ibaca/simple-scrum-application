@@ -1,129 +1,251 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
 	
-	<users id='-100' nickname='test' fullName='Test User Name' email='test@mail.com' password='test' company='Test Company' userRole='team' version='1' />
-	<users id='-101' nickname='test-a' fullName='Test User Name A' email='test-a@mail.com' password='test' company='Test Company' userRole='team' version='1' />
-	<users id='-102' nickname='test-b' fullName='Test User Name B' email='test-b@mail.com' password='test' company='Test Company' userRole='team' version='1' />
-	
-	<projects id='-200' name='Test project Zero' summary='Simple test project' description='Simple description' license='OpenSource' company='Test Company' version='1' />
+	<users id='-100' nickname='JRVillano' fullName='Jesus Ruiz Oliva' email='jrovillano@gmail.com' password='1234' company='Grupo1 Inftel' userRole='team' version='1' />
+	<users id='-101' nickname='ibaca' fullName='Ignacio Baca' email='ignacio@bacamt.com' password='1234' company='Grupo1 Inftel' userRole='team' version='1' />
+	<users id='-102' nickname='Juanan' fullName='Juan Ant. Cobo' email='juanan20@gmail.com' password='1234' company='Grupo1 Inftel' userRole='team' version='1' />
+	<users id='-103' nickname='JSBarriga' fullName='Jesus S. Barriga' email='jsbaes@gmail.com' password='1234' company='Grupo1 Inftel' userRole='team' version='1' />
+        
+	<projects id='-200' name='Application Web Project' summary='Scrum Application Web Project' description='Create an Application Web for Scrum' license='OpenSource' company='Master Inftel' version='1' />
 	<project_users users_id='-100' projects_id='-200' />
 	<project_users users_id='-101' projects_id='-200' />
 	<project_users users_id='-102' projects_id='-200' />
+	<project_users users_id='-103' projects_id='-200' />
 	<project_users users_id='0001' projects_id='-200' />
-	
+    
 	<projects id='-201' name='Test project A' summary='Simple test project' description='Simple description' license='OpenSource' company='Test Company' version='1' />
 	<project_users users_id='-100' projects_id='-201' />
-	<project_users users_id='-101' projects_id='-201' />
 	<project_users users_id='0001' projects_id='-201' />
-	
+    
 	<projects id='-202' name='Test project B' summary='Simple test project' description='Simple description' license='OpenSource' company='Test Company' version='1' />
-	<project_users users_id='-100' projects_id='-202' />
+	<project_users users_id='-102' projects_id='-202' />
 	<project_users users_id='0001' projects_id='-202' />
 	
-	<tasks id='-300' user_id='-100' project_id='-200' summary='Primera tarea' description='Descripcion sencilla.' estimated='4' burned='0' remaining='4' priority='2' beginDate='2011-12-01' endDate='2011-12-10' status='0' version='1' />
-	<tasks id='-301' user_id='0001' project_id='0001' summary='Tarea #1'  description='Descripcion sencilla 1.'  estimated='2' burned='0' remaining='2' priority='10' status='0' version='1' />
-	<tasks id='-302' user_id='0001' project_id='0001' summary='Tarea #2'  description='Descripcion sencilla 2.'  estimated='2' burned='0' remaining='2' priority='10' status='0' version='1' />
-	<tasks id='-303'                project_id='0001' summary='Tarea #3'  description='Descripcion sencilla 3.'  estimated='1' burned='0' remaining='2' priority='10' status='0' version='1' />
-	<tasks id='-304'                project_id='0001' summary='Tarea #4'  description='Descripcion sencilla 4.'  estimated='3' burned='0' remaining='2' priority='10' status='0' version='1' />
-	<tasks id='-305'                project_id='0001' summary='Tarea #5'  description='Descripcion sencilla 5.'  estimated='1' burned='0' remaining='2' priority='10' status='0' version='1' />
-	<tasks id='-306'                project_id='0001' summary='Tarea #6'  description='Descripcion sencilla 6.'  estimated='1' burned='1' remaining='0' priority='10' status='0' beginDate='2011-12-01' endDate='2011-12-10' version='1' />
-	<tasks id='-307'                project_id='0001' summary='Tarea #7'  description='Descripcion sencilla 7.'  estimated='2' burned='3' remaining='0' priority='10' status='0' beginDate='2011-12-01' endDate='2011-12-10' version='1' />
-	<tasks id='-308' user_id='0001' project_id='0001' summary='Tarea #8'  description='Descripcion sencilla 8.'  estimated='2' burned='0' remaining='2' priority='10' status='0' version='1' />
-	<tasks id='-309' user_id='0001' project_id='0001' summary='Tarea #9'  description='Descripcion sencilla 9.'  estimated='2' burned='0' remaining='2' priority='10' status='0' version='1' />
-	<tasks id='-310' user_id='-100' project_id='0001' summary='Tarea #10' description='Descripcion sencilla 10.' estimated='1' burned='0' remaining='2' priority='10' status='0' version='1' />
-	<tasks id='-311' user_id='-100' project_id='0001' summary='Tarea #11' description='Descripcion sencilla 11.' estimated='3' burned='0' remaining='2' priority='10' status='1' version='1' />
-	<tasks id='-312' user_id='-100' project_id='0001' summary='Tarea #12' description='Descripcion sencilla 12.' estimated='1' burned='0' remaining='2' priority='10' status='1' version='1' />
-	<tasks id='-313' user_id='-100' project_id='0001' summary='Tarea #13' description='Descripcion sencilla 13.' estimated='1' burned='1' remaining='0' priority='10' status='1' beginDate='2011-12-01' endDate='2011-12-10' version='1' />
-	<tasks id='-314' user_id='-100' project_id='0001' summary='Tarea #14' description='Descripcion sencilla 14.' estimated='2' burned='3' remaining='0' priority='10' status='1' beginDate='2011-12-01' endDate='2011-12-10' version='1' />
-	<tasks id='-315' user_id='0001' project_id='0001' summary='Tarea #15' description='Descripcion sencilla 15.' estimated='2' burned='0' remaining='2' priority='10' status='1' version='1' />
-	<tasks id='-316' user_id='0001' project_id='0001' summary='Tarea #16' description='Descripcion sencilla 16.' estimated='2' burned='0' remaining='2' priority='10' status='1' version='1' />
-	<tasks id='-317'                project_id='0001' summary='Tarea #17' description='Descripcion sencilla 17.' estimated='1' burned='0' remaining='2' priority='10' status='1' version='1' />
-	<tasks id='-318'                project_id='0001' summary='Tarea #18' description='Descripcion sencilla 18.' estimated='3' burned='0' remaining='2' priority='10' status='1' version='1' />
-	<tasks id='-319'                project_id='0001' summary='Tarea #19' description='Descripcion sencilla 19.' estimated='1' burned='0' remaining='2' priority='10' status='2' version='1' />
-	<tasks id='-320'                project_id='0001' summary='Tarea #20' description='Descripcion sencilla 20.' estimated='1' burned='1' remaining='0' priority='10' status='2' beginDate='2011-12-01' endDate='2011-12-10' version='1' />
-	<tasks id='-321'                project_id='0001' summary='Tarea #21' description='Descripcion sencilla 21.' estimated='2' burned='3' remaining='0' priority='10' status='2' beginDate='2011-12-01' endDate='2011-12-10' version='1' />
-	<tasks id='-322'                project_id='0001' summary='Tarea #22' description='Descripcion sencilla 22.' estimated='1' burned='0' remaining='2' priority='10' status='2' version='1' />
-	<tasks id='-323'                project_id='0001' summary='Tarea #23' description='Descripcion sencilla 23.' estimated='1' burned='1' remaining='0' priority='10' status='2' beginDate='2011-12-01' endDate='2011-12-10' version='1' />
-	<tasks id='-324'                project_id='0001' summary='Tarea #24' description='Descripcion sencilla 24.' estimated='2' burned='3' remaining='0' priority='10' status='2' beginDate='2011-12-01' endDate='2011-12-10' version='1' />
-	<tasks id='-325' user_id='0001' project_id='0001' summary='Tarea #25' description='Descripcion sencilla 25.' estimated='2' burned='0' remaining='2' priority='10' status='2' version='1' />
-	<tasks id='-326' user_id='0001' project_id='0001' summary='Tarea #26' description='Descripcion sencilla 26.' estimated='2' burned='0' remaining='2' priority='10' status='2' version='1' />
-	<tasks id='-327'                project_id='0001' summary='Tarea #27' description='Descripcion sencilla 27.' estimated='1' burned='0' remaining='2' priority='10' status='2' version='1' />
-	
-	<sprints id='-400' project_id='-200' summary='Sprint tar' description='Description sencilla.' />
-	
+	<sprints id='-400' project_id='-200' summary='Sprint 1' description='Descripcion sencilla.' />
+	<sprints id='-401' project_id='-200' summary='Sprint 2' description='Descripcion sencilla.' />
+	<sprints id='-402' project_id='-200' summary='Sprint 3' description='Descripcion sencilla.' />
+
+	<sprints id='-410' project_id='-201' summary='Sprint 1' description='Descripcion sencilla.' />
+	<sprints id='-411' project_id='-201' summary='Sprint 2' description='Descripcion sencilla.' />
+	<sprints id='-412' project_id='-201' summary='Sprint 3' description='Descripcion sencilla.' />
+
+	<sprints id='-420' project_id='-202' summary='Sprint 1' description='Descripion sencilla.' />
+	<sprints id='-421' project_id='-202' summary='Sprint 2' description='Descripcion sencilla.' />
+	<sprints id='-422' project_id='-202' summary='Sprint 3' description='Descripcion sencilla.' />
+    
+	<tasks id='-300' user_id='-100' project_id='-200' sprint_id='-400' summary='Definir modelo de datos'              description='Descripcion sencilla.'  estimated='4' burned='4' remaining='0' priority='2'  beginDate='2011-12-01' endDate='2011-12-01' status='2' version='1' />
+	<tasks id='-301' user_id='-101' project_id='-200' sprint_id='-400' summary='Definir casos de uso iniciales'       description='Descripcion sencilla.'  estimated='2' burned='3' remaining='0' priority='10' beginDate='2011-12-01' endDate='2011-12-01' status='2' version='1' />
+	<tasks id='-302' user_id='-102' project_id='-200' sprint_id='-400' summary='Creacion de estructura del proyecto'  description='Descripcion sencilla.'  estimated='2' burned='2' remaining='0' priority='10' beginDate='2011-12-01' endDate='2011-12-01' status='2' version='1' />
+	<tasks id='-303' user_id='-103' project_id='-200' sprint_id='-400' summary='Configurar integracion continua'      description='Descripcion sencilla.'  estimated='1' burned='5' remaining='0' priority='10' beginDate='2011-12-01' endDate='2011-12-02' status='2' version='1' />
+	<tasks id='-304' user_id='-100' project_id='-200' sprint_id='-400' summary='Autogeneracion de maven site'         description='Descripcion sencilla.'  estimated='3' burned='3' remaining='0' priority='10' beginDate='2011-12-02' endDate='2011-12-02' status='2' version='1' />
+	<tasks id='-305' user_id='-101' project_id='-200' sprint_id='-400' summary='Estudio flujo FrontEnd'               description='Descripcion sencilla.'  estimated='1' burned='1' remaining='0' priority='10' beginDate='2011-12-02' endDate='2011-12-02' status='2' version='1' />
+	<tasks id='-306' user_id='-102' project_id='-200' sprint_id='-400' summary='Investigar estadisticas'              description='Descripcion sencilla.'  estimated='1' burned='1' remaining='0' priority='10' beginDate='2011-12-02' endDate='2011-12-03' status='2' version='1' />
+	<tasks id='-307' user_id='-103' project_id='-200' sprint_id='-400' summary='Crear modelo JPA'                     description='Descripcion sencilla.'  estimated='2' burned='3' remaining='0' priority='10' beginDate='2011-12-02' endDate='2011-12-03' status='2' version='1' />
+	<tasks id='-308' user_id='-100' project_id='-200' sprint_id='-400' summary='Crear fachadas del modelo'            description='Descripcion sencilla.'  estimated='2' burned='3' remaining='0' priority='10' beginDate='2011-12-03' endDate='2011-12-04' status='2' version='1' />
+	<tasks id='-309' user_id='-101' project_id='-200' sprint_id='-400' summary='Crear JSF'                            description='Descripcion sencilla.'  estimated='2' burned='1' remaining='0' priority='10' beginDate='2011-12-03' endDate='2011-12-03' status='2' version='1' />
+	<tasks id='-310' user_id='-102' project_id='-200' sprint_id='-400' summary='Crear DataMining'                     description='Descripcion sencilla.'  estimated='1' burned='1' remaining='0' priority='10' beginDate='2011-12-03' endDate='2011-12-03' status='2' version='1' />
+	<tasks id='-311' user_id='-103' project_id='-200' sprint_id='-400' summary='Prototiopos estadisticas'             description='Descripcion sencilla.'  estimated='3' burned='1' remaining='2' priority='10' beginDate='2011-12-04'                      status='1' version='1' />
+	<tasks id='-312' user_id='-100' project_id='-200' sprint_id='-400' summary='Investigar widgets de tablas'         description='Descripcion sencilla.'  estimated='1' burned='0' remaining='1' priority='10' beginDate='2011-12-04'                      status='1' version='1' />
+	<tasks id='-313' user_id='-101' project_id='-200' sprint_id='-400' summary='Prototipos widgets de tablas'         description='Descripcion sencilla.'  estimated='1' burned='1' remaining='1' priority='10' beginDate='2011-12-04'                      status='1' version='1' />
+	<tasks id='-314' user_id='-102' project_id='-200' sprint_id='-401' summary='Definir estadisticas'                 description='Descripcion sencilla.'  estimated='2' burned='3' remaining='1' priority='10' beginDate='2011-12-04'                      status='1' version='1' />
+	<tasks id='-315' user_id='-103' project_id='-200' sprint_id='-401' summary='Sistema de autenticacion'             description='Descripcion sencilla.'  estimated='2' burned='0' remaining='2' priority='10' beginDate='2011-12-05'                      status='1' version='1' />
+	<tasks id='-316' user_id='-100' project_id='-200' sprint_id='-401' summary='Crear layout de la página'            description='Descripcion sencilla.'  estimated='2' burned='0' remaining='2' priority='10' beginDate='2011-12-05'                      status='1' version='1' />
+	<tasks id='-317' user_id='-101' project_id='-200' sprint_id='-401' summary='Crear login/SignIn/Logout'            description='Descripcion sencilla.'  estimated='1' burned='0' remaining='1' priority='10' beginDate='2011-12-05'                      status='1' version='1' />
+	<tasks id='-318' user_id='-102' project_id='-200' sprint_id='-401' summary='Feed de noticias'                     description='Descripcion sencilla.'  estimated='3' burned='0' remaining='3' priority='10' beginDate='2011-12-05'                      status='1' version='1' />
+	<tasks id='-319' user_id='-103' project_id='-200' sprint_id='-402' summary='Registro de evnetos'                  description='Descripcion sencilla.'  estimated='1' burned='0' remaining='1' priority='10'                                             status='0' version='1' />
+	<tasks id='-320' user_id='-100' project_id='-200' sprint_id='-402' summary='Integrar eventos'                     description='Descripcion sencilla.'  estimated='1' burned='0' remaining='1' priority='10'                                             status='0' version='1' />
+	<tasks id='-321' user_id='-101' project_id='-200' sprint_id='-402' summary='Crear test de fachadas'               description='Descripcion sencilla.'  estimated='2' burned='0' remaining='2' priority='10'                                             status='0' version='1' />
+	<tasks id='-322' user_id='-102' project_id='-200' sprint_id='-402' summary='Crear test API JPA'                   description='Descripcion sencilla.'  estimated='1' burned='0' remaining='1' priority='10'                                             status='0' version='1' />
+	<tasks id='-323' user_id='-103' project_id='-200' sprint_id='-402' summary='I18N'                                 description='Descripcion sencilla.'  estimated='1' burned='0' remaining='1' priority='10'                                             status='0' version='1' />
+	<tasks id='-324' user_id='-101' project_id='-200' sprint_id='-402' summary='Crear widget tablon scrum'            description='Descripcion sencilla.'  estimated='2' burned='0' remaining='2' priority='10'                                             status='0' version='1' />
+	<tasks id='-325' user_id='-102' project_id='-200' sprint_id='-402' summary='Check-Style maven'                    description='Descripcion sencilla.'  estimated='2' burned='0' remaining='2' priority='10'                                             status='0' version='1' />
+	<tasks id='-326' user_id='-103' project_id='-200' sprint_id='-402' summary='Uso de eclipse'                       description='Descripcion sencilla.'  estimated='2' burned='0' remaining='2' priority='10'                                             status='0' version='1' />
+	<tasks id='-327' user_id='-100' project_id='-200' sprint_id='-402' summary='Crear estadisticas con PrimeFaces'    description='Descripcion sencilla.'  estimated='1' burned='0' remaining='1' priority='10'                                             status='0' version='1' />
+	<tasks id='-328' user_id='-101' project_id='-200' sprint_id='-402' summary='JDBC Pool Autocreate'                 description='Descripcion sencilla.'  estimated='4' burned='4' remaining='0' priority='2'  beginDate='2011-12-06' endDate='2011-12-07' status='2' version='1' />
+	<tasks id='-329' user_id='-102' project_id='-200' sprint_id='-402' summary='Como enviar emails'                   description='Descripcion sencilla.'  estimated='4' burned='2' remaining='3' priority='2'  beginDate='2011-12-06'                      status='1' version='1' />
+	<tasks id='-330' user_id='-103' project_id='-200' sprint_id='-402' summary='Modulo mail'                          description='Descripcion sencilla.'  estimated='4' burned='0' remaining='4' priority='2'                                              status='0' version='1' />
+	<tasks id='-331' user_id='-100' project_id='-200' sprint_id='-402' summary='Modificacion consulta estadisticas'   description='Descripcion sencilla.'  estimated='4' burned='0' remaining='0' priority='2'  beginDate='2011-12-06' endDate='2011-12-06' status='2' version='1' />
+	<tasks id='-332' user_id='-101' project_id='-200' sprint_id='-402' summary='Modificar vista crear proyectos'      description='Descripcion sencilla.'  estimated='4' burned='2' remaining='2' priority='2'  beginDate='2011-12-07'                      status='1' version='1' />
+
+	<tasks id='-350' user_id='-100' project_id='-201' sprint_id='-410' summary='Task #1'   description='Descripcion sencilla.'  estimated='4' burned='4' remaining='0' priority='2'  beginDate='2011-12-01' endDate='2011-12-10' status='2' version='1' />
+	<tasks id='-351' user_id='0001' project_id='-201' sprint_id='-410' summary='Task #2'   description='Descripcion sencilla.'  estimated='3' burned='3' remaining='0' priority='2'  beginDate='2011-12-01' endDate='2011-12-10' status='2' version='1' />
+	<tasks id='-352' user_id='-100' project_id='-201' sprint_id='-410' summary='Task #3'   description='Descripcion sencilla.'  estimated='4' burned='4' remaining='0' priority='2'  beginDate='2011-12-01' endDate='2011-12-10' status='2' version='1' />
+	<tasks id='-353' user_id='0001' project_id='-201' sprint_id='-410' summary='Task #4'   description='Descripcion sencilla.'  estimated='2' burned='2' remaining='0' priority='2'  beginDate='2011-12-01' endDate='2011-12-10' status='2' version='1' />
+	<tasks id='-354' user_id='-100' project_id='-201' sprint_id='-411' summary='Task #5'   description='Descripcion sencilla.'  estimated='1' burned='1' remaining='0' priority='2'  beginDate='2011-12-01' endDate='2011-12-10' status='2' version='1' />
+	<tasks id='-355' user_id='0001' project_id='-201' sprint_id='-411' summary='Task #6'   description='Descripcion sencilla.'  estimated='5' burned='5' remaining='0' priority='2'  beginDate='2011-12-01' endDate='2011-12-10' status='2' version='1' />
+	<tasks id='-356' user_id='-100' project_id='-201' sprint_id='-411' summary='Task #7'   description='Descripcion sencilla.'  estimated='6' burned='6' remaining='0' priority='2'  beginDate='2011-12-01' endDate='2011-12-10' status='2' version='1' />
+	<tasks id='-357' user_id='0001' project_id='-201' sprint_id='-412' summary='Task #8'   description='Descripcion sencilla.'  estimated='3' burned='2' remaining='1' priority='2'  beginDate='2011-12-01'                      status='1' version='1' />
+	<tasks id='-358' user_id='-100' project_id='-201' sprint_id='-412' summary='Task #9'   description='Descripcion sencilla.'  estimated='1' burned='1' remaining='1' priority='2'  beginDate='2011-12-01'                      status='1' version='1' />
+	<tasks id='-359' user_id='0001' project_id='-201' sprint_id='-412' summary='Task #10'  description='Descripcion sencilla.'  estimated='4' burned='3' remaining='1' priority='2'  beginDate='2011-12-01'                      status='1' version='1' />
+
+	<tasks id='-370' user_id='0001' project_id='-202' sprint_id='-420' summary='Task #1'   description='Descripcion sencilla.'  estimated='4' burned='4' remaining='0' priority='2'  beginDate='2011-12-01' endDate='2011-12-10' status='2' version='1' />
+	<tasks id='-371' user_id='-102' project_id='-202' sprint_id='-420' summary='Task #2'   description='Descripcion sencilla.'  estimated='4' burned='4' remaining='0' priority='2'  beginDate='2011-12-01' endDate='2011-12-10' status='2' version='1' />
+	<tasks id='-372' user_id='0001' project_id='-202' sprint_id='-420' summary='Task #3'   description='Descripcion sencilla.'  estimated='4' burned='4' remaining='0' priority='2'  beginDate='2011-12-01' endDate='2011-12-10' status='2' version='1' />
+	<tasks id='-373' user_id='-102' project_id='-202' sprint_id='-420' summary='Task #4'   description='Descripcion sencilla.'  estimated='4' burned='4' remaining='0' priority='2'  beginDate='2011-12-01' endDate='2011-12-10' status='2' version='1' />
+	<tasks id='-374' user_id='0001' project_id='-202' sprint_id='-421' summary='Task #5'   description='Descripcion sencilla.'  estimated='4' burned='4' remaining='0' priority='2'  beginDate='2011-12-01' endDate='2011-12-10' status='2' version='1' />
+	<tasks id='-375' user_id='-102' project_id='-202' sprint_id='-421' summary='Task #6'   description='Descripcion sencilla.'  estimated='4' burned='4' remaining='0' priority='2'  beginDate='2011-12-01' endDate='2011-12-10' status='2' version='1' />
+	<tasks id='-376' user_id='0001' project_id='-202' sprint_id='-421' summary='Task #7'   description='Descripcion sencilla.'  estimated='4' burned='4' remaining='0' priority='2'  beginDate='2011-12-01' endDate='2011-12-10' status='2' version='1' />
+	<tasks id='-377' user_id='-102' project_id='-202' sprint_id='-421' summary='Task #8'   description='Descripcion sencilla.'  estimated='4' burned='4' remaining='0' priority='2'  beginDate='2011-12-01' endDate='2011-12-10' status='2' version='1' />
+	<tasks id='-378' user_id='0001' project_id='-202' sprint_id='-421' summary='Task #9'   description='Descripcion sencilla.'  estimated='4' burned='4' remaining='0' priority='2'  beginDate='2011-12-01' endDate='2011-12-10' status='2' version='1' />
+	<tasks id='-379' user_id='-102' project_id='-202' sprint_id='-422' summary='Task #10'  description='Descripcion sencilla.'  estimated='4' burned='4' remaining='0' priority='2'  beginDate='2011-12-01' endDate='2011-12-10' status='2' version='1' />
+	<tasks id='-380' user_id='0001' project_id='-202' sprint_id='-422' summary='Task #11'  description='Descripcion sencilla.'  estimated='4' burned='4' remaining='0' priority='2'  beginDate='2011-12-01' endDate='2011-12-10' status='2' version='1' />
+	<tasks id='-381' user_id='-102' project_id='-202' sprint_id='-422' summary='Task #12'  description='Descripcion sencilla.'  estimated='4' burned='4' remaining='0' priority='2'  beginDate='2011-12-01' endDate='2011-12-10' status='2' version='1' />
+	<tasks id='-382' user_id='-102' project_id='-202' sprint_id='-422' summary='Task #13'  description='Descripcion sencilla.'  estimated='4' burned='4' remaining='0' priority='2'  beginDate='2011-12-01' endDate='2011-12-10' status='2' version='1' />
+	<tasks id='-383' user_id='-102' project_id='-202' sprint_id='-422' summary='Task #14'  description='Descripcion sencilla.'  estimated='4' burned='4' remaining='0' priority='2'  beginDate='2011-12-01' endDate='2011-12-10' status='2' version='1' />
+	<tasks id='-384' user_id='-102' project_id='-202' sprint_id='-422' summary='Task #15'  description='Descripcion sencilla.'  estimated='4' burned='4' remaining='0' priority='2'  beginDate='2011-12-01' endDate='2011-12-10' status='2' version='1' />
+       
 	<!-- Statistic Data -->
+    
+	<datamining id='-2059' name='task.by-project.-200.by-user.-100.remaining' periodtype='0' perioddate='2012-02-1' datacount='25' datasum='250' />
+	<datamining id='-2060' name='task.by-project.-200.by-user.-100.remaining' periodtype='0' perioddate='2012-02-2' datacount='24' datasum='245' />
+	<datamining id='-2061' name='task.by-project.-200.by-user.-100.remaining' periodtype='0' perioddate='2012-02-3' datacount='23' datasum='234' />
+	<datamining id='-2062' name='task.by-project.-200.by-user.-100.remaining' periodtype='0' perioddate='2012-02-4' datacount='21' datasum='222' />
+	<datamining id='-2063' name='task.by-project.-200.by-user.-100.remaining' periodtype='0' perioddate='2012-02-5' datacount='19' datasum='201' />
+	<datamining id='-2064' name='task.by-project.-200.by-user.-100.remaining' periodtype='0' perioddate='2012-02-6' datacount='19' datasum='200' />
+	<datamining id='-2065' name='task.by-project.-200.by-user.-100.remaining' periodtype='0' perioddate='2012-02-7' datacount='19' datasum='190' />
+	<datamining id='-2066' name='task.by-project.-200.by-user.-100.remaining' periodtype='0' perioddate='2012-02-8' datacount='17' datasum='185' />
+	<datamining id='-2067' name='task.by-project.-200.by-user.-100.remaining' periodtype='0' perioddate='2012-02-9' datacount='15' datasum='176' />
+	<datamining id='-2068' name='task.by-project.-200.by-user.-100.remaining' periodtype='0' perioddate='2012-02-10' datacount='14' datasum='150' />
+	<datamining id='-2069' name='task.by-project.-200.by-user.-100.remaining' periodtype='0' perioddate='2012-02-11' datacount='12' datasum='140' />
+	<datamining id='-2070' name='task.by-project.-200.by-user.-100.remaining' periodtype='0' perioddate='2012-02-12' datacount='11' datasum='120' />
+	<datamining id='-2071' name='task.by-project.-200.by-user.-100.remaining' periodtype='0' perioddate='2012-02-13' datacount='10' datasum='100' />
+	<datamining id='-2072' name='task.by-project.-200.by-user.-100.remaining' periodtype='0' perioddate='2012-02-14' datacount='8' datasum='95' />
+	<datamining id='-2073' name='task.by-project.-200.by-user.-100.remaining' periodtype='0' perioddate='2012-02-15' datacount='7' datasum='40' />
+	<datamining id='-2074' name='task.by-project.-200.by-user.-100.remaining' periodtype='0' perioddate='2012-02-16' datacount='4' datasum='23' />
+	<datamining id='-2075' name='task.by-project.-200.by-user.-100.remaining' periodtype='0' perioddate='2012-02-17' datacount='2' datasum='15' />
+	<datamining id='-2076' name='task.by-project.-200.by-user.-100.remaining' periodtype='0' perioddate='2012-02-18' datacount='0' datasum='0' />
+
+	<datamining id='-2130' name='task.by-project.-200.by-user.-101.remaining' periodtype='0' perioddate='2012-02-1' datacount='35' datasum='260' />
+	<datamining id='-2131' name='task.by-project.-200.by-user.-101.remaining' periodtype='0' perioddate='2012-02-2' datacount='34' datasum='255' />
+	<datamining id='-2132' name='task.by-project.-200.by-user.-101.remaining' periodtype='0' perioddate='2012-02-3' datacount='33' datasum='244' />
+	<datamining id='-2133' name='task.by-project.-200.by-user.-101.remaining' periodtype='0' perioddate='2012-02-4' datacount='29' datasum='232' />
+	<datamining id='-2134' name='task.by-project.-200.by-user.-101.remaining' periodtype='0' perioddate='2012-02-5' datacount='24' datasum='211' />
+	<datamining id='-2135' name='task.by-project.-200.by-user.-101.remaining' periodtype='0' perioddate='2012-02-6' datacount='23' datasum='210' />
+	<datamining id='-2136' name='task.by-project.-200.by-user.-101.remaining' periodtype='0' perioddate='2012-02-7' datacount='20' datasum='200' />
+	<datamining id='-2137' name='task.by-project.-200.by-user.-101.remaining' periodtype='0' perioddate='2012-02-8' datacount='17' datasum='195' />
+	<datamining id='-2138' name='task.by-project.-200.by-user.-101.remaining' periodtype='0' perioddate='2012-02-9' datacount='13' datasum='186' />
+	<datamining id='-2139' name='task.by-project.-200.by-user.-101.remaining' periodtype='0' perioddate='2012-02-10' datacount='12' datasum='160' />
+	<datamining id='-2140' name='task.by-project.-200.by-user.-101.remaining' periodtype='0' perioddate='2012-02-11' datacount='12' datasum='150' />
+	<datamining id='-2141' name='task.by-project.-200.by-user.-101.remaining' periodtype='0' perioddate='2012-02-12' datacount='11' datasum='130' />
+	<datamining id='-2142' name='task.by-project.-200.by-user.-101.remaining' periodtype='0' perioddate='2012-02-13' datacount='10' datasum='110' />
+	<datamining id='-2143' name='task.by-project.-200.by-user.-101.remaining' periodtype='0' perioddate='2012-02-14' datacount='8' datasum='90' />
+	<datamining id='-2144' name='task.by-project.-200.by-user.-101.remaining' periodtype='0' perioddate='2012-02-15' datacount='7' datasum='70' />
+	<datamining id='-2145' name='task.by-project.-200.by-user.-101.remaining' periodtype='0' perioddate='2012-02-16' datacount='4' datasum='33' />
+	<datamining id='-2146' name='task.by-project.-200.by-user.-101.remaining' periodtype='0' perioddate='2012-02-17' datacount='2' datasum='17' />
+	<datamining id='-2147' name='task.by-project.-200.by-user.-101.remaining' periodtype='0' perioddate='2012-02-18' datacount='0' datasum='0' />
+
+	<datamining id='-2148' name='task.by-project.-200.by-user.-102.remaining' periodtype='0' perioddate='2012-02-1' datacount='25' datasum='280' />
+	<datamining id='-2149' name='task.by-project.-200.by-user.-102.remaining' periodtype='0' perioddate='2012-02-2' datacount='24' datasum='276' />
+	<datamining id='-2150' name='task.by-project.-200.by-user.-102.remaining' periodtype='0' perioddate='2012-02-3' datacount='23' datasum='254' />
+	<datamining id='-2151' name='task.by-project.-200.by-user.-102.remaining' periodtype='0' perioddate='2012-02-4' datacount='21' datasum='250' />
+	<datamining id='-2152' name='task.by-project.-200.by-user.-102.remaining' periodtype='0' perioddate='2012-02-5' datacount='19' datasum='220' />
+	<datamining id='-2153' name='task.by-project.-200.by-user.-102.remaining' periodtype='0' perioddate='2012-02-6' datacount='19' datasum='219' />
+	<datamining id='-2154' name='task.by-project.-200.by-user.-102.remaining' periodtype='0' perioddate='2012-02-7' datacount='19' datasum='210' />
+	<datamining id='-2155' name='task.by-project.-200.by-user.-102.remaining' periodtype='0' perioddate='2012-02-8' datacount='17' datasum='174' />
+	<datamining id='-2156' name='task.by-project.-200.by-user.-102.remaining' periodtype='0' perioddate='2012-02-9' datacount='15' datasum='164' />
+	<datamining id='-2157' name='task.by-project.-200.by-user.-102.remaining' periodtype='0' perioddate='2012-02-10' datacount='14' datasum='152' />
+	<datamining id='-2158' name='task.by-project.-200.by-user.-102.remaining' periodtype='0' perioddate='2012-02-11' datacount='12' datasum='134' />
+	<datamining id='-2159' name='task.by-project.-200.by-user.-102.remaining' periodtype='0' perioddate='2012-02-12' datacount='11' datasum='128' />
+	<datamining id='-2160' name='task.by-project.-200.by-user.-102.remaining' periodtype='0' perioddate='2012-02-13' datacount='10' datasum='111' />
+	<datamining id='-2161' name='task.by-project.-200.by-user.-102.remaining' periodtype='0' perioddate='2012-02-14' datacount='8' datasum='90' />
+	<datamining id='-2162' name='task.by-project.-200.by-user.-102.remaining' periodtype='0' perioddate='2012-02-15' datacount='7' datasum='50' />
+	<datamining id='-2163' name='task.by-project.-200.by-user.-102.remaining' periodtype='0' perioddate='2012-02-16' datacount='4' datasum='25' />
+	<datamining id='-2164' name='task.by-project.-200.by-user.-102.remaining' periodtype='0' perioddate='2012-02-17' datacount='2' datasum='19' />
+	<datamining id='-2165' name='task.by-project.-200.by-user.-102.remaining' periodtype='0' perioddate='2012-02-18' datacount='0' datasum='0' />
+
+	<datamining id='-2166' name='task.by-project.-200.by-user.-103.remaining' periodtype='0' perioddate='2012-02-1' datacount='21' datasum='250' />
+	<datamining id='-2167' name='task.by-project.-200.by-user.-103.remaining' periodtype='0' perioddate='2012-02-2' datacount='20' datasum='246' />
+	<datamining id='-2168' name='task.by-project.-200.by-user.-103.remaining' periodtype='0' perioddate='2012-02-3' datacount='19' datasum='236' />
+	<datamining id='-2169' name='task.by-project.-200.by-user.-103.remaining' periodtype='0' perioddate='2012-02-4' datacount='19' datasum='226' />
+	<datamining id='-2170' name='task.by-project.-200.by-user.-103.remaining' periodtype='0' perioddate='2012-02-5' datacount='19' datasum='206' />
+	<datamining id='-2171' name='task.by-project.-200.by-user.-103.remaining' periodtype='0' perioddate='2012-02-6' datacount='18' datasum='206' />
+	<datamining id='-2172' name='task.by-project.-200.by-user.-103.remaining' periodtype='0' perioddate='2012-02-7' datacount='17' datasum='196' />
+	<datamining id='-2173' name='task.by-project.-200.by-user.-103.remaining' periodtype='0' perioddate='2012-02-8' datacount='17' datasum='186' />
+	<datamining id='-2174' name='task.by-project.-200.by-user.-103.remaining' periodtype='0' perioddate='2012-02-9' datacount='15' datasum='176' />
+	<datamining id='-2175' name='task.by-project.-200.by-user.-103.remaining' periodtype='0' perioddate='2012-02-10' datacount='14' datasum='156' />
+	<datamining id='-2176' name='task.by-project.-200.by-user.-103.remaining' periodtype='0' perioddate='2012-02-11' datacount='12' datasum='146' />
+	<datamining id='-2177' name='task.by-project.-200.by-user.-103.remaining' periodtype='0' perioddate='2012-02-12' datacount='11' datasum='126' />
+	<datamining id='-2178' name='task.by-project.-200.by-user.-103.remaining' periodtype='0' perioddate='2012-02-13' datacount='11' datasum='106' />
+	<datamining id='-2179' name='task.by-project.-200.by-user.-103.remaining' periodtype='0' perioddate='2012-02-14' datacount='9' datasum='95' />
+	<datamining id='-2180' name='task.by-project.-200.by-user.-103.remaining' periodtype='0' perioddate='2012-02-15' datacount='8' datasum='46' />
+	<datamining id='-2181' name='task.by-project.-200.by-user.-103.remaining' periodtype='0' perioddate='2012-02-16' datacount='5' datasum='34' />
+	<datamining id='-2182' name='task.by-project.-200.by-user.-103.remaining' periodtype='0' perioddate='2012-02-17' datacount='2' datasum='1' />
+	<datamining id='-2183' name='task.by-project.-200.by-user.-103.remaining' periodtype='0' perioddate='2012-02-18' datacount='0' datasum='0' />
+
+	<datamining id='-2495' name='task.by-project.-201.by-user.1.remaining' periodtype='0' perioddate='2012-02-1' datacount='25' datasum='250' />
+	<datamining id='-2496' name='task.by-project.-201.by-user.1.remaining' periodtype='0' perioddate='2012-02-2' datacount='24' datasum='245' />
+	<datamining id='-2497' name='task.by-project.-201.by-user.1.remaining' periodtype='0' perioddate='2012-02-3' datacount='23' datasum='234' />
+	<datamining id='-2498' name='task.by-project.-201.by-user.1.remaining' periodtype='0' perioddate='2012-02-4' datacount='21' datasum='222' />
+	<datamining id='-2499' name='task.by-project.-201.by-user.1.remaining' periodtype='0' perioddate='2012-02-5' datacount='19' datasum='201' />
+	<datamining id='-2500' name='task.by-project.-201.by-user.1.remaining' periodtype='0' perioddate='2012-02-6' datacount='19' datasum='200' />
+	<datamining id='-2501' name='task.by-project.-201.by-user.1.remaining' periodtype='0' perioddate='2012-02-7' datacount='19' datasum='190' />
+	<datamining id='-2502' name='task.by-project.-201.by-user.1.remaining' periodtype='0' perioddate='2012-02-8' datacount='17' datasum='185' />
+	<datamining id='-2503' name='task.by-project.-201.by-user.1.remaining' periodtype='0' perioddate='2012-02-9' datacount='15' datasum='176' />
+	<datamining id='-2504' name='task.by-project.-201.by-user.1.remaining' periodtype='0' perioddate='2012-02-10' datacount='14' datasum='150' />
+	<datamining id='-2505' name='task.by-project.-201.by-user.1.remaining' periodtype='0' perioddate='2012-02-11' datacount='12' datasum='140' />
+	<datamining id='-2506' name='task.by-project.-201.by-user.1.remaining' periodtype='0' perioddate='2012-02-12' datacount='11' datasum='135' />
+	<datamining id='-2507' name='task.by-project.-201.by-user.1.remaining' periodtype='0' perioddate='2012-02-13' datacount='10' datasum='112' />
+	<datamining id='-2508' name='task.by-project.-201.by-user.1.remaining' periodtype='0' perioddate='2012-02-14' datacount='8' datasum='95' />
+	<datamining id='-2509' name='task.by-project.-201.by-user.1.remaining' periodtype='0' perioddate='2012-02-15' datacount='7' datasum='40' />
+	<datamining id='-2510' name='task.by-project.-201.by-user.1.remaining' periodtype='0' perioddate='2012-02-16' datacount='4' datasum='23' />
+	<datamining id='-2511' name='task.by-project.-201.by-user.1.remaining' periodtype='0' perioddate='2012-02-17' datacount='2' datasum='15' />
+	<datamining id='-2512' name='task.by-project.-201.by-user.1.remaining' periodtype='0' perioddate='2012-02-18' datacount='0' datasum='0' />
+    
+	<datamining id='-2595' name='task.by-project.-201.by-user.-100.remaining' periodtype='0' perioddate='2012-02-1' datacount='25' datasum='250' />
+	<datamining id='-2596' name='task.by-project.-201.by-user.-100.remaining' periodtype='0' perioddate='2012-02-2' datacount='24' datasum='245' />
+	<datamining id='-2597' name='task.by-project.-201.by-user.-100.remaining' periodtype='0' perioddate='2012-02-3' datacount='23' datasum='234' />
+	<datamining id='-2598' name='task.by-project.-201.by-user.-100.remaining' periodtype='0' perioddate='2012-02-4' datacount='21' datasum='222' />
+	<datamining id='-2599' name='task.by-project.-201.by-user.-100.remaining' periodtype='0' perioddate='2012-02-5' datacount='19' datasum='201' />
+	<datamining id='-2600' name='task.by-project.-201.by-user.-100.remaining' periodtype='0' perioddate='2012-02-6' datacount='19' datasum='200' />
+	<datamining id='-2601' name='task.by-project.-201.by-user.-100.remaining' periodtype='0' perioddate='2012-02-7' datacount='19' datasum='190' />
+	<datamining id='-2602' name='task.by-project.-201.by-user.-100.remaining' periodtype='0' perioddate='2012-02-8' datacount='17' datasum='185' />
+	<datamining id='-2603' name='task.by-project.-201.by-user.-100.remaining' periodtype='0' perioddate='2012-02-9' datacount='15' datasum='176' />
+	<datamining id='-2604' name='task.by-project.-201.by-user.-100.remaining' periodtype='0' perioddate='2012-02-10' datacount='14' datasum='150' />
+	<datamining id='-2605' name='task.by-project.-201.by-user.-100.remaining' periodtype='0' perioddate='2012-02-11' datacount='12' datasum='140' />
+	<datamining id='-2606' name='task.by-project.-201.by-user.-100.remaining' periodtype='0' perioddate='2012-02-12' datacount='11' datasum='135' />
+	<datamining id='-2607' name='task.by-project.-201.by-user.-100.remaining' periodtype='0' perioddate='2012-02-13' datacount='10' datasum='112' />
+	<datamining id='-2608' name='task.by-project.-201.by-user.-100.remaining' periodtype='0' perioddate='2012-02-14' datacount='8' datasum='95' />
+	<datamining id='-2609' name='task.by-project.-201.by-user.-100.remaining' periodtype='0' perioddate='2012-02-15' datacount='7' datasum='40' />
+	<datamining id='-2610' name='task.by-project.-201.by-user.-100.remaining' periodtype='0' perioddate='2012-02-16' datacount='4' datasum='23' />
+	<datamining id='-2611' name='task.by-project.-201.by-user.-100.remaining' periodtype='0' perioddate='2012-02-17' datacount='2' datasum='15' />
+	<datamining id='-2612' name='task.by-project.-201.by-user.-100.remaining' periodtype='0' perioddate='2012-02-18' datacount='0' datasum='0' />
+
+	<datamining id='-2713' name='task.by-project.-202.by-user.1.remaining' periodtype='0' perioddate='2012-02-1' datacount='25' datasum='250' />
+	<datamining id='-2714' name='task.by-project.-202.by-user.1.remaining' periodtype='0' perioddate='2012-02-2' datacount='24' datasum='245' />
+	<datamining id='-2715' name='task.by-project.-202.by-user.1.remaining' periodtype='0' perioddate='2012-02-3' datacount='23' datasum='234' />
+	<datamining id='-2716' name='task.by-project.-202.by-user.1.remaining' periodtype='0' perioddate='2012-02-4' datacount='21' datasum='222' />
+	<datamining id='-2717' name='task.by-project.-202.by-user.1.remaining' periodtype='0' perioddate='2012-02-5' datacount='19' datasum='201' />
+	<datamining id='-2718' name='task.by-project.-202.by-user.1.remaining' periodtype='0' perioddate='2012-02-6' datacount='19' datasum='200' />
+	<datamining id='-2719' name='task.by-project.-202.by-user.1.remaining' periodtype='0' perioddate='2012-02-7' datacount='19' datasum='190' />
+	<datamining id='-2720' name='task.by-project.-202.by-user.1.remaining' periodtype='0' perioddate='2012-02-8' datacount='17' datasum='185' />
+	<datamining id='-2721' name='task.by-project.-202.by-user.1.remaining' periodtype='0' perioddate='2012-02-9' datacount='15' datasum='176' />
+	<datamining id='-2722' name='task.by-project.-202.by-user.1.remaining' periodtype='0' perioddate='2012-02-10' datacount='14' datasum='150' />
+	<datamining id='-2723' name='task.by-project.-202.by-user.1.remaining' periodtype='0' perioddate='2012-02-11' datacount='12' datasum='140' />
+	<datamining id='-2724' name='task.by-project.-202.by-user.1.remaining' periodtype='0' perioddate='2012-02-12' datacount='11' datasum='120' />
+	<datamining id='-2725' name='task.by-project.-202.by-user.1.remaining' periodtype='0' perioddate='2012-02-13' datacount='10' datasum='100' />
+	<datamining id='-2726' name='task.by-project.-202.by-user.1.remaining' periodtype='0' perioddate='2012-02-14' datacount='8' datasum='95' />
+	<datamining id='-2727' name='task.by-project.-202.by-user.1.remaining' periodtype='0' perioddate='2012-02-15' datacount='7' datasum='40' />
+	<datamining id='-2728' name='task.by-project.-202.by-user.1.remaining' periodtype='0' perioddate='2012-02-16' datacount='4' datasum='23' />
+	<datamining id='-2729' name='task.by-project.-202.by-user.1.remaining' periodtype='0' perioddate='2012-02-17' datacount='2' datasum='15' />
+	<datamining id='-2730' name='task.by-project.-202.by-user.1.remaining' periodtype='0' perioddate='2012-02-18' datacount='0' datasum='0' />
 	
-	<datamining id='-2059' name='alert.process.time' periodtype='0' perioddate='2012-02-1' datacount='10' datasum='200' />
-	<datamining id='-2060' name='alert.process.time' periodtype='0' perioddate='2012-02-2' datacount='20' datasum='600' />
-
-	<datamining id='-1000' name='alert.counter' periodtype='0' perioddate='2011-12-01' datacount='3' />
-	<datamining id='-1001' name='alert.counter' periodtype='0' perioddate='2011-12-02' datacount='5' />
-	<datamining id='-1002' name='alert.counter' periodtype='0' perioddate='2011-12-03' datacount='2' />
-	<datamining id='-1003' name='alert.counter' periodtype='1' perioddate='2011-12-01' datacount='10' />
-	<datamining id='-1004' name='alert.counter' periodtype='2' perioddate='2011-01-01' datacount='10' />
-
-	<datamining id='-1005' name='alert.type.user' periodtype='2' perioddate='2011-01-01' datacount='10' />
-	<datamining id='-2000' name='alert.type.user' periodtype='0' perioddate='2012-01-01' datacount='10' />
-	<datamining id='-2001' name='alert.type.user' periodtype='0' perioddate='2012-01-02' datacount='20' />
-	<datamining id='-2002' name='alert.type.user' periodtype='0' perioddate='2012-01-03' datacount='15' />
-	<datamining id='-2003' name='alert.type.user' periodtype='0' perioddate='2012-01-04' datacount='30' />
-	<datamining id='-2004' name='alert.type.user' periodtype='0' perioddate='2012-01-05' datacount='50' />
-	<datamining id='-2005' name='alert.type.user' periodtype='0' perioddate='2012-01-06' datacount='55' />
-	<datamining id='-2006' name='alert.type.user' periodtype='0' perioddate='2012-01-07' datacount='40' />
-	<datamining id='-2007' name='alert.type.user' periodtype='0' perioddate='2012-01-08' datacount='25' />
-	<datamining id='-2008' name='alert.type.user' periodtype='0' perioddate='2012-01-09' datacount='15' />
-	<datamining id='-2009' name='alert.type.user' periodtype='0' perioddate='2012-01-10' datacount='12' />
-	<datamining id='-2010' name='alert.type.user' periodtype='0' perioddate='2012-01-11' datacount='10' />
-	<datamining id='-2011' name='alert.type.user' periodtype='0' perioddate='2012-01-12' datacount='28' />
-	<datamining id='-2012' name='alert.type.user' periodtype='0' perioddate='2012-01-13' datacount='30' />
-	<datamining id='-2013' name='alert.type.user' periodtype='0' perioddate='2012-01-14' datacount='45' />
-	<datamining id='-2014' name='alert.type.user' periodtype='0' perioddate='2012-01-15' datacount='58' />
-	<datamining id='-2015' name='alert.type.user' periodtype='0' perioddate='2012-01-16' datacount='62' />
-	<datamining id='-2016' name='alert.type.user' periodtype='0' perioddate='2012-01-17' datacount='40' />
-	<datamining id='-2017' name='alert.type.user' periodtype='0' perioddate='2012-01-18' datacount='30' />
-
-	<datamining id='-2018' name='alert.type.device' periodtype='2' perioddate='2011-01-01' datacount='10' />
-	<datamining id='-2019' name='alert.type.device' periodtype='0' perioddate='2012-01-01' datacount='5' />
-	<datamining id='-2020' name='alert.type.device' periodtype='0' perioddate='2012-01-02' datacount='8' />
-	<datamining id='-2021' name='alert.type.device' periodtype='0' perioddate='2012-01-03' datacount='11' />
-	<datamining id='-2022' name='alert.type.device' periodtype='0' perioddate='2012-01-04' datacount='14' />
-	<datamining id='-2023' name='alert.type.device' periodtype='0' perioddate='2012-01-05' datacount='12' />
-	<datamining id='-2024' name='alert.type.device' periodtype='0' perioddate='2012-01-06' datacount='16' />
-	<datamining id='-2025' name='alert.type.device' periodtype='0' perioddate='2012-01-07' datacount='20' />
-	<datamining id='-2026' name='alert.type.device' periodtype='0' perioddate='2012-01-08' datacount='15' />
-	<datamining id='-2027' name='alert.type.device' periodtype='0' perioddate='2012-01-09' datacount='13' />
-	<datamining id='-2028' name='alert.type.device' periodtype='0' perioddate='2012-01-10' datacount='12' />
-	<datamining id='-2029' name='alert.type.device' periodtype='0' perioddate='2012-01-11' datacount='6' />
-	<datamining id='-2030' name='alert.type.device' periodtype='0' perioddate='2012-01-12' datacount='8' />
-	<datamining id='-2031' name='alert.type.device' periodtype='0' perioddate='2012-01-13' datacount='5' />
-	<datamining id='-2032' name='alert.type.device' periodtype='0' perioddate='2012-01-14' datacount='6' />
-	<datamining id='-2033' name='alert.type.device' periodtype='0' perioddate='2012-01-15' datacount='10' />
-	<datamining id='-2034' name='alert.type.device' periodtype='0' perioddate='2012-01-16' datacount='12' />
-	<datamining id='-2035' name='alert.type.device' periodtype='0' perioddate='2012-01-17' datacount='8' />
-	<datamining id='-2036' name='alert.type.device' periodtype='0' perioddate='2012-01-18' datacount='4' />
-
-	<datamining id='-2037' name='alert.type.technical' periodtype='2' perioddate='2011-01-01' datacount='3' />
-	<datamining id='-2038' name='alert.type.technical' periodtype='0' perioddate='2012-01-01' datacount='6' />
-	<datamining id='-2039' name='alert.type.technical' periodtype='0' perioddate='2012-01-02' datacount='8' />
-	<datamining id='-2040' name='alert.type.technical' periodtype='0' perioddate='2012-01-03' datacount='10' />
-	<datamining id='-2041' name='alert.type.technical' periodtype='0' perioddate='2012-01-04' datacount='12' />
-	<datamining id='-2042' name='alert.type.technical' periodtype='0' perioddate='2012-01-05' datacount='16' />
-	<datamining id='-2043' name='alert.type.technical' periodtype='0' perioddate='2012-01-06' datacount='20' />
-	<datamining id='-2044' name='alert.type.technical' periodtype='0' perioddate='2012-01-07' datacount='25' />
-	<datamining id='-2045' name='alert.type.technical' periodtype='0' perioddate='2012-01-08' datacount='22' />
-	<datamining id='-2046' name='alert.type.technical' periodtype='0' perioddate='2012-01-09' datacount='30' />
-	<datamining id='-2047' name='alert.type.technical' periodtype='0' perioddate='2012-01-10' datacount='20' />
-	<datamining id='-2048' name='alert.type.technical' periodtype='0' perioddate='2012-01-11' datacount='15' />
-	<datamining id='-2049' name='alert.type.technical' periodtype='0' perioddate='2012-01-12' datacount='10' />
-	<datamining id='-2050' name='alert.type.technical' periodtype='0' perioddate='2012-01-13' datacount='12' />
-	<datamining id='-2051' name='alert.type.technical' periodtype='0' perioddate='2012-01-14' datacount='8' />
-	<datamining id='-2052' name='alert.type.technical' periodtype='0' perioddate='2012-01-15' datacount='7' />
-	<datamining id='-2053' name='alert.type.technical' periodtype='0' perioddate='2012-01-16' datacount='9' />
-	<datamining id='-2054' name='alert.type.technical' periodtype='0' perioddate='2012-01-17' datacount='8' />
-	<datamining id='-2055' name='alert.type.technical' periodtype='0' perioddate='2012-01-18' datacount='6' />
-
-	<datamining id='-2056' name='alert.type.user' periodtype='0' perioddate='2012-02-1' datacount='10' />
-	<datamining id='-2057' name='alert.type.user' periodtype='0' perioddate='2012-02-2' datacount='20' />
-	<datamining id='-2058' name='alert.type.user' periodtype='0' perioddate='2012-02-3' datacount='30' />
+	<datamining id='-2813' name='task.by-project.-202.by-user.-102.remaining' periodtype='0' perioddate='2012-02-1' datacount='25' datasum='250' />
+	<datamining id='-2814' name='task.by-project.-202.by-user.-102.remaining' periodtype='0' perioddate='2012-02-2' datacount='24' datasum='245' />
+	<datamining id='-2815' name='task.by-project.-202.by-user.-102.remaining' periodtype='0' perioddate='2012-02-3' datacount='23' datasum='234' />
+	<datamining id='-2816' name='task.by-project.-202.by-user.-102.remaining' periodtype='0' perioddate='2012-02-4' datacount='21' datasum='222' />
+	<datamining id='-2817' name='task.by-project.-202.by-user.-102.remaining' periodtype='0' perioddate='2012-02-5' datacount='19' datasum='201' />
+	<datamining id='-2818' name='task.by-project.-202.by-user.-102.remaining' periodtype='0' perioddate='2012-02-6' datacount='19' datasum='200' />
+	<datamining id='-2819' name='task.by-project.-202.by-user.-102.remaining' periodtype='0' perioddate='2012-02-7' datacount='19' datasum='190' />
+	<datamining id='-2820' name='task.by-project.-202.by-user.-102.remaining' periodtype='0' perioddate='2012-02-8' datacount='17' datasum='185' />
+	<datamining id='-2821' name='task.by-project.-202.by-user.-102.remaining' periodtype='0' perioddate='2012-02-9' datacount='15' datasum='176' />
+	<datamining id='-2822' name='task.by-project.-202.by-user.-102.remaining' periodtype='0' perioddate='2012-02-10' datacount='14' datasum='150' />
+	<datamining id='-2823' name='task.by-project.-202.by-user.-102.remaining' periodtype='0' perioddate='2012-02-11' datacount='12' datasum='140' />
+	<datamining id='-2824' name='task.by-project.-202.by-user.-102.remaining' periodtype='0' perioddate='2012-02-12' datacount='11' datasum='120' />
+	<datamining id='-2825' name='task.by-project.-202.by-user.-102.remaining' periodtype='0' perioddate='2012-02-13' datacount='10' datasum='100' />
+	<datamining id='-2826' name='task.by-project.-202.by-user.-102.remaining' periodtype='0' perioddate='2012-02-14' datacount='8' datasum='95' />
+	<datamining id='-2827' name='task.by-project.-202.by-user.-102.remaining' periodtype='0' perioddate='2012-02-15' datacount='7' datasum='40' />
+	<datamining id='-2828' name='task.by-project.-202.by-user.-102.remaining' periodtype='0' perioddate='2012-02-16' datacount='4' datasum='23' />
+	<datamining id='-2829' name='task.by-project.-202.by-user.-102.remaining' periodtype='0' perioddate='2012-02-17' datacount='2' datasum='15' />
+	<datamining id='-2830' name='task.by-project.-202.by-user.-102.remaining' periodtype='0' perioddate='2012-02-18' datacount='0' datasum='0' />
 
 </dataset>

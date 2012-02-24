@@ -39,7 +39,7 @@ public class ProjectManager implements Serializable {
 	private User selectedUser;
 	private Project createProject;
 	private String addUserDialogEmail;
-        private int statistcs = 0;
+	private int statistcs = 0;
 	private LazyDataModel<Project> projects = new LazyDataModel() {
 
 		@Override
@@ -83,14 +83,14 @@ public class ProjectManager implements Serializable {
 		return currentProject;
 	}
 
-        public int getStatistcs() {
-                return statistcs;
-        }
+	public int getStatistcs() {
+		return statistcs;
+	}
 
-        public void setStatistcs(int statistcs) {
-                this.statistcs = statistcs;
-        }        
-       
+	public void setStatistcs(int statistcs) {
+		this.statistcs = statistcs;
+	}
+
 	public Project getCurrentProject(boolean refresh) {
 		if (refresh && currentProject != null && currentProject.getId() != null) {
 			currentProject = resources.findProject(currentProject.getId());

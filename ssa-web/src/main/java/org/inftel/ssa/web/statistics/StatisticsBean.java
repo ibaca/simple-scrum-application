@@ -26,209 +26,193 @@ import org.primefaces.model.chart.PieChartModel;
 @RequestScoped
 public class StatisticsBean implements Serializable {
 
-    @EJB
-    private DataminingProcessor datamining;
-    private CartesianChartModel stressModel;
-    private CartesianChartModel taskModel;
-    private CartesianChartModel individualModel;
-    private PieChartModel pieTaskModel;
-    private CartesianChartModel storyPointBarModel;
-    private int maxValueBarModel;
-    @ManagedProperty(value = "#{projectManager}")
-    private ProjectManager projectManager;
-    @ManagedProperty(value = "#{sprintManager}")
-    private SprintManager sprintManager;
-    @ManagedProperty(value = "#{userManager}")
-    private UserManager userManager;
+	@EJB
+	private DataminingProcessor datamining;
+	private CartesianChartModel stressModel;
+	private CartesianChartModel taskModel;
+	private CartesianChartModel individualModel;
+	private PieChartModel pieTaskModel;
+	private CartesianChartModel storyPointBarModel;
+	private int maxValueBarModel;
+	@ManagedProperty(value = "#{projectManager}")
+	private ProjectManager projectManager;
+	@ManagedProperty(value = "#{sprintManager}")
+	private SprintManager sprintManager;
+	@ManagedProperty(value = "#{userManager}")
+	private UserManager userManager;
 
-    public ProjectManager getProjectManager() {
-        return projectManager;
-    }
+	public ProjectManager getProjectManager() {
+		return projectManager;
+	}
 
-    public void setProjectManager(ProjectManager projectManager) {
-        this.projectManager = projectManager;
-    }
+	public void setProjectManager(ProjectManager projectManager) {
+		this.projectManager = projectManager;
+	}
 
-    public StatisticsBean() {
-    }
+	public StatisticsBean() {
+	}
 
-    @PostConstruct
-    private void init() {
-        createStressModel();
-        createTaskModel();
-        createPieTaskModel();
-        createIndividualModel();
-        createStoryPointsModel();
+	private void createStressModel() {
+		stressModel = new CartesianChartModel();
+		LineChartSeries stressSeries = new LineChartSeries();
+		Map<Date, DataminingData> samples; // todos los datos por fecha
+		Long idProject = getProjectManager().getCurrentProject().getId();
+		User currentUser = userManager.getCurrentUser();
+		//Sprint currentSprint = sprintManager.getCurrentSprint();
+		Long idUser = currentUser.getId();
+		//Long idSprint = currentSprint.getId();
+		String nickname = currentUser.getNickname();
+		stressSeries.setLabel(nickname);
+		String name = "task.by-project." + idProject + ".by-user." + idUser + ".remaining";
+		samples = datamining.findStatistics(name, DataminingDataPeriod.DAYLY, new Date(0), new Date());
+		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es"));
+		for (Date date : samples.keySet()) {
+			stressSeries.set(df.format(date), samples.get(date).getDataSum());
+		}
+		stressModel.addSeries(stressSeries);
+	}
 
-    } 
-    private void createStressModel() {
-        stressModel = new CartesianChartModel();
-        LineChartSeries stressSeries = new LineChartSeries();
-        stressSeries.setLabel("Stress Model");
-        Map<Date, DataminingData> samples; // todos los datos por fecha
-        Long idProject = getProjectManager().getCurrentProject().getId();
-        User currentUser = userManager.getCurrentUser();
-        //Sprint currentSprint = sprintManager.getCurrentSprint();
-        Long idUser = currentUser.getId();
-        //Long idSprint = currentSprint.getId();
-        String nickname = currentUser.getNickname();
-        stressSeries.setLabel(nickname);
-        String name = "task." + idProject + "." + idUser + ".remaining";
-        samples = datamining.findStatistics(name, DataminingDataPeriod.DAYLY, new Date(0), new Date());
-        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es"));
+	private void createTaskModel() {
+		taskModel = new CartesianChartModel();
+		ChartSeries taskSeries = new ChartSeries();
+		Map<Date, DataminingData> samples; // todos los datos por fecha
+		Long idProject = getProjectManager().getCurrentProject().getId();
+		User currentUser = userManager.getCurrentUser();
+		//Sprint currentSprint = sprintManager.getCurrentSprint();
+		Long idUser = currentUser.getId();
+		//Long idSprint = currentSprint.getId();
+		String nickname = currentUser.getNickname();
+		taskSeries.setLabel(nickname);
+		String name = "task.by-project." + idProject + ".by-user." + idUser + ".remaining";
+		samples = datamining.findStatistics(name, DataminingDataPeriod.DAYLY, new Date(0), new Date());
+		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es"));
+		for (Date date : samples.keySet()) {
+			taskSeries.set(df.format(date), samples.get(date).getDataCount());
+		}
 
-        for (Date date : samples.keySet()) {
-            stressSeries.set(df.format(date), samples.get(date).getDataSum());
-        }
+		taskModel.addSeries(taskSeries);
 
-        stressModel.addSeries(stressSeries);
+	}
 
-    }
+	private void createPieTaskModel() {
+		pieTaskModel = new PieChartModel();
+		int todocount = 0, doingcount = 0, donecount = 0;
+		List<Task> tasks = getProjectManager().getCurrentProject().getTasks();
+		for (Task task : tasks) {
+			switch (task.getStatus()) {
+				case TODO:
+					todocount++;
+					break;
+				case DOING:
+					doingcount++;
+					break;
+				case DONE:
+					donecount++;
+					break;
+			}
+		}
 
-    private void createTaskModel() {
+		pieTaskModel.set("ToDo", todocount);
+		pieTaskModel.set("Doing", doingcount);
+		pieTaskModel.set("Done", donecount);
+	}
 
-        taskModel = new CartesianChartModel();
-        ChartSeries taskSeries = new ChartSeries();
-        taskSeries.setLabel("Task Model");
-        Map<Date, DataminingData> samples; // todos los datos por fecha
-        Long idProject = getProjectManager().getCurrentProject().getId();
-        User currentUser = userManager.getCurrentUser();
-        //Sprint currentSprint = sprintManager.getCurrentSprint();
-        Long idUser = currentUser.getId();
-        //Long idSprint = currentSprint.getId();
-        String nickname = currentUser.getNickname();
-        taskSeries.setLabel(nickname);
-        String name = "task." + idProject + "." + idUser + ".remaining";
-        samples = datamining.findStatistics(name, DataminingDataPeriod.DAYLY, new Date(0), new Date());
-        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es"));
+	private void createIndividualModel() { 
+		individualModel = new CartesianChartModel();
+		Map<Date, DataminingData> samples; // todos los datos por fecha
+		Set<User> users = getProjectManager().getCurrentProject().getUsers();
+		//Sprint currentSprint = sprintManager.getCurrentSprint();
+		Long idProject = getProjectManager().getCurrentProject().getId();
+		//long idSprint = currentSprint.getId();
+		for (User user : users) {
+			LineChartSeries series = new LineChartSeries();
+			series.setLabel(user.getNickname());
+			Long idUser = user.getId();
+			String name = "task.by-project." + idProject + ".by-user." + idUser + ".remaining";
+			samples = datamining.findStatistics(name, DataminingDataPeriod.DAYLY, new Date(0), new Date());
+			DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es"));
 
-        for (Date date : samples.keySet()) {
-            taskSeries.set(df.format(date), samples.get(date).getDataCount());
-        }
+			for (Date date : samples.keySet()) {
+				series.set(df.format(date), samples.get(date).getDataCount());
+			}
 
-        taskModel.addSeries(taskSeries);
+			individualModel.addSeries(series);
 
-    }
+		}
+	}
 
-    private void createPieTaskModel() {
-        pieTaskModel = new PieChartModel();
-        int todocount = 0, doingcount = 0, donecount = 0;
-        List<Task> tasks = getProjectManager().getCurrentProject().getTasks();
-        for (Task task : tasks) {
-            switch (task.getStatus()) {
-                case TODO:
-                    todocount++;
-                    break;
-                case DOING:
-                    doingcount++;
-                    break;
-                case DONE:
-                    donecount++;
-                    break;
-            }
-        }
+	private void createStoryPointsModel() {
+		List<Sprint> sprints = projectManager.getCurrentProject().getSprints();
+		storyPointBarModel = new CartesianChartModel();
+		ChartSeries chartSeries = new ChartSeries();
+		chartSeries.setLabel("Story Point");
+		maxValueBarModel = 0;
+		for (Sprint sprint : sprints) {
+			List<Task> tasks = sprint.getTasks();
+			int storyPoint = 0;
+			for (Task task : tasks) {
+				storyPoint += task.getEstimated();
+			}
+			if (storyPoint > maxValueBarModel) {
+				maxValueBarModel = storyPoint;
+			}
+			chartSeries.set(sprint.getSummary(), storyPoint);
+		}
+		chartSeries.set("", 0);//Barra vacia
+		storyPointBarModel.addSeries(chartSeries);
+	}
 
-        pieTaskModel.set("To Do", todocount);
-        pieTaskModel.set("Doing", doingcount);
-        pieTaskModel.set("Done", donecount);
-    }
+	// --------------------------------------------------------------------------- Getters & Setters
+	public CartesianChartModel getStressModel() {
+		createStressModel();
+		return stressModel;
+	}
 
-    private void createIndividualModel() {
+	public CartesianChartModel getIndividualModel() {
+		createIndividualModel();
+		return individualModel;
+	}
 
-        individualModel = new CartesianChartModel();
-        LineChartSeries series = new LineChartSeries();
-        series.setLabel("Individual Model");
-        Map<Date, DataminingData> samples; // todos los datos por fecha
-        Set<User> users = getProjectManager().getCurrentProject().getUsers();
-        //Sprint currentSprint = sprintManager.getCurrentSprint();
-        Long idProject = getProjectManager().getCurrentProject().getId();
-        //long idSprint = currentSprint.getId();
-        for (User user : users) {
-            series.setLabel(user.getNickname());
-            Long idUser = user.getId();
-            String name = "task." + idProject + "." + idUser + ".remaining";
-            samples = datamining.findStatistics(name, DataminingDataPeriod.DAYLY, new Date(0), new Date());
-            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es"));
+	public CartesianChartModel getTaskModel() {
+		createTaskModel();
+		return taskModel;
+	}
 
-            for (Date date : samples.keySet()) {
-                series.set(df.format(date), samples.get(date).getDataCount());
-            }
+	public PieChartModel getPieTaskModel() {
+		createPieTaskModel();
+		return pieTaskModel;
+	}
 
-            individualModel.addSeries(series);
+	public SprintManager getSprintManager() {
+		return sprintManager;
+	}
 
-        }
-    }
-    
-    
-    public void createStoryPointsModel() {
-        List<Sprint> sprints = projectManager.getCurrentProject().getSprints();
-        storyPointBarModel = new CartesianChartModel();
-        ChartSeries chartSeries = new ChartSeries();
-        chartSeries.setLabel("Story Point");
-        maxValueBarModel = 0;
-        for (Sprint sprint : sprints) {
-            List<Task> tasks = sprint.getTasks();
-            int storyPoint = 0;
-            for (Task task : tasks) {
-                storyPoint += task.getEstimated();
-            }
-            if (storyPoint> maxValueBarModel){
-                maxValueBarModel = storyPoint;
-            }
-            chartSeries.set(sprint.getSummary(), storyPoint);
-        }        
-        chartSeries.set("",0);//Barra vacia
-        storyPointBarModel.addSeries(chartSeries);
-    }
+	public void setSprintManager(SprintManager sprintManager) {
+		this.sprintManager = sprintManager;
+	}
 
-    
-    
-    // --------------------------------------------------------------------------- Getters & Setters
-    public CartesianChartModel getStressModel() {
-        return stressModel;
-    }
+	public UserManager getUserManager() {
+		return userManager;
+	}
 
-    public CartesianChartModel getIndividualModel() {
-        return individualModel;
-    }
+	public void setUserManager(UserManager userManager) {
+		this.userManager = userManager;
+	}
 
-    public CartesianChartModel getTaskModel() {
-        return taskModel;
-    }
+	public CartesianChartModel getStoryPointBarModel() {
+		createStoryPointsModel();
+		return storyPointBarModel;
+	}
 
-    public PieChartModel getPieTaskModel() {
-        return pieTaskModel;
-    }
+	public void setStoryPointBarModel(CartesianChartModel storyPointBarModel) {
+		this.storyPointBarModel = storyPointBarModel;
+	}
 
-    public SprintManager getSprintManager() {
-        return sprintManager;
-    }
+	public int getMaxValueBarModel() {
+		return maxValueBarModel;
+	}
 
-    public void setSprintManager(SprintManager sprintManager) {
-        this.sprintManager = sprintManager;
-    }
-
-    public UserManager getUserManager() {
-        return userManager;
-    }
-
-    public void setUserManager(UserManager userManager) {
-        this.userManager = userManager;
-    }
-
-    public CartesianChartModel getStoryPointBarModel() {        
-        return storyPointBarModel;
-    }
-
-    public void setStoryPointBarModel(CartesianChartModel storyPointBarModel) {
-        this.storyPointBarModel = storyPointBarModel;
-    }
-
-    public int getMaxValueBarModel() {
-        return maxValueBarModel;
-    }
-
-    public void setMaxValueBarModel(int maxValueBarModel) {
-        this.maxValueBarModel = maxValueBarModel;
-    }
+	public void setMaxValueBarModel(int maxValueBarModel) {
+		this.maxValueBarModel = maxValueBarModel;
+	}
 }
