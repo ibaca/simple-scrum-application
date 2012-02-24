@@ -15,31 +15,31 @@
 			</div>
 
 			<div class="span9">
-				<h1>Equipo del proyecto</h1>
+                            <h1>#{bundle['project.team']}</h1>
 				<p>
 					<h:form>
 
 						<p:dataTable value="#{projectManager.currentProject.users.toArray()}" var="user" styleClass="table table-bordered table-striped">
 							<p:column>
-								<f:facet name="header">Nombre</f:facet>  
+                                                            <f:facet name="header">#{bundle['user.fullName']}</f:facet>  
 								<h:outputText value="#{user.fullName}"/>  
 							</p:column>
 							<p:column>
-								<f:facet name="header">Apodo</f:facet>  
+                                                            <f:facet name="header">#{bundle['user.nickName']}</f:facet>  
 								<h:outputText value="#{user.nickname}"/>  
 							</p:column>
 							<p:column>
-								<f:facet name="header">Email</f:facet>  
+                                                            <f:facet name="header">#{bundle['user.email']}</f:facet>  
 								<h:outputText value="#{user.email}"/>  
 							</p:column>
 						</p:dataTable>
 						<p:commandButton id="addButton" type="button" onclick="projectTeamAddDialog.show()" value="Add a User" image="ui-icon-gate" styleClass="btn btn-success"/> 
 
-						<p:dialog widgetVar="projectTeamAddDialog"  header="Añadir usuario al proyecto" resizable="false" minWidth="344" styleClass="well" >
+						<p:dialog widgetVar="projectTeamAddDialog"  header="#{bundle['action.add.user']}" resizable="false" minWidth="344" styleClass="well" >
 							email:&nbsp;&nbsp;
 							<p:inputText value="#{projectManager.addUserDialogEmail}" style="display:inline-block"/> 
 							&nbsp;&nbsp;
-							<p:commandLink value="Add" update="@form,:growl" actionListener="#{projectManager.addUser(projectManager.addUserDialogEmail)}" styleClass="btn" />
+                                                        <p:commandLink value="#{bundle['action.add']}" update="@form,:growl" actionListener="#{projectManager.addUser(projectManager.addUserDialogEmail)}" styleClass="btn" />
 						</p:dialog>
 					</h:form>
 				</p>
