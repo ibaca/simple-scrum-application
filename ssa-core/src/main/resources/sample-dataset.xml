@@ -21,17 +21,17 @@
 	<project_users users_id='-102' projects_id='-202' />
 	<project_users users_id='0001' projects_id='-202' />
 	
-	<sprints id='-400' project_id='-200' summary='Sprint 1' description='Descripcion sencilla.' />
-	<sprints id='-401' project_id='-200' summary='Sprint 2' description='Descripcion sencilla.' />
-	<sprints id='-402' project_id='-200' summary='Sprint 3' description='Descripcion sencilla.' />
+	<sprints id='-400' project_id='-200' summary='Sprint 1' beginDate='2011-12-01' endDate='2011-12-07' description='Descripcion sencilla.' />
+	<sprints id='-401' project_id='-200' summary='Sprint 2' beginDate='2011-12-08' endDate='2011-12-16' description='Descripcion sencilla.' />
+	<sprints id='-402' project_id='-200' summary='Sprint 3' beginDate='2011-12-17' endDate='2011-12-25' description='Descripcion sencilla.' />
 
-	<sprints id='-410' project_id='-201' summary='Sprint 1' description='Descripcion sencilla.' />
-	<sprints id='-411' project_id='-201' summary='Sprint 2' description='Descripcion sencilla.' />
-	<sprints id='-412' project_id='-201' summary='Sprint 3' description='Descripcion sencilla.' />
+	<sprints id='-410' project_id='-201' summary='Sprint 1' beginDate='2011-12-01' endDate='2011-12-07' description='Descripcion sencilla.' />
+	<sprints id='-411' project_id='-201' summary='Sprint 2' beginDate='2011-12-08' endDate='2011-12-16' description='Descripcion sencilla.' />
+	<sprints id='-412' project_id='-201' summary='Sprint 3' beginDate='2011-12-17' endDate='2011-12-25' description='Descripcion sencilla.' />
 
-	<sprints id='-420' project_id='-202' summary='Sprint 1' description='Descripion sencilla.' />
-	<sprints id='-421' project_id='-202' summary='Sprint 2' description='Descripcion sencilla.' />
-	<sprints id='-422' project_id='-202' summary='Sprint 3' description='Descripcion sencilla.' />
+	<sprints id='-420' project_id='-202' summary='Sprint 1' beginDate='2011-12-01' endDate='2011-12-07' description='Descripion sencilla.' />
+	<sprints id='-421' project_id='-202' summary='Sprint 2' beginDate='2011-12-08' endDate='2011-12-16' description='Descripcion sencilla.' />
+	<sprints id='-422' project_id='-202' summary='Sprint 3' beginDate='2011-12-17' endDate='2011-12-25' description='Descripcion sencilla.' />
     
 	<tasks id='-300' user_id='-100' project_id='-200' sprint_id='-400' summary='Definir modelo de datos'              description='Descripcion sencilla.'  estimated='4' burned='4' remaining='0' priority='2'  beginDate='2011-12-01' endDate='2011-12-01' status='2' version='1' />
 	<tasks id='-301' user_id='-101' project_id='-200' sprint_id='-400' summary='Definir casos de uso iniciales'       description='Descripcion sencilla.'  estimated='2' burned='3' remaining='0' priority='10' beginDate='2011-12-01' endDate='2011-12-01' status='2' version='1' />
