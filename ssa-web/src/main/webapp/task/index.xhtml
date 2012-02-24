@@ -12,14 +12,14 @@
 
     <ui:define name="content">
 		<style> .ui-datatable input.ui-column-filter { display: inline-block; padding: 0; margin-left: 10px; } </style>
-		<h1>BackLog <small>Listado de tareas del proyecto</small></h1>
+		<h1>BackLog <small>#{bundle['task.list']}</small></h1>
         <div class="row">
             <div class="span8" style="position: relative">
 				<h:form style="position: absolute; right: 0px;top: -34px;">
-					<h:commandButton  action="#{taskManager.create}" value="Crear nueva tarea" styleClass="btn btn-success" />
+					<h:commandButton  action="#{taskManager.create}" value="#{bundle['task.new']}" styleClass="btn btn-success" />
 				</h:form>
                 <h:form id="task_list_form">
-					<p:dataTable value="#{taskManager.tasks}" var="task" paginator="true" paginatorPosition="bottom" rows="14" emptyMessage="No hay tareas">
+					<p:dataTable value="#{taskManager.tasks}" var="task" paginator="true" paginatorPosition="bottom" rows="14" emptyMessage="#{bundle['task.no.task']}">
 						<p:column>
 							<f:facet name="header">
 								<h:outputText value="id" />
@@ -39,12 +39,12 @@
 							</f:facet>
 							<h:outputText value="#{task.user.nickname}"/>
 						</p:column>
-						<p:column  headerText="Priority&nbsp;&nbsp;"  sortBy="#{task.priority}" >
+                                            <p:column  headerText="#{bundle['task.priority']}&nbsp;&nbsp;"  sortBy="#{task.priority}" >
 							<h:outputText value="#{task.priority}"  />
 						</p:column>
 						<p:column sortBy="#{task.created}">
 							<f:facet name="header">
-								<h:outputText value="Created" />
+                                                            <h:outputText value="#{bundle['task.created']}" />
 							</f:facet>
 							<h:outputText value="#{task.created}" >
 								<f:convertDateTime pattern="d/M/yyyy"/>
@@ -52,7 +52,7 @@
 						</p:column>
 						<p:column filterBy="#{task.summary}" sortBy="#{task.summary}">
 							<f:facet name="header">
-								<h:outputText value="Summary" />
+                                                            <h:outputText value="#{bundle['task.summary']}" />
 							</f:facet>
 							<h:commandLink value="#{task.summary}" action="#{taskManager.edit}" />
 						</p:column>
@@ -60,11 +60,9 @@
                 </h:form>
             </div>
             <div class="span4">
-                <h3>Estad&iacute;stico de tareas </h3>
-                <p> En el gr&aacute;fico circular representa de forma porcentual el n&uacute;mero de
-					tareas, contenidas en el proyecto <code> #{projectManager.currentProject.name}
-					</code>, agrupadas seg&uacute;n su estado.
-					<h6 style="text-align: center">N&uacute;mero de tareas/Estado de la tarea</h6>
+                <h3>#{bundle['task.text.statis']} </h3>
+                <p> #{bundle['task.text.graf1']}<code> #{projectManager.currentProject.name}</code>, #{bundle['task.text.graf2']} 
+					<h6 style="text-align: center">#{bundle['task.text.graf3']}</h6>
 					<p:pieChart id="sample" value="#{statisticsBean.pieTaskModel}" style="width:300px;height:300px" />
 				</p>
             </div>
