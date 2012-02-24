@@ -56,7 +56,7 @@
 							<div class="controls">
 								<h:dataTable value="#{projectManager.editableLinks}" var="link" columns="2" class="table" >
 									<h:column>
-										<f:facet name="header">Texto</f:facet>
+										<f:facet name="header">#{bundle['nav.text']}</f:facet>
 										<h:inputText value="#{link.text}"/>
 									</h:column>
 									<h:column>
@@ -64,7 +64,7 @@
 										<h:inputText value="#{link.url}"/>
 									</h:column>
 									<f:facet name="footer">
-										<p:commandLink value="Otra fila" action="#{projectManager.addLink()}" update="@form" styleClass="btn" />
+										<p:commandLink value="#{bundle['nav.row']}" action="#{projectManager.addLink()}" update="@form" styleClass="btn" />
 									</f:facet>
 								</h:dataTable>
 							</div>

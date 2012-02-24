@@ -27,7 +27,7 @@
 					<ui:repeat value="#{projectManager.currentProject.users.toArray()}" var="user">                              
 						<li>#{user.nickname}</li>
 					</ui:repeat>
-					<li><h:link value="Compartir" outcome="/project/users" /></li>
+					<li><h:link value="#{bundle['nav.meet']}" outcome="/project/users" /></li>
 
                                         <li class="nav-header">#{bundle['project.rol']}</li>
 					<li>#{projectManager.userRole()}</li>
