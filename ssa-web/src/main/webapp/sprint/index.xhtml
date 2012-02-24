@@ -78,10 +78,10 @@
                     <c:choose>
                         <c:when test="#{statisticsBean.maxValueBarModel>0}">
                             <p:barChart id="basic" value="#{statisticsBean.storyPointBarModel}" legendPosition="ne"  
-                                title="Story point del Sprint" min="0"  style="width:300px;height:300px;margin-top:20px;"/>
+                                title="#{bundle['sprint.graf']}" min="0"  style="width:300px;height:300px;margin-top:20px;"/>
                         </c:when>
                         <c:otherwise>
-                            <h:outputLabel value="Insuficiente informaci&oacute;n para representar"  style="color:#da4f49"/>
+                            <h:outputLabel value="#{bundle['sprint.graf.noinfo']}"  style="color:#da4f49"/>
                         </c:otherwise>
                     </c:choose>
                 </h:form>
