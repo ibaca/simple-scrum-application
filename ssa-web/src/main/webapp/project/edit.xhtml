@@ -13,10 +13,10 @@
 			<div class="span8">
 				<h:form class="form-horizontal">
 					<fieldset>
-						<legend>Datos del proyecto</legend>
+                                            <legend>#{bundle['project.info']}</legend>
 
 						<div class="control-group">
-							<h:outputLabel for="summary" value="Resumen" class="control-label" />
+                                                    <h:outputLabel for="summary" value="#{bundle['project.summary']}" class="control-label" />
 							<div class="controls">
 								<h:inputText id="summary" required="true" label="summary" value="#{projectManager.currentProject.name}" />
 								<h:message for="summary" class="help-block" />
@@ -24,7 +24,7 @@
 						</div>
 
 						<div class="control-group">
-							<h:outputLabel for="description" value="Descripcion" class="control-label" />
+                                                    <h:outputLabel for="description" value="#{bundle['project.description']}" class="control-label" />
 							<div class="controls">
 								<p:editor id="description" value="#{projectManager.currentProject.description}" />
 								<h:message for="description" class="help-block" />
@@ -32,7 +32,7 @@
 						</div>
 
 						<div class="control-group">
-							<h:outputLabel for="license" value="Licencia del codigo:" class="control-label" />  
+                                                    <h:outputLabel for="license" value="#{bundle['project.license']}" class="control-label" />  
                             <div class="controls">
                                 <p:selectOneMenu id="license" required="true" value="#{projectManager.currentProject.license}">  
                                     <f:selectItem itemLabel="Select a license..." noSelectionOption="true" />  
@@ -52,7 +52,7 @@
 						</div>
 
 						<div class="control-group">
-							<h:outputLabel value="Enlaces externos" class="control-label" />
+                                                    <h:outputLabel value="#{bundle['project.link']}" class="control-label" />
 							<div class="controls">
 								<h:dataTable value="#{projectManager.editableLinks}" var="link" columns="2" class="table" >
 									<h:column>
@@ -71,8 +71,8 @@
 						</div>
 
 						<div class="form-actions">
-							<p:commandButton value="Guardar cambios" update="@form" action="#{projectManager.save}" styleClass="btn btn-primary" />&nbsp;
-							<p:commandButton value="Cancelar" type="reset" update="@form" action="#{projectManager.edit()}" styleClass="btn" />
+                                                    <p:commandButton value="#{bundle['action.save']}" update="@form" action="#{projectManager.save}" styleClass="btn btn-primary" />&nbsp;
+                                                    <p:commandButton value="#{bundle['action.cancel']}" type="reset" update="@form" action="#{projectManager.edit()}" styleClass="btn" />
 						</div>
 					</fieldset>
 				</h:form>
