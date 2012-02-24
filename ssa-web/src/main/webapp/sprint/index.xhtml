@@ -8,22 +8,23 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui"
-    template="/template.xhtml">
+    template="/template.xhtml"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <ui:define name="content">
-		<h1>Sprint Backlog <small>Listado de sprints del proyecto</small></h1>
+        <h1>Sprint Backlog <small>Listado de sprints del proyecto</small></h1>
         <div class="row">
             <div class="span8">
                 <h:form>
                     <p>
                         <p:dataTable value="#{sprintManager.sprints}" var="sprint" paginator="true" paginatorPosition="bottom" rows="14" emptyMessage="No hay ningun sprint asociado al proyecto actual">
-							<p:column>
+                            <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="id" />
                                 </f:facet>
                                 <h:outputText value="#{sprint.id}" />
                             </p:column>
-							<p:column>
+                            <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="Tasks"/>
                                 </f:facet>
@@ -54,7 +55,7 @@
                                     <f:convertDateTime pattern="d/M/yyyy"/>
                                 </h:outputText>
                             </p:column>
-							<p:column >
+                            <p:column >
                                 <f:facet name="header">
                                     <h:outputText value="Summary" />
                                 </f:facet>
@@ -69,14 +70,19 @@
             </div>
 
             <div class="span4">
-                <h3>Estad&iacute;stico de tareas </h3>
-                <p> En el gr&aacute;fico circular representa de forma porcentual y absoluta el 
-                    n&uacute;mero de tareas, contenidas en el proyecto <code> #{projectManager.currentProject.name}</code>
-                    , agrupadas seg&uacute;n su estado
+                <h3>Burndown Chart</h3>
+                <p> Representaci&oacute;n del Story Points asociado a cada Sprint del proyecto <code> #{projectManager.currentProject.name}</code>                    
                 </p>
                 <h:form>
-<!--                    <p:pieChart id="sample" value="#{statisticsBean.pieTaskModel}" legendPosition="w"  
-                                title="Estado de las tareas" style="width:400px;height:300px" />-->
+                    <c:choose>
+                        <c:when test="#{statisticsBean.createStoryPointsModel()}">
+                            <p:barChart id="basic" value="#{statisticsBean.storyPointBarModel}" legendPosition="ne"  
+                                title="Story point del Sprint" min="0" max="#{statisticsBean.maxValueBarModel}"  style="width:300px;height:300px;margin-top:20px;"/>
+                        </c:when>
+                        <c:otherwise>
+                            <h:outputLabel value="Insuficiente informaci&oacute;n para representar"  style="color:#da4f49"/>
+                        </c:otherwise>
+                    </c:choose>
                 </h:form>
 
             </div>

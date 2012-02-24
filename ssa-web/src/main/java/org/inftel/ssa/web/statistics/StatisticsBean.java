@@ -32,6 +32,8 @@ public class StatisticsBean implements Serializable {
     private CartesianChartModel taskModel;
     private CartesianChartModel individualModel;
     private PieChartModel pieTaskModel;
+    private CartesianChartModel storyPointBarModel;
+    private int maxValueBarModel;
     @ManagedProperty(value = "#{projectManager}")
     private ProjectManager projectManager;
     @ManagedProperty(value = "#{sprintManager}")
@@ -55,42 +57,9 @@ public class StatisticsBean implements Serializable {
         createStressModel();
         createTaskModel();
         createPieTaskModel();
-       createIndividualModel();
-       
-    }
+        createIndividualModel();
 
-    public CartesianChartModel getStressModel() {
-        return stressModel;
-    }
-
-    public CartesianChartModel getIndividualModel() {
-        return individualModel;
-    }
-
-    public CartesianChartModel getTaskModel() {
-        return taskModel;
-    }
-
-    public PieChartModel getPieTaskModel() {
-        return pieTaskModel;
-    }
-
-    public SprintManager getSprintManager() {
-        return sprintManager;
-    }
-
-    public void setSprintManager(SprintManager sprintManager) {
-        this.sprintManager = sprintManager;
-    }
-
-    public UserManager getUserManager() {
-        return userManager;
-    }
-
-    public void setUserManager(UserManager userManager) {
-        this.userManager = userManager;
-    }
-    
+    } 
     private void createStressModel() {
         stressModel = new CartesianChartModel();
         LineChartSeries stressSeries = new LineChartSeries();
@@ -133,7 +102,7 @@ public class StatisticsBean implements Serializable {
         for (Date date : samples.keySet()) {
             taskSeries.set(df.format(date), samples.get(date).getDataCount());
         }
-        
+
         taskModel.addSeries(taskSeries);
 
     }
@@ -184,5 +153,79 @@ public class StatisticsBean implements Serializable {
             individualModel.addSeries(series);
 
         }
+    }
+    
+    
+    public boolean createStoryPointsModel() {
+        List<Sprint> sprints = projectManager.getCurrentProject().getSprints();
+        storyPointBarModel = new CartesianChartModel();
+        ChartSeries chartSeries = new ChartSeries();
+        chartSeries.setLabel("Story Point");
+        maxValueBarModel = 0;
+        for (Sprint sprint : sprints) {
+            List<Task> tasks = sprint.getTasks();
+            int storyPoint = 0;
+            for (Task task : tasks) {
+                storyPoint += task.getEstimated();
+            }
+            if (storyPoint> maxValueBarModel){
+                maxValueBarModel = storyPoint;
+            }
+            chartSeries.set(sprint.getSummary(), storyPoint);
+        }        
+        chartSeries.set("",0);//Barra vacia
+        storyPointBarModel.addSeries(chartSeries);
+        return (maxValueBarModel!=0);
+    }
+
+    
+    
+    // --------------------------------------------------------------------------- Getters & Setters
+    public CartesianChartModel getStressModel() {
+        return stressModel;
+    }
+
+    public CartesianChartModel getIndividualModel() {
+        return individualModel;
+    }
+
+    public CartesianChartModel getTaskModel() {
+        return taskModel;
+    }
+
+    public PieChartModel getPieTaskModel() {
+        return pieTaskModel;
+    }
+
+    public SprintManager getSprintManager() {
+        return sprintManager;
+    }
+
+    public void setSprintManager(SprintManager sprintManager) {
+        this.sprintManager = sprintManager;
+    }
+
+    public UserManager getUserManager() {
+        return userManager;
+    }
+
+    public void setUserManager(UserManager userManager) {
+        this.userManager = userManager;
+    }
+
+    public CartesianChartModel getStoryPointBarModel() {        
+        return storyPointBarModel;
+    }
+
+    public void setStoryPointBarModel(CartesianChartModel storyPointBarModel) {
+        this.storyPointBarModel = storyPointBarModel;
+    }
+
+    public int getMaxValueBarModel() {
+        return maxValueBarModel;
+    }
+
+    public void setMaxValueBarModel(int maxValueBarModel) {
+        this.maxValueBarModel = maxValueBarModel;
     }
 }
