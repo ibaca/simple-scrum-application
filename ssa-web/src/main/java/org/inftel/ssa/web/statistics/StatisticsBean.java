@@ -58,6 +58,7 @@ public class StatisticsBean implements Serializable {
         createTaskModel();
         createPieTaskModel();
         createIndividualModel();
+        createStoryPointsModel();
 
     } 
     private void createStressModel() {
@@ -156,7 +157,7 @@ public class StatisticsBean implements Serializable {
     }
     
     
-    public boolean createStoryPointsModel() {
+    public void createStoryPointsModel() {
         List<Sprint> sprints = projectManager.getCurrentProject().getSprints();
         storyPointBarModel = new CartesianChartModel();
         ChartSeries chartSeries = new ChartSeries();
@@ -175,7 +176,6 @@ public class StatisticsBean implements Serializable {
         }        
         chartSeries.set("",0);//Barra vacia
         storyPointBarModel.addSeries(chartSeries);
-        return (maxValueBarModel!=0);
     }
 
     

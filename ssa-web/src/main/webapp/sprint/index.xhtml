@@ -75,7 +75,7 @@
                 </p>
                 <h:form>
                     <c:choose>
-                        <c:when test="#{statisticsBean.createStoryPointsModel()}">
+                        <c:when test="#{statisticsBean.maxValueBarModel>0}">
                             <p:barChart id="basic" value="#{statisticsBean.storyPointBarModel}" legendPosition="ne"  
                                 title="Story point del Sprint" min="0" max="#{statisticsBean.maxValueBarModel}"  style="width:300px;height:300px;margin-top:20px;"/>
                         </c:when>
