@@ -8,7 +8,8 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui"
-    template="/template.xhtml">
+    template="/template.xhtml"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <ui:define name="content">
 		<h1>Sprint Backlog <small>#{bundle['sprint.list.project']}</small></h1>
@@ -74,8 +75,15 @@
                     #{bundle['task.text.graf2']}
                 </p>
                 <h:form>
-<!--                    <p:pieChart id="sample" value="#{statisticsBean.pieTaskModel}" legendPosition="w"  
-                                title="Estado de las tareas" style="width:400px;height:300px" />-->
+                    <c:choose>
+                        <c:when test="#{statisticsBean.maxValueBarModel>0}">
+                            <p:barChart id="basic" value="#{statisticsBean.storyPointBarModel}" legendPosition="ne"  
+                                title="Story point del Sprint" min="0"  style="width:300px;height:300px;margin-top:20px;"/>
+                        </c:when>
+                        <c:otherwise>
+                            <h:outputLabel value="Insuficiente informaci&oacute;n para representar"  style="color:#da4f49"/>
+                        </c:otherwise>
+                    </c:choose>
                 </h:form>
 
             </div>
