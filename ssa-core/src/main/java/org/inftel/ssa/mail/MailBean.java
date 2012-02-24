@@ -1,6 +1,7 @@
 package org.inftel.ssa.mail;
 
 import java.util.Properties;
+import java.util.ResourceBundle;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.mail.Message;
@@ -14,116 +15,92 @@ import javax.mail.internet.MimeMessage;
 @ApplicationScoped
 public class MailBean {
 
-    private static final String HOST = MailProperties.getValor("host");
-    private static final String PORT = MailProperties.getValor("port_tls");
-    private static final String USERNAME = MailProperties.getValor("username_gmail");
-    private static final String PASSWORD = MailProperties.getValor("password_gmail");
-    private static final String SENDER = MailProperties.getValor("sender");
-    
-    private String receiver;
-    private String subject;
-    private String body;
+	private static final String HOST = PropertiesHelper.getProperty("host");
+	private static final String PORT = PropertiesHelper.getProperty("port_tls");
+	private static final String USERNAME = PropertiesHelper.getProperty("username_gmail");
+	private static final String PASSWORD = PropertiesHelper.getProperty("password_gmail");
+	private static final String SENDER = PropertiesHelper.getProperty("sender");
 
-    public String getBody() {
-        return body;
-    }
+	/**
+	 * Método principal para el envío de correos vía TLS
+	 */
+	private void send(String subject, String body, String receiver) {
+		Properties props = new Properties();
+		props.setProperty("mail.smtp.host", HOST);
+		props.setProperty("mail.smtp.starttls.enable", "true");
+		props.setProperty("mail.smtp.port", PORT);
+		props.setProperty("mail.smtp.user", SENDER);
+		props.setProperty("mail.smtp.auth", "true");
 
-    public void setBody(String body) {
-        this.body = body;
-    }
+		Session session = Session.getInstance(props);
 
-    public String getReceiver() {
-        return receiver;
-    }
+		try {
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(SENDER));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(receiver));
+			message.setSubject(subject);
+			message.setText(body);
 
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
-    }
+			Transport transport = session.getTransport("smtp");
+			transport.connect(USERNAME, PASSWORD);
 
-    public String getSubject() {
-        return subject;
-    }
+			transport.sendMessage(message, message.getAllRecipients());
+			transport.close();
+			System.out.println("Done");
+		} catch (MessagingException e) {
+			throw new RuntimeException("Error intentando enviar correo: " + e.getLocalizedMessage(), e);
+		}
+	}
 
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
+	/**
+	 * Envía un correo a un recurso cuando se le asigna a un proyecto
+	 *
+	 * @param receiver Dirección de correo del recurso
+	 * @param project Descripción del proyecto
+	 */
+	public void sendMailProjAssigned(String receiver, String project) {
+		String subject = PropertiesHelper.getProperty("subject_mail_project") + " " + project;
+		String body = PropertiesHelper.getProperty("body_mail_project") + " " + project;
+		send(subject, body, receiver);
+	}
 
-   /**
-    * Método principal para el envío de correos vía TLS
-    */ 
-    public void send() {
+	/**
+	 * Envía un correo a un miembro del equipo con la tarea asignada
+	 *
+	 * @param receiver Dirección de correo del recurso
+	 * @param task Descripción de la tarea
+	 */
+	public void sendMailTaskAssigned(String receiver, String task) {
+		String subject = PropertiesHelper.getProperty("subject_mail_task") + " " + task;
+		String body = PropertiesHelper.getProperty("body_mail_task") + " " + task;
+		send(subject, body, receiver);
+	}
 
-        Properties props = new Properties();
-        props.setProperty("mail.smtp.host", HOST);
-        props.setProperty("mail.smtp.starttls.enable", "true");
-        props.setProperty("mail.smtp.port", PORT);
-        props.setProperty("mail.smtp.user", SENDER);
-        props.setProperty("mail.smtp.auth", "true");
+	/**
+	 * Envía un correo a un miembro del equipo con un cambio de status de la tarea asignada.
+	 *
+	 * @param receiver Dirección de correo del recurso
+	 * @param task Descripción de la tarea
+	 * @param status Nuevo estado de la tarea
+	 */
+	public void sendMailTaskStatus(String receiver, String task, String status) {
+		String subject = PropertiesHelper.getProperty("subject_mail_status") + " " + task;
+		String body = PropertiesHelper.getProperty("body_mail_status") + " " + status;
+		send(subject, body, receiver);
+	}
 
-        Session session = Session.getInstance(props);
+	// Lectura de propiedades por defecto de la aplicación
+	private final static class PropertiesHelper {
 
-        try {
+		private static ResourceBundle propertiesByDefault;
 
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(SENDER));
-            message.addRecipient(Message.RecipientType.TO,
-                    new InternetAddress(receiver));
-            message.setSubject(subject);
-            message.setText(body);
+		static {
+			// Este bloque se ejecuta cuando se accede por primera vez a la clase
+			propertiesByDefault = ResourceBundle.getBundle("org.inftel.ssa.mail.mail");
+		}
 
-            Transport transport = session.getTransport("smtp");
-            transport.connect(USERNAME, PASSWORD);
-
-            transport.sendMessage(message, message.getAllRecipients());
-            transport.close();
-            System.out.println("Done");
-
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * Envía un correo a un recurso cuando se le asigna a un proyecto
-     *
-     * @param receiver Dirección de correo del recurso
-     * @param project Descripción del proyecto
-     */
-    public void sendMailProjAssigned(String receiver, String project) {
-
-        this.subject = MailProperties.getValor("subject_mail_project") + " " + project;
-        this.body = MailProperties.getValor("body_mail_project") + " " + project;
-        this.receiver = receiver;
-        send();
-    }
-
-    /**
-     * Envía un correo a un miembro del equipo con la tarea asignada
-     *
-     * @param receiver Dirección de correo del recurso
-     * @param task Descripción de la tarea
-     */
-    public void sendMailTaskAssigned(String receiver, String task) {
-
-        this.subject = MailProperties.getValor("subject_mail_task") + " " + task;
-        this.body = MailProperties.getValor("body_mail_task") + " " + task;
-        this.receiver = receiver;
-        send();
-    }
-    
-   /**
-     * Envía un correo a un miembro del equipo con un cambio de status de la
-     * tarea asignada.
-     *
-     * @param receiver Dirección de correo del recurso
-     * @param task Descripción de la tarea
-     * @param status Nuevo estado de la tarea
-     */
-    public void sendMailTaskStatus(String receiver, String task, String status) {
-
-        this.subject = MailProperties.getValor("subject_mail_status") + " " + task;
-        this.body = MailProperties.getValor("body_mail_status") + " " + status;
-        this.receiver = receiver;
-        send();
-    }
+		public static String getProperty(String property) {
+			return propertiesByDefault.getString(property);
+		}
+	}
 }
