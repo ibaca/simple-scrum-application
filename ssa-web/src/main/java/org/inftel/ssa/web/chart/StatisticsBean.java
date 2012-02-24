@@ -175,7 +175,9 @@ public class StatisticsBean implements Serializable {
 			List<Task> tasks = sprint.getTasks();
 			int storyPoint = 0;
 			for (Task task : tasks) {
-				storyPoint += task.getEstimated();
+                                if(task.getEstimated()!=null){
+                                    storyPoint += task.getEstimated();
+                                }
 			}
 			if (storyPoint > maxValueBarModel) {
 				maxValueBarModel = storyPoint;
@@ -235,7 +237,6 @@ public class StatisticsBean implements Serializable {
 	}
 
 	public CartesianChartModel getStoryPointBarModel() {
-		createStoryPointsModel();
 		return storyPointBarModel;
 	}
 
@@ -244,6 +245,7 @@ public class StatisticsBean implements Serializable {
 	}
 
 	public int getMaxValueBarModel() {
+                createStoryPointsModel();
 		return maxValueBarModel;
 	}
 
