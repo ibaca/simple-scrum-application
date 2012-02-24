@@ -58,10 +58,11 @@ public class MailManager {
 	 * @param receiver Dirección de correo del recurso
 	 * @param project Descripción del proyecto
 	 */
-	public void sendProjectAssigned(String receiver, String project) {
-		String subject = PropertiesHelper.getProperty("subject_mail_project") + " " + project;
-		String body = PropertiesHelper.getProperty("body_mail_project") + " " + project;
-		send(subject, body, receiver);
+	public void sendProjectAssigned(final String receiver, String project) {
+		final String subject = PropertiesHelper.getProperty("subject_mail_project") + " " + project;
+		final String body = PropertiesHelper.getProperty("body_mail_project") + " " + project;
+		//FIXME esto no es muy elegante aqui, pero hay prisa!
+		new Thread(new Runnable() { public void run() { send(subject, body, receiver);} } ).start();
 	}
 
 	/**
