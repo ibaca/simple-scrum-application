@@ -13,7 +13,7 @@
     </ui:define>
 
 	<ui:define name="topbar">
-		Welcome to Simple Scrum Application
+		#{bundle['nav.welcome']}
 	</ui:define>
 
     <ui:define name="content">
@@ -22,10 +22,10 @@
 				<h:form class="form-horizontal"> 
 					<fieldset>
 
-						<legend>Crea tu cuenta de S.S.A.</legend>
+                                            <legend>#{bundle['action.create.account']}</legend>
 
 						<div class="control-group"> 							
-							<h:outputLabel for="email" value="E-mail" class="control-label" />  
+                                                    <h:outputLabel for="email" value="#{bundle['user.email']}" class="control-label" />  
 							<div class="controls">
 								<p:inputText id="email" required="true" label="email" value="#{userManager.signinUser.email}" />  
 								<h:message for="email" class="help-block" />
@@ -33,7 +33,7 @@
 						</div>
 
 						<div class="control-group"> 							
-							<h:outputLabel for="password" value="Password" class="control-label" />  
+                                                    <h:outputLabel for="password" value="#{bundle['user.pass']}" class="control-label" />  
 							<div class="controls">
 								<p:password  id ="password" required="true" label="password" value="#{userManager.signinUser.password}" />
 								<h:message for="password" class="help-block" />
@@ -41,7 +41,7 @@
 						</div>
 
 						<div class="control-group"> 							
-							<h:outputLabel for="fullName" value="Nombre" class="control-label" />  
+                                                    <h:outputLabel for="fullName" value="#{bundle['user.fullName']}" class="control-label" />  
 							<div class="controls">
 								<p:inputText id="fullName" required="true" label="fullName"  value="#{userManager.signinUser.fullName}" >  
 									<f:validateLength minimum="2" />  
@@ -51,7 +51,7 @@
 						</div>
 
 						<div class="control-group"> 							
-							<h:outputLabel for="nickname" value="Apodo" class="control-label" />  
+                                                    <h:outputLabel for="nickname" value="#{bundle['user.nickName']}" class="control-label" />  
 							<div class="controls">
 								<p:inputText id="nickname" required="true" label="nickname"  value="#{userManager.signinUser.nickname}" />  
 								<h:message for="nickname"  class="help-block" /> 
@@ -59,7 +59,7 @@
 						</div>
 
 						<div class="control-group"> 							
-							<h:outputLabel for="company" value="Empresa" class="control-label" />  
+                                                    <h:outputLabel for="company" value="#{bundle['user.company']}" class="control-label" />  
 							<div class="controls">
 								<p:inputText id="company" required="true" label="company"  value="#{userManager.signinUser.company}" />  
 								<h:message for="company"  class="help-block" />
@@ -67,28 +67,25 @@
 						</div>
 
 						<div class="form-actions">
-							<p:commandButton value="Registrar nuevo usuario" update="@form,:growl" action="#{userManager.signin}" styleClass="btn btn-success" />&nbsp;
-							<p:commandButton value="Cancelar" type="reset" update="@form" action="#{userManager.signinReset()}" styleClass="btn" />
+                                                    <p:commandButton value="#{bundle['action.create.user']}" update="@form,:growl" action="#{userManager.signin}" styleClass="btn btn-success" />&nbsp;
+                                                    <p:commandButton value="#{bundle['action.cancel']}" type="reset" update="@form" action="#{userManager.signinReset()}" styleClass="btn" />
 						</div>
 					</fieldset>
 				</h:form>
 			</div>
 			
 			<div class="span4">
-				<h3>¿Ya estas dado de alta?</h3>
-				<p>Accede con tu cuenta SSA al sistema, y empieza a gestionar tus proyectos o 
-					crea nuevos proyectos Scrum.
-				</p>
+				<h3>#{bundle['nav.text.account']}</h3>
+				<p>#{bundle['action.text.signin']}</p>
 				<h:form>
-					<p><h:link value="Accede a tu cuenta »" outcome="/login" class="btn btn-primary" /></p>
+					<p><h:link value="#{bundle['action.access.account']}" outcome="/login" class="btn btn-primary" /></p>
 				</h:form>
 				
 				<hr />
 				
-				<h3>Modo desarrollo</h3>
-				<p>Por defecto SSA crea el usuario <code>demo@mail.com</code> con clave 
-					<code>demo</code>. Este usuario contiene algunos datos de ejemplo para poder
-					ver como funciona la aplicación.
+                                <h3>#{bundle['nav.text.mode']}</h3>
+				<p>#{bundle['nav.text.example1']} <code>demo@mail.com</code> #{bundle['nav.text.example2']} 
+					<code>demo</code>. #{bundle['nav.text.example3']}
 				</p>
 
 			</div>

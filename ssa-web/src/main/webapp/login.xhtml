@@ -13,7 +13,7 @@
     </ui:define>
 
 	<ui:define name="topbar">
-		Welcome to Simple Scrum Application
+		#{bundle['nav.welcome']}
 	</ui:define>
 
     <ui:define name="content">
@@ -22,10 +22,10 @@
 				<h:form class="form-horizontal"> 
 					<fieldset>
 
-						<legend>Iniciar sesión</legend>
+                                            <legend>#{bundle['action.login']}</legend>
 
 						<div class="control-group">
-							<h:outputLabel for="email" value="email" class="control-label" />  
+                                                    <h:outputLabel for="email" value="#{bundle['user.email']}" class="control-label" />  
 							<div class="controls">
 								<p:inputText id="email" required="true" label="id" value="#{userManager.email}" />
 								<c:if test="#{not facesContext.validationFailed}"><p class="help-block">e.g: demo@mail.com</p></c:if>
@@ -34,7 +34,7 @@
 						</div>
 
 						<div class="control-group">
-							<h:outputLabel for="password" value="password" class="control-label" /> 
+                                                    <h:outputLabel for="password" value="#{bundle['user.pass']}" class="control-label" /> 
 							<div class="controls">
 								<p:password id="password" required="true" label="password" value="#{userManager.password}" redisplay="true" feedback="false" /> 
 								<c:if test="#{not facesContext.validationFailed}"><p class="help-block">e.g: demo</p></c:if>
@@ -43,8 +43,8 @@
 						</div>
 
 						<div class="form-actions">
-							<p:commandButton value="Iniciar sesión"  update="@form,:growl" action="#{userManager.login}" styleClass="btn btn-primary" />&nbsp;
-							<p:commandButton value="Cancelar" type="reset" update="@form" action="#{userManager.loginReset()}" styleClass="btn" />
+                                                    <p:commandButton value="#{bundle['action.login']}"  update="@form,:growl" action="#{userManager.login}" styleClass="btn btn-primary" />&nbsp;
+							<p:commandButton value="#{bundle['action.cancel']}" type="reset" update="@form" action="#{userManager.loginReset()}" styleClass="btn" />
 						</div>
 
 					</fieldset>
@@ -52,20 +52,17 @@
 			</div>
 
 			<div class="span4">
-				<h3>¿Todavía no tienes cuenta?</h3>
-				<p>Date de alta en el sistema más moderno y dinamico que existe sobre la tierra
-					para la gestión de proyectos Scrum, no lo dejes para mañana! date de alta ahora mismo.
-				</p>
+				<h3>#{bundle['action.text.account']}</h3>
+				<p>#{bundle['action.text.signin']}</p>
 				<h:form>
-					<p><h:link value="Crear una cuenta »" outcome="/signin" class="btn btn-success" /></p>
+                                    <p><h:link value="#{bundle['action.create.account']}" outcome="/signin" class="btn btn-success" /></p>
 				</h:form>
 				
 				<hr />
 				
-				<h3>Modo desarrollo</h3>
-				<p>Por defecto SSA crea el usuario <code>demo@mail.com</code> con clave 
-					<code>demo</code>. Este usuario contiene algunos datos de ejemplo para poder
-					ver como funciona la aplicación.
+                                <h3>#{bundle['nav.text.account']}</h3>
+                                <p>#{bundle['nav.text.example1']} <code>demo@mail.com</code> #{bundle['nav.text.example2']} 
+					<code>demo</code>. #{bundle['nav.text.example3']}
 				</p>
 
 			</div>
