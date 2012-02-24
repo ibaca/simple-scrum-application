@@ -1,5 +1,6 @@
 package org.inftel.ssa.web;
 
+import java.io.Serializable;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import javax.faces.bean.ApplicationScoped;
@@ -13,13 +14,14 @@ import javax.mail.internet.MimeMessage;
 
 @ManagedBean
 @ApplicationScoped
-public class MailManager {
+public class MailManager implements Serializable {
 
 	private static final String HOST = PropertiesHelper.getProperty("host");
 	private static final String PORT = PropertiesHelper.getProperty("port_tls");
 	private static final String USERNAME = PropertiesHelper.getProperty("username_gmail");
 	private static final String PASSWORD = PropertiesHelper.getProperty("password_gmail");
 	private static final String SENDER = PropertiesHelper.getProperty("sender");
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Método principal para el envío de correos vía TLS
@@ -62,7 +64,12 @@ public class MailManager {
 		final String subject = PropertiesHelper.getProperty("subject_mail_project") + " " + project;
 		final String body = PropertiesHelper.getProperty("body_mail_project") + " " + project;
 		//FIXME esto no es muy elegante aqui, pero hay prisa!
-		new Thread(new Runnable() { public void run() { send(subject, body, receiver);} } ).start();
+		new Thread(new Runnable() {
+
+			public void run() {
+				send(subject, body, receiver);
+			}
+		}).start();
 	}
 
 	/**
@@ -91,8 +98,9 @@ public class MailManager {
 	}
 
 	// Lectura de propiedades por defecto de la aplicación
-	private final static class PropertiesHelper {
+	private final static class PropertiesHelper implements Serializable {
 
+		private static final long serialVersionUID = 1L;
 		private static ResourceBundle propertiesByDefault;
 
 		static {

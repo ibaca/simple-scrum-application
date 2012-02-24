@@ -141,7 +141,7 @@ public class ProjectManager implements Serializable {
 	}
 
 	public String addUserByEmail(String email) {
-		logger.log(Level.INFO, "buscando usuario con mail {0} al proyecto {1}", new Object[]{email, currentProject.getName()});
+		logger.log(Level.INFO, "agregando usuario con mail {0} al proyecto {1}", new Object[]{email, currentProject.getName()});
 		User user = sessionService.findByEmail(email);
 		if (user == null) {
 			FacesContext context = FacesContext.getCurrentInstance();
@@ -149,6 +149,8 @@ public class ProjectManager implements Serializable {
 			return null;
 		} else {
 			this.addUserDialogEmail = "";
+			// reload project before save
+			getCurrentProject(true); 
 			return addUser(user);
 		}
 	}
