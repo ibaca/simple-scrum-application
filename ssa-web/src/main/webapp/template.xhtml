@@ -31,7 +31,7 @@
 						<!-- topbar -->
 						<c:if test="#{userManager.authenticated}">
 							<h:form>   
-								<h:link value='#{ empty projectManager.currentProject.name ? 'Simple Scrum Application' : projectManager.currentProject.name}' outcome="/index" class="brand" />
+								<h:link value="#{ empty projectManager.currentProject.name ? 'Simple Scrum Application' : projectManager.currentProject.name}" outcome="/index" class="brand" />
 								<ul class="nav">
 									<li><h:link value="${bundle['nav.home']}" outcome="/project/show" /></li>
 									<li><h:link value="${bundle['nav.dashboard']}" outcome="/project/dashboard" /></li>
