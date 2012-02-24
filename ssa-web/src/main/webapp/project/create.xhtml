@@ -14,10 +14,10 @@
 			<div class="span8">
 				<h:form class="form-horizontal">
 					<fieldset>
-                                            <legend>#{bundle['action.create.project']}</legend>
+						<legend>#{bundle['action.create.project']}</legend>
 
 						<div class="control-group">
-                                                    <h:outputLabel for="summary" value="#{bundle['project.summary']}" class="control-label" />
+							<h:outputLabel for="summary" value="#{bundle['project.summary']}" class="control-label" />
 							<div class="controls">
 								<h:inputText id="summary" required="true" label="summary" value="#{projectManager.createProject.name}" />
 								<h:message for="summary" class="help-block" />
@@ -25,7 +25,7 @@
 						</div>
 
 						<div class="control-group">
-                                                    <h:outputLabel for="description" value="#{bundle['project.description']}" class="control-label" />
+							<h:outputLabel for="description" value="#{bundle['project.description']}" class="control-label" />
 							<div class="controls">
 								<p:editor id="description" value="#{projectManager.createProject.description}" />
 								<h:message for="description" class="help-block" />
@@ -33,9 +33,9 @@
 						</div>
 
 						<div class="control-group">
-                                                    <h:outputLabel for="license" value="#{bundle['project.license']}" class="control-label" />  
+							<h:outputLabel for="license" value="#{bundle['project.license']}" class="control-label" />  
 							<div class="controls">
-								<p:selectOneMenu id="license" required="true" value="#{projectManager.createProject.license}">  
+								<h:selectOneMenu id="license" required="true" value="#{projectManager.createProject.license}">  
 									<f:selectItem itemLabel="Select a license..." noSelectionOption="true" />  
 									<f:selectItem itemLabel="Apache License 2.0" itemValue="Apache License 2.0"  />  
 									<f:selectItem itemLabel="Artistic License/GPL" itemValue="Artistic License/GPL" />  
@@ -47,14 +47,14 @@
 									<f:selectItem itemLabel="Mozilla Public License 1.1" itemValue="Mozilla Public License 1.1" />
 									<f:selectItem itemLabel="New BSD License" itemValue="New BSD License"  />
 									<f:selectItem itemLabel="Other Open Source" itemValue="Other Open Source" />
-								</p:selectOneMenu>  
+								</h:selectOneMenu>  
 								<h:message for="license" class="help-block" /> 
 							</div>
 						</div>
 
 						<div class="form-actions">
-                                                    <p:commandButton value="#{bundle['action.create.project']}" update="@form" action="#{projectManager.createSave()}" styleClass="btn btn-success" />&nbsp;
-                                                    <p:commandButton value="#{bundle['action.cancel']}" type="reset" update="@form" styleClass="btn" />
+							<p:commandButton value="#{bundle['action.create.project']}" update="@form" action="#{projectManager.createSave()}" styleClass="btn btn-success" />&nbsp;
+							<p:commandButton value="#{bundle['action.cancel']}" type="reset" update="@form" styleClass="btn" />
 						</div>
 					</fieldset>
 				</h:form>

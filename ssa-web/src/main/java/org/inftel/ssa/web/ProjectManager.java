@@ -151,7 +151,7 @@ public class ProjectManager implements Serializable {
 		return "/project/show?faces-redirect=true";
 	}
 
-	public String addUser(String email) {
+	public String addUserByEmail(String email) {
 		logger.log(Level.INFO, "buscando usuario con mail {0} al proyecto {1}", new Object[]{email, currentProject.getName()});
 		User user = sessionService.findByEmail(email);
 		if (user == null) {
