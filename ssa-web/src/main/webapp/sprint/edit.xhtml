@@ -12,9 +12,9 @@
 			<div class="span8">
 				<h:form  class="form-horizontal"> 
 					<fieldset>
-						<legend>Datos del Sprint</legend>
+						<legend>#{bundle['sprint.info']}</legend>
 						<div class="control-group"> 							
-							<h:outputLabel for="summary" value="Summary" class="control-label" />  
+							<h:outputLabel for="summary" value="#{bundle['sprint.summary']}" class="control-label" />  
 							<div class="controls">
 								<p:inputText id ="summary" required="true" label="summary" value="#{sprintManager.currentSprint.summary}" />
 								<h:message for="summary" class="help-inline" />
@@ -23,20 +23,20 @@
 
 
 						<div class="control-group"> 							
-							<h:outputLabel  value="Start Date" class="control-label" />  
+                                                    <h:outputLabel  value="#{bundle['sprint.start.date']}" class="control-label" />  
 							<div class="controls">
 								<p:calendar value="#{sprintManager.currentSprint.beginDate}"  showOn="button" />  
 							</div>
 						</div>
 						<div class="control-group"> 							
-							<h:outputLabel  value="Finish Date" class="control-label" />  
+                                                    <h:outputLabel  value="#{bundle['sprint.finish.date']}" class="control-label" />  
 							<div class="controls">
 								<p:calendar value="#{sprintManager.currentSprint.endDate}"  showOn="button" />  
 							</div>
 						</div>
 						<br/>
 						<div class="control-group">
-							<h:outputLabel for="tasks" value="Tareas" class="control-label" />
+                                                    <h:outputLabel for="tasks" value="#{bundle['nav.task']}" class="control-label" />
 							<div class="controls">
 								<p:pickList id="tasks"
 											value="#{sprintManager.tasks}" 
@@ -47,7 +47,7 @@
 									<f:facet name="targetCaption">Added</f:facet> 
 									<p:column style="width:75%">  
 										<h6 style="white-space: nowrap;overflow: hidden;width: 175px;color:black;">#{task.summary}</h6>
-										<small>Prioridad: #{task.priority} - Estimado: #{task.estimated}</small>
+                                                                                <small>#{bundle['task.priority']}: #{task.priority} - #{bundle['task.estimated']}: #{task.estimated}</small>
 									</p:column>   
 								</p:pickList> 
 								<h:message for="tasks" class="help-block" />
@@ -55,7 +55,7 @@
 						</div>
 						<br/>
 						<div class="control-group"> 							
-							<h:outputLabel for="description" value="Description" class="control-label" /> 
+                                                    <h:outputLabel for="description" value="#{bundle['sprint.description']}" class="control-label" /> 
 							<div class="controls">
 								<p:editor id="description"  required="true"   value="#{sprintManager.currentSprint.description}" />  
 								<h:message for="description" class="help-inline" /> 
@@ -63,8 +63,8 @@
 						</div> 
 						<br/>
 						<div class="form-actions">
-							<p:commandButton action="#{sprintManager.saveEdit()}" value="Guardar Cambios..." update="@form,:growl" styleClass="btn btn-primary" />&nbsp;
-							<h:commandButton type="reset" value="Cancel" styleClass="btn"/>
+                                                    <p:commandButton action="#{sprintManager.saveEdit()}" value="#{bundle['action.save']}" update="@form,:growl" styleClass="btn btn-primary" />&nbsp;
+                                                    <h:commandButton type="reset" value="#{bundle['action.cancel']}" styleClass="btn"/>
 						</div>
 					</fieldset>
 				</h:form>
