@@ -14,9 +14,11 @@
     <ui:define name="content">
 		<h1>Sprint Backlog <small>#{bundle['sprint.list.project']}</small></h1>
         <div class="row">
-            <div class="span8">
-                <h:form>
-                    <p>
+            <div class="span8" style="position: relative">
+                <h:form style="position: absolute; right: 0px;top: -34px;">
+                            <h:commandButton  action="#{sprintManager.create}" value="#{bundle['sprint.new']}" styleClass="btn btn-success" />
+                </h:form>
+                <h:form>                    
                         <p:dataTable value="#{sprintManager.sprints}" var="sprint" paginator="true" paginatorPosition="bottom" rows="14" emptyMessage="No hay ningun sprint asociado al proyecto actual">
 							<p:column>
                                 <f:facet name="header">
@@ -62,17 +64,12 @@
                                 <h:commandLink value="#{sprint.summary}" action="#{sprintManager.edit}" />
                             </p:column>
                         </p:dataTable>
-                    </p>
-                    <p>
-                        <p:commandButton  action="#{sprintManager.create}" value="#{bundle['sprint.new']}" styleClass="btn" update="@form"/>
-                    </p>
                 </h:form>
             </div>
 
             <div class="span4">
-                <h3>#{bundle['task.text.statis']} </h3>
-                <p>#{bundle['task.text.graf1']} <code> #{projectManager.currentProject.name}</code>
-                    #{bundle['task.text.graf2']}
+                <h3>#{bundle['sprint.text.statis']} </h3>
+                <p>#{bundle['sprint.text.graf1']} <code> #{projectManager.currentProject.name}</code>
                 </p>
                 <h:form>
                     <c:choose>
