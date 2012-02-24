@@ -124,7 +124,7 @@ public class SprintManager implements Serializable {
 
 			if (task.getSprint() == null) {
 				tasksSource.add(task);
-			} else {
+			} else if (task.getSprint().getId()==currentSprint.getId()){ //No se añaden las tareas asignadas a otros sprints
 				tasksTarget.add(task);
 			}
 		}
