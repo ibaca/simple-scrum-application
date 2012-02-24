@@ -67,7 +67,7 @@ public class DashboardManager implements Serializable {
 
 		dashboard.setModel(dashboardModel);
 
-		List<Task> tasks = projectManager.getCurrentProject().getTasks();
+		List<Task> tasks = projectManager.getCurrentProject(true).getTasks();
 		//Estas tareas tendrian que estar filtradas por el currenteSprint
 		for (Task task : tasks) {
 			Panel panel = (Panel) application.createComponent(fc, "org.primefaces.component.Panel", "org.primefaces.component.PanelRenderer");
