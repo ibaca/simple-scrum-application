@@ -118,7 +118,7 @@ public class StatisticsBean implements Serializable {
 	private void createPieTaskModel() {
 		pieTaskModel = new PieChartModel();
 		int todocount = 0, doingcount = 0, donecount = 0;
-		List<Task> tasks = getProjectManager().getCurrentProject().getTasks();
+		List<Task> tasks = getProjectManager().getCurrentProject(true).getTasks();
 		for (Task task : tasks) {
 			switch (task.getStatus()) {
 				case TODO:
@@ -166,7 +166,7 @@ public class StatisticsBean implements Serializable {
 	}
 
 	private void createStoryPointsModel() {
-		List<Sprint> sprints = projectManager.getCurrentProject().getSprints();
+		List<Sprint> sprints = projectManager.getCurrentProject(true).getSprints();
 		storyPointBarModel = new CartesianChartModel();
 		ChartSeries chartSeries = new ChartSeries();
 		chartSeries.setLabel("Story Point");
