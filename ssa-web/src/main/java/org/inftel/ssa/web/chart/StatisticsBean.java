@@ -1,4 +1,4 @@
-package org.inftel.ssa.web.statistics;
+package org.inftel.ssa.web.chart;
 
 import java.io.Serializable;
 import java.text.DateFormat;

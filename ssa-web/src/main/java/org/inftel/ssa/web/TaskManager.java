@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.inftel.ssa.web;
 
 import java.io.Serializable;
@@ -39,7 +35,6 @@ public class TaskManager implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Task currentTask;
 	private boolean accepted;
-	private int taskStatus;
 	private LazyDataModel<Task> tasks = new LazyDataModel() {
 
 		@Override
@@ -48,8 +43,6 @@ public class TaskManager implements Serializable {
 			setRowCount(resources.countTasksByProject(projectManager.getCurrentProject(), sortField, sortOrder == SortOrder.ASCENDING, filters));
 			return resources.findTaksByProject(projectManager.getCurrentProject(), first, pageSize, sortField, sortOrder == SortOrder.ASCENDING, filters);
 		}
-
-		
 	};
 
 	public String create() {
@@ -133,6 +126,5 @@ public class TaskManager implements Serializable {
 
 	public void setTaskStatus(int taskStatus) {
 		currentTask.setStatus(TaskStatus.values()[taskStatus]);
-		this.taskStatus = taskStatus;
 	}
 }

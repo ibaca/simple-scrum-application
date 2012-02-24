@@ -96,7 +96,7 @@ public class MailManager {
 
 		static {
 			// Este bloque se ejecuta cuando se accede por primera vez a la clase
-			propertiesByDefault = ResourceBundle.getBundle("org.inftel.ssa.mail.mail");
+			propertiesByDefault = ResourceBundle.getBundle("org.inftel.ssa.web.mail");
 		}
 
 		public static String getProperty(String property) {

@@ -34,6 +34,8 @@ public class ProjectManager implements Serializable {
 	private ResourceService resources;
 	@ManagedProperty(value = "#{userManager}")
 	private UserManager userManager;
+	@ManagedProperty(value = "#{mailManager}")
+	private MailManager mailManager;
 	private static final long serialVersionUID = 1L;
 	private Project currentProject;
 	private User selectedUser;
@@ -44,21 +46,9 @@ public class ProjectManager implements Serializable {
 
 		@Override
 		public List load(int first, int pageSize, String sortField, org.primefaces.model.SortOrder sortOrder, Map filters) {
-			filters.put("users.id", userManager.getCurrentUser().getId().toString()); //TODO mover esto a resources
-			return resources.findProjects(first, pageSize, sortField, sortOrder.equals(SortOrder.ASCENDING), filters);
-		}
-
-		@Override
-		public void setRowIndex(int rowIndex) {
-			/*
-			 * The following is in ancestor (LazyDataModel): this.rowIndex = rowIndex == -1 ?
-			 * rowIndex : (rowIndex % pageSize);
-			 */
-			if (rowIndex == -1 || getPageSize() == 0) {
-				super.setRowIndex(-1);
-			} else {
-				super.setRowIndex(rowIndex);
-			}
+			logger.log(Level.INFO, "lazy data model [first={0}, pageSize={1}, sortField={2}, sortOrder={3}, filters={4}]", new Object[]{first, pageSize, sortField, sortOrder, filters});
+			setRowCount(resources.countProjectsByUser(userManager.getCurrentUser(), sortField, sortOrder == SortOrder.ASCENDING, filters));
+			return resources.findProjectsByUser(userManager.getCurrentUser(), first, pageSize, sortField, sortOrder == SortOrder.ASCENDING, filters);
 		}
 	};
 
@@ -71,7 +61,6 @@ public class ProjectManager implements Serializable {
 	}
 
 	public LazyDataModel<Project> getProjects() {
-		projects.setRowCount(resources.countProjects());
 		return projects;
 	}
 
@@ -171,6 +160,8 @@ public class ProjectManager implements Serializable {
 		currentProject.getUsers().add(user);
 		user.getProjects().add(currentProject);
 		sessionService.saveUser(user);
+		// Si se ha agregado el usuario se notifica por email
+		getMailManager().sendProjectAssigned(user.getEmail(), getCurrentProject().getName());
 		return null;
 	}
 
@@ -224,6 +215,14 @@ public class ProjectManager implements Serializable {
 
 	public void setAddUserDialogEmail(String addUserDialogEmail) {
 		this.addUserDialogEmail = addUserDialogEmail;
+	}
+
+	public MailManager getMailManager() {
+		return mailManager;
+	}
+
+	public void setMailManager(MailManager mailManager) {
+		this.mailManager = mailManager;
 	}
 
 	// -------------------------------------------------------------------------.---- Editable Links

@@ -105,6 +105,16 @@ public class ResourceServiceImpl implements ResourceService {
 		modified.put("project.id", project.getId().toString());
 		return tasks.count(sortField, ascOrder, modified);
 	}
+	
+	@Override
+	public int countProjectsByUser(User user, String sortField, Boolean ascOrder, Map<String, String> filters) {
+		if (filters == null) {
+			filters = new HashMap<String, String>(1);
+		}
+		Map<String, String> modified = new HashMap<String, String>(filters);
+		modified.put("user.id", user.getId().toString());
+		return projects.count(sortField, ascOrder, modified);
+	}
 
 	@Override
 	public int countSprintsByProject(Project project, String sortField, Boolean ascOrder, Map<String, String> filters) {
@@ -147,6 +157,16 @@ public class ResourceServiceImpl implements ResourceService {
 	}
 
 	@Override
+	public List<Project> findProjectsByUser(User user, Integer startPosition, Integer maxResult, String sortField, Boolean ascOrder, Map<String, String> filters) {
+		if (filters == null) {
+			filters = new HashMap<String, String>(1);
+		}
+		Map<String, String> modified = new HashMap<String, String>(filters);
+		modified.put("user.id", user.getId().toString());
+		return projects.find(startPosition, maxResult, sortField, ascOrder, modified);
+	}
+
+	@Override
 	public List<Sprint> findSprintsByProject(Project project, Integer startPosition, Integer maxResult, String sortField, Boolean ascOrder, Map<String, String> filters) {
 		if (filters == null) {
 			filters = new HashMap<String, String>(1);
@@ -155,4 +175,5 @@ public class ResourceServiceImpl implements ResourceService {
 		modified.put("project.id", project.getId().toString());
 		return sprints.find(startPosition, maxResult, sortField, ascOrder, modified);
 	}
+
 }

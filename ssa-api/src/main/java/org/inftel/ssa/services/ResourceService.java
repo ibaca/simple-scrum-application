@@ -31,6 +31,8 @@ public interface ResourceService {
 	
 	public Sprint findSprint(Long id);
 	
+	public int countProjectsByUser(User user, String sortField, Boolean ascOrder, Map<String, String> filters);
+	
 	public int countTasksByProject(Project project, String sortField, Boolean ascOrder, Map<String, String> filters);
 	
 	public int countTasksByUser(User user, String sortField, Boolean ascOrder, Map<String, String> filters);
@@ -38,6 +40,8 @@ public interface ResourceService {
 	public int countSprintsByProject(Project project, String sortField, Boolean ascOrder, Map<String, String> filters);
 	
 	public List<Project> findProjects(Integer startPosition, Integer maxResult, String sortField, Boolean ascOrder, Map<String, String> filters);
+	
+	public List<Project> findProjectsByUser(User user, Integer startPosition, Integer maxResult, String sortField, Boolean ascOrder, Map<String, String> filters);
 
 	public List<Task> findTaksByProject(Project project, Integer startPosition, Integer maxResult, String sortField, Boolean ascOrder, Map<String, String> filters);
 
