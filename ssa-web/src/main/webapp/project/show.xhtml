@@ -18,7 +18,37 @@
 				<h:form>  
 					<h1>#{projectManager.currentProject.name} <small>#{projectManager.currentProject.summary}</small></h1>
 					<p>
-						<div class="thumbnail"><img src="http://upload.wikimedia.org/wikipedia/commons/5/59/EjemploDeDiagramaBurnDown.png" /></div>
+                                            <div class="thumbnail">
+                                                    <div id="statistcSelect" class="dropdown" style="float:right">
+                                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#statistcSelect">Estad&iacute;sticos<b class="caret"></b></a>
+                                                            <ul class="dropdown-menu">
+                                                                    <li><h:commandLink value="Stress Model" actionListener="#{projectManager.setStatistcs(0)}" /></li>
+                                                                    <li><h:commandLink value="Task Model" actionListener="#{projectManager.setStatistcs(1)}" /></li>
+                                                                    <li><h:commandLink value="Individual Model" actionListener="#{projectManager.setStatistcs(2)}" /></li>                                                                    
+                                                            </ul>
+                                                            <!-- al ser asincrono no inicializa el dropdown -->
+                                                            <script>$('.dropdown-toggle').dropdown()</script>
+                                                    </div>
+                                                    <c:choose>
+                                                            <c:when test="#{projectManager.statistcs==0}">
+                                                                    <p:barChart id="basic" value="#{statisticsBean.stressModel}" legendPosition="ne"  
+                                                                        title="Stress Model" min="0" max="50" 
+                                                                        style="width:500px;height:300px;"/>
+                                                            </c:when>
+                                                            <c:when test="#{projectManager.statistcs==1}">
+                                                                <p:barChart id="basic" value="#{statisticsBean.taskModel}" legendPosition="ne"  
+                                                                        title="Task Model" min="0" max="50" 
+                                                                        style="width:500px;height:300px;"/>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <p:barChart id="basic" value="#{statisticsBean.individualModel}" legendPosition="ne"  
+                                                                        title="Individual Model" min="0" max="50" 
+                                                                        style="width:500px;height:300px;"/>
+                                                            </c:otherwise>
+                                                    </c:choose>   
+                                            </div>
+
+<!--						<div class="thumbnail"><img src="http://upload.wikimedia.org/wikipedia/commons/5/59/EjemploDeDiagramaBurnDown.png" /></div>-->
 					</p>
 
 					<h:outputText escape="false" value="#{projectManager.currentProject.description}"/>

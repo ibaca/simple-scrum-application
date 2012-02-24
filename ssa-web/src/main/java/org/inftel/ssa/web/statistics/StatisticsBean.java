@@ -64,6 +64,7 @@ public class StatisticsBean implements Serializable {
     private void createStressModel() {
         stressModel = new CartesianChartModel();
         LineChartSeries stressSeries = new LineChartSeries();
+        stressSeries.setLabel("Stress Model");
         Map<Date, DataminingData> samples; // todos los datos por fecha
         Long idProject = getProjectManager().getCurrentProject().getId();
         User currentUser = userManager.getCurrentUser();
@@ -88,6 +89,7 @@ public class StatisticsBean implements Serializable {
 
         taskModel = new CartesianChartModel();
         ChartSeries taskSeries = new ChartSeries();
+        taskSeries.setLabel("Task Model");
         Map<Date, DataminingData> samples; // todos los datos por fecha
         Long idProject = getProjectManager().getCurrentProject().getId();
         User currentUser = userManager.getCurrentUser();
@@ -135,6 +137,7 @@ public class StatisticsBean implements Serializable {
 
         individualModel = new CartesianChartModel();
         LineChartSeries series = new LineChartSeries();
+        series.setLabel("Individual Model");
         Map<Date, DataminingData> samples; // todos los datos por fecha
         Set<User> users = getProjectManager().getCurrentProject().getUsers();
         //Sprint currentSprint = sprintManager.getCurrentSprint();
