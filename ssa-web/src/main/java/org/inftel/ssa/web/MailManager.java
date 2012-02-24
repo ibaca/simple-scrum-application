@@ -1,4 +1,4 @@
-package org.inftel.ssa.mail;
+package org.inftel.ssa.web;
 
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -13,7 +13,7 @@ import javax.mail.internet.MimeMessage;
 
 @ManagedBean
 @ApplicationScoped
-public class MailBean {
+public class MailManager {
 
 	private static final String HOST = PropertiesHelper.getProperty("host");
 	private static final String PORT = PropertiesHelper.getProperty("port_tls");
@@ -58,7 +58,7 @@ public class MailBean {
 	 * @param receiver Dirección de correo del recurso
 	 * @param project Descripción del proyecto
 	 */
-	public void sendMailProjAssigned(String receiver, String project) {
+	public void sendProjectAssigned(String receiver, String project) {
 		String subject = PropertiesHelper.getProperty("subject_mail_project") + " " + project;
 		String body = PropertiesHelper.getProperty("body_mail_project") + " " + project;
 		send(subject, body, receiver);
@@ -70,7 +70,7 @@ public class MailBean {
 	 * @param receiver Dirección de correo del recurso
 	 * @param task Descripción de la tarea
 	 */
-	public void sendMailTaskAssigned(String receiver, String task) {
+	public void sendTaskAssigned(String receiver, String task) {
 		String subject = PropertiesHelper.getProperty("subject_mail_task") + " " + task;
 		String body = PropertiesHelper.getProperty("body_mail_task") + " " + task;
 		send(subject, body, receiver);
@@ -83,7 +83,7 @@ public class MailBean {
 	 * @param task Descripción de la tarea
 	 * @param status Nuevo estado de la tarea
 	 */
-	public void sendMailTaskStatus(String receiver, String task, String status) {
+	public void sendTaskStatus(String receiver, String task, String status) {
 		String subject = PropertiesHelper.getProperty("subject_mail_status") + " " + task;
 		String body = PropertiesHelper.getProperty("body_mail_status") + " " + status;
 		send(subject, body, receiver);
