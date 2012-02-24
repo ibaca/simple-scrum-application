@@ -3,7 +3,6 @@ package org.inftel.ssa.web.statistics;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.*;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -28,9 +27,10 @@ public class StatisticsBean implements Serializable {
 
 	@EJB
 	private DataminingProcessor datamining;
-	private CartesianChartModel stressModel;
+	private CartesianChartModel sumRemainingTasksByUserForCurrentProjectModel;
 	private CartesianChartModel taskModel;
-	private CartesianChartModel individualModel;
+	private CartesianChartModel countRemainingTasksByUserByProjectModel;
+	private CartesianChartModel countRemainingTasksForCurrentProjectModel;
 	private PieChartModel pieTaskModel;
 	private CartesianChartModel storyPointBarModel;
 	private int maxValueBarModel;
@@ -52,8 +52,29 @@ public class StatisticsBean implements Serializable {
 	public StatisticsBean() {
 	}
 
-	private void createStressModel() {
-		stressModel = new CartesianChartModel();
+	/**
+	 * Esfuerzo pendiente por usuario para el proyecto actual.
+	 */
+	private void createCountRemainingTasksForCurrentProjectModel() {
+		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("es"));
+
+		countRemainingTasksForCurrentProjectModel = new CartesianChartModel();
+		Long projectId = getProjectManager().getCurrentProject().getId();
+		String name = "task.by-project." + projectId + ".remaining";
+		Map<Date, DataminingData> samples = datamining.findStatistics(name,
+				DataminingDataPeriod.DAYLY, new Date(0), new Date());
+		LineChartSeries series = new LineChartSeries("tareas pendientes");
+		for (Date date : samples.keySet()) {
+			series.set(df.format(date), samples.get(date).getDataCount());
+		}
+		countRemainingTasksForCurrentProjectModel.addSeries(series);
+	}
+
+	/**
+	 * Esfuerzo pendiente por usuario para el proyecto actual.
+	 */
+	private void createSumRemainingTasksByUserForCurrentProjectModel() {
+		sumRemainingTasksByUserForCurrentProjectModel = new CartesianChartModel();
 		LineChartSeries stressSeries = new LineChartSeries();
 		Map<Date, DataminingData> samples; // todos los datos por fecha
 		Long idProject = getProjectManager().getCurrentProject().getId();
@@ -69,7 +90,7 @@ public class StatisticsBean implements Serializable {
 		for (Date date : samples.keySet()) {
 			stressSeries.set(df.format(date), samples.get(date).getDataSum());
 		}
-		stressModel.addSeries(stressSeries);
+		sumRemainingTasksByUserForCurrentProjectModel.addSeries(stressSeries);
 	}
 
 	private void createTaskModel() {
@@ -117,8 +138,11 @@ public class StatisticsBean implements Serializable {
 		pieTaskModel.set("Done", donecount);
 	}
 
-	private void createIndividualModel() { 
-		individualModel = new CartesianChartModel();
+	/**
+	 * Numero de tareas(TODO o DOING) por usuario y por projecto
+	 */
+	private void createCountRemainingTasksByUserByProjectModel() {
+		countRemainingTasksByUserByProjectModel = new CartesianChartModel();
 		Map<Date, DataminingData> samples; // todos los datos por fecha
 		Set<User> users = getProjectManager().getCurrentProject().getUsers();
 		//Sprint currentSprint = sprintManager.getCurrentSprint();
@@ -136,7 +160,7 @@ public class StatisticsBean implements Serializable {
 				series.set(df.format(date), samples.get(date).getDataCount());
 			}
 
-			individualModel.addSeries(series);
+			countRemainingTasksByUserByProjectModel.addSeries(series);
 
 		}
 	}
@@ -163,14 +187,25 @@ public class StatisticsBean implements Serializable {
 	}
 
 	// --------------------------------------------------------------------------- Getters & Setters
-	public CartesianChartModel getStressModel() {
-		createStressModel();
-		return stressModel;
+	public CartesianChartModel getCountRemainingTasksForCurrentProjectModel() {
+		createCountRemainingTasksForCurrentProjectModel();
+		return countRemainingTasksForCurrentProjectModel;
 	}
 
-	public CartesianChartModel getIndividualModel() {
-		createIndividualModel();
-		return individualModel;
+	/**
+	 * Esfuerzo pendiente por usuario para el proyecto actual.
+	 */
+	public CartesianChartModel getSumRemainingTasksByUserForCurrentProject() {
+		createSumRemainingTasksByUserForCurrentProjectModel();
+		return sumRemainingTasksByUserForCurrentProjectModel;
+	}
+
+	/**
+	 * Numero de tareas(TODO o DOING) por usuario y por projecto
+	 */
+	public CartesianChartModel getCountRemainingTasksByUserForCurrentProject() {
+		createCountRemainingTasksByUserByProjectModel();
+		return countRemainingTasksByUserByProjectModel;
 	}
 
 	public CartesianChartModel getTaskModel() {
