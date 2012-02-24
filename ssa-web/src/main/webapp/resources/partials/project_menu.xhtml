@@ -15,24 +15,24 @@
 		<h:form> 
 			<div class="well" style="padding: 14px 6px;">
 				<ul class="nav nav-list">
-					<li class="nav-header">Empresa</li>
+                                    <li class="nav-header">#{bundle['project.company']}</li>
 					<li>#{projectManager.currentProject.company}</li>
 
 
-					<li class="nav-header">Licencia</li>
+                                        <li class="nav-header">#{bundle['project.license']}</li>
 					<li>#{projectManager.currentProject.license}</li>
 
 
-					<li class="nav-header">Equipo</li>
+                                        <li class="nav-header">#{bundle['project.team']}</li>
 					<ui:repeat value="#{projectManager.currentProject.users.toArray()}" var="user">                              
 						<li>#{user.nickname}</li>
 					</ui:repeat>
 					<li><h:link value="Compartir" outcome="/project/users" /></li>
 
-					<li class="nav-header">Tu rol</li>
+                                        <li class="nav-header">#{bundle['project.rol']}</li>
 					<li>#{projectManager.userRole()}</li>
 
-					<li class="nav-header">Links</li>
+                                        <li class="nav-header">#{bundle['project.link']}</li>
 					<c:forEach items="#{projectManager.currentProject.links}" var="entry">                              
 						<li><a href="#{entry.value}">#{entry.key}</a></li>
 					</c:forEach>

@@ -19,7 +19,7 @@
 					<h:commandButton  action="#{taskManager.create}" value="#{bundle['task.new']}" styleClass="btn btn-success" />
 				</h:form>
                 <h:form id="task_list_form">
-					<p:dataTable value="#{taskManager.tasks}" var="task" paginator="true" paginatorPosition="bottom" rows="14" emptyMessage="#{bundle['task.no.task']}">
+                    <p:dataTable value="#{taskManager.tasks}" var="task" paginator="true" paginatorPosition="bottom" rows="14" emptyMessage="#{bundle['task.no.tasks']}">
 						<p:column>
 							<f:facet name="header">
 								<h:outputText value="id" />
