@@ -39,12 +39,12 @@
 							</f:facet>
 							<h:outputText value="#{task.user.nickname}"/>
 						</p:column>
-                                            <p:column  headerText="#{bundle['task.priority']}&nbsp;&nbsp;"  sortBy="#{task.priority}" >
+						<p:column  headerText="#{bundle['task.priority']}&nbsp;&nbsp;"  sortBy="#{task.priority}" >
 							<h:outputText value="#{task.priority}"  />
 						</p:column>
 						<p:column sortBy="#{task.created}">
 							<f:facet name="header">
-                                                            <h:outputText value="#{bundle['task.created']}" />
+								<h:outputText value="#{bundle['task.created']}" />
 							</f:facet>
 							<h:outputText value="#{task.created}" >
 								<f:convertDateTime pattern="d/M/yyyy"/>
@@ -52,7 +52,7 @@
 						</p:column>
 						<p:column filterBy="#{task.summary}" sortBy="#{task.summary}">
 							<f:facet name="header">
-                                                            <h:outputText value="#{bundle['task.summary']}" />
+								<h:outputText value="#{bundle['task.summary']}" />
 							</f:facet>
 							<h:commandLink value="#{task.summary}" action="#{taskManager.edit}" />
 						</p:column>
@@ -63,7 +63,7 @@
                 <h3>#{bundle['task.text.statis']} </h3>
                 <p> #{bundle['task.text.graf1']}<code> #{projectManager.currentProject.name}</code>, #{bundle['task.text.graf2']} 
 					<h6 style="text-align: center">#{bundle['task.text.graf3']}</h6>
-                                        <p:pieChart id="sample" value="#{statisticsBean.pieTaskModel}" legendPosition="e" style="width:300px;height:300px" />
+					<p:pieChart id="sample" value="#{statisticsBean.pieTaskModel}" legendPosition="e" style="width:300px;height:250px" showDataLabels="true"  />
 				</p>
             </div>
         </div>
