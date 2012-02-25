@@ -121,10 +121,9 @@ public class SprintManager implements Serializable {
 		List<Task> tasksTarget = new ArrayList<Task>();
 		List<Task> tasksCurrentProject = projectManager.getCurrentProject(true).getTasks();
 		for (Task task : tasksCurrentProject) {
-
 			if (task.getSprint() == null) {
 				tasksSource.add(task);
-			} else if (task.getSprint().getId()==currentSprint.getId()){ //No se añaden las tareas asignadas a otros sprints
+			} else if (task.getSprint().getId().equals(currentSprint.getId())){ //No se añaden las tareas asignadas a otros sprints
 				tasksTarget.add(task);
 			}
 		}
