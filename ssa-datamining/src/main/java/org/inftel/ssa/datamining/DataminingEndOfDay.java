@@ -1,14 +1,16 @@
 package org.inftel.ssa.datamining;
 
-import java.util.*;
+import static org.inftel.ssa.datamining.DataminingDataPeriod.DAYLY;
+
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
-import static org.inftel.ssa.datamining.DataminingDataPeriod.DAYLY;
-import org.inftel.ssa.domain.*;
 
 /**
  * Algunas estadisticas podrian generarse en el End Of Day, por ejemplo podrian registarse

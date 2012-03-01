@@ -1,27 +1,35 @@
 package org.inftel.ssa.datamining;
 
 import static java.util.logging.Level.INFO;
-import static javax.persistence.GenerationType.TABLE;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.logging.Logger;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.PostPersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Los valores estadisticos quedan definidos por dos atributos, sum y count. Sum indica el sumatorio
  * de los valores en el intervalo que representa la instancia. Count representa el numero de
  * muestras usadas en el intervalo.
- *
+ * 
  * Existen valores que solo usaran uno de los atributos, por ejemplo, si se guarda una estadistica
  * de mensajes procesados se registrara únicamente el count, que represnta el numero de menjsajes,
  * dejando sum igual a null.
- *
+ * 
  * Se ha creado un metodo de conveniencia getDataValue, que permite obtener el valor estadistico
  * independientemente de si se trata de un contador o un sumatorio.
- *
+ * 
  * @author agumpg
  */
 @Entity
@@ -59,7 +67,8 @@ public class DataminingDataEntity implements Serializable, DataminingData {
 		this(name, null, date, sum, count);
 	}
 
-	public DataminingDataEntity(String name, DataminingDataPeriod period, Date date, Double sum, Long count) {
+	public DataminingDataEntity(String name, DataminingDataPeriod period, Date date, Double sum,
+			Long count) {
 		this.name = name;
 		this.periodType = period;
 		this.periodDate = date;
