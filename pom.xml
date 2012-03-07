@@ -26,6 +26,7 @@
     <module>ssa-bundle</module>
     <module>ssa-core</module>
     <module>ssa-datamining</module>
+    <module>ssa-mobile</module>
     <module>ssa-web</module>
   </modules>
   
