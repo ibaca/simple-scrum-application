@@ -1,20 +1,20 @@
+
 package org.inftel.ssa.datamining;
 
+import static java.util.concurrent.TimeUnit.MINUTES;
 import static java.util.logging.Level.FINE;
-import static java.util.logging.Level.WARNING;
 import static java.util.logging.Logger.getLogger;
+import static javax.ejb.ConcurrencyManagementType.CONTAINER;
+import static javax.ejb.LockType.WRITE;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.PreDestroy;
-import javax.ejb.ActivationConfigProperty;
+import javax.ejb.AccessTimeout;
+import javax.ejb.ConcurrencyManagement;
 import javax.ejb.EJB;
-import javax.ejb.MessageDriven;
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.MessageListener;
-import javax.jms.ObjectMessage;
+import javax.ejb.Lock;
+import javax.ejb.Singleton;
 
 /**
  * Se encarga de procesar la cola de estadistiacs e ir acutalizando la tabla de
@@ -23,41 +23,31 @@ import javax.jms.ObjectMessage;
  * MessageDriven es no transaccional, y se recomienda usar acceso a las tablas
  * no transaccional.
  */
-@MessageDriven(mappedName = "jms/datamining", activationConfig = {
-    @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge"),
-    @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
-})
-public class DataminingListener implements MessageListener {
+@Singleton
+@ConcurrencyManagement(CONTAINER)
+public class DataminingListener {
 
     private static final Logger logger = getLogger(DataminingListener.class.getName());
-    
+
     @EJB
     private DataminingProcessorImpl statisticProcessor;
 
-    public DataminingListener() {
-    }
-
     /** Delega el procesado de los mensajes a DataminingProcessorImpl. */
-    @Override
-    public void onMessage(Message message) {
-        try {
-            Object content = ((ObjectMessage) message).getObject();
-            if (content instanceof DataminingDataEntity) {
-                logger.log(FINE, "mensaje recibido: " + content);
-                statisticProcessor.updateDaylyStatistic((DataminingDataEntity) content);
-            } else {
-                logger.log(WARNING, "mensaje recibido de tipo desconocido: " + content);
-            }
-        } catch (JMSException ex) {
-            Logger.getLogger(DataminingListener.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    @Lock(WRITE)
+    @AccessTimeout(value = 5, unit = MINUTES)
+    public void onMessage(DataminingDataEntity content) {
+        logger.log(FINE, "mensaje recibido: " + content);
+        statisticProcessor.updateDaylyStatistic(content);
     }
 
     @PreDestroy
     public void flush() {
-        // Se podrian acumular las estadisticas en queues en memoria, de forma q se acumulasen por tipo
-        // y solo cada cierto tiempo se volcasen a la base de datos, en esta situacion de tener mensajes
-        // en memoria, deberia asegurarse en este metodo PreDestroy que las colas de memoria estan vacia
-        // y en caso contrario escribirlas en la tabla.
+        /*
+         * Se podrian acumular las estadisticas en queues en memoria, de forma q
+         * se acumulasen por tipo y solo cada cierto tiempo se volcasen a la
+         * base de datos, en esta situacion de tener mensajes en memoria,
+         * deberia asegurarse en este metodo PreDestroy que las colas de memoria
+         * estan vacia y en caso contrario escribirlas en la tabla.
+         */
     }
 }
