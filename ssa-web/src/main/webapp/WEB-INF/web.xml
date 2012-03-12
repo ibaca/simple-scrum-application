@@ -5,12 +5,12 @@
 		<param-name>primefaces.THEME</param-name>
 		<param-value>ssa</param-value>
 	</context-param>
-	
+
 	<!-- Faces Config -->
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
-		<param-value>Development</param-value> 
-		<!--<param-value>Production</param-value>-->
+		<param-value>Development</param-value>
+		<!--<param-value>Production</param-value> -->
 	</context-param>
 	<context-param>
 		<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
@@ -37,21 +37,29 @@
 		<servlet-name>Resource Servlet</servlet-name>
 		<url-pattern>/primefaces_resource/*</url-pattern>
 	</servlet-mapping>
+	<!-- RequestFactory -->
+	<servlet>
+		<servlet-name>requestFactoryServlet</servlet-name>
+		<servlet-class>org.inftel.ssa.services.SsaRequestFactoryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>requestFactoryServlet</servlet-name>
+		<url-pattern>/gwtRequest</url-pattern>
+	</servlet-mapping>
+	<!-- Session -->
 	<session-config>
-		<session-timeout>
-			30
-		</session-timeout>
+		<session-timeout>30</session-timeout>
 	</session-config>
 	<welcome-file-list>
 		<welcome-file>index.jsf</welcome-file>
 	</welcome-file-list>
-	
+
 	<!-- Shiro -->
 	<filter>
 		<filter-name>ShiroFilter</filter-name>
 		<filter-class>org.apache.shiro.web.servlet.IniShiroFilter</filter-class>
 	</filter>
- 
+
 	<filter-mapping>
 		<filter-name>ShiroFilter</filter-name>
 		<url-pattern>/*</url-pattern>

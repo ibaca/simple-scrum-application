@@ -11,6 +11,14 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.inftel.ssa</groupId>
+			<artifactId>ssa-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.inftel.ssa</groupId>
+			<artifactId>ssa-api-mobile</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>android</artifactId>
 			<version>4.0.1.2</version>
@@ -20,6 +28,11 @@
 			<groupId>com.google.android</groupId>
 			<artifactId>support-v4</artifactId>
 			<version>r6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.web.bindery</groupId>
+			<artifactId>requestfactory-client</artifactId>
+			<version>2.4.0</version>
 		</dependency>
 	</dependencies>
 
@@ -34,37 +47,6 @@
 					<version>3.1.1</version>
 					<extensions>true</extensions>
 				</plugin>
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											com.jayway.maven.plugins.android.generation2
-										</groupId>
-										<artifactId>
-											android-maven-plugin
-										</artifactId>
-										<versionRange>
-											[3.0.0,)
-										</versionRange>
-										<goals>
-											<goal>proguard</goal>
-											<goal>manifest-update</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore></ignore>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
@@ -73,7 +55,6 @@
 				<artifactId>android-maven-plugin</artifactId>
 				<configuration>
 					<sdk>
-						<!-- platform or api level (api level 4 = platform 1.6) -->
 						<platform>11</platform>
 					</sdk>
 				</configuration>

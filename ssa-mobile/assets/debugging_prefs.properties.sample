@@ -1,0 +1,4 @@
+# usar este fichero para configurar la app android en modo desarrollo. Modificar la ip y puerto
+# para que apunte al servidor JEE donde este desplegado el server, y cambiar el nombre del fichero
+# a debugging_prefs.properties
+url=http://<jee_server_ip>:<jee_server_port>/ssa-web

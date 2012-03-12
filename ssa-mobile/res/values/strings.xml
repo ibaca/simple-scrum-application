@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Simple Scrum Application</string>
+    <string name="ssa_activity_text"></string>
 </resources>
