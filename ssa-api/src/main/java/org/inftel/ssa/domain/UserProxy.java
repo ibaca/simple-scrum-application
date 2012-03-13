@@ -1,19 +1,22 @@
 
 package org.inftel.ssa.domain;
 
+import java.util.List;
+import java.util.Set;
+
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.ProxyForName;
 
-@ProxyForName(value = "org.inftel.ssa.domain.User", locator = "org.inftel.ssa.mobile.locators.EntityLocator")
+@ProxyForName(value = "org.inftel.ssa.domain.User", locator = "org.inftel.ssa.locators.EntityLocator")
 public interface UserProxy extends EntityProxy {
 
     public abstract String getCompany();
 
     public abstract void setCompany(String company);
 
-    // public abstract Set<Project> getProjects();
+    public abstract Set<ProjectProxy> getProjects();
 
-    // public abstract void setProjects(Set<Project> projects);
+    public abstract void setProjects(Set<ProjectProxy> projects);
 
     public abstract String getNickname();
 
@@ -31,9 +34,9 @@ public interface UserProxy extends EntityProxy {
 
     public abstract void setPassword(String password);
 
-    // public abstract List<Task> getTasks();
+    public abstract List<TaskProxy> getTasks();
 
-    // public abstract void setTasks(List<Task> tasks);
+    public abstract void setTasks(List<TaskProxy> tasks);
 
     public abstract String getUserRole();
 

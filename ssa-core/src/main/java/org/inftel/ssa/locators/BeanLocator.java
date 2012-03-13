@@ -15,28 +15,18 @@ public class BeanLocator implements ServiceLocator {
     public Object getInstance(Class<?> clazz) {
         System.out.println(clazz);
         if (clazz.getPackage().equals(ssa)) {
-            return lookupBean(clazz, clazz.getSimpleName());
+            return lookupBean(clazz);
         } else {
             return null;
         }
     }
 
     @SuppressWarnings("unchecked")
-    private static <T> T lookupBean(Class<T> clazz, String name) {
+    public static <T> T lookupBean(Class<T> clazz) {
         try {
-            // try {
-            // return clazz.newInstance();
-            // } catch (InstantiationException e) {
-            // // TODO Auto-generated catch block
-            // e.printStackTrace();
-            // } catch (IllegalAccessException e) {
-            // // TODO Auto-generated catch block
-            // e.printStackTrace();
-            // }
-            return (T) InitialContext.doLookup(portableName + name);
+            return (T) InitialContext.doLookup(portableName + clazz.getSimpleName());
         } catch (NamingException e) {
-            e.printStackTrace();
-            return null;
+            throw new IllegalArgumentException("No existe el servicio " + clazz, e);
         }
     }
 

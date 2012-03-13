@@ -1,6 +1,11 @@
 
 package org.inftel.ssa.mobile.ui;
 
+import java.util.List;
+
+import org.inftel.ssa.domain.ProjectProxy;
+import org.inftel.ssa.domain.TaskProxy;
+import org.inftel.ssa.domain.UserProxy;
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.utils.Util;
 import org.inftel.ssa.services.SsaRequestFactory;
@@ -26,10 +31,18 @@ public class SsaActivity extends Activity {
 
         SsaRequestFactory rf = Util.getRequestFactory(this, SsaRequestFactory.class);
         UserRequest usersContext = rf.userRequest();
-        usersContext.countUsers().fire(new Receiver<Long>() {
+        usersContext.findAllUsers().with("projects", "tasks").fire(new Receiver<List<UserProxy>>() {
             @Override
-            public void onSuccess(Long response) {
-                text.append("obtenido user count: " + response);
+            public void onSuccess(List<UserProxy> response) {
+                for (UserProxy userProxy : response) {
+                    text.append("obtenido user: " + userProxy.getEmail() + "\n");
+                    for (ProjectProxy project : userProxy.getProjects()) {
+                        text.append("    project: " + project.getName() + "\n");
+                    }
+                    for (TaskProxy task : userProxy.getTasks()) {
+                        text.append("    task: " + task.getSummary() + " \n");
+                    }
+                }
             }
 
             @Override

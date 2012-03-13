@@ -4,6 +4,12 @@ package org.inftel.ssa.locators;
 import javax.persistence.EntityManager;
 
 import org.inftel.ssa.domain.BaseEntity;
+import org.inftel.ssa.domain.Project;
+import org.inftel.ssa.domain.ProjectFacade;
+import org.inftel.ssa.domain.Task;
+import org.inftel.ssa.domain.TaskFacade;
+import org.inftel.ssa.domain.User;
+import org.inftel.ssa.domain.UserFacade;
 
 import com.google.web.bindery.requestfactory.shared.Locator;
 
@@ -44,8 +50,15 @@ public class EntityLocator extends Locator<BaseEntity, Long> {
 
     @Override
     public BaseEntity find(Class<? extends BaseEntity> clazz, Long id) {
-        EntityManager em = getEntityManager();
-        return em.find(clazz, id);
+        if (clazz.equals(User.class)) {
+            return BeanLocator.lookupBean(UserFacade.class).find(id);
+        } else if (clazz.equals(Project.class)) {
+            return BeanLocator.lookupBean(ProjectFacade.class).find(id);
+        } else if (clazz.equals(Task.class)) {
+            return BeanLocator.lookupBean(TaskFacade.class).find(id);
+        } else {
+            throw new IllegalArgumentException("Tipo de entidad desconocido: " + clazz);
+        }
     }
 
     // https://groups.google.com/forum/#!topic/google-web-toolkit/SGMsIBaJ4hI

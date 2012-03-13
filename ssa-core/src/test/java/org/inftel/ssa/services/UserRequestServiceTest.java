@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.web.bindery.requestfactory.shared.Receiver;
@@ -32,6 +33,7 @@ public class UserRequestServiceTest {
     }
 
     @Test
+    @Ignore
     public final void testCountSurfers() {
         SsaRequestFactory rf = createSimpleFactory(SsaRequestFactory.class);
 
