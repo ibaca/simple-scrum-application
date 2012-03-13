@@ -26,6 +26,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.ProjectActivity" />
+        <activity android:name=".ui.ProjectActivity$ProjectDetailPortraitContainerFragment" />
     </application>
 
 </manifest>
