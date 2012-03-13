@@ -4,11 +4,10 @@ package org.inftel.ssa.mobile.ui;
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.ui.fragments.ProjectDetailFragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
-public class ProjectActivity extends Activity {
+public class ProjectActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
