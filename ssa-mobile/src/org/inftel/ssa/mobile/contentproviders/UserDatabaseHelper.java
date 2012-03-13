@@ -27,19 +27,13 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    /* Method is called during creation of the database */
     @Override
-    public void onCreate(SQLiteDatabase database) {
-        UserTable.onCreate(database);
+    public void onCreate(SQLiteDatabase db) {
+        UserTable.onCreate(db);
     }
 
-    /*
-     * Method is called during an upgrade of the database, e.g. if you increase
-     * the database version
-     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         UserTable.onUpgrade(db, oldVersion, newVersion);
     }
-
 }
