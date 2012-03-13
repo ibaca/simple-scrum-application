@@ -12,7 +12,9 @@ import org.inftel.ssa.services.SsaRequestFactory;
 import org.inftel.ssa.services.UserRequest;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.web.bindery.requestfactory.shared.Receiver;
@@ -29,6 +31,36 @@ public class SsaActivity extends Activity {
         // save useful elements
         text = (TextView) findViewById(R.id.ssa_activity_text);
 
+        findViewById(R.id.ssa_activity_button_projects).setOnClickListener(
+                new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(SsaActivity.this, ProjectActivity.class));
+                    }
+                });
+        findViewById(R.id.ssa_activity_button_users).setOnClickListener(
+                new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(SsaActivity.this, UserActivity.class));
+                    }
+                });
+        findViewById(R.id.ssa_activity_button_tasks).setOnClickListener(
+                new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(SsaActivity.this, TaskActivity.class));
+                    }
+                });
+
+        // testRequestFactory();
+
+    }
+
+    private void testRequestFactory() {
         SsaRequestFactory rf = Util.getRequestFactory(this, SsaRequestFactory.class);
         UserRequest usersContext = rf.userRequest();
         usersContext.findAllUsers().with("projects", "tasks").fire(new Receiver<List<UserProxy>>() {
@@ -50,7 +82,6 @@ public class SsaActivity extends Activity {
                 text.append("fallo obtieniendo usuarios: " + error.getMessage());
             }
         });
-
     }
 
 }
