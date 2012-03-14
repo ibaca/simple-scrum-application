@@ -7,6 +7,7 @@ import org.inftel.ssa.domain.ProjectProxy;
 import org.inftel.ssa.domain.TaskProxy;
 import org.inftel.ssa.domain.UserProxy;
 import org.inftel.ssa.mobile.R;
+import org.inftel.ssa.mobile.ui.fragments.UserListFragment;
 import org.inftel.ssa.mobile.utils.Util;
 import org.inftel.ssa.services.SsaRequestFactory;
 import org.inftel.ssa.services.UserRequest;
@@ -44,7 +45,7 @@ public class SsaActivity extends FragmentActivity {
 
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(SsaActivity.this, UserActivity.class));
+                        startActivity(new Intent(SsaActivity.this, UserListFragment.class));
                     }
                 });
         findViewById(R.id.ssa_activity_button_tasks).setOnClickListener(

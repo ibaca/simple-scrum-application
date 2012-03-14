@@ -19,7 +19,7 @@ public class UserContentProvider extends ContentProvider {
     private UserDatabaseHelper database;
 
     public static final Uri CONTENT_URI = Uri
-            .parse("content://org.inftel.ssa.mobile.contentprovider.users/users");
+            .parse("content://org.inftel.ssa.mobile.contentproviders.users/users");
 
     // Create the constants used to differentiate between the different URI
     // requests.
@@ -33,8 +33,8 @@ public class UserContentProvider extends ContentProvider {
     private static final UriMatcher uriMatcher;
     static {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        uriMatcher.addURI("org.inftel.ssa.mobile.contentprovider.users", "users", USERS);
-        uriMatcher.addURI("org.inftel.ssa.mobile.contentprovider.users", "users/*", USERS_ID);
+        uriMatcher.addURI("org.inftel.ssa.mobile.contentproviders.users", "users", USERS);
+        uriMatcher.addURI("org.inftel.ssa.mobile.contentproviders.users", "users/*", USERS_ID);
     }
 
     public UserContentProvider() {
