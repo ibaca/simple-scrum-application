@@ -13,9 +13,9 @@ import android.widget.TextView;
 
 public class ProjectDetailFragment extends Fragment {
 
-    public static ProjectListFragment newInstance(int index) {
+    public static ProjectDetailFragment newInstance(int index) {
 
-        ProjectListFragment f = new ProjectListFragment();
+        ProjectDetailFragment f = new ProjectDetailFragment();
         Bundle args = new Bundle();
         args.putInt("index", index);
         f.setArguments(args);
@@ -32,9 +32,8 @@ public class ProjectDetailFragment extends Fragment {
         if (container == null) {
             return null;
         }
-        getActivity().findViewById(R.id.detalle);
         View view = inflater.inflate(R.layout.ssa_project_details, container, false);
-        TextView text = (TextView) view.findViewById(R.id.detalle);
+        TextView text = (TextView) view.findViewById(R.id.TextView01);
         text.setText(Information.TEXT[getShownIndex()]);
         return view;
     }

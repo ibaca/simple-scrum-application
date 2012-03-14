@@ -7,10 +7,5 @@
     <TextView
             android:id="@android:id/text1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:minHeight="?android:attr/listPreferredItemHeight"
-            android:background="?android:attr/activatedBackgroundIndicator"
-            android:gravity="center_vertical"
-    />
+            android:layout_height="wrap_content"/>
 </FrameLayout>

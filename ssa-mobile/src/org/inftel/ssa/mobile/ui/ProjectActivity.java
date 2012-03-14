@@ -3,17 +3,27 @@ package org.inftel.ssa.mobile.ui;
 
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.ui.fragments.ProjectDetailFragment;
+import org.inftel.ssa.mobile.ui.fragments.ProjectListFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 public class ProjectActivity extends FragmentActivity {
+
+    private ProjectDetailFragment projectDetailFragment;
+    private static ProjectListFragment projectListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.ssa_project_container);
 
-        setContentView(R.layout.ssa_project_activity);
+        projectListFragment = (ProjectListFragment)
+                getSupportFragmentManager()
+                        .findFragmentById(R.id.projects_list_fragment);
+
     }
 
     static public final class Information {
@@ -40,17 +50,16 @@ public class ProjectActivity extends FragmentActivity {
         };
     }
 
-    static public class ProjectDetailPortraitContainerFragment extends FragmentActivity {
-
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-
-            ProjectDetailFragment details = new ProjectDetailFragment();
-            details.setArguments(getIntent().getExtras());
-            getSupportFragmentManager().beginTransaction()
-                    .add(android.R.id.content, details).commit();
-
+    public void selectDetail(int index) {
+        projectDetailFragment = ProjectDetailFragment.newInstance(index);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        if (findViewById(R.id.projects_container) != null) {
+            ft.addToBackStack(null);
+            ft.hide(projectListFragment);
+            ft.replace(R.id.projects_container, projectDetailFragment);
+            ft.show(projectDetailFragment);
+            ft.commit();
         }
     }
 

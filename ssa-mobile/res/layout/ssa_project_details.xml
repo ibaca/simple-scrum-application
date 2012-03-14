@@ -11,7 +11,7 @@
         android:layout_height="fill_parent" >
 
         <TextView
-            android:id="@+id/detalle"
+            android:id="@+id/TextView01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -20,7 +20,7 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/long_press"
+        android:id="@+id/button01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
