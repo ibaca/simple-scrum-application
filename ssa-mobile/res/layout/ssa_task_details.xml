@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/lblSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/task_field_summary" />
+
+    <TextView
+        android:id="@+id/lblDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/task_field_description" />
+
+    <TextView
+        android:id="@+id/lblEstimated"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/task_field_estimated" />
+
+    <TextView
+        android:id="@+id/lblPriority"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/task_field_priority" />
+
+    <TextView
+        android:id="@+id/lblSprint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/task_field_sprint" />
+
+    <TextView
+        android:id="@+id/lblStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/task_field_status" />
+
+    <TextView
+        android:id="@+id/lblBeginDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/task_field_beginDate" />
+
+    <TextView
+        android:id="@+id/lblEndDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/task_field_endDate" />
+
+    <TextView
+        android:id="@+id/lblBurned"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/task_field_burned" />
+
+    <TextView
+        android:id="@+id/lblRemaining"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/task_field_remaining" />
+
+    <TextView
+        android:id="@+id/lblComments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/task_field_comments" />
+
+</LinearLayout>

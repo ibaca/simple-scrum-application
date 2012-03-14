@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/txtSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/task_field_summary" />
+
+    <EditText
+        android:id="@+id/txtDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/task_field_description" />
+
+    <EditText
+        android:id="@+id/txtEstimated"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/task_field_estimated" />
+
+    <EditText
+        android:id="@+id/txtPriority"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/task_field_priority" />
+
+    <EditText
+        android:id="@+id/txtBeginDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/task_field_beginDate" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/txtSprint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/task_field_sprint" />
+
+    <EditText
+        android:id="@+id/txtStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/task_field_status" />
+
+    <EditText
+        android:id="@+id/txtEndDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/task_field_endDate" />
+
+    <EditText
+        android:id="@+id/txtBurned"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/task_field_burned" />
+
+    <EditText
+        android:id="@+id/txtRemaining"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/task_field_remaining" />
+
+    <EditText
+        android:id="@+id/txtComments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/task_field_comments" />
+
+    <Button
+        android:id="@+id/cmdSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/botton_save" />
+
+</LinearLayout>
