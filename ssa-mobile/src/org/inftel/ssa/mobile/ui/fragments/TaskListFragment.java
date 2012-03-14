@@ -96,6 +96,7 @@ public class TaskListFragment extends ListActivity {
         }
     }
 
+    @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Uri taskUri = ContentUris.withAppendedId(getIntent().getData(), id);
 

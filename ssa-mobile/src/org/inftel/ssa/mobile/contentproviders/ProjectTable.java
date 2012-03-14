@@ -17,7 +17,7 @@ public class ProjectTable {
     public static final String KEY_STARTED = "started";
     public static final String KEY_CLOSE = "close";
     public static final String KEY_COMPANY = "company";
-    public static final String KEY_lINKS = "links";
+    public static final String KEY_LINKS = "links";
     public static final String KEY_LABELS = "labels";
     public static final String KEY_LICENSE = "license";
 
@@ -28,11 +28,11 @@ public class ProjectTable {
                     + KEY_NAME + " TEXT, "
                     + KEY_SUMMARY + " TEXT, "
                     + KEY_DESCRIPTION + " TEXT, "
-                    + KEY_OPENED + " DATE, "
-                    + KEY_STARTED + " DATE, "
-                    + KEY_CLOSE + " DATE, "
+                    + KEY_OPENED + " TEXT, "
+                    + KEY_STARTED + " TEXT, "
+                    + KEY_CLOSE + " TEXT, "
                     + KEY_COMPANY + " TEXT, "
-                    + KEY_lINKS + " TEXT, "
+                    + KEY_LINKS + " TEXT, "
                     + KEY_LABELS + " TEXT, "
                     + KEY_LICENSE + " TEXT); ";
 
@@ -47,4 +47,5 @@ public class ProjectTable {
         db.execSQL("DROP TABLE IF EXISTS " + PROJECTS_TABLE);
         onCreate(db);
     }
+
 }

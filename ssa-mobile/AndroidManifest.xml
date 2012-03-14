@@ -27,10 +27,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.ProjectActivity" />
-        <activity android:name=".ui.ProjectActivity$ProjectDetailPortraitContainerFragment" />
-        <provider android:name=".contentproviders.UserContentProvider" android:authorities="org.inftel.ssa.mobile.contentproviders.users"></provider>
+        <provider android:authorities="org.inftel.ssa.mobile.contentproviders.projects" 
+            android:name=".contentproviders.ProjectContentProvider"></provider>
+        <provider android:name=".contentproviders.UserContentProvider" 
+            android:authorities="org.inftel.ssa.mobile.contentproviders.users"></provider>
         <activity android:name=".ui.fragments.UserListFragment"></activity>
-        <activity android:name=".ui.fragments.UserDetailFragment"></activity>
+        <activity android:name=".ui.fragments.UserDetailFragment"></activity>    
     </application>
 
 </manifest>

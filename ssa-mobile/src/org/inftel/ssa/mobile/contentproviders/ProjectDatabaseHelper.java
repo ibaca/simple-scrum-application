@@ -16,11 +16,11 @@ public class ProjectDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        UserTable.onCreate(db);
+        ProjectTable.onCreate(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        UserTable.onUpgrade(db, oldVersion, newVersion);
+        ProjectTable.onUpgrade(db, oldVersion, newVersion);
     }
 }
