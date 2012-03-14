@@ -1,38 +1,87 @@
 
 package org.inftel.ssa.mobile.ui.fragments;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.contentproviders.UserContentProvider;
 import org.inftel.ssa.mobile.contentproviders.UserTable;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.SimpleCursorAdapter;
 
-public class UserListFragment extends Activity {
-
-    private UserData users[] = new UserData[50];
+public class UserListFragment extends ListActivity {
 
     /** Called when the activity is first created. */
-    @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ssa_user_list);
+
         ContentResolver cr = getContentResolver();
+        insertarEliminar(cr);
+
+        // Columnas de la tabla a recuperar
+        String[] projection = new String[] {
+                UserTable.KEY_ID,
+                UserTable.KEY_FULLNAME,
+                UserTable.KEY_COMPANY
+        };
+
+        // Desde la pantalla de proyectos se enviaría la URI de dicho proyecto
+        // y se le sacaría el ID directamente desde la URI.
+        String company = "Inftel";
+
+        String search =
+                UserTable.KEY_COMPANY + " = " + "\"" + company + "\"";
+        System.out.println(search);
+
+        // If no data was given in the intent (because we were started
+        // as a MAIN activity), then use our default content provider.
+        Intent intent = getIntent();
+        if (intent.getData() == null) {
+            intent.setData(UserContentProvider.CONTENT_URI);
+        }
+
+        // Inform the list we provide context menus for items
+        getListView().setOnCreateContextMenuListener(this);
+
+        // Perform a managed query. The Activity will handle closing and
+        // requerying the cursor when needed.
+
+        Cursor cursor = managedQuery(getIntent().getData(), projection,
+                search, null, null);
+
+        // Used to map tasks entries from the database to views
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.ssa_user_list,
+                cursor,
+                new String[] {
+                        UserTable.KEY_FULLNAME
+                }, new int[] {
+                        android.R.id.text1
+                });
+        setListAdapter(adapter);
+
+    }
+
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        Uri userUri = ContentUris.withAppendedId(getIntent().getData(), id);
+
+        // Launch activity to view/edit the currently selected item
+        // startActivity(new Intent(Intent.ACTION_EDIT, noteUri));
+        startActivity(new Intent(Intent.ACTION_EDIT, userUri, UserListFragment.this,
+                UserDetailFragment.class));
+
+    }
+
+    static void insertarEliminar(ContentResolver cr) {
+
         ContentValues values = new ContentValues();
 
         cr.delete(UserContentProvider.CONTENT_URI,
@@ -48,7 +97,7 @@ public class UserListFragment extends Activity {
         values.put(UserTable.KEY_NICKNAME, "ibaca");
         values.put(UserTable.KEY_EMAIL, "ignacio@gmail.com");
         values.put(UserTable.KEY_NUMBER, "957700652");
-        values.put(UserTable.KEY_COMPANY, "Master Inftel");
+        values.put(UserTable.KEY_COMPANY, "Inftel");
         values.put(UserTable.KEY_PASS, "inftel");
         values.put(UserTable.KEY_ROLE, "SM");
 
@@ -58,7 +107,7 @@ public class UserListFragment extends Activity {
         values.put(UserTable.KEY_NICKNAME, "JuaNaN");
         values.put(UserTable.KEY_EMAIL, "juanan20@gmail.com");
         values.put(UserTable.KEY_NUMBER, "957700652");
-        values.put(UserTable.KEY_COMPANY, "Master Inftel");
+        values.put(UserTable.KEY_COMPANY, "Inftel");
         values.put(UserTable.KEY_PASS, "inftel");
         values.put(UserTable.KEY_ROLE, "SM");
 
@@ -83,142 +132,6 @@ public class UserListFragment extends Activity {
         values.put(UserTable.KEY_ROLE, "SM");
 
         cr.insert(UserContentProvider.CONTENT_URI, values);
-
-        // Columnas de la tabla a recuperar
-        String[] projection = new String[] {
-                UserTable.KEY_ID,
-                UserTable.KEY_FULLNAME, UserTable.KEY_NICKNAME,
-                UserTable.KEY_EMAIL, UserTable.KEY_NUMBER,
-                UserTable.KEY_COMPANY,
-                UserTable.KEY_ROLE
-        };
-
-        Uri clientesUri = UserContentProvider.CONTENT_URI;
-
-        Cursor cur = cr.query(clientesUri, projection, // Columnas a devolver
-                null, // Condicion de la query
-                null, // Argumentos variables de la query
-                null); // Orden de los resultados
-
-        ArrayList<String> listausuarios = new ArrayList<String>();
-
-        if (cur.moveToFirst()) {
-            int colName = cur.getColumnIndex(UserTable.KEY_FULLNAME);
-            int colNickname = cur.getColumnIndex(UserTable.KEY_NICKNAME);
-            int colEmail = cur.getColumnIndex(UserTable.KEY_EMAIL);
-            int colNumber = cur.getColumnIndex(UserTable.KEY_NUMBER);
-            int colCompany = cur.getColumnIndex(UserTable.KEY_COMPANY);
-            int colRole = cur.getColumnIndex(UserTable.KEY_ROLE);
-            int i = 0;
-
-            do {
-                users[i] = new UserData();
-
-                users[i].setFullName(cur.getString(colName));
-                users[i].setNickName(cur.getString(colNickname));
-                users[i].setEmail(cur.getString(colEmail));
-                users[i].setNumber(cur.getString(colNumber));
-                users[i].setCompany(cur.getString(colCompany));
-                users[i].setRole(cur.getString(colRole));
-
-                listausuarios.add(users[i].getFullName());
-                i++;
-            } while (cur.moveToNext());
-        }
-
-        ListView userslist = (ListView) findViewById(R.id.UsersList);
-        listausuarios.toArray();
-
-        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, listausuarios);
-        userslist.setAdapter(adaptador);
-
-        userslist.setOnItemClickListener(new OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> padre, View v, int posicion,
-                    long id) {
-                Intent details = new Intent(getApplicationContext(), UserDetailFragment.class);
-                int pos = (int) padre.getItemIdAtPosition(posicion);
-                details.putExtra("FullName", users[pos].getFullName());
-                details.putExtra("NickName", users[pos].getNickName());
-                details.putExtra("Email", users[pos].getEmail());
-                details.putExtra("Number", users[pos].getNumber());
-                details.putExtra("Company", users[pos].getCompany());
-                details.putExtra("Role", users[pos].getRole());
-
-                startActivity(details);
-                Toast.makeText(v.getContext(),
-                        padre.getItemAtPosition(posicion).toString(),
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    static class UserData implements Serializable {
-        private String fullName;
-        private String nickName;
-        private String email;
-        private String number;
-        private String company;
-        private String role;
-        private int id;
-
-        public String getFullName() {
-            return fullName;
-        }
-
-        public void setFullName(String fullName) {
-            this.fullName = fullName;
-        }
-
-        public String getNickName() {
-            return nickName;
-        }
-
-        public void setNickName(String nickName) {
-            this.nickName = nickName;
-        }
-
-        public String getEmail() {
-            return email;
-        }
-
-        public void setEmail(String email) {
-            this.email = email;
-        }
-
-        public String getCompany() {
-            return company;
-        }
-
-        public void setCompany(String company) {
-            this.company = company;
-        }
-
-        public String getRole() {
-            return role;
-        }
-
-        public void setRole(String role) {
-            this.role = role;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getNumber() {
-            return number;
-        }
-
-        public void setNumber(String number) {
-            this.number = number;
-        }
 
     }
 }

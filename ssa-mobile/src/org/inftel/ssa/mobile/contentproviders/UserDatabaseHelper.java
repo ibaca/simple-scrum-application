@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 /**
  * <p>
  * Facilita la gestion de la base de datos User. Define las columnas y las
- * sentencias de creación y destrucción de la base de datos SQLite.
+ * sentencias de creaci√≥n y destrucci√≥n de la base de datos SQLite.
  * </p>
  * <p>
  * Basada en <a href=
