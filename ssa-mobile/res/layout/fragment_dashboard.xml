@@ -19,5 +19,13 @@
         style="@style/DashboardButton"
         android:text="@string/btn_sprints"
         android:drawableTop="@drawable/home_btn_sprints" />
+    <Button android:id="@+id/home_btn_preferences"
+        style="@style/DashboardButton"
+        android:text="@string/btn_preferences"
+        android:drawableTop="@drawable/home_btn_preferences" />
+    <Button android:id="@+id/home_btn_about"
+        style="@style/DashboardButton"
+        android:text="@string/btn_about"
+        android:drawableTop="@drawable/home_btn_about" />
 
 </org.inftel.ssa.mobile.ui.widget.DashboardLayout>

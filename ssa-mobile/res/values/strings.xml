@@ -20,6 +20,8 @@
     <string name="btn_tasks">Tasks</string>
     <string name="btn_users">Users</string>
     <string name="btn_sprints">Sprints</string>
+    <string name="btn_preferences">Preferences</string>
+    <string name="btn_about">About</string>
     
     <string name="menu_add">Add</string>
     <string name="menu_edit">Edit</string>

@@ -1,13 +1,17 @@
-
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/home_btn_sessions_pressed"
+    <item 
+        android:drawable="@drawable/home_btn_users_pressed"
         android:state_focused="true"
         android:state_pressed="true" />
-    <item android:drawable="@drawable/home_btn_sessions_pressed"
+    <item 
+        android:drawable="@drawable/home_btn_users_pressed"
         android:state_focused="false"
         android:state_pressed="true" />
-    <item android:drawable="@drawable/home_btn_sessions_selected" android:state_focused="true" />
-    <item android:drawable="@drawable/home_btn_sessions_default"
+    <item 
+        android:drawable="@drawable/home_btn_users_selected" 
+        android:state_focused="true" />
+    <item 
+        android:drawable="@drawable/home_btn_users_default"
         android:state_focused="false"
         android:state_pressed="false" />
 </selector>
