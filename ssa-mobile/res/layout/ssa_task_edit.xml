@@ -1,148 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
 
-    <TextView
-        android:id="@+id/lblCaptionSummary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/task_label_summary" />
 
-    <EditText
-        android:id="@+id/txtSummary"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="319dp"
         android:layout_height="wrap_content"
-        android:hint="@string/task_field_summary" />
+        android:orientation="vertical" >
 
         <TextView
-        android:id="@+id/lblCaptionDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/task_label_description" />
-    
-    <EditText
-        android:id="@+id/txtDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/task_field_description" />
-    
-            <TextView
-        android:id="@+id/lblCaptionEstimated"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/task_label_estimated" />
-        
-    <EditText
-        android:id="@+id/txtEstimated"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/task_field_estimated" />
+            android:id="@+id/lblCaptionSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/task_label_summary" />
+
+        <EditText
+            android:id="@+id/txtSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/task_field_summary" />
 
         <TextView
-        android:id="@+id/lblCaptionPriority"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/task_label_priority" />
-    
-    <EditText
-        android:id="@+id/txtPriority"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/task_field_priority" />
+            android:id="@+id/lblCaptionDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/task_label_description" />
+
+        <EditText
+            android:id="@+id/txtDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/task_field_description" />
 
         <TextView
-        android:id="@+id/lblCaptionBeginDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/task_label_beginDate" />
-    
-    <EditText
-        android:id="@+id/txtBeginDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/task_field_beginDate" >
+            android:id="@+id/lblCaptionEstimated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/task_label_estimated" />
 
-        <requestFocus />
-    </EditText>
+        <EditText
+            android:id="@+id/txtEstimated"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/task_field_estimated" />
 
         <TextView
-        android:id="@+id/lblCaptionSprint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/task_label_sprint" />
-    
-    <EditText
-        android:id="@+id/txtSprint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/task_field_sprint" />
+            android:id="@+id/lblCaptionPriority"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/task_label_priority" />
+
+        <EditText
+            android:id="@+id/txtPriority"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/task_field_priority" />
 
         <TextView
-        android:id="@+id/lblCaptionStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/task_label_status" />
-    
-    <EditText
-        android:id="@+id/txtStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/task_field_status" />
+            android:id="@+id/lblCaptionBeginDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/task_label_beginDate" />
+
+        <EditText
+            android:id="@+id/txtBeginDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/task_field_beginDate" >
+
+            <requestFocus />
+        </EditText>
 
         <TextView
-        android:id="@+id/lblCaptionEndDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/task_label_endDate" />
-    
-    <EditText
-        android:id="@+id/txtEndDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/task_field_endDate" />
+            android:id="@+id/lblCaptionSprint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/task_label_sprint" />
+
+        <EditText
+            android:id="@+id/txtSprint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/task_field_sprint" />
 
         <TextView
-        android:id="@+id/lblCaptionBurned"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/task_label_burned" />
-    
-    <EditText
-        android:id="@+id/txtBurned"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/task_field_burned" />
+            android:id="@+id/lblCaptionStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/task_label_status" />
+
+        <EditText
+            android:id="@+id/txtStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/task_field_status" />
 
         <TextView
-        android:id="@+id/lblCaptionRemaining"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/task_label_remaining" />
-    
-    <EditText
-        android:id="@+id/txtRemaining"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/task_field_remaining" />
+            android:id="@+id/lblCaptionEndDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/task_label_endDate" />
+
+        <EditText
+            android:id="@+id/txtEndDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/task_field_endDate" />
 
         <TextView
-        android:id="@+id/lblCaptionComments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/task_label_comments" />
-    
-    <EditText
-        android:id="@+id/txtComments"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/task_field_comments" />
+            android:id="@+id/lblCaptionBurned"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/task_label_burned" />
 
-    <Button
-        android:id="@+id/cmdSave"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/botton_save" />
+        <EditText
+            android:id="@+id/txtBurned"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/task_field_burned" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/lblCaptionRemaining"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/task_label_remaining" />
+
+        <EditText
+            android:id="@+id/txtRemaining"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/task_field_remaining" />
+
+        <TextView
+            android:id="@+id/lblCaptionComments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/task_label_comments" />
+
+        <EditText
+            android:id="@+id/txtComments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/task_field_comments" />
+
+        <Button
+            android:id="@+id/cmdSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/botton_save" />
+    </LinearLayout>
+
+</ScrollView>
