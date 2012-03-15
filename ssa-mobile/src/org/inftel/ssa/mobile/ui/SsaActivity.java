@@ -32,14 +32,14 @@ public class SsaActivity extends Activity {
         // save useful elements
         text = (TextView) findViewById(R.id.ssa_activity_text);
 
-        findViewById(R.id.ssa_activity_button_projects).setOnClickListener(
-                new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(SsaActivity.this, ProjectActivity.class));
-                    }
-                });
+        // findViewById(R.id.ssa_activity_button_projects).setOnClickListener(
+        // new View.OnClickListener() {
+        //
+        // @Override
+        // public void onClick(View v) {
+        // startActivity(new Intent(SsaActivity.this, ProjectActivity.class));
+        // }
+        // });
         findViewById(R.id.ssa_activity_button_users).setOnClickListener(
                 new View.OnClickListener() {
 
