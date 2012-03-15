@@ -4,7 +4,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" >
 
-
     <LinearLayout
         android:layout_width="319dp"
         android:layout_height="wrap_content"
@@ -69,8 +68,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/task_field_beginDate" >
-
-            <requestFocus />
         </EditText>
 
         <TextView
@@ -85,6 +82,18 @@
             android:layout_height="wrap_content"
             android:hint="@string/task_field_sprint" />
 
+             <TextView
+            android:id="@+id/lblCaptionUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/task_label_user" />
+
+        <EditText
+            android:id="@+id/txtUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/task_field_user" />   
+        
         <TextView
             android:id="@+id/lblCaptionStatus"
             android:layout_width="wrap_content"
@@ -95,7 +104,10 @@
             android:id="@+id/txtStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/task_field_status" />
+            android:hint="@string/task_field_status" >
+
+            <requestFocus />
+        </EditText>
 
         <TextView
             android:id="@+id/lblCaptionEndDate"
@@ -145,11 +157,6 @@
             android:layout_height="wrap_content"
             android:hint="@string/task_field_comments" />
 
-        <Button
-            android:id="@+id/cmdSave"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/botton_save" />
     </LinearLayout>
 
 </ScrollView>
