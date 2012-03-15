@@ -24,7 +24,7 @@ public class TaskContentProvider extends ContentProvider {
     private static final int TASK = 10;
     private static final int TASK_ID = 20;
 
-    private static final String AUTHORITY = "org.inftel.ssa.mobile.provider.task";
+    private static final String AUTHORITY = "org.inftel.ssa.mobile.task.contentprovider";
 
     private static final String BASE_PATH = "task";
 
@@ -74,7 +74,7 @@ public class TaskContentProvider extends ContentProvider {
             case TASK:
                 break;
             case TASK_ID:
-                qb.appendWhere(TaskTable.COLUMN_ID + "=" + uri.getPathSegments());
+                qb.appendWhere(TaskTable.COLUMN_ID + "=" + uri.getLastPathSegment());
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
