@@ -20,6 +20,7 @@ public class ProjectListFragment extends ListFragment {
 
     int textoActual = 0;
     ProjectActivity projectActivity;
+    private Cursor cursor;
 
     /**
      * The columns needed by the cursor adapter
@@ -44,7 +45,7 @@ public class ProjectListFragment extends ListFragment {
 
         // Perform a managed query. The Activity will handle closing and
         // requerying the cursor when needed.
-        Cursor cursor = projectActivity.managedQuery(projectActivity.getIntent().getData(),
+        cursor = projectActivity.managedQuery(projectActivity.getIntent().getData(),
                 PROJECTION, null, null,
                 null);
 

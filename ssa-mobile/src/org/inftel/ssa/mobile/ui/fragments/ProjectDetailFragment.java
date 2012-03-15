@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ public class ProjectDetailFragment extends Fragment {
     private TextView mTxtSummary;
     private TextView mTxtDescription;
     private Cursor mCursor;
+    private View view;
 
     public static ProjectDetailFragment newInstance(Uri projectUri) {
 
@@ -43,14 +45,15 @@ public class ProjectDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+        Log.d(getClass().getSimpleName(), "onCreateView");
         if (container == null) {
             return null;
         }
-        setRetainInstance(true);
-        View view = inflater.inflate(R.layout.ssa_project_details, container, false);
-        // TextView text = (TextView) view.findViewById(R.id.TextView01);
-        // text.setText(Information.TEXT[getShownIndex()]);
+
+        view = inflater.inflate(R.layout.ssa_project_details, container, false);
+        Log.d(getClass().getSimpleName(), "init: fillProjectDetailsFrament");
         fillProjectDetailsFragment(view, Uri.parse(getProjectUri()));
+        setRetainInstance(true);
         return view;
     }
 
@@ -72,17 +75,22 @@ public class ProjectDetailFragment extends Fragment {
         if (mCursor != null) {
             // Requery in case something changed while paused (such as the
             // title)
-            mCursor.requery();
-            // Make sure we are at the one and only row in the cursor.
-            mCursor.moveToFirst();
 
+            mCursor.requery();
+
+            int colName = mCursor.getColumnIndex(ProjectTable.KEY_NAME);
+            int colSummary = mCursor.getColumnIndex(ProjectTable.KEY_SUMMARY);
+            int colDescription = mCursor.getColumnIndex(ProjectTable.KEY_DESCRIPTION);
             String txt = "";
-            txt = mCursor.getString(mCursor.getColumnIndex(ProjectTable.KEY_NAME));
-            mTxtName.setText(txt);
-            txt = mCursor.getString(mCursor.getColumnIndex(ProjectTable.KEY_SUMMARY));
-            mTxtSummary.setText(txt);
-            txt = mCursor.getString(mCursor.getColumnIndex(ProjectTable.KEY_DESCRIPTION));
-            mTxtDescription.setText(txt);
+            if (mCursor.moveToFirst()) {
+                txt = mCursor.getString(colName);
+                mTxtName.setText(txt);
+                txt = mCursor.getString(colSummary);
+                mTxtSummary.setText(txt);
+                txt = mCursor.getString(colDescription);
+                mTxtDescription.setText(txt);
+            }
+            mCursor.close();
 
         }
     }
