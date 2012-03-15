@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Simple Scrum Application</string>
     <string name="ssa_activity_text"></string>
-    
     <string name="task_list_name">Tasks</string>
     <string name="task_new_name">New Task</string>
     <string name="menu_add">Add task</string>
+    <string name="menu_edit">Edit task</string>
     <string name="task_field_summary">Summary</string>
     <string name="task_field_description">Description</string>
     <string name="task_field_estimated">Estimated</string>
@@ -17,9 +18,21 @@
     <string name="task_field_burned">Burned</string>
     <string name="task_field_remaining">Remaining</string>
     <string name="task_field_comments">Comments</string>
+    <string name="task_label_summary">Summary:  </string>
+    <string name="task_label_description">Description:  </string>
+    <string name="task_label_estimated">Estimated:  </string>
+    <string name="task_label_priority">Priority:  </string>
+    <string name="task_label_beginDate">Begin Date:  </string>
+    <string name="task_label_sprint">Sprint:  </string>
+    <string name="task_label_status">Status:  </string>
+    <string name="task_label_endDate">EndDate:  </string>
+    <string name="task_label_burned">Burned:  </string>
+    <string name="task_label_remaining">Remaining:  </string>
+    <string name="task_label_comments">Comments:  </string>
     <string name="title_edit">Edit: \"%1$s\"</string>
     <string name="botton_save">Save</string>
     <string name="error_title">DB ERROR</string>
     <string name="error_message">The query has not results</string>
     <string name="resolve_edit">Edit task</string>
+
 </resources>
