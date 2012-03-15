@@ -20,8 +20,8 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 public class TaskListFragment extends ListActivity {
-
-    private static final String TAG = "TasksListFragment";
+    // For logging and debugging
+    private static final String TAG = "TasksListActivity";
 
     /**
      * The columns needed by the cursor adapter
@@ -87,7 +87,7 @@ public class TaskListFragment extends ListActivity {
         switch (item.getItemId()) {
             case R.id.menu_add:
                 // Launch activity to insert a new item
-                startActivity(new Intent(TaskListFragment.this, TaskNewFragment.class));
+                startActivity(new Intent(TaskListFragment.this, TaskEditFragment.class));
                 // startActivity(new Intent(Intent.ACTION_INSERT,
                 // getIntent().getData()));
                 return true;
@@ -96,13 +96,12 @@ public class TaskListFragment extends ListActivity {
         }
     }
 
-    @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Uri taskUri = ContentUris.withAppendedId(getIntent().getData(), id);
 
         // Launch activity to view/edit the currently selected item
-        // startActivity(new Intent(Intent.ACTION_EDIT, noteUri));
-        startActivity(new Intent(Intent.ACTION_EDIT, taskUri, TaskListFragment.this,
+        // startActivity(new Intent(Intent.ACTION_VIEW, taskUri));
+        startActivity(new Intent(Intent.ACTION_VIEW, taskUri, TaskListFragment.this,
                 TaskDetailFragment.class));
 
     }

@@ -5,15 +5,19 @@ import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.contentproviders.TaskTable;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 public class TaskDetailFragment extends Activity {
-    private static final String TAG = "TaskDetailFragment";
+    private static final String TAG = "TaskDetailActivity";
 
     private static final String[] PROJECTION = new String[] {
             TaskTable.COLUMN_ID, // 0
@@ -77,11 +81,6 @@ public class TaskDetailFragment extends Activity {
 
         mUri = intent.getData();
 
-        /*
-         * Bundle extras = intent.getExtras(); if (extras == null) { return; }
-         * String value1 = extras.getString("task_id");
-         */
-
         // Set the layout for this activity. You can find it in
         // res/layout/note_editor.xml
         setContentView(R.layout.ssa_task_details);
@@ -99,7 +98,7 @@ public class TaskDetailFragment extends Activity {
         mTxtRemaining = (TextView) findViewById(R.id.lblRemaining);
         mTxtComments = (TextView) findViewById(R.id.lblComments);
 
-        // Get the note!
+        // Get the task
         mCursor = managedQuery(mUri, PROJECTION, null, null, null);
     }
 
@@ -123,11 +122,6 @@ public class TaskDetailFragment extends Activity {
             String text = String.format(res.getString(R.string.title_edit), title);
             setTitle(text);
 
-            // Modify the task data
-            // This is a little tricky: we may be resumed after previously being
-            // paused/stopped. We want to put the new text in the text view,
-            // but leave the user where they were (retain the cursor position
-            // etc). This version of setText does that for us.
             texto = mCursor.getString(COLUMN_INDEX_SUMMARY);
             mTxtSummary.setTextKeepState(texto);
             texto = mCursor.getString(COLUMN_INDEX_DESCRIPTION);
@@ -156,4 +150,34 @@ public class TaskDetailFragment extends Activity {
             mTxtSummary.setText(getText(R.string.error_message));
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate menu from XML resource
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.ssa_task_details_menu, menu);
+
+        // Generate any additional actions that can be performed on the
+        // overall list.
+        Intent intent = new Intent(null, getIntent().getData());
+        intent.addCategory(Intent.CATEGORY_ALTERNATIVE);
+        menu.addIntentOptions(Menu.CATEGORY_ALTERNATIVE, 0, 0,
+                new ComponentName(this, TaskDetailFragment.class), null, intent, 0, null);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_edit:
+                // Launch activity to insert a new item
+                startActivity(new Intent(Intent.ACTION_EDIT, mUri, TaskDetailFragment.this,
+                        TaskEditFragment.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }

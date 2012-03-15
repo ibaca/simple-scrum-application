@@ -10,10 +10,11 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.util.Log;
+import android.widget.EditText;
 
 public class TaskEditFragment extends Activity {
-    private static final String TAG = "TaskEditFragment";
+    private static final String TAG = "TaskEditActivity";
 
     private static final String[] PROJECTION = new String[] {
             TaskTable.COLUMN_ID, // 0
@@ -55,27 +56,30 @@ public class TaskEditFragment extends Activity {
     /** The index of the comments column */
     private static final int COLUMN_INDEX_COMMENTS = 11;
 
+    // The different distinct states the activity can be run in.
+    private static final int STATE_EDIT = 0;
+    private static final int STATE_INSERT = 1;
+
+    private int mState;
     private Uri mUri;
     private Cursor mCursor;
-    private TextView mTxtSummary;
-    private TextView mTxtDescription;
-    private TextView mTxtEstimated;
-    private TextView mTxtPriority;
-    private TextView mTxtSprint;
-    private TextView mTxtStatus;
-    private TextView mTxtBeginDate;
-    private TextView mTxtEndDate;
-    private TextView mTxtBurned;
-    private TextView mTxtRemaining;
-    private TextView mTxtComments;
+    private EditText mTxtSummary;
+    private EditText mTxtDescription;
+    private EditText mTxtEstimated;
+    private EditText mTxtPriority;
+    private EditText mTxtSprint;
+    private EditText mTxtStatus;
+    private EditText mTxtBeginDate;
+    private EditText mTxtEndDate;
+    private EditText mTxtBurned;
+    private EditText mTxtRemaining;
+    private EditText mTxtComments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         final Intent intent = getIntent();
-
-        mUri = intent.getData();
 
         /*
          * Bundle extras = intent.getExtras(); if (extras == null) { return; }
@@ -84,23 +88,55 @@ public class TaskEditFragment extends Activity {
 
         // Set the layout for this activity. You can find it in
         // res/layout/note_editor.xml
-        setContentView(R.layout.ssa_task_details);
+        setContentView(R.layout.ssa_task_edit);
 
         // The text view for task data, identified by its ID in the XML file.
-        mTxtSummary = (TextView) findViewById(R.id.lblSummary);
-        mTxtDescription = (TextView) findViewById(R.id.lblDescription);
-        mTxtEstimated = (TextView) findViewById(R.id.lblEstimated);
-        mTxtPriority = (TextView) findViewById(R.id.lblPriority);
-        mTxtSprint = (TextView) findViewById(R.id.lblSprint);
-        mTxtStatus = (TextView) findViewById(R.id.lblStatus);
-        mTxtBeginDate = (TextView) findViewById(R.id.lblBeginDate);
-        mTxtEndDate = (TextView) findViewById(R.id.lblEndDate);
-        mTxtBurned = (TextView) findViewById(R.id.lblBurned);
-        mTxtRemaining = (TextView) findViewById(R.id.lblRemaining);
-        mTxtComments = (TextView) findViewById(R.id.lblComments);
+        mTxtSummary = (EditText) findViewById(R.id.txtSummary);
+        mTxtDescription = (EditText) findViewById(R.id.txtDescription);
+        mTxtEstimated = (EditText) findViewById(R.id.txtEstimated);
+        mTxtPriority = (EditText) findViewById(R.id.txtPriority);
+        mTxtSprint = (EditText) findViewById(R.id.txtSprint);
+        mTxtStatus = (EditText) findViewById(R.id.txtStatus);
+        mTxtBeginDate = (EditText) findViewById(R.id.txtBeginDate);
+        mTxtEndDate = (EditText) findViewById(R.id.txtEndDate);
+        mTxtBurned = (EditText) findViewById(R.id.txtBurned);
+        mTxtRemaining = (EditText) findViewById(R.id.txtRemaining);
+        mTxtComments = (EditText) findViewById(R.id.txtComments);
 
-        // Get the note!
-        mCursor = managedQuery(mUri, PROJECTION, null, null, null);
+        // Get the task!
+        // uri.getLastPathSegment()
+
+        // Do some setup based on the action being performed.
+        final String action = intent.getAction();
+        if (Intent.ACTION_EDIT.equals(action)) {
+            mState = STATE_EDIT;
+            mUri = intent.getData();
+            mCursor = managedQuery(mUri, PROJECTION, null, null, null);
+        } else if (Intent.ACTION_INSERT.equals(action)) {
+            // Requested to insert: set that state, and create a new entry
+            // in the container.
+            mState = STATE_INSERT;
+            mUri = getContentResolver().insert(intent.getData(), null);
+
+            // If we were unable to create a new note, then just finish
+            // this activity. A RESULT_CANCELED will be sent back to the
+            // original activity if they requested a result.
+            if (mUri == null) {
+                Log.e(TAG, "Failed to insert new note into " + getIntent().getData());
+                finish();
+                return;
+            }
+
+            // The new entry was created, so assume all will end well and
+            // set the result to be returned.
+            // setResult(RESULT_OK, (new Intent()).setAction(mUri.toString()));
+
+        } else {
+            // Whoops, unknown action! Bail.
+            Log.e(TAG, "Unknown action, exiting");
+            finish();
+            return;
+        }
     }
 
     @Override
@@ -151,7 +187,7 @@ public class TaskEditFragment extends Activity {
             texto = mCursor.getString(COLUMN_INDEX_COMMENTS);
             mTxtComments.setTextKeepState(texto);
 
-        } else {
+        } else if (mState == STATE_EDIT) {
             setTitle(getText(R.string.error_title));
             mTxtSummary.setText(getText(R.string.error_message));
         }
