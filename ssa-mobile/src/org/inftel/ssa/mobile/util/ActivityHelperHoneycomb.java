@@ -23,8 +23,7 @@ public class ActivityHelperHoneycomb extends ActivityHelper {
     @Override
     public void onPostCreate(Bundle savedInstanceState) {
         // Do nothing in onPostCreate. ActivityHelper creates the old action
-        // bar, we don't
-        // need to for Honeycomb.
+        // bar, we don't need to for Honeycomb.
     }
 
     @Override
@@ -38,8 +37,7 @@ public class ActivityHelperHoneycomb extends ActivityHelper {
         switch (item.getItemId()) {
             case android.R.id.home:
                 // Handle the HOME / UP affordance. Since the app is only two
-                // levels deep
-                // hierarchically, UP always just goes home.
+                // levels deep hierarchically, UP always just goes home.
                 goHome();
                 return true;
         }
@@ -51,11 +49,9 @@ public class ActivityHelperHoneycomb extends ActivityHelper {
     public void setupHomeActivity() {
         super.setupHomeActivity();
         // NOTE: there needs to be a content view set before this is called, so
-        // this method
-        // should be called in onPostCreate.
+        // this method should be called in onPostCreate.
         if (UIUtils.isTablet(mActivity)) {
-            mActivity.getActionBar().setDisplayOptions(
-                    0,
+            mActivity.getActionBar().setDisplayOptions(0,
                     ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
         } else {
             mActivity.getActionBar().setDisplayOptions(
@@ -69,15 +65,13 @@ public class ActivityHelperHoneycomb extends ActivityHelper {
     public void setupSubActivity() {
         super.setupSubActivity();
         // NOTE: there needs to be a content view set before this is called, so
-        // this method
-        // should be called in onPostCreate.
+        // this method should be called in onPostCreate.
         if (UIUtils.isTablet(mActivity)) {
             mActivity.getActionBar().setDisplayOptions(
                     ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_USE_LOGO,
                     ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_USE_LOGO);
         } else {
-            mActivity.getActionBar().setDisplayOptions(
-                    0,
+            mActivity.getActionBar().setDisplayOptions(0,
                     ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_USE_LOGO);
         }
     }
@@ -103,8 +97,7 @@ public class ActivityHelperHoneycomb extends ActivityHelper {
     @Override
     public void setRefreshActionButtonCompatState(boolean refreshing) {
         // On Honeycomb, we can set the state of the refresh button by giving it
-        // a custom
-        // action view.
+        // a custom action view.
         if (mOptionsMenu == null) {
             return;
         }
