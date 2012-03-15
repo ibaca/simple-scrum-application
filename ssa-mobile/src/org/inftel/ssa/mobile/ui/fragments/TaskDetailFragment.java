@@ -17,7 +17,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 public class TaskDetailFragment extends Activity {
-    private static final String TAG = "TaskDetailActivity";
+    private static final String TAG = "TaskDetailFragmen";
 
     private static final String[] PROJECTION = new String[] {
             TaskTable.COLUMN_ID, // 0
@@ -26,12 +26,13 @@ public class TaskDetailFragment extends Activity {
             TaskTable.COLUMN_ESTIMATED, // 3
             TaskTable.COLUMN_PRIORITY, // 4
             TaskTable.COLUMN_SPRINT, // 5
-            TaskTable.COLUMN_STATUS, // 6
-            TaskTable.COLUMN_BEGINDATE, // 7
-            TaskTable.COLUMN_ENDDATE, // 8
-            TaskTable.COLUMN_BURNED, // 9
-            TaskTable.COLUMN_REMAINING, // 10
-            TaskTable.COLUMN_COMMENTS, // 11
+            TaskTable.COLUMN_USER, // 6
+            TaskTable.COLUMN_STATUS, // 7
+            TaskTable.COLUMN_BEGINDATE, // 8
+            TaskTable.COLUMN_ENDDATE, // 9
+            TaskTable.COLUMN_BURNED, // 10
+            TaskTable.COLUMN_REMAINING, // 11
+            TaskTable.COLUMN_COMMENTS, // 12
     };
 
     /** The index of the id column */
@@ -46,18 +47,20 @@ public class TaskDetailFragment extends Activity {
     private static final int COLUMN_INDEX_PRIORITY = 4;
     /** The index of the sprint column */
     private static final int COLUMN_INDEX_SPRINT = 5;
+    /** The index of the user column */
+    private static final int COLUMN_INDEX_USER = 6;
     /** The index of the status column */
-    private static final int COLUMN_INDEX_STATUS = 6;
+    private static final int COLUMN_INDEX_STATUS = 7;
     /** The index of the beginDate column */
-    private static final int COLUMN_INDEX_BEGINDATE = 7;
+    private static final int COLUMN_INDEX_BEGINDATE = 8;
     /** The index of the endDate column */
-    private static final int COLUMN_INDEX_ENDDATE = 8;
+    private static final int COLUMN_INDEX_ENDDATE = 9;
     /** The index of the burned column */
-    private static final int COLUMN_INDEX_BURNED = 9;
+    private static final int COLUMN_INDEX_BURNED = 10;
     /** The index of the remaining column */
-    private static final int COLUMN_INDEX_REMAINING = 10;
+    private static final int COLUMN_INDEX_REMAINING = 11;
     /** The index of the comments column */
-    private static final int COLUMN_INDEX_COMMENTS = 11;
+    private static final int COLUMN_INDEX_COMMENTS = 12;
 
     private Uri mUri;
     private Cursor mCursor;
@@ -66,6 +69,7 @@ public class TaskDetailFragment extends Activity {
     private TextView mTxtEstimated;
     private TextView mTxtPriority;
     private TextView mTxtSprint;
+    private TextView mTxtUser;
     private TextView mTxtStatus;
     private TextView mTxtBeginDate;
     private TextView mTxtEndDate;
@@ -91,6 +95,7 @@ public class TaskDetailFragment extends Activity {
         mTxtEstimated = (TextView) findViewById(R.id.lblEstimated);
         mTxtPriority = (TextView) findViewById(R.id.lblPriority);
         mTxtSprint = (TextView) findViewById(R.id.lblSprint);
+        mTxtUser = (TextView) findViewById(R.id.lblUser);
         mTxtStatus = (TextView) findViewById(R.id.lblStatus);
         mTxtBeginDate = (TextView) findViewById(R.id.lblBeginDate);
         mTxtEndDate = (TextView) findViewById(R.id.lblEndDate);
@@ -132,6 +137,8 @@ public class TaskDetailFragment extends Activity {
             mTxtPriority.setTextKeepState(texto);
             texto = mCursor.getString(COLUMN_INDEX_SPRINT);
             mTxtSprint.setTextKeepState(texto);
+            texto = mCursor.getString(COLUMN_INDEX_USER);
+            mTxtUser.setTextKeepState(texto);
             texto = mCursor.getString(COLUMN_INDEX_STATUS);
             mTxtStatus.setTextKeepState(texto);
             texto = mCursor.getString(COLUMN_INDEX_BEGINDATE);

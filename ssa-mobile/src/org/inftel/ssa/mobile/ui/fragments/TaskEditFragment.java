@@ -5,12 +5,16 @@ import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.contentproviders.TaskTable;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.EditText;
 
 public class TaskEditFragment extends Activity {
@@ -23,12 +27,13 @@ public class TaskEditFragment extends Activity {
             TaskTable.COLUMN_ESTIMATED, // 3
             TaskTable.COLUMN_PRIORITY, // 4
             TaskTable.COLUMN_SPRINT, // 5
-            TaskTable.COLUMN_STATUS, // 6
-            TaskTable.COLUMN_BEGINDATE, // 7
-            TaskTable.COLUMN_ENDDATE, // 8
-            TaskTable.COLUMN_BURNED, // 9
-            TaskTable.COLUMN_REMAINING, // 10
-            TaskTable.COLUMN_COMMENTS, // 11
+            TaskTable.COLUMN_USER, // 6
+            TaskTable.COLUMN_STATUS, // 7
+            TaskTable.COLUMN_BEGINDATE, // 8
+            TaskTable.COLUMN_ENDDATE, // 9
+            TaskTable.COLUMN_BURNED, // 10
+            TaskTable.COLUMN_REMAINING, // 11
+            TaskTable.COLUMN_COMMENTS, // 12
     };
 
     /** The index of the id column */
@@ -43,18 +48,20 @@ public class TaskEditFragment extends Activity {
     private static final int COLUMN_INDEX_PRIORITY = 4;
     /** The index of the sprint column */
     private static final int COLUMN_INDEX_SPRINT = 5;
+    /** The index of the user column */
+    private static final int COLUMN_INDEX_USER = 6;
     /** The index of the status column */
-    private static final int COLUMN_INDEX_STATUS = 6;
+    private static final int COLUMN_INDEX_STATUS = 7;
     /** The index of the beginDate column */
-    private static final int COLUMN_INDEX_BEGINDATE = 7;
+    private static final int COLUMN_INDEX_BEGINDATE = 8;
     /** The index of the endDate column */
-    private static final int COLUMN_INDEX_ENDDATE = 8;
+    private static final int COLUMN_INDEX_ENDDATE = 9;
     /** The index of the burned column */
-    private static final int COLUMN_INDEX_BURNED = 9;
+    private static final int COLUMN_INDEX_BURNED = 10;
     /** The index of the remaining column */
-    private static final int COLUMN_INDEX_REMAINING = 10;
+    private static final int COLUMN_INDEX_REMAINING = 11;
     /** The index of the comments column */
-    private static final int COLUMN_INDEX_COMMENTS = 11;
+    private static final int COLUMN_INDEX_COMMENTS = 12;
 
     // The different distinct states the activity can be run in.
     private static final int STATE_EDIT = 0;
@@ -68,6 +75,7 @@ public class TaskEditFragment extends Activity {
     private EditText mTxtEstimated;
     private EditText mTxtPriority;
     private EditText mTxtSprint;
+    private EditText mTxtUser;
     private EditText mTxtStatus;
     private EditText mTxtBeginDate;
     private EditText mTxtEndDate;
@@ -81,13 +89,7 @@ public class TaskEditFragment extends Activity {
 
         final Intent intent = getIntent();
 
-        /*
-         * Bundle extras = intent.getExtras(); if (extras == null) { return; }
-         * String value1 = extras.getString("task_id");
-         */
-
-        // Set the layout for this activity. You can find it in
-        // res/layout/note_editor.xml
+        // Set the layout for this activity.
         setContentView(R.layout.ssa_task_edit);
 
         // The text view for task data, identified by its ID in the XML file.
@@ -96,6 +98,7 @@ public class TaskEditFragment extends Activity {
         mTxtEstimated = (EditText) findViewById(R.id.txtEstimated);
         mTxtPriority = (EditText) findViewById(R.id.txtPriority);
         mTxtSprint = (EditText) findViewById(R.id.txtSprint);
+        mTxtUser = (EditText) findViewById(R.id.txtUser);
         mTxtStatus = (EditText) findViewById(R.id.txtStatus);
         mTxtBeginDate = (EditText) findViewById(R.id.txtBeginDate);
         mTxtEndDate = (EditText) findViewById(R.id.txtEndDate);
@@ -174,6 +177,8 @@ public class TaskEditFragment extends Activity {
             mTxtPriority.setTextKeepState(texto);
             texto = mCursor.getString(COLUMN_INDEX_SPRINT);
             mTxtSprint.setTextKeepState(texto);
+            texto = mCursor.getString(COLUMN_INDEX_USER);
+            mTxtUser.setTextKeepState(texto);
             texto = mCursor.getString(COLUMN_INDEX_STATUS);
             mTxtStatus.setTextKeepState(texto);
             texto = mCursor.getString(COLUMN_INDEX_BEGINDATE);
@@ -192,4 +197,35 @@ public class TaskEditFragment extends Activity {
             mTxtSummary.setText(getText(R.string.error_message));
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate menu from XML resource
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.ssa_task_edit_menu, menu);
+
+        // Generate any additional actions that can be performed on the
+        // overall list.
+        Intent intent = new Intent(null, getIntent().getData());
+        intent.addCategory(Intent.CATEGORY_ALTERNATIVE);
+        menu.addIntentOptions(Menu.CATEGORY_ALTERNATIVE, 0, 0,
+                new ComponentName(this, TaskEditFragment.class), null, intent, 0, null);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_save:
+                // Launch activity to insert a new item
+                // startActivity(new Intent(Intent.ACTION_EDIT, mUri,
+                // TaskDetailFragment.this,
+                // TaskEditFragment.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }
