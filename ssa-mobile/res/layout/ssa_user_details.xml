@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/LinearLayout1"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
@@ -52,43 +51,45 @@
         android:id="@+id/companylb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Company: " >
+        android:text="Company: " />
 
-        <TextView
-            android:id="@+id/company"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Large Text" />
+    <TextView
+        android:id="@+id/company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Large Text" />
 
-        <TextView
-            android:id="@+id/numberlb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Number: " />
+    <TextView
+        android:id="@+id/numberlb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Number: " />
 
-        <TextView
-            android:id="@+id/number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Large Text" />
+    <TextView
+        android:id="@+id/number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Large Text" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button" />
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 
-        <TextView
-            android:id="@+id/rolelb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Role: " />
+    <TextView
+        android:id="@+id/rolelb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Role: " />
 
-        <TextView
-            android:id="@+id/role"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Large Text" />
+    <TextView
+        android:id="@+id/role"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Large Text" />
+
+    <TextView>
     </TextView>
 
 </LinearLayout>

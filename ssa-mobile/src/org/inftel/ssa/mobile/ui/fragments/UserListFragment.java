@@ -1,11 +1,9 @@
 
 package org.inftel.ssa.mobile.ui.fragments;
 
-import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.contentproviders.UserContentProvider;
 import org.inftel.ssa.mobile.contentproviders.UserTable;
 
-import android.app.ListActivity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -13,71 +11,77 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-public class UserListFragment extends ListActivity {
+public class UserListFragment extends ListFragment implements LoaderCallbacks<Cursor> {
 
-    /** Called when the activity is first created. */
-    public void onCreate(Bundle savedInstanceState) {
+    protected Cursor mCursor = null;
+    protected SimpleCursorAdapter mAdapter;
 
-        super.onCreate(savedInstanceState);
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-        ContentResolver cr = getContentResolver();
-        insertarEliminar(cr);
-
-        // Columnas de la tabla a recuperar
-        String[] projection = new String[] {
-                UserTable.KEY_ID,
-                UserTable.KEY_FULLNAME,
-                UserTable.KEY_COMPANY
-        };
-
-        // Desde la pantalla de proyectos se enviaría la URI de dicho proyecto
-        // y se le sacaría el ID directamente desde la URI.
-        String company = "Inftel";
-
-        String search =
-                UserTable.KEY_COMPANY + " = " + "\"" + company + "\"";
-        System.out.println(search);
-
-        // If no data was given in the intent (because we were started
-        // as a MAIN activity), then use our default content provider.
-        Intent intent = getIntent();
-        if (intent.getData() == null) {
-            intent.setData(UserContentProvider.CONTENT_URI);
-        }
-
-        // Inform the list we provide context menus for items
-        getListView().setOnCreateContextMenuListener(this);
-
-        // Perform a managed query. The Activity will handle closing and
-        // requerying the cursor when needed.
-
-        Cursor cursor = managedQuery(getIntent().getData(), projection,
-                search, null, null);
-
-        // Used to map tasks entries from the database to views
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.ssa_user_list,
-                cursor,
+        mAdapter = new SimpleCursorAdapter(
+                getActivity(), android.R.layout.simple_list_item_1,
+                mCursor,
                 new String[] {
                         UserTable.KEY_FULLNAME
                 }, new int[] {
                         android.R.id.text1
-                });
-        setListAdapter(adapter);
+                },
+                0);
+        // Allocate the adapter to the List displayed within this fragment.
+        setListAdapter(mAdapter);
 
+        // Enable context menu
+        registerForContextMenu(getListView());
+
+        // Populate the adapter / list using a Cursor Loader.
+        getLoaderManager().initLoader(0, null, this);
     }
 
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        Uri userUri = ContentUris.withAppendedId(getIntent().getData(), id);
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long theid) {
+        super.onListItemClick(l, v, position, theid);
 
-        // Launch activity to view/edit the currently selected item
-        // startActivity(new Intent(Intent.ACTION_EDIT, noteUri));
-        startActivity(new Intent(Intent.ACTION_EDIT, userUri, UserListFragment.this,
-                UserDetailFragment.class));
+        // Find the ID and Reference of the selected fence.
+        Cursor c = mAdapter.getCursor();
+        c.moveToPosition(position);
 
+        Uri userUri = ContentUris.withAppendedId(UserContentProvider.CONTENT_URI,
+                c.getLong(c.getColumnIndex(UserTable.KEY_ID)));
+
+        // Start view activity to show sprint details
+        startActivity(new Intent(Intent.ACTION_VIEW, userUri));
+    }
+
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        String[] projection = new String[] {
+                UserTable.KEY_ID, UserTable.KEY_FULLNAME
+        };
+
+        String company = "Inftel";
+
+        String search =
+                UserTable.KEY_COMPANY + " = " + "\"" + company + "\"";
+
+        return new CursorLoader(getActivity(), UserContentProvider.CONTENT_URI,
+                projection, null, null, null);
+    }
+
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        mAdapter.swapCursor(data);
+    }
+
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mAdapter.swapCursor(null);
     }
 
     static void insertarEliminar(ContentResolver cr) {
@@ -134,4 +138,5 @@ public class UserListFragment extends ListActivity {
         cr.insert(UserContentProvider.CONTENT_URI, values);
 
     }
+
 }

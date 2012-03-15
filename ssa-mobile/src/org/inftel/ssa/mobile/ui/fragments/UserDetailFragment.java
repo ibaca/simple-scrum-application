@@ -5,44 +5,65 @@ import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.contentproviders.UserTable;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class UserDetailFragment extends Activity {
+public class UserDetailFragment extends Fragment implements LoaderCallbacks<Cursor> {
 
-    private Uri mUri;
-    private Cursor mCursor;
-    private TextView fullname;
-    private TextView nickname;
-    private TextView email;
-    private TextView company;
-    private TextView role;
-    private TextView number;
+    protected final static String TAG = "SprintDetailFragment";
+    protected Handler mHandler = new Handler();
+    protected Activity mActivity;
+    private Uri mContentUri;
 
-    private Button btnEmail;
-    private Button btnCall;
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mActivity = getActivity();
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        if (mContentUri != null) {
+            getLoaderManager().initLoader(0, null, this);
+        } else {
+            // New item (set default values)
+        }
+    }
 
-        final Intent intent = getIntent();
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.ssa_user_details, container, false);
 
-        mUri = intent.getData();
+        Bundle arguments = getArguments();
+        // TODO buscar donde esta la constante _uri!
+        if (arguments != null && arguments.get("_uri") != null) {
+            mContentUri = (Uri) arguments.get("_uri");
+        }
 
-        setContentView(R.layout.ssa_user_details);
-        fullname = (TextView) (findViewById(R.id.fullname));
-        nickname = (TextView) (findViewById(R.id.nickname));
-        email = (TextView) (findViewById(R.id.email));
-        company = (TextView) (findViewById(R.id.company));
-        role = (TextView) (findViewById(R.id.role));
-        number = (TextView) (findViewById(R.id.number));
+        setHasOptionsMenu(true);
 
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    /**
+     * {@inheritDoc} Query the {@link PlaceDetailsContentProvider} for the
+     * Phone, Address, Rating, Reference, and Url of the selected venue. TODO
+     * Expand the projection to include any other details you are recording in
+     * the Place Detail Content Provider.
+     */
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         String[] projection = new String[] {
                 UserTable.KEY_ID,
                 UserTable.KEY_FULLNAME, UserTable.KEY_NICKNAME,
@@ -50,89 +71,47 @@ public class UserDetailFragment extends Activity {
                 UserTable.KEY_COMPANY,
                 UserTable.KEY_ROLE
         };
+        return new CursorLoader(mActivity, mContentUri, projection, null, null, null);
+    }
 
-        mCursor = managedQuery(mUri, projection, null, null, null);
-
-        if (mCursor != null) {
-            // Requery in case something changed while paused (such as the
-            // title)
-            mCursor.requery();
-            // Make sure we are at the one and only row in the cursor.
-            mCursor.moveToFirst();
-
-            int colName = mCursor
-                    .getColumnIndex(UserTable.KEY_FULLNAME);
-            int colNickname = mCursor
-                    .getColumnIndex(UserTable.KEY_NICKNAME);
-            int colEmail = mCursor
-                    .getColumnIndex(UserTable.KEY_EMAIL);
-            int colCompany = mCursor
-                    .getColumnIndex(UserTable.KEY_COMPANY);
-            int colRole = mCursor
-                    .getColumnIndex(UserTable.KEY_ROLE);
-            int colNumber = mCursor
-                    .getColumnIndex(UserTable.KEY_NUMBER);
-
-            // Set the title of the Activity to include the note title
-            /*
-             * String title = mCursor.getString(colId); Resources res =
-             * getResources(); String text =
-             * String.format(res.getString(R.string.title_edit), title);
-             * setTitle(text);
-             */
-
-            // Modify the task data
-            // This is a little tricky: we may be resumed after previously being
-            // paused/stopped. We want to put the new text in the text view,
-            // but leave the user where they were (retain the cursor position
-            // etc). This version of setText does that for us.
-            String name = mCursor.getString(colName);
-            fullname.setText(name);
-            nickname.setText(mCursor.getString(colNickname));
-            email.setText(mCursor.getString(colEmail));
-
-            company.setText(mCursor.getString(colCompany));
-            number.setText(mCursor.getString(colNumber));
-            role.setText(mCursor.getString(colRole));
-
-        } else {
-            /*
-             * setTitle(getText(R.string.error_title));
-             * mTxtSummary.setText(getText(R.string.error_message));
-             */
+    /**
+     * {@inheritDoc} When the Loader has completed, schedule an update of the
+     * Fragment UI on the main application thread.
+     */
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        if (data.moveToFirst()) {
+            final String fullname = data.getString(data.getColumnIndex(UserTable.KEY_FULLNAME));
+            final String nickname = data.getString(data.getColumnIndex(UserTable.KEY_NICKNAME));
+            final String email = data.getString(data.getColumnIndex(UserTable.KEY_EMAIL));
+            final String company = data.getString(data.getColumnIndex(UserTable.KEY_COMPANY));
+            final String number = data.getString(data.getColumnIndex(UserTable.KEY_NUMBER));
+            final String role = data.getString(data.getColumnIndex(UserTable.KEY_ROLE));
+            // Update UI
+            mHandler.post(new Runnable() {
+                public void run() {
+                    ((TextView) getView().findViewById(R.id.fullname)).setText(fullname);
+                    ((TextView) getView().findViewById(R.id.nickname)).setText(nickname);
+                    ((TextView) getView().findViewById(R.id.email)).setText(email);
+                    ((TextView) getView().findViewById(R.id.company)).setText(company);
+                    ((TextView) getView().findViewById(R.id.number)).setText(number);
+                    ((TextView) getView().findViewById(R.id.role)).setText(role);
+                }
+            });
         }
+    }
 
-        btnEmail = (Button) (findViewById(R.id.button1));
-        btnEmail.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent emailIntent = new Intent(Intent.ACTION_SEND);
-                emailIntent.setType("text/plain");
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Asunto");
-                emailIntent.putExtra(Intent.EXTRA_TEXT, "Su email aquí");
-                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {
-                        (String) email.getText()
-                });
-                startActivity(emailIntent);
+    /**
+     * {@inheritDoc}
+     */
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mHandler.post(new Runnable() {
+            public void run() {
+                // ((TextView)
+                // getView().findViewById(R.id.sprint_title)).setText("");
+                // ((TextView)
+                // getView().findViewById(R.id.sprint_subtitle)).setText("");
             }
-
         });
-
-        btnCall = (Button) (findViewById(R.id.button2));
-        btnCall.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
-
-                callIntent.setData(Uri.parse("tel:" + number.getText()));
-                startActivity(callIntent);
-
-            }
-
-        });
-
     }
 
 }
