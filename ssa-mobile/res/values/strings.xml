@@ -13,7 +13,8 @@
     <string name="description_star">Star</string>
     <string name="description_now">Go to Now</string>
     
-    <string name="title_sprints">Spirnts</string>
+    <string name="title_sprints">Sprints</string>
+    <string name="title_task">Sprints</string>
     
     <string name="btn_projects">Projects</string>
     <string name="btn_tasks">Tasks</string>
