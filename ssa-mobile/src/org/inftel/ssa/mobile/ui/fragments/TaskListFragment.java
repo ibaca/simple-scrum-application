@@ -5,104 +5,124 @@ import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.contentproviders.TaskContentProvider;
 import org.inftel.ssa.mobile.contentproviders.TaskTable;
 
-import android.app.ListActivity;
-import android.content.ComponentName;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-public class TaskListFragment extends ListActivity {
-    // For logging and debugging
-    private static final String TAG = "TasksListActivity";
+public class TaskListFragment extends ListFragment implements LoaderCallbacks<Cursor> {
 
-    /**
-     * The columns needed by the cursor adapter
+    private static final String TAG = "TaskListFragment";
+
+    /*
+     * private static final String[] PROJECTION = new String[] {
+     * TaskTable.COLUMN_ID, // 0 TaskTable.COLUMN_SUMMARY, // 1
+     * TaskTable.COLUMN_ESTIMATED, // 2 }; private static final int
+     * COLUMN_INDEX_SUMMARY = 1;
      */
-    private static final String[] PROJECTION = new String[] {
-            TaskTable.COLUMN_ID, // 0
-            TaskTable.COLUMN_SUMMARY, // 1
-            TaskTable.COLUMN_ESTIMATED, // 2
-    };
 
-    /** The index of the title column */
-    private static final int COLUMN_INDEX_SUMMARY = 1;
+    private static final int EDIT_ID = Menu.FIRST + 1;
+    private static final int DELETE_ID = Menu.FIRST + 2;
+
+    protected Cursor mCursor = null;
+    protected SimpleCursorAdapter mAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-        setDefaultKeyMode(DEFAULT_KEYS_SHORTCUT);
-
-        // If no data was given in the intent (because we were started
-        // as a MAIN activity), then use our default content provider.
-        Intent intent = getIntent();
-        if (intent.getData() == null) {
-            intent.setData(TaskContentProvider.CONTENT_URI);
-        }
-
-        // Inform the list we provide context menus for items
-        getListView().setOnCreateContextMenuListener(this);
-
-        // Perform a managed query. The Activity will handle closing and
-        // requerying the cursor when needed.
-        Cursor cursor = managedQuery(getIntent().getData(), PROJECTION, null, null,
-                TaskContentProvider.DEFAULT_SORT_ORDER);
-
-        // Used to map tasks entries from the database to views
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.ssa_task_list, cursor,
+        mAdapter = new SimpleCursorAdapter(
+                getActivity(),
+                android.R.layout.simple_list_item_1,
+                mCursor,
                 new String[] {
                         TaskTable.COLUMN_SUMMARY
-                }, new int[] {
+                },
+                new int[] {
                         android.R.id.text1
-                });
-        setListAdapter(adapter);
+                },
+                0);
+
+        // Allocate the adapter to the List displayed within this fragment.
+        setListAdapter(mAdapter);
+
+        // Enable context menu
+        registerForContextMenu(getListView());
+
+        // Populate the adapter / list using a Cursor Loader.
+        getLoaderManager().initLoader(0, null, this);
+
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate menu from XML resource
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.ssa_task_list_menu, menu);
+    public void onListItemClick(ListView l, View v, int position, long theid) {
+        super.onListItemClick(l, v, position, theid);
 
-        // Generate any additional actions that can be performed on the
-        // overall list.
-        Intent intent = new Intent(null, getIntent().getData());
-        intent.addCategory(Intent.CATEGORY_ALTERNATIVE);
-        menu.addIntentOptions(Menu.CATEGORY_ALTERNATIVE, 0, 0,
-                new ComponentName(this, TaskListFragment.class), null, intent, 0, null);
+        // Find the ID and Reference of the selected fence.
+        Cursor c = mAdapter.getCursor();
+        c.moveToPosition(position);
 
-        return super.onCreateOptionsMenu(menu);
+        Uri taskUri = ContentUris.withAppendedId(TaskContentProvider.CONTENT_URI,
+                c.getLong(c.getColumnIndex(TaskTable.COLUMN_ID)));
+
+        // Start view activity to show sprint details
+        startActivity(new Intent(Intent.ACTION_VIEW, taskUri));
+    }
+
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        String[] projection = new String[] {
+                TaskTable.COLUMN_ID, TaskTable.COLUMN_SUMMARY, TaskTable.COLUMN_ESTIMATED
+        };
+
+        return new CursorLoader(getActivity(), TaskContentProvider.CONTENT_URI,
+                projection, null, null, null);
+    }
+
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        mAdapter.swapCursor(data);
+    }
+
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mAdapter.swapCursor(null);
+    }
+
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        Log.d("TaskList", "context menu created");
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.add(0, EDIT_ID, 0, R.string.menu_edit);
+        menu.add(0, DELETE_ID, 0, R.string.menu_delete);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onContextItemSelected(MenuItem item) {
+        Log.d("TaskList", "context menu selected");
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
-            case R.id.menu_add:
-                // Launch activity to insert a new item
-                startActivity(new Intent(TaskListFragment.this, TaskEditFragment.class));
-                // startActivity(new Intent(Intent.ACTION_INSERT,
-                // getIntent().getData()));
+            case EDIT_ID:
+                // Delega comportamiento al click listener
+                onListItemClick(getListView(), getView(), info.position, info.id);
                 return true;
-            default:
-                return super.onOptionsItemSelected(item);
+            case DELETE_ID:
+                // TODO Igual un popup que pregunte si se esta seguro
+                Uri uri = ContentUris.withAppendedId(TaskContentProvider.CONTENT_URI, info.id);
+                getActivity().getContentResolver().delete(uri, null, null);
+                return true;
         }
+        return super.onContextItemSelected(item);
     }
 
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        Uri taskUri = ContentUris.withAppendedId(getIntent().getData(), id);
-
-        // Launch activity to view/edit the currently selected item
-        // startActivity(new Intent(Intent.ACTION_VIEW, taskUri));
-        startActivity(new Intent(Intent.ACTION_VIEW, taskUri, TaskListFragment.this,
-                TaskDetailFragment.class));
-
-    }
 }
