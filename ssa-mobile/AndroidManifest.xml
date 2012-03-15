@@ -23,7 +23,7 @@
         <activity
             android:name=".ui.HomeActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Ssa.Home" >
+            android:theme="@style/Theme.Ssa.Home" >  
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -39,11 +39,11 @@
         <activity android:name=".ui.fragments.UserDetailFragment" >
         </activity>
         <activity
-            android:name="org.inftel.ssa.mobile.ui.TaskListFragment"
+            android:name=".ui.phone.TaskListActivity"
             android:label="@string/task_list_name" >
         </activity>
         <activity
-            android:name="org.inftel.ssa.mobile.ui.TaskDetailFragment"
+            android:name=".ui.phone.TaskDetailActivity"
             android:label="@string/task_new_name" >
             <intent-filter android:label="@string/resolve_edit" >
                 <action android:name="android.intent.action.VIEW" />
@@ -52,7 +52,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.inftel.ssa.mobile.ui.TaskEditFragment"
+            android:name=".ui.phone.TaskEditActivity"
             android:label="@string/task_new_name" >
             <intent-filter android:label="@string/resolve_edit" >
                 <action android:name="android.intent.action.EDIT" />
