@@ -13,7 +13,7 @@
  * limitations under the License.
  *******************************************************************************/
 
-package org.inftel.ssa.mobile.utils;
+package org.inftel.ssa.mobile.util;
 
 /**
  * Class to be customized with app-specific data. The Eclipse plugin will set

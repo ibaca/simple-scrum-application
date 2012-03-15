@@ -8,20 +8,20 @@ import org.inftel.ssa.domain.TaskProxy;
 import org.inftel.ssa.domain.UserProxy;
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.ui.fragments.UserListFragment;
-import org.inftel.ssa.mobile.utils.Util;
+import org.inftel.ssa.mobile.util.Util;
 import org.inftel.ssa.services.SsaRequestFactory;
 import org.inftel.ssa.services.UserRequest;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.TextView;
 
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
-public class SsaActivity extends FragmentActivity {
+public class SsaActivity extends Activity {
 
     private TextView text;
 

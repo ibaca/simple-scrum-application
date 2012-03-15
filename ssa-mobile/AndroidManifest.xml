@@ -2,37 +2,71 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.inftel.ssa.mobile"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0"
+    android:installLocation="auto" >
 
     <uses-sdk
-        android:minSdkVersion="4"
+        android:minSdkVersion="7"
         android:targetSdkVersion="11" />
     
     <!-- Permission for internet access -->
     <uses-permission android:name="android.permission.INTERNET" />
-    
     <!-- Permission for check internet access -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name="SsaApplication"
-        android:label="@string/app_name" >
+        android:name=".SsaApplication"
+        android:label="@string/app_name"
+        android:logo="@drawable/title_logo"
+        android:theme="@style/Theme.Ssa"
+        android:hardwareAccelerated="true" >
+        
         <activity
-            android:name=".ui.SsaActivity"
-            android:label="@string/app_name" >
+            android:name=".ui.HomeActivity"
+            android:theme="@style/Theme.Ssa.Home"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <activity
+            android:name=".ui.SsaActivity"
+            android:label="@string/app_name" >
+        </activity>
         <activity android:name=".ui.ProjectActivity" />
-        <provider android:authorities="org.inftel.ssa.mobile.contentproviders.projects" 
-            android:name=".contentproviders.ProjectContentProvider"></provider>
-        <provider android:name=".contentproviders.UserContentProvider" 
-            android:authorities="org.inftel.ssa.mobile.contentproviders.users"></provider>
         <activity android:name=".ui.fragments.UserListFragment"></activity>
-        <activity android:name=".ui.fragments.UserDetailFragment"></activity>    
+        <activity android:name=".ui.fragments.UserDetailFragment"></activity>
+        <activity
+            android:name=".ui.phone.SprintListActivity"
+            android:label="@string/title_sprints">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.dir/vnd.inftel.ssa.sprints" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.phone.SprintDetailActivity"
+            android:label="@string/title_sprints">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.item/vnd.inftel.ssa.sprints" />
+            </intent-filter>
+        </activity>
+        
+        <provider 
+            android:name=".contentproviders.UserContentProvider" 
+            android:authorities="org.inftel.ssa.mobile.contentproviders.users" />
+        <provider 
+            android:authorities="org.inftel.ssa.mobile.contentproviders.projects" 
+            android:name=".contentproviders.ProjectContentProvider" />
+         <provider 
+            android:name=".contentproviders.SprintContentProvider" 
+            android:authorities="org.inftel.ssa.mobile.provider" />
+        
     </application>
 
 </manifest>

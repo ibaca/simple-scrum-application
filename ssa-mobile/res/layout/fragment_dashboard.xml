@@ -1,0 +1,23 @@
+<org.inftel.ssa.mobile.ui.widget.DashboardLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <Button android:id="@+id/home_btn_projects"
+        style="@style/DashboardButton"
+        android:text="@string/btn_projects"
+        android:drawableTop="@drawable/home_btn_projects" />
+    <Button android:id="@+id/home_btn_users"
+        style="@style/DashboardButton"
+        android:text="@string/btn_users"
+        android:drawableTop="@drawable/home_btn_users" />
+    <Button android:id="@+id/home_btn_tasks"
+        style="@style/DashboardButton"
+        android:text="@string/btn_tasks"
+        android:drawableTop="@drawable/home_btn_tasks" />
+    <Button android:id="@+id/home_btn_sprints"
+        style="@style/DashboardButton"
+        android:text="@string/btn_sprints"
+        android:drawableTop="@drawable/home_btn_sprints" />
+
+</org.inftel.ssa.mobile.ui.widget.DashboardLayout>

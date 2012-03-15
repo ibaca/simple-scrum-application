@@ -1,5 +1,5 @@
 
-package org.inftel.ssa.mobile.utils;
+package org.inftel.ssa.mobile.util;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
