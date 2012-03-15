@@ -36,12 +36,12 @@ public class UserDetailFragment extends Activity {
         mUri = intent.getData();
 
         setContentView(R.layout.ssa_user_details);
-        fullname = (TextView) (findViewById(R.id.textView2));
-        nickname = (TextView) (findViewById(R.id.TextView3));
-        email = (TextView) (findViewById(R.id.TextView5));
-        company = (TextView) (findViewById(R.id.TextView7));
-        role = (TextView) (findViewById(R.id.TextView10));
-        number = (TextView) (findViewById(R.id.TextView07));
+        fullname = (TextView) (findViewById(R.id.fullname));
+        nickname = (TextView) (findViewById(R.id.nickname));
+        email = (TextView) (findViewById(R.id.email));
+        company = (TextView) (findViewById(R.id.company));
+        role = (TextView) (findViewById(R.id.role));
+        number = (TextView) (findViewById(R.id.number));
 
         String[] projection = new String[] {
                 UserTable.KEY_ID,
