@@ -3,10 +3,29 @@
 
     <string name="app_name">Simple Scrum Application</string>
     <string name="ssa_activity_text"></string>
+    <string name="description_logo">SSA</string>
+    <string name="description_home">Home</string>
+    <string name="description_search">Search</string>
+    <string name="description_map">Map</string>
+    <string name="description_refresh">Refresh</string>
+    <string name="description_share">Share</string>
+    <string name="description_export">Export</string>
+    <string name="description_star">Star</string>
+    <string name="description_now">Go to Now</string>
+    
+    <string name="title_sprints">Spirnts</string>
+    
+    <string name="btn_projects">Projects</string>
+    <string name="btn_tasks">Tasks</string>
+    <string name="btn_users">Users</string>
+    <string name="btn_sprints">Sprints</string>
+    
+    <string name="menu_add">Add</string>
+    <string name="menu_edit">Edit</string>
+    <string name="menu_delete">Remove</string>
+    
     <string name="task_list_name">Tasks</string>
     <string name="task_new_name">New Task</string>
-    <string name="menu_add">Add task</string>
-    <string name="menu_edit">Edit task</string>
     <string name="task_field_summary">Summary</string>
     <string name="task_field_description">Description</string>
     <string name="task_field_estimated">Estimated</string>

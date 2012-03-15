@@ -2,9 +2,11 @@
 package org.inftel.ssa.mobile.ui.fragments;
 
 import org.inftel.ssa.mobile.R;
+import org.inftel.ssa.mobile.contentproviders.SprintContentProvider;
 import org.inftel.ssa.mobile.contentproviders.SprintTable;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +16,9 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -45,6 +50,9 @@ public class SprintDetailFragment extends Fragment implements LoaderCallbacks<Cu
         if (arguments != null && arguments.get("_uri") != null) {
             mContentUri = (Uri) arguments.get("_uri");
         }
+
+        setHasOptionsMenu(true);
+
         return view;
     }
 
@@ -96,6 +104,22 @@ public class SprintDetailFragment extends Fragment implements LoaderCallbacks<Cu
                 // getView().findViewById(R.id.sprint_subtitle)).setText("");
             }
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.sprint_detail_menu_items, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_add:
+                startActivity(new Intent(Intent.ACTION_INSERT, SprintContentProvider.CONTENT_URI));
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

@@ -94,6 +94,20 @@
                 <data android:mimeType="vnd.android.cursor.item/vnd.inftel.ssa.sprints" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.phone.SprintEditActivity"
+            android:label="@string/title_sprints">
+            <intent-filter>
+                <action android:name="android.intent.action.INSERT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.dir/vnd.inftel.ssa.sprints" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.EDIT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.item/vnd.inftel.ssa.sprints" />
+            </intent-filter>
+        </activity>
 
         <provider
             android:name=".contentproviders.UserContentProvider"
