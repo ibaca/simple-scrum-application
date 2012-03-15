@@ -5,6 +5,7 @@ import static android.content.Intent.ACTION_VIEW;
 
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.contentproviders.SprintContentProvider;
+import org.inftel.ssa.mobile.contentproviders.TaskContentProvider;
 import org.inftel.ssa.mobile.util.AnalyticsUtils;
 
 import android.content.Intent;
@@ -33,6 +34,18 @@ public class DashboardFragment extends Fragment {
                 // Launch sessions list
                 final Intent intent = new Intent(ACTION_VIEW, SprintContentProvider.CONTENT_URI);
                 intent.putExtra(Intent.EXTRA_TITLE, getString(R.string.title_sprints));
+                startActivity(intent);
+
+            }
+        });
+
+        // Attach event handlers
+        root.findViewById(R.id.home_btn_tasks).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                fireTrackerEvent("Tasks");
+                // Launch sessions list
+                final Intent intent = new Intent(ACTION_VIEW, TaskContentProvider.CONTENT_URI);
+                intent.putExtra(Intent.EXTRA_TITLE, getString(R.string.title_task));
                 startActivity(intent);
 
             }
