@@ -1,6 +1,8 @@
 
 package org.inftel.ssa.mobile.ui.fragments;
 
+import static org.inftel.ssa.mobile.ui.BaseActivity.ARGS_URI;
+
 import org.inftel.ssa.mobile.contentproviders.UserContentProvider;
 import org.inftel.ssa.mobile.contentproviders.UserTable;
 
@@ -23,10 +25,16 @@ public class UserListFragment extends ListFragment implements LoaderCallbacks<Cu
 
     protected Cursor mCursor = null;
     protected SimpleCursorAdapter mAdapter;
+    protected Uri mContentUri;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        Bundle arguments = getArguments();
+        if (arguments != null && arguments.get(ARGS_URI) != null) {
+            mContentUri = (Uri) arguments.get(ARGS_URI);
+        }
 
         mAdapter = new SimpleCursorAdapter(
                 getActivity(), android.R.layout.simple_list_item_1,
@@ -66,14 +74,18 @@ public class UserListFragment extends ListFragment implements LoaderCallbacks<Cu
         String[] projection = new String[] {
                 UserTable.KEY_ID, UserTable.KEY_FULLNAME
         };
+        String selection = null;
+        String[] selectionArgs = null;
+        if (mContentUri.getQueryParameter("project_id") != null) {
+            selection = "project_id = ?";
+            selectionArgs = new String[] {
+                    mContentUri.getQueryParameter("project_id")
+            };
 
-        String company = "Inftel";
-
-        String search =
-                UserTable.KEY_COMPANY + " = " + "\"" + company + "\"";
+        }
 
         return new CursorLoader(getActivity(), UserContentProvider.CONTENT_URI,
-                projection, null, null, null);
+                projection, selection, selectionArgs, null);
     }
 
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
