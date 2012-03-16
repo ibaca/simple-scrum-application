@@ -4,6 +4,7 @@ package org.inftel.ssa.mobile.ui.fragments;
 import static android.content.Intent.ACTION_VIEW;
 
 import org.inftel.ssa.mobile.R;
+import org.inftel.ssa.mobile.contentproviders.ProjectContentProvider;
 import org.inftel.ssa.mobile.contentproviders.SprintContentProvider;
 import org.inftel.ssa.mobile.contentproviders.TaskContentProvider;
 import org.inftel.ssa.mobile.contentproviders.UserContentProvider;
@@ -59,6 +60,18 @@ public class DashboardFragment extends Fragment {
                 // Launch sessions list
                 final Intent intent = new Intent(ACTION_VIEW, UserContentProvider.CONTENT_URI);
                 intent.putExtra(Intent.EXTRA_TITLE, getString(R.string.title_task));
+                startActivity(intent);
+
+            }
+        });
+
+        // Attach event handlers
+        root.findViewById(R.id.home_btn_projects).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                fireTrackerEvent("Projects");
+                // Launch sessions list
+                final Intent intent = new Intent(ACTION_VIEW, ProjectContentProvider.CONTENT_URI);
+                intent.putExtra(Intent.EXTRA_TITLE, getString(R.string.title_projects));
                 startActivity(intent);
 
             }

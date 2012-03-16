@@ -107,6 +107,20 @@
                 <data android:mimeType="vnd.android.cursor.item/vnd.inftel.ssa.users" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.phone.ProjectListActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.dir/vnd.inftel.ssa.projects" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.phone.ProjectDetailActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.item/vnd.inftel.ssa.projects" />
+            </intent-filter>
+        </activity>
 
         <provider
             android:name=".contentproviders.UserContentProvider"
