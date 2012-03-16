@@ -1,40 +1,53 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-    <RelativeLayout android:id="@+id/header_project"
+    <RelativeLayout android:id="@+id/header_session"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/body_padding_large"
         android:paddingRight="@dimen/body_padding_large"
         android:paddingTop="@dimen/body_padding_medium"
         android:paddingBottom="@dimen/body_padding_medium">
-
-        <TextView
-            android:id="@+id/detail_title"
-            style="@style/TextHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true" />
 
-        <TextView android:id="@+id/detail_summary"
-            android:layout_toRightOf="@id/detail_title"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            style="@style/TextHeaderSub" />
         
-        <TextView android:id="@+id/detail_description"
-            android:layout_below="@id/detail_title"
+        <TextView android:id="@+id/detail_title"
             android:layout_alignParentLeft="true"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             style="@style/TextHeader" />
+
+        <TextView android:id="@+id/detail_subtitle"
+            android:layout_below="@+id/detail_title"
+            android:layout_alignParentLeft="true"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            style="@style/TextHeaderSub" />
     </RelativeLayout>
 
-+
+    <TabHost android:id="@android:id/tabhost"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <LinearLayout android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <TabWidget android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"                
+                android:background="@drawable/tab_off_background"/>
+            <FrameLayout android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <include android:id="@+id/tab_detail_project_description" layout="@layout/tab_detail_project_description" />
+				<include android:id="@+id/tab_project_links" layout="@layout/tab_project_links" />
+				<include android:id="@+id/tab_project_users" layout="@layout/tab_project_users" />
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+
+
     <Button
         android:id="@+id/btn_sprints"
         android:layout_width="wrap_content"

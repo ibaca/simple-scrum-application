@@ -60,5 +60,11 @@
     <string name="error_title">DB ERROR</string>
     <string name="error_message">The query has not results</string>
     <string name="resolve_edit">Edit task</string>
+    
+    <string name="empty_links">Empty Links</string>
+    <string name="empty_users">Empty Users</string>
+    <string name="project_links">Links</string>
+    <string name="project_users">Users</string>
+    <string name="project_description">Description</string>
 
 </resources>

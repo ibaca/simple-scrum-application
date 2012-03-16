@@ -18,11 +18,17 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<Cursor> {
 
     protected final static String TAG = "ProjectDetailFragment";
+
+    private static final String TAG_DESCRIPTION = "description";
+    private static final String TAG_USERS = "users";
+    private static final String TAG_LINKS = "links";
+
     protected Handler mHandler = new Handler();
     protected Activity mActivity;
     private Uri mContentUri;
@@ -63,6 +69,12 @@ public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<C
             }
         });
 
+        TabHost tabHost = (TabHost) view.findViewById(android.R.id.tabhost);
+        tabHost.setup();
+        setupDescriptionTab(view);
+        setupLinksTab(view);
+        setupUsersTab(view);
+
         return view;
     }
 
@@ -92,16 +104,46 @@ public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<C
             // Update UI
             mHandler.post(new Runnable() {
                 public void run() {
-                    ((TextView) getView().findViewById(R.id.detail_title))
-                            .setText(name);
-                    ((TextView) getView().findViewById(R.id.detail_summary))
-                            .setText("summary " + summary);
-                    ((TextView) getView().findViewById(R.id.detail_description))
-                            .setText("description " + description);
+                    ((TextView) getView().findViewById(R.id.detail_title)).setText(name);
+                    ((TextView) getView().findViewById(R.id.detail_subtitle)).setText(summary);
+                    // ((TextView)
+                    // getView().findViewById(R.id.detail_description))
+                    // .setText("description "
+                    // + description);
+
                 }
             });
         }
 
+    }
+
+    private void setupLinksTab(View view) {
+        TabHost mTabHost = (TabHost) view.findViewById(android.R.id.tabhost);
+        mTabHost.addTab(mTabHost.newTabSpec(TAG_LINKS)
+                .setIndicator(buildIndicator(R.string.project_links, view))
+                .setContent(R.id.tab_project_links));
+    }
+
+    private void setupUsersTab(View view) {
+        TabHost mTabHost = (TabHost) view.findViewById(android.R.id.tabhost);
+        mTabHost.addTab(mTabHost.newTabSpec(TAG_USERS)
+                .setIndicator(buildIndicator(R.string.project_users, view))
+                .setContent(R.id.tab_project_users));
+    }
+
+    private void setupDescriptionTab(View view) {
+        TabHost mTabHost = (TabHost) view.findViewById(android.R.id.tabhost);
+        mTabHost.addTab(mTabHost.newTabSpec(TAG_DESCRIPTION)
+                .setIndicator(buildIndicator(R.string.project_description, view))
+                .setContent(R.id.tab_detail_project_description));
+    }
+
+    private View buildIndicator(int textRes, View view) {
+        final TextView indicator = (TextView) getActivity().getLayoutInflater()
+                .inflate(R.layout.tab_indicator,
+                        (ViewGroup) view.findViewById(android.R.id.tabs), false);
+        indicator.setText(textRes);
+        return indicator;
     }
 
     @Override

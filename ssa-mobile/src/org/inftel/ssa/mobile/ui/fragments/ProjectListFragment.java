@@ -139,12 +139,14 @@ public class ProjectListFragment extends ListFragment implements LoaderCallbacks
 
             int colName = cursor.getColumnIndex(ProjectTable.KEY_NAME);
             int colSummary = cursor.getColumnIndex(ProjectTable.KEY_SUMMARY);
+            int colOpened = cursor.getColumnIndex(ProjectTable.KEY_OPENED);
 
             Log.d(getClass().getSimpleName(), "" + colName);
             Log.d(getClass().getSimpleName(), "" + colSummary);
 
             titleView.setText(cursor.getString(colName));
-            subtitleView.setText(cursor.getString(colSummary));
+            subtitleView.setText(cursor.getString(colSummary) + "  " +
+                    cursor.getString(colOpened));
 
         }
 

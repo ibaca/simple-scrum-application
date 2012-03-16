@@ -16,26 +16,25 @@
 <!-- </FrameLayout> -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" 
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    style="@style/ListItemContainer">
     <RelativeLayout
         android:id="@+id/list_item_project"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-
-
+        android:layout_height="wrap_content" 
+        style="@style/ListItemContainer">
         <TextView
             android:id="@+id/project_title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true" />
-
+            android:layout_alignParentLeft="true"
+            style="@style/ListItemTitle" />
         <TextView
             android:id="@+id/project_subtitle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@id/project_title" />
-
+            android:layout_below="@id/project_title"
+            style="@style/ListItemSubtitle"/>
     </RelativeLayout>
-
 </FrameLayout>
