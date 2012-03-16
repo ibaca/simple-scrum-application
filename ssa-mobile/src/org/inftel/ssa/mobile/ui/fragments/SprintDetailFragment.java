@@ -1,6 +1,8 @@
 
 package org.inftel.ssa.mobile.ui.fragments;
 
+import static org.inftel.ssa.mobile.ui.BaseActivity.ARGS_URI;
+
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.contentproviders.SprintContentProvider;
 import org.inftel.ssa.mobile.contentproviders.SprintTable;
@@ -30,6 +32,21 @@ public class SprintDetailFragment extends Fragment implements LoaderCallbacks<Cu
     protected Activity mActivity;
     private Uri mContentUri;
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_sprint_detail, container, false);
+
+        Bundle arguments = getArguments();
+        // TODO buscar donde esta la constante _uri!
+        if (arguments != null && arguments.get(ARGS_URI) != null) {
+            mContentUri = (Uri) arguments.get(ARGS_URI);
+        }
+
+        setHasOptionsMenu(true);
+
+        return view;
+    }
+
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mActivity = getActivity();
@@ -39,21 +56,6 @@ public class SprintDetailFragment extends Fragment implements LoaderCallbacks<Cu
         } else {
             // New item (set default values)
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_sprint_detail, container, false);
-
-        Bundle arguments = getArguments();
-        // TODO buscar donde esta la constante _uri!
-        if (arguments != null && arguments.get("_uri") != null) {
-            mContentUri = (Uri) arguments.get("_uri");
-        }
-
-        setHasOptionsMenu(true);
-
-        return view;
     }
 
     @Override

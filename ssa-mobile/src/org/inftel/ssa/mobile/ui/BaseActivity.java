@@ -18,6 +18,9 @@ import android.view.MenuItem;
  * {@link BaseMultiPaneActivity}.
  */
 public abstract class BaseActivity extends FragmentActivity {
+
+    public static final String ARGS_URI = "_uri";
+
     final ActivityHelper mActivityHelper = ActivityHelper.createInstance(this);
 
     @Override
@@ -78,7 +81,7 @@ public abstract class BaseActivity extends FragmentActivity {
 
         final Uri data = intent.getData();
         if (data != null) {
-            arguments.putParcelable("_uri", data);
+            arguments.putParcelable(ARGS_URI, data);
         }
 
         final Bundle extras = intent.getExtras();
@@ -98,13 +101,13 @@ public abstract class BaseActivity extends FragmentActivity {
             return intent;
         }
 
-        final Uri data = arguments.getParcelable("_uri");
+        final Uri data = arguments.getParcelable(ARGS_URI);
         if (data != null) {
             intent.setData(data);
         }
 
         intent.putExtras(arguments);
-        intent.removeExtra("_uri");
+        intent.removeExtra(ARGS_URI);
         return intent;
     }
 }

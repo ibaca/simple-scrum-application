@@ -3,8 +3,10 @@ package org.inftel.ssa.mobile.ui.fragments;
 
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.contentproviders.ProjectTable;
+import org.inftel.ssa.mobile.contentproviders.SprintContentProvider;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,6 +26,7 @@ public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<C
     protected Handler mHandler = new Handler();
     protected Activity mActivity;
     private Uri mContentUri;
+    private String mProjectId;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -49,6 +52,17 @@ public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<C
 
         setHasOptionsMenu(true);
 
+        // Handle sprints click
+        view.findViewById(R.id.btn_sprints).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Uri sprintUri = SprintContentProvider.CONTENT_URI.buildUpon()
+                        .appendQueryParameter("project_id", mProjectId).build();
+                startActivity(new Intent(Intent.ACTION_VIEW, sprintUri));
+            }
+        });
+
         return view;
     }
 
@@ -70,19 +84,20 @@ public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<C
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (data.moveToFirst()) {
-            final String name = data.getString(data.getColumnIndex(ProjectTable.KEY_NAME));
-            final String summary = data.getString(data.getColumnIndex(ProjectTable.KEY_SUMMARY));
-            final String description = data.getString(data
-                    .getColumnIndex(ProjectTable.KEY_DESCRIPTION));
+            final String name, summary, description;
+            name = data.getString(data.getColumnIndex(ProjectTable.KEY_NAME));
+            summary = data.getString(data.getColumnIndex(ProjectTable.KEY_SUMMARY));
+            description = data.getString(data.getColumnIndex(ProjectTable.KEY_DESCRIPTION));
+            mProjectId = data.getString(data.getColumnIndex(ProjectTable.KEY_ID));
             // Update UI
             mHandler.post(new Runnable() {
                 public void run() {
-                    ((TextView) getView().findViewById(R.id.detail_title)).setText(name);
-                    ((TextView) getView().findViewById(R.id.detail_summary)).setText("summary "
-                            + summary);
+                    ((TextView) getView().findViewById(R.id.detail_title))
+                            .setText(name);
+                    ((TextView) getView().findViewById(R.id.detail_summary))
+                            .setText("summary " + summary);
                     ((TextView) getView().findViewById(R.id.detail_description))
-                            .setText("description "
-                                    + description);
+                            .setText("description " + description);
                 }
             });
         }

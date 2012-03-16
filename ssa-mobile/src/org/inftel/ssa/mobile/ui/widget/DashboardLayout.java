@@ -55,7 +55,6 @@ public class DashboardLayout extends ViewGroup {
         }
 
         // Measure again for each child to be exactly the same size.
-
         childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(
                 mMaxChildWidth, MeasureSpec.EXACTLY);
         childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(
