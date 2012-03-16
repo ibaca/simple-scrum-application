@@ -89,7 +89,4 @@
         android:layout_height="wrap_content"
         android:text="Large Text" />
 
-    <TextView>
-    </TextView>
-
 </LinearLayout>
