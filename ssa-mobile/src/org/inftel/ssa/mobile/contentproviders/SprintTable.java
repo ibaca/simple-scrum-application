@@ -13,13 +13,15 @@ public class SprintTable {
     public static final String KEY_ID = "_id";
     public static final String KEY_SUMMARY = "summary";
     public static final String KEY_STABLE_ID = "stable_id";
+    public static final String KEY_PROJECT_FK = "project_id";
 
     // Database creation sql statement
     private static final String DATABASE_CREATE =
             "create table " + SPRINT_TABLE + " ("
                     + KEY_ID + " INTEGER primary key autoincrement, "
                     + KEY_SUMMARY + " TEXT, "
-                    + KEY_STABLE_ID + " TEXT); ";
+                    + KEY_STABLE_ID + " TEXT, "
+                    + KEY_PROJECT_FK + " INTEGER); ";
 
     public static void onCreate(SQLiteDatabase database) {
         database.execSQL(DATABASE_CREATE);
@@ -28,7 +30,6 @@ public class SprintTable {
     public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
                 + newVersion + ", which will destroy all old data");
-
         db.execSQL("DROP TABLE IF EXISTS " + SPRINT_TABLE);
         onCreate(db);
     }

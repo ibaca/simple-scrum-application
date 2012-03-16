@@ -29,6 +29,8 @@ public class SsaApplication extends Application {
 
             ContentValues values = new ContentValues();
 
+            values.put(SprintTable.KEY_PROJECT_FK, "1");
+
             values.put(SprintTable.KEY_SUMMARY, "Primer sprint");
             cr.insert(SprintContentProvider.CONTENT_URI, values);
             values.put(SprintTable.KEY_SUMMARY, "Segundo sprint");
