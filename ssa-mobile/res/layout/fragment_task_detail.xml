@@ -4,7 +4,7 @@
     android:orientation="vertical" >
 
     <RelativeLayout
-        android:id="@+id/header_sprint"
+        android:id="@+id/header_task"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/body_padding_medium"
