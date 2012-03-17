@@ -12,26 +12,29 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
-  -->
+-->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:fillViewport="true">
+    android:fillViewport="true" >
 
-    <LinearLayout android:orientation="vertical"
+    <LinearLayout
         android:id="@+id/links_container"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/body_padding_medium"
+        android:paddingLeft="@dimen/body_padding_large"
+        android:paddingRight="@dimen/body_padding_large"
+        android:paddingTop="@dimen/body_padding_medium" >
 
-        <TextView android:id="@+id/empty_links"
+        <TextView
+            android:id="@+id/empty_links"
             style="@android:style/TextAppearance.Medium"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:text="@string/empty_links"
-            android:gravity="center"
-            android:visibility="gone" />
-
+            android:text="@string/empty_links" />
     </LinearLayout>
 
 </ScrollView>

@@ -1,57 +1,109 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-    <RelativeLayout android:id="@+id/header_session"
+    <RelativeLayout
+        android:id="@+id/header_session"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/body_padding_medium"
         android:paddingLeft="@dimen/body_padding_large"
         android:paddingRight="@dimen/body_padding_large"
-        android:paddingTop="@dimen/body_padding_medium"
-        android:paddingBottom="@dimen/body_padding_medium">
+        android:paddingTop="@dimen/body_padding_medium" >
 
-        
-        <TextView android:id="@+id/detail_title"
-            android:layout_alignParentLeft="true"
+        <TextView
+            android:id="@+id/detail_title"
+            style="@style/TextHeader"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            style="@style/TextHeader" />
+            android:layout_alignParentLeft="true" />
 
-        <TextView android:id="@+id/detail_subtitle"
-            android:layout_below="@+id/detail_title"
-            android:layout_alignParentLeft="true"
+        <TextView
+            android:id="@+id/detail_subtitle"
+            style="@style/TextHeaderSub"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            style="@style/TextHeaderSub" />
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/detail_title" />
+
+        <Button
+            android:id="@+id/project_btn_users"
+            style="@style/DashboardButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="15dip"
+            android:layout_below="@+id/detail_subtitle"
+            android:drawableTop="@drawable/project_btn_users"
+            android:text="@string/btn_users" />
+
+        <Button
+            android:id="@+id/project_btn_tasks"
+            style="@style/DashboardButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/detail_subtitle"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="15dip"
+            android:drawableTop="@drawable/project_btn_tasks"
+            android:text="@string/btn_tasks" />
+
+        <Button
+            android:id="@+id/project_btn_sprints"
+            style="@style/DashboardButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="15dip"
+            android:layout_below="@+id/detail_subtitle"
+            android:drawableTop="@drawable/project_btn_sprints"
+            android:text="@string/btn_sprints" />
+
     </RelativeLayout>
 
-    <TabHost android:id="@android:id/tabhost"
+    <TabHost
+        android:id="@android:id/tabhost"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-        <LinearLayout android:orientation="vertical"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-            <TabWidget android:id="@android:id/tabs"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <TabWidget
+                android:id="@android:id/tabs"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"                
-                android:background="@drawable/tab_off_background"/>
-            <FrameLayout android:id="@android:id/tabcontent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/tab_off_background" >
+            </TabWidget>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1">
-                <include android:id="@+id/tab_detail_project_description" layout="@layout/tab_detail_project_description" />
-				<include android:id="@+id/tab_project_links" layout="@layout/tab_project_links" />
-				<include android:id="@+id/tab_project_users" layout="@layout/tab_project_users" />
+                android:layout_weight="0.43" >
+
+                <include
+                    android:id="@+id/tab_detail_project_description"
+                    layout="@layout/tab_project_description" />
+
+                <include
+                    android:id="@+id/tab_project_links"
+                    layout="@layout/tab_project_links" />
+
+                <include
+                    android:id="@+id/tab_project_information"
+                    layout="@layout/tab_project_information" />
             </FrameLayout>
         </LinearLayout>
     </TabHost>
 
-
-    <Button
-        android:id="@+id/btn_sprints"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_sprints" />
+    <!-- <Button -->
+    <!-- android:id="@+id/btn_sprints" -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:text="@string/btn_sprints" /> -->
 
 </LinearLayout>

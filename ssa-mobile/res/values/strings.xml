@@ -62,9 +62,15 @@
     <string name="resolve_edit">Edit task</string>
     
     <string name="empty_links">Empty Links</string>
-    <string name="empty_users">Empty Users</string>
     <string name="project_links">Links</string>
-    <string name="project_users">Users</string>
+    <string name="project_information">Information</string>
     <string name="project_description">Description</string>
+    <string name="project_label_opened">Created:  </string>
+    <string name="project_label_started">Started:  </string>
+    <string name="project_label_closed">Closed:  </string>
+    <string name="project_label_company">Company:  </string>
+    <string name="project_label_license">License:  </string>
+    <string name="project_label_labels">Labels:  </string>
+    
 
 </resources>
