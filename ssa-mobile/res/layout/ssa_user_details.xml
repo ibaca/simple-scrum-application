@@ -48,6 +48,18 @@
         android:text="Button" />
 
     <TextView
+        android:id="@+id/projectlb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Project: " />
+
+    <TextView
+        android:id="@+id/project"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Large Text" />
+    
+    <TextView
         android:id="@+id/companylb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

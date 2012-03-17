@@ -14,6 +14,7 @@ public class UserTable {
     public static final String KEY_FULLNAME = "fullname";
     public static final String KEY_NICKNAME = "nickname";
     public static final String KEY_EMAIL = "email";
+    public static final String KEY_PROJECT = "project";
     public static final String KEY_COMPANY = "company";
     public static final String KEY_PASS = "password";
     public static final String KEY_ROLE = "userRole";
@@ -26,6 +27,7 @@ public class UserTable {
                     + KEY_FULLNAME + " TEXT, "
                     + KEY_NICKNAME + " TEXT, "
                     + KEY_EMAIL + " TEXT, "
+                    + KEY_PROJECT + " TEXT, "
                     + KEY_NUMBER + " TEXT, "
                     + KEY_COMPANY + " TEXT, "
                     + KEY_PASS + " TEXT, "

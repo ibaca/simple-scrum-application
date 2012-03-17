@@ -67,7 +67,8 @@ public class UserDetailFragment extends Fragment implements LoaderCallbacks<Curs
         String[] projection = new String[] {
                 UserTable.KEY_ID,
                 UserTable.KEY_FULLNAME, UserTable.KEY_NICKNAME,
-                UserTable.KEY_EMAIL, UserTable.KEY_NUMBER,
+                UserTable.KEY_EMAIL, UserTable.KEY_PROJECT,
+                UserTable.KEY_NUMBER,
                 UserTable.KEY_COMPANY,
                 UserTable.KEY_ROLE
         };
@@ -83,6 +84,7 @@ public class UserDetailFragment extends Fragment implements LoaderCallbacks<Curs
             final String fullname = data.getString(data.getColumnIndex(UserTable.KEY_FULLNAME));
             final String nickname = data.getString(data.getColumnIndex(UserTable.KEY_NICKNAME));
             final String email = data.getString(data.getColumnIndex(UserTable.KEY_EMAIL));
+            final String project = data.getString(data.getColumnIndex(UserTable.KEY_PROJECT));
             final String company = data.getString(data.getColumnIndex(UserTable.KEY_COMPANY));
             final String number = data.getString(data.getColumnIndex(UserTable.KEY_NUMBER));
             final String role = data.getString(data.getColumnIndex(UserTable.KEY_ROLE));
@@ -92,6 +94,7 @@ public class UserDetailFragment extends Fragment implements LoaderCallbacks<Curs
                     ((TextView) getView().findViewById(R.id.fullname)).setText(fullname);
                     ((TextView) getView().findViewById(R.id.nickname)).setText(nickname);
                     ((TextView) getView().findViewById(R.id.email)).setText(email);
+                    ((TextView) getView().findViewById(R.id.project)).setText(project);
                     ((TextView) getView().findViewById(R.id.company)).setText(company);
                     ((TextView) getView().findViewById(R.id.number)).setText(number);
                     ((TextView) getView().findViewById(R.id.role)).setText(role);

@@ -31,6 +31,9 @@ public class UserListFragment extends ListFragment implements LoaderCallbacks<Cu
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        ContentResolver cr = getActivity().getContentResolver();
+        insertarEliminar(cr);
+
         Bundle arguments = getArguments();
         if (arguments != null && arguments.get(ARGS_URI) != null) {
             mContentUri = (Uri) arguments.get(ARGS_URI);
@@ -66,8 +69,25 @@ public class UserListFragment extends ListFragment implements LoaderCallbacks<Cu
         Uri userUri = ContentUris.withAppendedId(UserContentProvider.CONTENT_URI,
                 c.getLong(c.getColumnIndex(UserTable.KEY_ID)));
 
+        // ACTION PICK
+        String action = getActivity().getIntent().getAction();
+        if (Intent.ACTION_PICK.equals(action) ||
+                Intent.ACTION_GET_CONTENT.equals(action)) {
+            System.out.println("entro en el ACTION_PICK");
+            // The caller is waiting for us to return a note selected by
+            // the user. The have clicked on one, so return it now.
+            getActivity().setResult(-1, new
+                    Intent().setData(userUri));
+        } else {
+            System.out.println("no entro en el ACTION_PICK");
+            // Launch activity to view/edit the currently selected item
+            startActivity(new Intent(Intent.ACTION_VIEW, userUri));
+        }
+        // FINALIZA ACTION PICK
+
+        //
         // Start view activity to show sprint details
-        startActivity(new Intent(Intent.ACTION_VIEW, userUri));
+        // startActivity(new Intent(Intent.ACTION_VIEW, userUri));
     }
 
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -77,15 +97,15 @@ public class UserListFragment extends ListFragment implements LoaderCallbacks<Cu
         String selection = null;
         String[] selectionArgs = null;
         if (mContentUri.getQueryParameter("project_id") != null) {
-            selection = "project_id = ?";
+            selection = UserTable.KEY_PROJECT + " = ?";
             selectionArgs = new String[] {
                     mContentUri.getQueryParameter("project_id")
             };
 
         }
 
-        return new CursorLoader(getActivity(), UserContentProvider.CONTENT_URI,
-                projection, selection, selectionArgs, null);
+        return new CursorLoader(getActivity(),
+                UserContentProvider.CONTENT_URI, projection, selection, selectionArgs, null);
     }
 
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
