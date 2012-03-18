@@ -2,7 +2,7 @@
 package org.inftel.ssa.mobile.ui.phone;
 
 import org.inftel.ssa.mobile.ui.BaseSinglePaneActivity;
-import org.inftel.ssa.mobile.ui.fragments.SprintListFragment;
+import org.inftel.ssa.mobile.ui.fragments.TaskListFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,7 +10,7 @@ import android.support.v4.app.Fragment;
 public class TaskListActivity extends BaseSinglePaneActivity {
     @Override
     protected Fragment onCreatePane() {
-        return new SprintListFragment();
+        return new TaskListFragment();
     }
 
     @Override
