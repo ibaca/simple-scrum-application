@@ -17,9 +17,14 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -50,6 +55,7 @@ public class ProjectListFragment extends ListFragment implements LoaderCallbacks
         // Populate the adapter / list using a Cursor Loader.
         getLoaderManager().initLoader(0, null, this);
 
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -89,34 +95,53 @@ public class ProjectListFragment extends ListFragment implements LoaderCallbacks
 
     }
 
-    // @Override
-    // public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo
-    // menuInfo) {
-    // Log.d("FencesList", "context menu created");
-    // super.onCreateContextMenu(menu, v, menuInfo);
-    // menu.add(0, EDIT_ID, 0, R.string.menu_edit);
-    // menu.add(0, DELETE_ID, 0, R.string.menu_delete);
-    // }
-    //
-    // @Override
-    // public boolean onContextItemSelected(MenuItem item) {
-    // Log.d("FencesList", "context menu selected");
-    // AdapterContextMenuInfo info = (AdapterContextMenuInfo)
-    // item.getMenuInfo();
-    // switch (item.getItemId()) {
-    // case EDIT_ID:
-    // // Delega comportamiento al click listener
-    // onListItemClick(getListView(), getView(), info.position, info.id);
-    // return true;
-    // case DELETE_ID:
-    // // TODO Igual un popup que pregunte si se esta seguro
-    // Uri uri = ContentUris.withAppendedId(SprintContentProvider.CONTENT_URI,
-    // info.id);
-    // getActivity().getContentResolver().delete(uri, null, null);
-    // return true;
-    // }
-    // return super.onContextItemSelected(item);
-    // }
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo
+            menuInfo) {
+        Log.d("ProjectList", "context menu created");
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.add(0, EDIT_ID, 0, R.string.menu_edit);
+        menu.add(0, DELETE_ID, 0, R.string.menu_delete);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        Log.d("ProjectList", "context menu selected");
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo)
+                item.getMenuInfo();
+        switch (item.getItemId()) {
+            case EDIT_ID:
+                // Delega comportamiento al click listener
+                onListItemClick(getListView(), getView(), info.position, info.id);
+                return true;
+            case DELETE_ID:
+                // TODO Igual un popup que pregunte si se esta seguro
+                Uri uri = ContentUris.withAppendedId(ProjectContentProvider.CONTENT_URI,
+                        info.id);
+                getActivity().getContentResolver().delete(uri, null, null);
+                return true;
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.new_project_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_add:
+                Log.d(getClass().getSimpleName(), "Creando nuevo proyecto");
+                final Intent intent = new Intent(Intent.ACTION_INSERT,
+                        ProjectContentProvider.CONTENT_URI);
+                startActivity(intent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private class ProjectListAdapter extends CursorAdapter {
         public ProjectListAdapter(Context context, Cursor cursor) {

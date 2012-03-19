@@ -1,40 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" -->
-<!--     android:layout_width="match_parent" -->
-<!--     android:layout_height="wrap_content" > -->
+<!-- android:layout_width="match_parent" -->
+<!-- android:layout_height="wrap_content" > -->
 
-<!--     <TextView -->
-<!--         android:id="@+id/text1" -->
-<!--         android:layout_width="match_parent" -->
-<!--         android:layout_height="wrap_content" /> -->
+<!-- <TextView -->
+<!-- android:id="@+id/text1" -->
+<!-- android:layout_width="match_parent" -->
+<!-- android:layout_height="wrap_content" /> -->
 
-<!--     <TextView -->
-<!--         android:id="@+id/text2" -->
-<!--         android:layout_width="match_parent" -->
-<!--         android:layout_height="wrap_content" /> -->
+<!-- <TextView -->
+<!-- android:id="@+id/text2" -->
+<!-- android:layout_width="match_parent" -->
+<!-- android:layout_height="wrap_content" /> -->
 
 <!-- </FrameLayout> -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ListItemContainer"
+    android:background="@drawable/gradient_bg"    
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    style="@style/ListItemContainer">
+    android:layout_height="wrap_content">
+    
+
     <RelativeLayout
         android:id="@+id/list_item_project"
+        style="@style/ListItemContainer"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-        style="@style/ListItemContainer">
+        android:layout_height="wrap_content">
+
         <TextView
             android:id="@+id/project_title"
+            style="@style/ListItemTitle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            style="@style/ListItemTitle" />
+            android:layout_alignParentLeft="true" />
+
         <TextView
             android:id="@+id/project_subtitle"
+            style="@style/ListItemSubtitle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@id/project_title"
-            style="@style/ListItemSubtitle"/>
+            android:layout_below="@id/project_title" />        
+
+        <TextView
+            android:id="@+id/percentComplete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/project_title"
+            android:layout_marginRight="5dip"
+            android:gravity="right"
+            android:text="50%"
+            android:textColor="#343434"
+            android:textSize="10dip"
+            android:textStyle="bold" />
+       
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow" />
+        
     </RelativeLayout>
+
 </FrameLayout>

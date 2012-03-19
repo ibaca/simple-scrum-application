@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/header_session"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/body_padding_medium"
+        android:paddingLeft="@dimen/body_padding_large"
+        android:paddingRight="@dimen/body_padding_large"
+        android:paddingTop="@dimen/body_padding_medium" >
+
+        <TextView
+            android:id="@+id/lbl_project_edit_title"
+            style="@style/TextBody"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="Name" />
+
+        <EditText
+            android:id="@+id/project_edit_title"
+            style="@style/TextBody"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+           android:layout_below="@+id/lbl_project_edit_title"/>
+        
+        <TextView
+            android:id="@+id/lbl_project_edit_summary"
+            style="@style/TextBody"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/project_edit_title"
+            android:text="Summary" />
+
+        <EditText
+            android:id="@+id/project_edit_summary"
+            style="@style/TextBody"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lbl_project_edit_summary" />
+
+        
+
+    </RelativeLayout>
+
+</LinearLayout>
