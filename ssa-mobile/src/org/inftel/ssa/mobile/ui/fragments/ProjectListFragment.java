@@ -112,7 +112,16 @@ public class ProjectListFragment extends ListFragment implements LoaderCallbacks
         switch (item.getItemId()) {
             case EDIT_ID:
                 // Delega comportamiento al click listener
-                onListItemClick(getListView(), getView(), info.position, info.id);
+                // onListItemClick(getListView(), getView(), info.position,
+                // info.id);
+                Cursor c = mAdapter.getCursor();
+                c.moveToPosition(info.position);
+
+                Uri projectUri = ContentUris.withAppendedId(ProjectContentProvider.CONTENT_URI,
+                        c.getLong(c.getColumnIndex(ProjectTable.KEY_ID)));
+
+                // Start view activity to show sprint details
+                startActivity(new Intent(Intent.ACTION_EDIT, projectUri));
                 return true;
             case DELETE_ID:
                 // TODO Igual un popup que pregunte si se esta seguro
