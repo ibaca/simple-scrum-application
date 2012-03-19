@@ -60,7 +60,7 @@
     <string name="error_title">DB ERROR</string>
     <string name="error_message">The query has not results</string>
     <string name="resolve_edit">Edit task</string>
-    
+        
     <string name="empty_links">Empty Links</string>
     <string name="project_links">Links</string>
     <string name="project_information">Information</string>
@@ -72,5 +72,38 @@
     <string name="project_label_license">License:  </string>
     <string name="project_label_labels">Labels:  </string>
     
+    <!-- Title string for Login activity-->
+    <string name="ui_activity_title">Sign-in</string>
+    <!-- Message shown in progress dialog while app connects to the server -->
+    <string name="ui_activity_authenticating">Authenticating\u2026</string>
+    <!-- AuthenticatorActivity -->
+    <skip />
+    <!-- Label above username EditText -->
+    <string name="login_activity_username_label">Username</string>
+    <!-- Label above password EditText -->
+    <string name="login_activity_password_label">Password</string>
+    <!-- Button to sign in after entering username and password -->
+    <string name="login_activity_ok_button">Sign in</string>
+
+    <!-- Message shown in dialog if the username or password is invalid. -->
+    <string name="login_activity_loginfail_text_both">The username or password isn\'t valid. A SSA account is
+        required. Please try again. </string>
+    <!-- Message shown in dialog if the password is invalid -->
+    <string name="login_activity_loginfail_text_pwonly">You entered the wrong password or your account has changed.
+        Please re-enter your password.</string>
+    <!-- Message shown in dialog to prompt the user for their password -->
+    <string name="login_activity_loginfail_text_pwmissing">Type the password for this account.</string>
+    <!--
+        Message shown if the provided account doesn't support the current
+        activity.
+    -->
+    <string name="login_activity_newaccount_text">Sign in to your SSA account. </string>
+
+    <!-- Button that takes the user to the "sign in" screen -->
+    <string name="sign_in_button_label">Sign in</string>
+    <!-- Button for going to the previous screen or step -->
+    <string name="back_button_label">Back</string>
+    <!-- Button to cancel the current operation -->
+    <string name="cancel_button_label">Cancel</string>
 
 </resources>

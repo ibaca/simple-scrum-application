@@ -9,9 +9,9 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
+import org.inftel.ssa.mobile.SsaConstants;
 import org.inftel.ssa.mobile.comm.AndroidRequestTransport;
 
 import android.app.Notification;
@@ -85,11 +85,6 @@ public class Util {
     public static final String UPDATE_UI_INTENT = getPackageName() + ".UPDATE_UI";
 
     // End shared constants
-
-    /**
-     * Key for shared preferences.
-     */
-    private static final String SHARED_PREFS = "socialwind".toUpperCase(Locale.ENGLISH) + "_PREFS";
 
     /**
      * Cache containing the base URL for a given context.
@@ -168,7 +163,7 @@ public class Util {
      * Helper method to get a SharedPreferences instance.
      */
     public static SharedPreferences getSharedPreferences(Context context) {
-        return context.getSharedPreferences(SHARED_PREFS, 0);
+        return context.getSharedPreferences(SsaConstants.SHARED_PREFS, 0);
     }
 
     /**

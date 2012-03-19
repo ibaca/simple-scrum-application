@@ -1,6 +1,8 @@
 
 package org.inftel.ssa.mobile.comm;
 
+import static org.inftel.ssa.mobile.SsaConstants.SP_DEFAULT_REQUESTFACTORY_TIMEOUT;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,6 +15,9 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 
 import com.google.web.bindery.requestfactory.shared.RequestTransport;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
@@ -39,7 +44,9 @@ public class AndroidRequestTransport implements RequestTransport {
     }
 
     public void send(String payload, TransportReceiver receiver) {
-        HttpClient client = new DefaultHttpClient();
+        HttpParams params = new BasicHttpParams();
+        HttpConnectionParams.setConnectionTimeout(params, SP_DEFAULT_REQUESTFACTORY_TIMEOUT);
+        HttpClient client = new DefaultHttpClient(params);
         HttpPost post = new HttpPost();
         post.setHeader("Content-Type", "application/json;charset=UTF-8");
         post.setHeader("Cookie", cookie);
