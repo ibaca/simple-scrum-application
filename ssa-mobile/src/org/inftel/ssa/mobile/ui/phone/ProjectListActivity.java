@@ -3,6 +3,8 @@ package org.inftel.ssa.mobile.ui.phone;
 
 import org.inftel.ssa.mobile.contentproviders.ProjectContentProvider;
 import org.inftel.ssa.mobile.contentproviders.ProjectTable;
+import org.inftel.ssa.mobile.contentproviders.TaskContentProvider;
+import org.inftel.ssa.mobile.contentproviders.TaskTable;
 import org.inftel.ssa.mobile.ui.BaseSinglePaneActivity;
 import org.inftel.ssa.mobile.ui.fragments.ProjectListFragment;
 
@@ -38,6 +40,16 @@ public class ProjectListActivity extends BaseSinglePaneActivity {
                 ProjectTable.KEY_NAME + " = 'Proyecto 3'", null);
         cr.delete(ProjectContentProvider.CONTENT_URI,
                 ProjectTable.KEY_NAME + " = 'Proyecto 4'", null);
+        cr.delete(TaskContentProvider.CONTENT_URI,
+                TaskTable.COLUMN_PROJECT + " = '1'", null);
+
+        values.put(TaskTable.COLUMN_PROJECT, "1");
+        values.put(TaskTable.COLUMN_STATUS, "2");
+        cr.insert(TaskContentProvider.CONTENT_URI, values);
+        values.put(TaskTable.COLUMN_PROJECT, "1");
+        values.put(TaskTable.COLUMN_STATUS, "1");
+        cr.insert(TaskContentProvider.CONTENT_URI, values);
+        values.clear();
 
         values.put(ProjectTable.KEY_NAME, "Proyecto 1");
         values.put(ProjectTable.KEY_SUMMARY, "Pasos");

@@ -43,15 +43,14 @@
             android:layout_below="@id/project_title" />        
 
         <TextView
-            android:id="@+id/percentComplete"
+            android:id="@+id/countDoneTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/project_title"
             android:layout_marginRight="5dip"
             android:gravity="right"
-            android:text="50%"
-            android:textColor="#343434"
+            style="@style/ListItemSubtitle"
             android:textSize="10dip"
             android:textStyle="bold" />
        

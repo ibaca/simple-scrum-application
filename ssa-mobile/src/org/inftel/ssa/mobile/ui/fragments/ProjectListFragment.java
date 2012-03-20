@@ -4,7 +4,10 @@ package org.inftel.ssa.mobile.ui.fragments;
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.contentproviders.ProjectContentProvider;
 import org.inftel.ssa.mobile.contentproviders.ProjectTable;
+import org.inftel.ssa.mobile.contentproviders.TaskContentProvider;
+import org.inftel.ssa.mobile.contentproviders.TaskTable;
 
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -153,6 +156,10 @@ public class ProjectListFragment extends ListFragment implements LoaderCallbacks
     }
 
     private class ProjectListAdapter extends CursorAdapter {
+        private TextView subtitleView;
+        private TextView titleView;
+        private TextView countDoneTask;
+
         public ProjectListAdapter(Context context, Cursor cursor) {
             super(context, cursor, true);
         }
@@ -168,12 +175,16 @@ public class ProjectListFragment extends ListFragment implements LoaderCallbacks
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
 
-            final TextView titleView = (TextView) view.findViewById(R.id.project_title);
-            final TextView subtitleView = (TextView) view.findViewById(R.id.project_subtitle);
+            titleView = (TextView) view.findViewById(R.id.project_title);
+            subtitleView = (TextView) view.findViewById(R.id.project_subtitle);
+            countDoneTask = (TextView) view.findViewById(R.id.countDoneTask);
 
             int colName = cursor.getColumnIndex(ProjectTable.KEY_NAME);
             int colSummary = cursor.getColumnIndex(ProjectTable.KEY_SUMMARY);
             int colOpened = cursor.getColumnIndex(ProjectTable.KEY_OPENED);
+            int colId = cursor.getColumnIndex(ProjectTable.KEY_ID);
+
+            String doneTask = numberTaskComplete(cursor.getString(colId));
 
             Log.d(getClass().getSimpleName(), "" + colName);
             Log.d(getClass().getSimpleName(), "" + colSummary);
@@ -181,9 +192,36 @@ public class ProjectListFragment extends ListFragment implements LoaderCallbacks
             titleView.setText(cursor.getString(colName));
             subtitleView.setText(cursor.getString(colSummary) + "  " +
                     cursor.getString(colOpened));
+            countDoneTask.setText(doneTask);
 
         }
 
+    }
+
+    public String numberTaskComplete(String projectId) {
+        int doneTask = 0;
+
+        ContentResolver cr = getActivity().getContentResolver();
+        String[] projection = new String[] {
+                TaskTable.COLUMN_ID, TaskTable.COLUMN_STATUS
+        };
+        String selection = "project = ?";
+        String[] selectionArgs = new String[] {
+                projectId
+        };
+        Cursor cursor = cr.query(TaskContentProvider.CONTENT_URI, projection, selection,
+                selectionArgs, null);
+        int taskCount = cursor.getCount();
+        if (taskCount > 0) {
+            while (cursor.moveToNext()) {
+                String status = cursor.getString(cursor.getColumnIndex(TaskTable.COLUMN_STATUS));
+                if (status.equals("2")) {
+                    doneTask++;
+                }
+            }
+        }
+
+        return doneTask + "/" + taskCount;
     }
 
 }
