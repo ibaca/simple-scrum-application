@@ -21,4 +21,6 @@
     <color name="block_column_3">#ff009939</color>
     
     <color name="white">#ffff</color>
+    
+    <color name="frame_actions_bg">#c6c3c6</color>
 </resources>

@@ -18,8 +18,14 @@
         <item name="actionbarCompatLogoStyle">@style/ActionBarCompatLogo</item>
         <item name="actionbarCompatTextStyle">@style/ActionBarCompatText</item>
     </style>
-
+    
+    <style name="Theme.Ssa.Dialog" parent="android:style/Theme.Dialog" />
+    <style name="Theme.Ssa.DialogActions">
+        <item name="android:background">@android:drawable/bottom_bar</item>
+    </style>
+    
     <!-- Start with the Holographic Light theme -->
+    
     <style name="Theme.Ssa.Home" parent="style/Theme.Ssa">
         <item name="android:windowBackground">@drawable/background_noise</item>
     </style>

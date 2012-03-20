@@ -1,9 +1,12 @@
 
 package org.inftel.ssa.mobile.ui;
 
+import static android.content.ContentResolver.requestSync;
+
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.SsaConstants;
 import org.inftel.ssa.mobile.authenticator.AuthenticatorActivity;
+import org.inftel.ssa.mobile.contentproviders.ProjectContentProvider;
 import org.inftel.ssa.mobile.util.AnalyticsUtils;
 
 import android.accounts.Account;
@@ -64,15 +67,12 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void triggerRefresh() {
-        // final Intent intent = new Intent(Intent.ACTION_SYNC, null, this,
-        // SyncService.class);
-        // intent.putExtra(SyncService.EXTRA_STATUS_RECEIVER,
-        // mSyncStatusUpdaterFragment.mReceiver);
-        // startService(intent);
-        //
-        // if (mTagStreamFragment != null) {
-        // mTagStreamFragment.refresh();
-        // }
+        Account account = findAccount();
+        if (account != null) {
+            requestSync(account, ProjectContentProvider.AUTHORITY, new Bundle());
+        } else {
+            Toast.makeText(this, "Must be registered to synchronize", Toast.LENGTH_LONG);
+        }
     }
 
     private void updateRefreshStatus(boolean refreshing) {

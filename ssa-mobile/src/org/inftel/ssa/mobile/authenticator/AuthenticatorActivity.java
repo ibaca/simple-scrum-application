@@ -3,19 +3,21 @@ package org.inftel.ssa.mobile.authenticator;
 
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.SsaConstants;
+import org.inftel.ssa.mobile.contentproviders.ProjectContentProvider;
 
 import android.accounts.Account;
 import android.accounts.AccountAuthenticatorActivity;
 import android.accounts.AccountManager;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -81,23 +83,42 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
         Log.i(TAG, "onCreate(" + icicle + ")");
         super.onCreate(icicle);
         mAccountManager = AccountManager.get(this);
-        Log.i(TAG, "loading data from Intent");
-        final Intent intent = getIntent();
-        mUsername = intent.getStringExtra(PARAM_USERNAME);
-        mRequestNewAccount = mUsername == null;
-        mConfirmCredentials = intent.getBooleanExtra(PARAM_CONFIRM_CREDENTIALS, false);
-        Log.i(TAG, "    request new: " + mRequestNewAccount);
-        requestWindowFeature(Window.FEATURE_LEFT_ICON);
-        setContentView(R.layout.activity_login);
-        getWindow().setFeatureDrawableResource(
-                Window.FEATURE_LEFT_ICON, android.R.drawable.ic_dialog_alert);
-        mMessage = (TextView) findViewById(R.id.message);
-        mUsernameEdit = (EditText) findViewById(R.id.username_edit);
-        mPasswordEdit = (EditText) findViewById(R.id.password_edit);
-        if (!TextUtils.isEmpty(mUsername)) {
-            mUsernameEdit.setText(mUsername);
+
+        // Check if exists another account
+        if (mAccountManager.getAccountsByType(SsaConstants.ACCOUNT_TYPE).length > 0) {
+            // Toast.makeText(this, "Only one Ssa account alowed",
+            // Toast.LENGTH_LONG);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("New account not allowed");
+            builder.setMessage("Only one Ssa account allowed. If you want " +
+                    "to sync another account please remove previous one.");
+            builder.setPositiveButton("Understood", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    AuthenticatorActivity.this.finish();
+                }
+            });
+            builder.show();
+        } else {
+            // Create account content
+            Log.i(TAG, "loading data from Intent");
+            final Intent intent = getIntent();
+            mUsername = intent.getStringExtra(PARAM_USERNAME);
+            mRequestNewAccount = mUsername == null;
+            mConfirmCredentials = intent.getBooleanExtra(PARAM_CONFIRM_CREDENTIALS, false);
+            Log.i(TAG, "    request new: " + mRequestNewAccount);
+            requestWindowFeature(Window.FEATURE_LEFT_ICON);
+            setContentView(R.layout.activity_login);
+            getWindow().setFeatureDrawableResource(
+                    Window.FEATURE_LEFT_ICON, android.R.drawable.ic_dialog_alert);
+            mMessage = (TextView) findViewById(R.id.message);
+            mUsernameEdit = (EditText) findViewById(R.id.username_edit);
+            mPasswordEdit = (EditText) findViewById(R.id.password_edit);
+            if (!TextUtils.isEmpty(mUsername)) {
+                mUsernameEdit.setText(mUsername);
+            }
+            mMessage.setText(getMessage());
         }
-        mMessage.setText(getMessage());
     }
 
     /*
@@ -175,13 +196,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
      * @param result the confirmCredentials result.
      */
     private void finishLogin(String authToken) {
-
         Log.i(TAG, "finishLogin()");
         final Account account = new Account(mUsername, SsaConstants.ACCOUNT_TYPE);
         if (mRequestNewAccount) {
             mAccountManager.addAccountExplicitly(account, mPassword, null);
-            // Set contacts sync for this account.
-            ContentResolver.setSyncAutomatically(account, ContactsContract.AUTHORITY, true);
+            ContentResolver.setSyncAutomatically(account, ProjectContentProvider.AUTHORITY, true);
         } else {
             mAccountManager.setPassword(account, mPassword);
         }
@@ -285,9 +304,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
             // We do the actual work of authenticating the user
             // in the NetworkUtilities class.
             try {
-                return Authenticator.requestAuthToken(
-                        AuthenticatorActivity.this.getApplicationContext(), mUsername, mPassword);
-                // NetworkUtilities.authenticate(mUsername, mPassword);
+                Context ctx = AuthenticatorActivity.this.getApplicationContext();
+                return Authenticator.requestAuthToken(ctx, mUsername, mPassword);
             } catch (Exception ex) {
                 Log.e(TAG, "UserLoginTask.doInBackground: failed to authenticate");
                 Log.i(TAG, ex.toString());

@@ -40,7 +40,7 @@
                 android:minWidth="250dip"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
-                android:text="user" />
+                android:text="demo@mail.com" />
 
             <TextView
                 android:id="@+id/username_fixed"
@@ -68,7 +68,7 @@
                 android:autoText="false"
                 android:password="true"
                 android:inputType="textPassword"
-                android:text="test" />
+                android:text="demo" />
             <TextView
                 android:id="@+id/message_bottom"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -80,7 +80,7 @@
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#c6c3c6"
+        style="@style/Theme.Ssa.DialogActions"
         android:minHeight="54dip"
         android:paddingTop="4dip"
         android:paddingLeft="2dip"

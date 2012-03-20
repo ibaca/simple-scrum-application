@@ -20,6 +20,7 @@ public class ProjectContentProvider extends ContentProvider {
 
     public static final Uri CONTENT_URI = Uri
             .parse("content://org.inftel.ssa.mobile.contentproviders.projects/projects");
+    public static final String AUTHORITY = "org.inftel.ssa.mobile.contentproviders.projects";
 
     // Create the constants used to differentiate between the different URI
     // requests.

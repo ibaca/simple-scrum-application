@@ -8,6 +8,11 @@
         <item name="textHeaderMaxLines">@integer/text_header_max_lines</item>
         <item name="trackAbstractMaxLines">@integer/track_abstract_max_lines</item>
     </style>
+    
+    <style name="Theme.Ssa.Dialog" parent="android:style/Theme.Holo.Dialog" />
+    <style name="Theme.Ssa.DialogActions">
+        <item name="android:background">#00000000</item>
+    </style>
 
     <style name="Theme.Ssa.Home" parent="style/Theme.Ssa">
         <item name="android:windowBackground">@drawable/window_background_home</item>

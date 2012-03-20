@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Sync Adapter documentation: http://developer.android.com/reference/android/content/AbstractThreadedSyncAdapter.html -->
 <sync-adapter xmlns:android="http://schemas.android.com/apk/res/android"
     android:contentAuthority="org.inftel.ssa.mobile.contentproviders.projects"
     android:accountType="org.inftel.ssa.mobile"
     android:supportsUploading="true"
     android:userVisible="true"
+    android:isAlwaysSyncable="true"
 />

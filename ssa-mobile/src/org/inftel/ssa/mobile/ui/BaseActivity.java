@@ -1,8 +1,11 @@
 
 package org.inftel.ssa.mobile.ui;
 
+import org.inftel.ssa.mobile.SsaConstants;
 import org.inftel.ssa.mobile.util.ActivityHelper;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -109,5 +112,12 @@ public abstract class BaseActivity extends FragmentActivity {
         intent.putExtras(arguments);
         intent.removeExtra(ARGS_URI);
         return intent;
+    }
+
+    /** Devuelve la cuenta de usuario si existe, en caso contrario null. */
+    public Account findAccount() {
+        AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+        Account accounts[] = am.getAccountsByType(SsaConstants.ACCOUNT_TYPE);
+        return (accounts.length > 0) ? accounts[0] : null;
     }
 }

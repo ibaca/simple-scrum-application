@@ -97,7 +97,7 @@
         Message shown if the provided account doesn't support the current
         activity.
     -->
-    <string name="login_activity_newaccount_text">Sign in to your SSA account. </string>
+    <string name="login_activity_newaccount_text">Sign in to your Simple Scrum Application account. </string>
 
     <!-- Button that takes the user to the "sign in" screen -->
     <string name="sign_in_button_label">Sign in</string>
