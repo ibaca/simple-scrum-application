@@ -55,7 +55,7 @@
 				<artifactId>android-maven-plugin</artifactId>
 				<configuration>
 					<sdk>
-						<platform>11</platform>
+						<platform>15</platform>
 					</sdk>
 				</configuration>
 			</plugin>
