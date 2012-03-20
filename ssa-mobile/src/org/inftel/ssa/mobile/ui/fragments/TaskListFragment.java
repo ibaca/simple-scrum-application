@@ -1,6 +1,8 @@
 
 package org.inftel.ssa.mobile.ui.fragments;
 
+import static org.inftel.ssa.mobile.ui.BaseActivity.ARGS_URI;
+
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.contentproviders.TaskContentProvider;
 import org.inftel.ssa.mobile.contentproviders.TaskTable;
@@ -40,10 +42,16 @@ public class TaskListFragment extends ListFragment implements LoaderCallbacks<Cu
 
     protected Cursor mCursor = null;
     protected SimpleCursorAdapter mAdapter;
+    protected Uri mContentUri;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        Bundle arguments = getArguments();
+        if (arguments != null && arguments.get(ARGS_URI) != null) {
+            mContentUri = (Uri) arguments.get(ARGS_URI);
+        }
 
         mAdapter = new SimpleCursorAdapter(
                 getActivity(),
