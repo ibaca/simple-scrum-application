@@ -99,7 +99,7 @@
             </intent-filter>
         </activity>
         <activity
-	        android:name=".ui.phone.TasktListActivity"
+	        android:name=".ui.phone.TaskListActivity"
 	        android:label="@string/title_task" >
 	        <intent-filter>
 	            <action android:name="android.intent.action.VIEW" />
