@@ -2,7 +2,6 @@
 package org.inftel.ssa.mobile.ui.fragments;
 
 import org.inftel.ssa.mobile.R;
-import org.inftel.ssa.mobile.contentproviders.SprintTable;
 import org.inftel.ssa.mobile.contentproviders.TaskContentProvider;
 import org.inftel.ssa.mobile.contentproviders.TaskTable;
 
@@ -27,10 +26,12 @@ import android.widget.TextView;
 public class TaskDetailFragment extends Fragment implements LoaderCallbacks<Cursor> {
 
     protected final static String TAG = "TaskDetailFragment";
+
     protected Handler mHandler = new Handler();
     protected Activity mActivity;
     private Uri mContentUri;
 
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mActivity = getActivity();
@@ -44,16 +45,28 @@ public class TaskDetailFragment extends Fragment implements LoaderCallbacks<Curs
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_task_detail, container, false);
 
         Bundle arguments = getArguments();
-        // TODO buscar donde esta la constante _uri!
         if (arguments != null && arguments.get("_uri") != null) {
             mContentUri = (Uri) arguments.get("_uri");
         }
 
         setHasOptionsMenu(true);
 
+        /*
+         * // Handle sprints click
+         * view.findViewById(R.id.project_btn_sprints).setOnClickListener(new
+         * View.OnClickListener() {
+         * @Override public void onClick(View v) { Uri sprintUri =
+         * SprintContentProvider.CONTENT_URI.buildUpon()
+         * .appendQueryParameter("task_id", mTaskId).build(); startActivity(new
+         * Intent(Intent.ACTION_VIEW, sprintUri)); } }); TabHost tabHost =
+         * (TabHost) view.findViewById(android.R.id.tabhost); tabHost.setup();
+         * setupDescriptionTab(view); setupLinksTab(view);
+         * setupInformationTab(view);
+         */
         return view;
     }
 
@@ -97,13 +110,45 @@ public class TaskDetailFragment extends Fragment implements LoaderCallbacks<Curs
      */
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (data.moveToFirst()) {
-            final String sumamry = data.getString(data.getColumnIndex(SprintTable.KEY_SUMMARY));
+
+            // final String sumamry =
+            // data.getString(data.getColumnIndex(SprintTable.KEY_SUMMARY));
+
+            final String mTxtSummary = data
+                    .getString(data.getColumnIndex(TaskTable.COLUMN_SUMMARY));
+            final String mTxtDescription = data.getString(data
+                    .getColumnIndex(TaskTable.COLUMN_DESCRIPTION));
+            final String mTxtEstimated = data.getString(data
+                    .getColumnIndex(TaskTable.COLUMN_ESTIMATED));
+            final String mTxtPriority = data.getString(data
+                    .getColumnIndex(TaskTable.COLUMN_PRIORITY));
+            final String mTxtSprint = data.getString(data.getColumnIndex(TaskTable.COLUMN_SPRINT));
+            final String mTxtStatus = data.getString(data.getColumnIndex(TaskTable.COLUMN_STATUS));
+            final String mTxtBeginDate = data.getString(data
+                    .getColumnIndex(TaskTable.COLUMN_BEGINDATE));
+            final String mTxtEndDate = data
+                    .getString(data.getColumnIndex(TaskTable.COLUMN_ENDDATE));
+            final String mTxtBurned = data.getString(data.getColumnIndex(TaskTable.COLUMN_BURNED));
+            final String mTxtRemaining = data.getString(data
+                    .getColumnIndex(TaskTable.COLUMN_REMAINING));
+            final String mTxtComments = data.getString(data
+                    .getColumnIndex(TaskTable.COLUMN_COMMENTS));
+
             // Update UI
             mHandler.post(new Runnable() {
                 public void run() {
-                    ((TextView) getView().findViewById(R.id.sprint_title)).setText(sumamry);
-                    ((TextView) getView().findViewById(R.id.sprint_subtitle)).setText("subtitle "
-                            + sumamry);
+                    ((TextView) getView().findViewById(R.id.lblSummary)).setText(mTxtSummary);
+                    ((TextView) getView().findViewById(R.id.lblDescription))
+                            .setText(mTxtDescription);
+                    ((TextView) getView().findViewById(R.id.lblEstimated)).setText(mTxtEstimated);
+                    ((TextView) getView().findViewById(R.id.lblPriority)).setText(mTxtPriority);
+                    ((TextView) getView().findViewById(R.id.lblSprint)).setText(mTxtSprint);
+                    ((TextView) getView().findViewById(R.id.lblStatus)).setText(mTxtStatus);
+                    ((TextView) getView().findViewById(R.id.lblBeginDate)).setText(mTxtBeginDate);
+                    ((TextView) getView().findViewById(R.id.lblEndDate)).setText(mTxtEndDate);
+                    ((TextView) getView().findViewById(R.id.lblBurned)).setText(mTxtBurned);
+                    ((TextView) getView().findViewById(R.id.lblRemaining)).setText(mTxtRemaining);
+                    ((TextView) getView().findViewById(R.id.lblComments)).setText(mTxtComments);
                 }
             });
         }
@@ -125,15 +170,15 @@ public class TaskDetailFragment extends Fragment implements LoaderCallbacks<Curs
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.sprint_detail_menu_items, menu);
+        inflater.inflate(R.menu.ssa_task_details_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_add:
-                startActivity(new Intent(Intent.ACTION_INSERT, TaskContentProvider.CONTENT_URI));
+            case R.id.menu_edit:
+                startActivity(new Intent(Intent.ACTION_VIEW, TaskContentProvider.CONTENT_URI));
                 return true;
         }
         return super.onOptionsItemSelected(item);
