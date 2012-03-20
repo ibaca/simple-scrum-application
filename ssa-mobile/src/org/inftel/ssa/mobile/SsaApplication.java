@@ -63,7 +63,7 @@ public class SsaApplication extends Application {
             values.put(TaskTable.COLUMN_PROJECT, "-200");
             values.put(TaskTable.COLUMN_SPRINT, "-400");
             values.put(TaskTable.COLUMN_SUMMARY, "Definir modelo de datos");
-            values.put(TaskTable.COLUMN_DESCRIPTION, "Descripcion sencilla.");
+            values.put(TaskTable.COLUMN_DESCRIPTION, "Se define el modelo de datos de la app.");
             values.put(TaskTable.COLUMN_ESTIMATED, "4");
             values.put(TaskTable.COLUMN_BURNED, "4");
             values.put(TaskTable.COLUMN_REMAINING, "0");
@@ -80,7 +80,7 @@ public class SsaApplication extends Application {
             values.put(TaskTable.COLUMN_PROJECT, "-200");
             values.put(TaskTable.COLUMN_SPRINT, "-400");
             values.put(TaskTable.COLUMN_SUMMARY, "Definir casos de uso iniciales");
-            values.put(TaskTable.COLUMN_DESCRIPTION, "Descripcion sencilla.");
+            values.put(TaskTable.COLUMN_DESCRIPTION, "Se definen los casos de uso.");
             values.put(TaskTable.COLUMN_ESTIMATED, "2");
             values.put(TaskTable.COLUMN_BURNED, "3");
             values.put(TaskTable.COLUMN_REMAINING, "0");
@@ -97,7 +97,7 @@ public class SsaApplication extends Application {
             values.put(TaskTable.COLUMN_PROJECT, "-200");
             values.put(TaskTable.COLUMN_SPRINT, "-400");
             values.put(TaskTable.COLUMN_SUMMARY, "Creacion de estructura del proyecto");
-            values.put(TaskTable.COLUMN_DESCRIPTION, "Descripcion sencilla.");
+            values.put(TaskTable.COLUMN_DESCRIPTION, "Arquitectura maven y eclipse.");
             values.put(TaskTable.COLUMN_ESTIMATED, "2");
             values.put(TaskTable.COLUMN_BURNED, "2");
             values.put(TaskTable.COLUMN_REMAINING, "0");
