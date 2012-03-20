@@ -97,9 +97,6 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
      * the Place Detail Content Provider.
      */
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        /*
-         * String[] projection = new String[] { SprintTable.KEY_SUMMARY, };
-         */
         String[] projection = new String[] {
                 TaskTable.COLUMN_ID, // 0
                 TaskTable.COLUMN_SUMMARY, // 1
@@ -152,6 +149,7 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
         });
     }
 
+ 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.ssa_task_edit_menu, menu);
@@ -161,7 +159,7 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_add:
+            case R.id.menu_save:
                 saveTask();
                 final Intent intent = new Intent(ACTION_VIEW,
                         TaskContentProvider.CONTENT_URI);
@@ -170,7 +168,7 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
         }
         return super.onOptionsItemSelected(item);
     }
-
+    
     public void saveTask() {
 
         Log.d(getClass().getSimpleName(), "Save Task");
