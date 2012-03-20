@@ -86,7 +86,7 @@
         </activity>
         <activity
             android:name=".ui.phone.SprintEditActivity"
-            android:label="@string/title_task">
+            android:label="@string/title_sprints">
             <intent-filter>
                 <action android:name="android.intent.action.INSERT" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -99,14 +99,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.phone.TaskListActivity"
-            android:label="@string/title_task" >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.dir/vnd.inftel.ssa.task" />
-            </intent-filter>
-        </activity>
+	        android:name=".ui.phone.TasktListActivity"
+	        android:label="@string/title_task" >
+	        <intent-filter>
+	            <action android:name="android.intent.action.VIEW" />
+	            <category android:name="android.intent.category.DEFAULT" />
+	            <data android:mimeType="vnd.android.cursor.dir/vnd.inftel.ssa.task" />
+	        </intent-filter>
+	    </activity>
         <activity
             android:name=".ui.phone.TaskDetailActivity"
             android:label="@string/title_task" >
