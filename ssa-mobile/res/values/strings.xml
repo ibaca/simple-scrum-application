@@ -105,5 +105,7 @@
     <string name="back_button_label">Back</string>
     <!-- Button to cancel the current operation -->
     <string name="cancel_button_label">Cancel</string>
+    <string name="provider_project_description">Contains project, tasks, sprints and users data.</string>
+    <string name="provider_project_label">Project provider</string>
 
 </resources>

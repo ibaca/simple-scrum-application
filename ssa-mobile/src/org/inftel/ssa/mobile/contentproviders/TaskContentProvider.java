@@ -98,7 +98,14 @@ public class TaskContentProvider extends ContentProvider {
 
     @Override
     public String getType(Uri uri) {
-        return null;
+        switch (sURIMatcher.match(uri)) {
+            case TASK:
+                return "vnd.android.cursor.dir/vnd.inftel.ssa.tasks";
+            case TASK_ID:
+                return "vnd.android.cursor.item/vnd.inftel.ssa.tasks";
+            default:
+                throw new IllegalArgumentException("Unsupported URI: " + uri);
+        }
     }
 
     @Override
