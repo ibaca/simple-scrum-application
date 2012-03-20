@@ -3,6 +3,7 @@ package org.inftel.ssa.mobile.ui;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.view.ActionProvider;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -195,5 +196,40 @@ public class SimpleMenuItem implements MenuItem {
     public MenuItem setActionView(int i) {
         // Noop
         return this;
+    }
+
+    public boolean collapseActionView() {
+        // Noop
+        return false;
+    }
+
+    public boolean expandActionView() {
+        // Noop
+        return false;
+    }
+
+    public ActionProvider getActionProvider() {
+        // Noop
+        return null;
+    }
+
+    public boolean isActionViewExpanded() {
+        // Noop
+        return false;
+    }
+
+    public MenuItem setActionProvider(ActionProvider arg0) {
+        // Noop
+        return null;
+    }
+
+    public MenuItem setOnActionExpandListener(OnActionExpandListener arg0) {
+        // Noop
+        return null;
+    }
+
+    public MenuItem setShowAsActionFlags(int arg0) {
+        // Noop
+        return null;
     }
 }
