@@ -2,9 +2,13 @@
 package org.inftel.ssa.mobile.ui.fragments;
 
 import org.inftel.ssa.mobile.R;
+import org.inftel.ssa.mobile.contentproviders.TaskContentProvider;
+import org.inftel.ssa.mobile.contentproviders.TaskTable;
+import org.inftel.ssa.mobile.contentproviders.UserContentProvider;
 import org.inftel.ssa.mobile.contentproviders.UserTable;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,14 +20,28 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 public class UserDetailFragment extends Fragment implements LoaderCallbacks<Cursor> {
 
-    protected final static String TAG = "SprintDetailFragment";
+    protected final static String TAG = "UserDetailFragment";
+
+    private static final String TAG_INFORMATION = "information";
+    private static final String TAG_CONTACT = "Contact";
+
     protected Handler mHandler = new Handler();
     protected Activity mActivity;
     private Uri mContentUri;
+    private String mUserId;
+
+    String fullname;
+    String nickname;
+    String email;
+    String project;
+    String company;
+    String number;
+    String role;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -48,6 +66,60 @@ public class UserDetailFragment extends Fragment implements LoaderCallbacks<Curs
         }
 
         setHasOptionsMenu(true);
+
+        // Handle users click
+        view.findViewById(R.id.user_btn_projects).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Uri userUri = UserContentProvider.CONTENT_URI.buildUpon()
+                        .appendQueryParameter(TaskTable.COLUMN_USER, mUserId).build();
+                startActivity(new Intent(Intent.ACTION_VIEW, userUri));
+            }
+        });
+        // Handle tasks click
+        view.findViewById(R.id.user_btn_tasks).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Uri taskUri = TaskContentProvider.CONTENT_URI.buildUpon()
+                        .appendQueryParameter(TaskTable.COLUMN_USER, mUserId).build();
+                startActivity(new Intent(Intent.ACTION_VIEW, taskUri));
+            }
+        });
+
+        view.findViewById(R.id.number_layout).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                String uri = "tel:" + number;
+                Intent intent = new Intent(Intent.ACTION_CALL);
+                intent.setData(Uri.parse(uri));
+                startActivity(intent);
+
+            }
+        });
+
+        view.findViewById(R.id.email_layout).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                String asunto = "Asunto";
+                String texto = "Algo de texto";
+                Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+                emailIntent.setType("plain/text");
+                emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, email);
+                emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, asunto);
+                emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, texto);
+                startActivity(Intent.createChooser(emailIntent, "Send your email in:"));
+
+            }
+        });
+
+        TabHost tabHost = (TabHost) view.findViewById(android.R.id.tabhost);
+        tabHost.setup();
+        setupInformationTab(view);
+        setupContactTab(view);
 
         return view;
     }
@@ -81,16 +153,19 @@ public class UserDetailFragment extends Fragment implements LoaderCallbacks<Curs
      */
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (data.moveToFirst()) {
-            final String fullname = data.getString(data.getColumnIndex(UserTable.KEY_FULLNAME));
-            final String nickname = data.getString(data.getColumnIndex(UserTable.KEY_NICKNAME));
-            final String email = data.getString(data.getColumnIndex(UserTable.KEY_EMAIL));
-            final String project = data.getString(data.getColumnIndex(UserTable.KEY_PROJECT));
-            final String company = data.getString(data.getColumnIndex(UserTable.KEY_COMPANY));
-            final String number = data.getString(data.getColumnIndex(UserTable.KEY_NUMBER));
-            final String role = data.getString(data.getColumnIndex(UserTable.KEY_ROLE));
+            fullname = data.getString(data.getColumnIndex(UserTable.KEY_FULLNAME));
+            nickname = data.getString(data.getColumnIndex(UserTable.KEY_NICKNAME));
+            email = data.getString(data.getColumnIndex(UserTable.KEY_EMAIL));
+            project = data.getString(data.getColumnIndex(UserTable.KEY_PROJECT));
+            company = data.getString(data.getColumnIndex(UserTable.KEY_COMPANY));
+            number = data.getString(data.getColumnIndex(UserTable.KEY_NUMBER));
+            role = data.getString(data.getColumnIndex(UserTable.KEY_ROLE));
             // Update UI
             mHandler.post(new Runnable() {
                 public void run() {
+                    // Header
+                    ((TextView) getView().findViewById(R.id.detail_title)).setText(fullname);
+
                     ((TextView) getView().findViewById(R.id.fullname)).setText(fullname);
                     ((TextView) getView().findViewById(R.id.nickname)).setText(nickname);
                     ((TextView) getView().findViewById(R.id.email)).setText(email);
@@ -103,9 +178,28 @@ public class UserDetailFragment extends Fragment implements LoaderCallbacks<Curs
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    private void setupContactTab(View view) {
+        TabHost mTabHost = (TabHost) view.findViewById(android.R.id.tabhost);
+        mTabHost.addTab(mTabHost.newTabSpec(TAG_CONTACT)
+                .setIndicator(buildIndicator(R.string.project_links, view))
+                .setContent(R.id.tab_user_contact));
+    }
+
+    private void setupInformationTab(View view) {
+        TabHost mTabHost = (TabHost) view.findViewById(android.R.id.tabhost);
+        mTabHost.addTab(mTabHost.newTabSpec(TAG_INFORMATION)
+                .setIndicator(buildIndicator(R.string.project_information, view))
+                .setContent(R.id.tab_user_information));
+    }
+
+    private View buildIndicator(int textRes, View view) {
+        final TextView indicator = (TextView) getActivity().getLayoutInflater()
+                .inflate(R.layout.tab_indicator,
+                        (ViewGroup) view.findViewById(android.R.id.tabs), false);
+        indicator.setText(textRes);
+        return indicator;
+    }
+
     public void onLoaderReset(Loader<Cursor> loader) {
         mHandler.post(new Runnable() {
             public void run() {

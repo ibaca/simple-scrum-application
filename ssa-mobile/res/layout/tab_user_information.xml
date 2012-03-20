@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true" >
+
+    <LinearLayout
+        android:id="@+id/information_container"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/number_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/body_padding_medium"
+            android:paddingLeft="@dimen/body_padding_large"
+            android:paddingRight="@dimen/body_padding_large"
+            android:paddingTop="@dimen/body_padding_medium" >
+
+            <TextView
+                android:id="@+id/fullnamelb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FullName: "
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:id="@+id/fullname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/fullnamelb"
+                android:text="Large Text"
+                android:textSize="@dimen/text_size_medium" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/number_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/body_padding_medium"
+            android:paddingLeft="@dimen/body_padding_large"
+            android:paddingRight="@dimen/body_padding_large"
+            android:paddingTop="@dimen/body_padding_medium" >
+
+            <TextView
+                android:id="@+id/nicknamelb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NickName: "
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:id="@+id/nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/nicknamelb"
+                android:text=""
+                android:textSize="@dimen/text_size_medium" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/number_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/body_padding_medium"
+            android:paddingLeft="@dimen/body_padding_large"
+            android:paddingRight="@dimen/body_padding_large"
+            android:paddingTop="@dimen/body_padding_medium" >
+
+            <TextView
+                android:id="@+id/projectlb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Project: "
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:id="@+id/project"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/projectlb"
+                android:text=""
+                android:textSize="@dimen/text_size_medium" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/number_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/body_padding_medium"
+            android:paddingLeft="@dimen/body_padding_large"
+            android:paddingRight="@dimen/body_padding_large"
+            android:paddingTop="@dimen/body_padding_medium" >
+
+            <TextView
+                android:id="@+id/companylb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Company: "
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:id="@+id/company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/companylb"
+                android:text=""
+                android:textSize="@dimen/text_size_medium" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/number_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/body_padding_medium"
+            android:paddingLeft="@dimen/body_padding_large"
+            android:paddingRight="@dimen/body_padding_large"
+            android:paddingTop="@dimen/body_padding_medium" >
+
+            <TextView
+                android:id="@+id/rolelb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Role: "
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:id="@+id/role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/rolelb"
+                android:text=""
+                android:textSize="@dimen/text_size_medium" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>

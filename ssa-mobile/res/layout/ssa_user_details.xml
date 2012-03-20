@@ -1,4 +1,99 @@
-<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/header_session"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/body_padding_medium"
+        android:paddingLeft="@dimen/body_padding_large"
+        android:paddingRight="@dimen/body_padding_large"
+        android:paddingTop="@dimen/body_padding_medium" >
+
+        <TextView
+            android:id="@+id/detail_title"
+            style="@style/TextHeader"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true" />
+
+        <TextView
+            android:id="@+id/detail_subtitle"
+            style="@style/TextHeaderSub"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/detail_title" />
+
+        <Button
+            android:id="@+id/user_btn_tasks"
+            style="@style/DashboardButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="15dip"
+            android:layout_below="@+id/detail_subtitle"
+            android:drawableTop="@drawable/user_btn_tasks"
+            android:text="@string/btn_tasks" />
+
+        <Button
+            android:id="@+id/user_btn_projects"
+            style="@style/DashboardButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="15dip"
+            android:layout_below="@+id/detail_subtitle"
+            android:drawableTop="@drawable/user_btn_projects"
+            android:text="@string/btn_projects" />
+
+    </RelativeLayout>
+
+    <TabHost
+        android:id="@android:id/tabhost"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/tab_off_background" >
+            </TabWidget>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.43" >
+
+                <include
+                    android:id="@+id/tab_user_information"
+                    layout="@layout/tab_user_information" />
+
+                <include
+                    android:id="@+id/tab_user_contact"
+                    layout="@layout/tab_user_contact" />
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+
+    <!-- <Button -->
+    <!-- android:id="@+id/btn_sprints" -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:text="@string/btn_sprints" /> -->
+
+</LinearLayout>
+
+<!--  <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -102,3 +197,5 @@
         android:text="Large Text" />
 
 </LinearLayout>
+
+-->
