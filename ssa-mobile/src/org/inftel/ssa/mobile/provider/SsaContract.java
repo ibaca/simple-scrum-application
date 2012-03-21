@@ -6,7 +6,7 @@ import static android.content.ContentResolver.CURSOR_ITEM_BASE_TYPE;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
-public class SsaContract {
+final public class SsaContract {
 
     /**
      * Value for {@link SyncColumns#SYNC_STATUS} indicating that an entry is
@@ -90,9 +90,10 @@ public class SsaContract {
     private static final String PATH_TASKS = "tasks";
     private static final String PATH_SPRINTS = "sprints";
     private static final String PATH_USERS = "users";
-    private static final String PATH_SEARCH = "search";
+    
+    private static final String ASC = "ASC";
 
-    public static class Projects implements ProjectsColumns, SyncColumns, BaseColumns {
+    final public static class Projects implements ProjectsColumns, SyncColumns, BaseColumns {
         public static final Uri CONTENT_URI = BASE_CONTENT_URI
                 .buildUpon().appendPath(PATH_PROJECTS).build();
 
@@ -109,7 +110,7 @@ public class SsaContract {
         public static final String USERS_COUNT = "users_count";
 
         /** Default "ORDER BY" clause. */
-        public static final String DEFAULT_SORT = ProjectsColumns.PROJECT_NAME + "ASC";
+        public static final String DEFAULT_SORT = ProjectsColumns.PROJECT_NAME + ASC;
 
         public static Uri buildProjectUri(String projectId) {
             return CONTENT_URI.buildUpon().appendPath(projectId).build();
@@ -130,10 +131,14 @@ public class SsaContract {
         public static String getProjectId(Uri uri) {
             return uri.getPathSegments().get(1);
         }
+        
+        private Projects() {
+        }
     }
 
-    public static class Tasks implements TasksColumns, SyncColumns, BaseColumns {
-        public static final Uri CONTENT_URI = BASE_CONTENT_URI
+    final public static class Tasks implements TasksColumns, SyncColumns, BaseColumns {
+
+		public static final Uri CONTENT_URI = BASE_CONTENT_URI
                 .buildUpon().appendPath(PATH_TASKS).build();
 
         public static final String CONTENT_TYPE =
@@ -142,7 +147,7 @@ public class SsaContract {
                 CURSOR_ITEM_BASE_TYPE + "/vnd.inftel.ssa.task";
 
         /** Default "ORDER BY" clause. */
-        public static final String DEFAULT_SORT = TasksColumns.TASK_STATUS + "ASC";
+        public static final String DEFAULT_SORT = TasksColumns.TASK_STATUS + ASC;
 
         public static Uri buildTasktUri(String taskId) {
             return CONTENT_URI.buildUpon().appendPath(taskId).build();
@@ -151,9 +156,12 @@ public class SsaContract {
         public static String getTaskId(Uri uri) {
             return uri.getPathSegments().get(1);
         }
+        
+        private Tasks() {
+        }
     }
 
-    public static class Sprints implements SprintsColumns, SyncColumns, BaseColumns {
+    final public static class Sprints implements SprintsColumns, SyncColumns, BaseColumns {
         public static final Uri CONTENT_URI = BASE_CONTENT_URI
                 .buildUpon().appendPath(PATH_SPRINTS).build();
 
@@ -163,7 +171,7 @@ public class SsaContract {
                 CURSOR_ITEM_BASE_TYPE + "/vnd.inftel.ssa.sprint";
 
         /** Default "ORDER BY" clause. */
-        public static final String DEFAULT_SORT = SprintsColumns.SPRINT_SUMMARY + "ASC";
+        public static final String DEFAULT_SORT = SprintsColumns.SPRINT_SUMMARY + ASC;
 
         public static Uri buildSprintUri(String sprintId) {
             return CONTENT_URI.buildUpon().appendPath(sprintId).build();
@@ -172,9 +180,12 @@ public class SsaContract {
         public static String getSprintId(Uri uri) {
             return uri.getPathSegments().get(1);
         }
+        
+        private Sprints() {
+        }
     }
 
-    public static class Users implements UsersColumns, SyncColumns, BaseColumns {
+    final public static class Users implements UsersColumns, SyncColumns, BaseColumns {
         public static final Uri CONTENT_URI = BASE_CONTENT_URI
                 .buildUpon().appendPath(PATH_USERS).build();
 
@@ -184,7 +195,7 @@ public class SsaContract {
                 CURSOR_ITEM_BASE_TYPE + "/vnd.inftel.ssa.user";
 
         /** Default "ORDER BY" clause. */
-        public static final String DEFAULT_SORT = UsersColumns.USER_FULLNAME + "ASC";
+        public static final String DEFAULT_SORT = UsersColumns.USER_FULLNAME + ASC;
 
         public static Uri buildUserUri(String userId) {
             return CONTENT_URI.buildUpon().appendPath(userId).build();
@@ -196,6 +207,9 @@ public class SsaContract {
 
         public static String getUserId(Uri uri) {
             return uri.getPathSegments().get(1);
+        }
+        
+        private Users() {
         }
     }
 

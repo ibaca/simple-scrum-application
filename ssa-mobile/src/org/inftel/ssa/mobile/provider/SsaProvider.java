@@ -337,7 +337,7 @@ public class SsaProvider extends ContentProvider {
         String PROJECTS_BASE_ID = Tables.PROJECTS + "." + Projects._ID;
         String TASKS_BASE_ID = Tables.TASKS + "." + Tasks._ID;
         String SPRINTS_BASE_ID = Tables.SPRINTS + "." + Sprints._ID;
-        String USERS_BASE_ID = Tables.USERS + "." + Users._ID;
+        // String USERS_BASE_ID = Tables.USERS + "." + Users._ID;
 
     }
 
