@@ -15,4 +15,6 @@ public class SsaConstants {
     /** Request factory connection timeout. */
     public static final String SP_KEY_REQUESTFACTORY_TIMEOUT = "requestfactory_timeout";
     public static final int SP_DEFAULT_REQUESTFACTORY_TIMEOUT = 5 * 1000;
+    
+    public static final String EXTRA_LIST_CURSOR_URI = "list_cursor_uri";
 }
