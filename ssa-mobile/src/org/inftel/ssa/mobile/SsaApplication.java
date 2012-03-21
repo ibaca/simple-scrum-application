@@ -10,6 +10,7 @@ import org.inftel.ssa.mobile.provider.SsaContract.Users;
 import android.app.Application;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.util.Log;
 
 public class SsaApplication extends Application {
@@ -23,10 +24,13 @@ public class SsaApplication extends Application {
 
         // Algunos datos para hacer pruebas
         ContentResolver cr = getContentResolver();
-
-        if (cr.query(SsaContract.Sprints.CONTENT_URI, new String[] {
+        
+        Cursor cursor = cr.query(SsaContract.Sprints.CONTENT_URI, new String[] {
                 Sprints.SPRINT_SUMMARY
-        }, null, null, null).getCount() == 0) {
+        }, null, null, null);
+        int count = cursor.getCount();
+        cursor.close();
+        if (count == 0) {
 
             ContentValues values = new ContentValues();
 
