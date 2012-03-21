@@ -11,10 +11,9 @@
         android:orientation="vertical" >
 
         <RelativeLayout
-            android:id="@+id/number_layout"
+            android:id="@+id/RelativeLayout1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/body_padding_medium"
             android:paddingLeft="@dimen/body_padding_large"
             android:paddingRight="@dimen/body_padding_large"
             android:paddingTop="@dimen/body_padding_medium" >
@@ -23,23 +22,22 @@
                 android:id="@+id/fullnamelb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="FullName: "
+                android:text="FullName"
                 android:textSize="@dimen/text_size_medium" />
 
             <TextView
                 android:id="@+id/fullname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/fullnamelb"
-                android:text="Large Text"
-                android:textSize="@dimen/text_size_medium" />
+                android:text=""
+                android:layout_below="@+id/fullnamelb"
+                android:textSize="@dimen/text_size_small" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/number_layout"
+            android:id="@+id/RelativeLayout2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/body_padding_medium"
             android:paddingLeft="@dimen/body_padding_large"
             android:paddingRight="@dimen/body_padding_large"
             android:paddingTop="@dimen/body_padding_medium" >
@@ -48,23 +46,22 @@
                 android:id="@+id/nicknamelb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="NickName: "
+                android:text="NickName"
                 android:textSize="@dimen/text_size_medium" />
 
             <TextView
                 android:id="@+id/nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/nicknamelb"
                 android:text=""
-                android:textSize="@dimen/text_size_medium" />
+                android:layout_below="@+id/nicknamelb"
+                android:textSize="@dimen/text_size_small" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/number_layout"
+            android:id="@+id/RelativeLayout3"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/body_padding_medium"
             android:paddingLeft="@dimen/body_padding_large"
             android:paddingRight="@dimen/body_padding_large"
             android:paddingTop="@dimen/body_padding_medium" >
@@ -73,23 +70,22 @@
                 android:id="@+id/projectlb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Project: "
+                android:text="Project"
                 android:textSize="@dimen/text_size_medium" />
 
             <TextView
                 android:id="@+id/project"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/projectlb"
                 android:text=""
-                android:textSize="@dimen/text_size_medium" />
+                android:layout_below="@+id/projectlb"
+                android:textSize="@dimen/text_size_small" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/number_layout"
+            android:id="@+id/RelativeLayout4"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/body_padding_medium"
             android:paddingLeft="@dimen/body_padding_large"
             android:paddingRight="@dimen/body_padding_large"
             android:paddingTop="@dimen/body_padding_medium" >
@@ -98,23 +94,22 @@
                 android:id="@+id/companylb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Company: "
+                android:text="Company"
                 android:textSize="@dimen/text_size_medium" />
 
             <TextView
                 android:id="@+id/company"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/companylb"
                 android:text=""
-                android:textSize="@dimen/text_size_medium" />
+                android:layout_below="@+id/companylb"
+                android:textSize="@dimen/text_size_small" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/number_layout"
+            android:id="@+id/RelativeLayout5"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/body_padding_medium"
             android:paddingLeft="@dimen/body_padding_large"
             android:paddingRight="@dimen/body_padding_large"
             android:paddingTop="@dimen/body_padding_medium" >
@@ -123,16 +118,16 @@
                 android:id="@+id/rolelb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Role: "
+                android:text="Role"
                 android:textSize="@dimen/text_size_medium" />
 
             <TextView
                 android:id="@+id/role"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/rolelb"
                 android:text=""
-                android:textSize="@dimen/text_size_medium" />
+                android:layout_below="@+id/rolelb"
+                android:textSize="@dimen/text_size_small" />
         </RelativeLayout>
     </LinearLayout>
 

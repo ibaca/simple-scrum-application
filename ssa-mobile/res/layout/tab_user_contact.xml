@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fillViewport="true" >
-
+
     <LinearLayout
         android:id="@+id/contact_user_container"
         android:layout_width="fill_parent"
@@ -34,19 +34,18 @@
                 android:layout_alignTop="@+id/call_img"
                 android:layout_marginLeft="22dp"
                 android:layout_toRightOf="@+id/call_img"
-                android:text="Number: "
-                android:textSize="@dimen/text_size_medium"
-                android:textStyle="normal" />
+                android:text="Number"
+                android:textSize="@dimen/text_size_medium" />
 
             <TextView
                 android:id="@+id/number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/numberlb"
-                android:text=""
-                android:textSize="@dimen/text_size_medium" />
+                android:layout_alignLeft="@+id/numberlb"
+                android:layout_below="@+id/numberlb"
+                android:textSize="@dimen/text_size_small" />
         </RelativeLayout>
-
+
         <RelativeLayout
             android:id="@+id/email_layout"
             android:layout_width="fill_parent"
@@ -70,17 +69,17 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="23dp"
                 android:layout_toRightOf="@+id/email_img"
-                android:text="Email: "
-                android:textSize="@dimen/text_size_medium"
-                android:textStyle="normal" />
+                android:text="Email"
+                android:textSize="@dimen/text_size_medium" />
 
             <TextView
                 android:id="@+id/email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/emaillb"
-                android:text=""
-                android:textSize="@dimen/text_size_medium" />
+                android:layout_alignLeft="@+id/emaillb"
+                android:layout_below="@+id/emaillb"
+                android:textSize="@dimen/text_size_small" />
+
         </RelativeLayout>
     </LinearLayout>
 
