@@ -1,6 +1,9 @@
 
 package org.inftel.ssa.mobile.ui.fragments;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.contentproviders.ProjectContentProvider;
 import org.inftel.ssa.mobile.contentproviders.ProjectTable;
@@ -23,13 +26,14 @@ import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.ocpsoft.pretty.time.PrettyTime;
 
 /**
  * Fragmento UI para mostrar lista de projectos
@@ -58,7 +62,7 @@ public class ProjectListFragment extends ListFragment implements LoaderCallbacks
         // Populate the adapter / list using a Cursor Loader.
         getLoaderManager().initLoader(0, null, this);
 
-        setHasOptionsMenu(true);
+        // setHasOptionsMenu(true);
     }
 
     @Override
@@ -136,29 +140,30 @@ public class ProjectListFragment extends ListFragment implements LoaderCallbacks
         return super.onContextItemSelected(item);
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.new_project_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_add:
-                Log.d(getClass().getSimpleName(), "Creando nuevo proyecto");
-                final Intent intent = new Intent(Intent.ACTION_INSERT,
-                        ProjectContentProvider.CONTENT_URI);
-                startActivity(intent);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+    // @Override
+    // public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    // inflater.inflate(R.menu.new_project_menu, menu);
+    // super.onCreateOptionsMenu(menu, inflater);
+    // }
+    //
+    // @Override
+    // public boolean onOptionsItemSelected(MenuItem item) {
+    // switch (item.getItemId()) {
+    // case R.id.menu_add:
+    // Log.d(getClass().getSimpleName(), "Creando nuevo proyecto");
+    // final Intent intent = new Intent(Intent.ACTION_INSERT,
+    // ProjectContentProvider.CONTENT_URI);
+    // startActivity(intent);
+    // return true;
+    // }
+    // return super.onOptionsItemSelected(item);
+    // }
 
     private class ProjectListAdapter extends CursorAdapter {
         private TextView subtitleView;
         private TextView titleView;
         private TextView countDoneTask;
+        private TextView createdView;
 
         public ProjectListAdapter(Context context, Cursor cursor) {
             super(context, cursor, true);
@@ -177,22 +182,34 @@ public class ProjectListFragment extends ListFragment implements LoaderCallbacks
 
             titleView = (TextView) view.findViewById(R.id.project_title);
             subtitleView = (TextView) view.findViewById(R.id.project_subtitle);
-            countDoneTask = (TextView) view.findViewById(R.id.countDoneTask);
+            createdView = (TextView) view.findViewById(R.id.project_created);
+            // countDoneTask = (TextView) view.findViewById(R.id.countDoneTask);
 
             int colName = cursor.getColumnIndex(ProjectTable.KEY_NAME);
             int colSummary = cursor.getColumnIndex(ProjectTable.KEY_SUMMARY);
             int colOpened = cursor.getColumnIndex(ProjectTable.KEY_OPENED);
-            int colId = cursor.getColumnIndex(ProjectTable.KEY_ID);
+            // int colId = cursor.getColumnIndex(ProjectTable.KEY_ID);
 
-            String doneTask = numberTaskComplete(cursor.getString(colId));
+            // String doneTask = numberTaskComplete(cursor.getString(colId));
+            String txtOpened = cursor.getString(colOpened);
+            SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+            PrettyTime p = new PrettyTime();
+            String prettyTime = "no date";
+            if (txtOpened != null) {
+                try {
+                    prettyTime = p.format(date.parse(txtOpened));
+                } catch (ParseException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
 
-            Log.d(getClass().getSimpleName(), "" + colName);
-            Log.d(getClass().getSimpleName(), "" + colSummary);
+            Log.d(getClass().getSimpleName(), "" + txtOpened);
 
             titleView.setText(cursor.getString(colName));
-            subtitleView.setText(cursor.getString(colSummary) + "  " +
-                    cursor.getString(colOpened));
-            countDoneTask.setText(doneTask);
+            subtitleView.setText(cursor.getString(colSummary));
+            createdView.setText("Created " + prettyTime + " ");
+            // countDoneTask.setText(doneTask);
 
         }
 
@@ -221,7 +238,7 @@ public class ProjectListFragment extends ListFragment implements LoaderCallbacks
             }
         }
 
-        return doneTask + "/" + taskCount;
+        return "Tasks " + doneTask + "/" + taskCount + " ";
     }
 
 }

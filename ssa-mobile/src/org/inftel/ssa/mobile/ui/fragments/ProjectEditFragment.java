@@ -1,8 +1,6 @@
 
 package org.inftel.ssa.mobile.ui.fragments;
 
-import static android.content.Intent.ACTION_VIEW;
-
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.contentproviders.ProjectContentProvider;
 import org.inftel.ssa.mobile.contentproviders.ProjectTable;
@@ -21,9 +19,6 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -74,28 +69,28 @@ public class ProjectEditFragment extends Fragment implements LoaderCallbacks<Cur
             mContentUri = (Uri) arguments.get("_uri");
         }
 
-        setHasOptionsMenu(true);
+        // setHasOptionsMenu(true);
         return view;
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.save_project_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_save:
-                saveProject();
-                final Intent intent = new Intent(ACTION_VIEW,
-                        ProjectContentProvider.CONTENT_URI);
-                startActivity(intent);
-                return true;
-        }
-        return onOptionsItemSelected(item);
-    }
+    // @Override
+    // public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    // inflater.inflate(R.menu.save_project_menu, menu);
+    // super.onCreateOptionsMenu(menu, inflater);
+    // }
+    //
+    // @Override
+    // public boolean onOptionsItemSelected(MenuItem item) {
+    // switch (item.getItemId()) {
+    // case R.id.menu_save:
+    // saveProject();
+    // final Intent intent = new Intent(ACTION_VIEW,
+    // ProjectContentProvider.CONTENT_URI);
+    // startActivity(intent);
+    // return true;
+    // }
+    // return onOptionsItemSelected(item);
+    // }
 
     @Override
     public void onResume() {

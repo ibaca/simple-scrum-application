@@ -14,53 +14,64 @@
 <!-- android:layout_height="wrap_content" /> -->
 
 <!-- </FrameLayout> -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/ListItemContainer"
-    android:background="@drawable/gradient_bg"    
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
-    
+    android:layout_height="wrap_content"
+    android:background="@drawable/gradient_bg" 
+    android:orientation="horizontal">
 
     <RelativeLayout
         android:id="@+id/list_item_project"
         style="@style/ListItemContainer"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" 
+        >
 
         <TextView
             android:id="@+id/project_title"
             style="@style/ListItemTitle"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true" />
-
+            android:layout_alignParentLeft="true"
+            android:layout_margin="5dip" />
+        
         <TextView
             android:id="@+id/project_subtitle"
             style="@style/ListItemSubtitle"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/project_title" />        
-
-        <TextView
-            android:id="@+id/countDoneTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/project_title"
-            android:layout_marginRight="5dip"
-            android:gravity="right"
-            style="@style/ListItemSubtitle"
-            android:textSize="10dip"
-            android:textStyle="bold" />
-       
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/project_title"
+            android:layout_margin="5dip" />
+
+        <TextView
+            android:id="@+id/project_created"
+            style="@style/ListItemSubtitle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:layout_alignBaseline="@+id/project_title"
+            android:layout_alignParentRight="true" />
+
+        
+
+<!--         <TextView -->
+<!--             android:id="@+id/countDoneTask" -->
+<!--             style="@style/ListItemSubtitle2" -->
+<!--             android:layout_width="wrap_content" -->
+<!--             android:layout_height="wrap_content" -->
+<!--             android:layout_alignBaseline="@+id/project_created" -->
+<!--             android:layout_below="@+id/project_subtitle" -->
+<!--             android:layout_margin="5dip" -->
+<!--             android:layout_toRightOf="@+id/project_created" /> -->
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/arrow" />
-        
     </RelativeLayout>
 
-</FrameLayout>
+</LinearLayout>

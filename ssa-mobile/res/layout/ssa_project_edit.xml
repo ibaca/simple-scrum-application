@@ -4,119 +4,121 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:id="@+id/header_session"
+    <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/body_padding_medium"
-        android:paddingLeft="@dimen/body_padding_large"
-        android:paddingRight="@dimen/body_padding_large"
-        android:paddingTop="@dimen/body_padding_medium" >
+        android:layout_height="wrap_content" >
 
-        <TextView
-            android:id="@+id/lbl_project_edit_title"
-            style="@style/TextBody"
+        <RelativeLayout
+            android:id="@+id/header_session"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="Name" />
+            android:paddingBottom="@dimen/body_padding_medium"
+            android:paddingLeft="@dimen/body_padding_large"
+            android:paddingRight="@dimen/body_padding_large"
+            android:paddingTop="@dimen/body_padding_medium" >
 
-        <EditText
-            android:id="@+id/project_edit_title"
-            style="@style/TextBody"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lbl_project_edit_title" />
+            <TextView
+                android:id="@+id/lbl_project_edit_title"
+                style="@style/TextBody"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Name" />
 
-        <TextView
-            android:id="@+id/lbl_project_edit_summary"
-            style="@style/TextBody"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/project_edit_title"
-            android:text="Summary" />
+            <EditText
+                android:id="@+id/project_edit_title"
+                style="@style/TextBody"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lbl_project_edit_title" />
 
-        <EditText
-            android:id="@+id/project_edit_summary"
-            style="@style/TextBody"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lbl_project_edit_summary" />
+            <TextView
+                android:id="@+id/lbl_project_edit_summary"
+                style="@style/TextBody"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/project_edit_title"
+                android:text="Summary" />
 
-        <TextView
-            android:id="@+id/lbl_project_edit_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/project_edit_summary"
-            android:text="Description" />
+            <EditText
+                android:id="@+id/project_edit_summary"
+                style="@style/TextBody"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lbl_project_edit_summary" />
 
-        <EditText
-            android:id="@+id/project_edit_description"
-            style="@style/TextBody"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lbl_project_edit_description"
-            android:inputType="textMultiLine" />
+            <TextView
+                android:id="@+id/lbl_project_edit_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/project_edit_summary"
+                android:text="Description" />
 
-        <TextView
-            android:id="@+id/lbl_project_edit_started"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/project_edit_description"
-            android:layout_below="@+id/project_edit_description"
-            android:text="Started Date" />
+            <EditText
+                android:id="@+id/project_edit_description"
+                style="@style/TextBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lbl_project_edit_description"
+                android:inputType="textMultiLine" />
 
-        <EditText
-            android:id="@+id/project_edit_started"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lbl_project_edit_started"
-            android:inputType="date" />
-        
-        <TextView
-            android:id="@+id/lbl_project_edit_finished"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/project_edit_started"
-            android:text="Finished Date" />
+            <TextView
+                android:id="@+id/lbl_project_edit_started"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/project_edit_description"
+                android:layout_below="@+id/project_edit_description"
+                android:text="Started Date" />
 
-        <EditText
-            android:id="@+id/project_edit_finished"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lbl_project_edit_finished"
-            android:inputType="date" />
-        
-        <TextView
-            android:id="@+id/lbl_project_edit_company"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/project_edit_finished"
-            android:text="Company" />
+            <EditText
+                android:id="@+id/project_edit_started"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lbl_project_edit_started"
+                android:inputType="date" />
 
-        <EditText
-            android:id="@+id/project_edit_company"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/TextBody"
-            android:layout_below="@+id/lbl_project_edit_company" />
-        
-        <TextView
-            android:id="@+id/lbl_project_edit_license"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/project_edit_company"
-            android:text="License" />
-        
-        <EditText
-            android:id="@+id/project_edit_license"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/TextBody"
-            android:layout_below="@+id/lbl_project_edit_license" />
-        
-        
-        
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/lbl_project_edit_finished"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/project_edit_started"
+                android:text="Finished Date" />
+
+            <EditText
+                android:id="@+id/project_edit_finished"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lbl_project_edit_finished"
+                android:inputType="date" />
+
+            <TextView
+                android:id="@+id/lbl_project_edit_company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/project_edit_finished"
+                android:text="Company" />
+
+            <EditText
+                android:id="@+id/project_edit_company"
+                style="@style/TextBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lbl_project_edit_company" />
+
+            <TextView
+                android:id="@+id/lbl_project_edit_license"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/project_edit_company"
+                android:text="License" />
+
+            <EditText
+                android:id="@+id/project_edit_license"
+                style="@style/TextBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lbl_project_edit_license" />
+        </RelativeLayout>
+    </ScrollView>
 
 </LinearLayout>

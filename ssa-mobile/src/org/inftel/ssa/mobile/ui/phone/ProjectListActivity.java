@@ -1,6 +1,7 @@
 
 package org.inftel.ssa.mobile.ui.phone;
 
+import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.contentproviders.ProjectContentProvider;
 import org.inftel.ssa.mobile.contentproviders.ProjectTable;
 import org.inftel.ssa.mobile.contentproviders.TaskContentProvider;
@@ -10,9 +11,13 @@ import org.inftel.ssa.mobile.ui.fragments.ProjectListFragment;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 public class ProjectListActivity extends BaseSinglePaneActivity {
     @Override
@@ -25,6 +30,27 @@ public class ProjectListActivity extends BaseSinglePaneActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         getActivityHelper().setupSubActivity();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.new_project_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_add:
+                Log.d(getClass().getSimpleName(), "Creando nuevo proyecto");
+                final Intent intent = new Intent(Intent.ACTION_INSERT,
+                        ProjectContentProvider.CONTENT_URI);
+                startActivity(intent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void insertProjectsDataTable() {
@@ -54,8 +80,8 @@ public class ProjectListActivity extends BaseSinglePaneActivity {
         values.put(ProjectTable.KEY_NAME, "Proyecto 1");
         values.put(ProjectTable.KEY_SUMMARY, "Pasos");
         values.put(ProjectTable.KEY_DESCRIPTION, "Gestion de alarmas para ancianos");
-        values.put(ProjectTable.KEY_OPENED, "12/3/2012");
-        values.put(ProjectTable.KEY_STARTED, "12/3/2012");
+        values.put(ProjectTable.KEY_OPENED, "21/3/2012");
+        values.put(ProjectTable.KEY_STARTED, "21/3/2012");
         values.put(ProjectTable.KEY_CLOSE, "12/3/2012");
         values.put(ProjectTable.KEY_COMPANY, "Inftel");
         values.put(ProjectTable.KEY_LINKS, "www.inftel.com");
@@ -67,7 +93,7 @@ public class ProjectListActivity extends BaseSinglePaneActivity {
         values.put(ProjectTable.KEY_NAME, "Proyecto 2");
         values.put(ProjectTable.KEY_SUMMARY, "Centro Medico");
         values.put(ProjectTable.KEY_DESCRIPTION, "Gestion del centro ambulatorio");
-        values.put(ProjectTable.KEY_OPENED, "12/3/2012");
+        values.put(ProjectTable.KEY_OPENED, "21/3/2012");
         values.put(ProjectTable.KEY_STARTED, "12/3/2012");
         values.put(ProjectTable.KEY_CLOSE, "12/3/2012");
         values.put(ProjectTable.KEY_COMPANY, "Inftel");
@@ -80,7 +106,7 @@ public class ProjectListActivity extends BaseSinglePaneActivity {
         values.put(ProjectTable.KEY_NAME, "Proyecto 3");
         values.put(ProjectTable.KEY_SUMMARY, "Centro de Reparaciones");
         values.put(ProjectTable.KEY_DESCRIPTION, "Control de inventario");
-        values.put(ProjectTable.KEY_OPENED, "12/3/2012");
+        values.put(ProjectTable.KEY_OPENED, "23/3/2012");
         values.put(ProjectTable.KEY_STARTED, "12/3/2012");
         values.put(ProjectTable.KEY_CLOSE, "12/3/2012");
         values.put(ProjectTable.KEY_COMPANY, "Inftel");
@@ -93,7 +119,7 @@ public class ProjectListActivity extends BaseSinglePaneActivity {
         values.put(ProjectTable.KEY_NAME, "Proyecto 4");
         values.put(ProjectTable.KEY_SUMMARY, "Central Eolica");
         values.put(ProjectTable.KEY_DESCRIPTION, "Gestion de recursos");
-        values.put(ProjectTable.KEY_OPENED, "12/3/2012");
+        values.put(ProjectTable.KEY_OPENED, "22/3/2012");
         values.put(ProjectTable.KEY_STARTED, "12/3/2012");
         values.put(ProjectTable.KEY_CLOSE, "12/3/2012");
         values.put(ProjectTable.KEY_COMPANY, "Inftel");

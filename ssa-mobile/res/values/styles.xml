@@ -106,6 +106,12 @@
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:textColor">@color/body_text_2</item>
     </style>
+    
+    <style name="ListItemSubtitle2">
+        <item name="android:textSize">@dimen/text_size_xsmall</item>
+        <item name="android:textColor">@color/body_text_2</item>
+        <item name ="android:textStyle">italic</item>
+    </style>
 
     <style name="ListItemContainerBase">
         <item name="android:minHeight">?android:attr/listPreferredItemHeight</item>
