@@ -4,14 +4,13 @@ package org.inftel.ssa.mobile.ui.fragments;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import static android.content.Intent.ACTION_EDIT;
+
 import org.inftel.ssa.mobile.R;
-import org.inftel.ssa.mobile.contentproviders.ProjectContentProvider;
-import org.inftel.ssa.mobile.contentproviders.ProjectTable;
-import org.inftel.ssa.mobile.contentproviders.TaskContentProvider;
-import org.inftel.ssa.mobile.contentproviders.TaskTable;
+import org.inftel.ssa.mobile.provider.SsaContract.Projects;
+import org.inftel.ssa.mobile.provider.SsaContract.Tasks;
 
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -71,22 +70,21 @@ public class ProjectListFragment extends ListFragment implements LoaderCallbacks
         Cursor c = mAdapter.getCursor();
         c.moveToPosition(position);
 
-        Uri projectUri = ContentUris.withAppendedId(ProjectContentProvider.CONTENT_URI,
-                c.getLong(c.getColumnIndex(ProjectTable.KEY_ID)));
+        String projectId = String.valueOf(c.getLong(c.getColumnIndex(Projects._ID)));
 
         // Start view activity to show sprint details
-        startActivity(new Intent(Intent.ACTION_VIEW, projectUri));
+        startActivity(new Intent(Intent.ACTION_VIEW, Projects.buildProjectUri(projectId)));
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         String[] projection = new String[] {
-                ProjectTable.KEY_ID, ProjectTable.KEY_NAME,
-                ProjectTable.KEY_OPENED, ProjectTable.KEY_CLOSE,
-                ProjectTable.KEY_SUMMARY
+                Projects._ID, Projects.PROJECT_NAME,
+                Projects.PROJECT_OPENED, Projects.PROJECT_CLOSE,
+                Projects.PROJECT_SUMMARY
         };
 
-        return new CursorLoader(getActivity(), ProjectContentProvider.CONTENT_URI,
+        return new CursorLoader(getActivity(), Projects.CONTENT_URI,
                 projection, null, null, null);
     }
 
@@ -117,25 +115,22 @@ public class ProjectListFragment extends ListFragment implements LoaderCallbacks
         AdapterContextMenuInfo info = (AdapterContextMenuInfo)
                 item.getMenuInfo();
         switch (item.getItemId()) {
-            case EDIT_ID:
-                // Delega comportamiento al click listener
-                // onListItemClick(getListView(), getView(), info.position,
-                // info.id);
+            case EDIT_ID: {
                 Cursor c = mAdapter.getCursor();
                 c.moveToPosition(info.position);
-
-                Uri projectUri = ContentUris.withAppendedId(ProjectContentProvider.CONTENT_URI,
-                        c.getLong(c.getColumnIndex(ProjectTable.KEY_ID)));
+                String projectId = String.valueOf(c.getLong(c.getColumnIndex(Projects._ID)));
 
                 // Start view activity to show sprint details
-                startActivity(new Intent(Intent.ACTION_EDIT, projectUri));
+                startActivity(new Intent(ACTION_EDIT, Projects.buildProjectUri(projectId)));
                 return true;
-            case DELETE_ID:
+            }
+            case DELETE_ID: {
                 // TODO Igual un popup que pregunte si se esta seguro
-                Uri uri = ContentUris.withAppendedId(ProjectContentProvider.CONTENT_URI,
-                        info.id);
+                String projectId = String.valueOf(info.id);
+                Uri uri = Projects.buildProjectUri(projectId);
                 getActivity().getContentResolver().delete(uri, null, null);
                 return true;
+            }
         }
         return super.onContextItemSelected(item);
     }
@@ -179,16 +174,15 @@ public class ProjectListFragment extends ListFragment implements LoaderCallbacks
         /** {@inheritDoc} */
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
-
             titleView = (TextView) view.findViewById(R.id.project_title);
             subtitleView = (TextView) view.findViewById(R.id.project_subtitle);
             createdView = (TextView) view.findViewById(R.id.project_created);
             // countDoneTask = (TextView) view.findViewById(R.id.countDoneTask);
 
-            int colName = cursor.getColumnIndex(ProjectTable.KEY_NAME);
-            int colSummary = cursor.getColumnIndex(ProjectTable.KEY_SUMMARY);
-            int colOpened = cursor.getColumnIndex(ProjectTable.KEY_OPENED);
-            // int colId = cursor.getColumnIndex(ProjectTable.KEY_ID);
+            int colName = cursor.getColumnIndex(Projects.PROJECT_NAME);
+            int colSummary = cursor.getColumnIndex(Projects.PROJECT_SUMMARY);
+            int colOpened = cursor.getColumnIndex(Projects.PROJECT_OPENED);
+            // int colId = cursor.getColumnIndex(Projects._ID);
 
             // String doneTask = numberTaskComplete(cursor.getString(colId));
             String txtOpened = cursor.getString(colOpened);
@@ -203,14 +197,13 @@ public class ProjectListFragment extends ListFragment implements LoaderCallbacks
                     e.printStackTrace();
                 }
             }
-
+            
             Log.d(getClass().getSimpleName(), "" + txtOpened);
 
             titleView.setText(cursor.getString(colName));
             subtitleView.setText(cursor.getString(colSummary));
             createdView.setText("Created " + prettyTime + " ");
             // countDoneTask.setText(doneTask);
-
         }
 
     }
@@ -220,18 +213,18 @@ public class ProjectListFragment extends ListFragment implements LoaderCallbacks
 
         ContentResolver cr = getActivity().getContentResolver();
         String[] projection = new String[] {
-                TaskTable.COLUMN_ID, TaskTable.COLUMN_STATUS
+                Tasks._ID, Tasks.TASK_STATUS
         };
         String selection = "project = ?";
         String[] selectionArgs = new String[] {
                 projectId
         };
-        Cursor cursor = cr.query(TaskContentProvider.CONTENT_URI, projection, selection,
+        Cursor cursor = cr.query(Tasks.CONTENT_URI, projection, selection,
                 selectionArgs, null);
         int taskCount = cursor.getCount();
         if (taskCount > 0) {
             while (cursor.moveToNext()) {
-                String status = cursor.getString(cursor.getColumnIndex(TaskTable.COLUMN_STATUS));
+                String status = cursor.getString(cursor.getColumnIndex(Tasks.TASK_STATUS));
                 if (status.equals("2")) {
                     doneTask++;
                 }

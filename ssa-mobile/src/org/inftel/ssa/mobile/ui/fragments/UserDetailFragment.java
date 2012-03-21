@@ -2,10 +2,7 @@
 package org.inftel.ssa.mobile.ui.fragments;
 
 import org.inftel.ssa.mobile.R;
-import org.inftel.ssa.mobile.contentproviders.TaskContentProvider;
-import org.inftel.ssa.mobile.contentproviders.TaskTable;
-import org.inftel.ssa.mobile.contentproviders.UserContentProvider;
-import org.inftel.ssa.mobile.contentproviders.UserTable;
+import org.inftel.ssa.mobile.provider.SsaContract.Users;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -69,22 +66,16 @@ public class UserDetailFragment extends Fragment implements LoaderCallbacks<Curs
 
         // Handle users click
         view.findViewById(R.id.user_btn_projects).setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                Uri userUri = UserContentProvider.CONTENT_URI.buildUpon()
-                        .appendQueryParameter(TaskTable.COLUMN_USER, mUserId).build();
-                startActivity(new Intent(Intent.ACTION_VIEW, userUri));
+                startActivity(new Intent(Intent.ACTION_VIEW, Users.buildUserUri(mUserId)));
             }
         });
         // Handle tasks click
         view.findViewById(R.id.user_btn_tasks).setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                Uri taskUri = TaskContentProvider.CONTENT_URI.buildUpon()
-                        .appendQueryParameter(TaskTable.COLUMN_USER, mUserId).build();
-                startActivity(new Intent(Intent.ACTION_VIEW, taskUri));
+                startActivity(new Intent(Intent.ACTION_VIEW, Users.buildTasksDirUri(mUserId)));
             }
         });
 
@@ -137,12 +128,12 @@ public class UserDetailFragment extends Fragment implements LoaderCallbacks<Curs
      */
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         String[] projection = new String[] {
-                UserTable.KEY_ID,
-                UserTable.KEY_FULLNAME, UserTable.KEY_NICKNAME,
-                UserTable.KEY_EMAIL, UserTable.KEY_PROJECT,
-                UserTable.KEY_NUMBER,
-                UserTable.KEY_COMPANY,
-                UserTable.KEY_ROLE
+                Users._ID,
+                Users.USER_FULLNAME, Users.USER_NICKNAME,
+                Users.USER_EMAIL, Users.USER_PROJECT_ID,
+                Users.USER_NUMBER,
+                Users.USER_COMPANY,
+                Users.USER_ROLE
         };
         return new CursorLoader(mActivity, mContentUri, projection, null, null, null);
     }
@@ -153,13 +144,13 @@ public class UserDetailFragment extends Fragment implements LoaderCallbacks<Curs
      */
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (data.moveToFirst()) {
-            fullname = data.getString(data.getColumnIndex(UserTable.KEY_FULLNAME));
-            nickname = data.getString(data.getColumnIndex(UserTable.KEY_NICKNAME));
-            email = data.getString(data.getColumnIndex(UserTable.KEY_EMAIL));
-            project = data.getString(data.getColumnIndex(UserTable.KEY_PROJECT));
-            company = data.getString(data.getColumnIndex(UserTable.KEY_COMPANY));
-            number = data.getString(data.getColumnIndex(UserTable.KEY_NUMBER));
-            role = data.getString(data.getColumnIndex(UserTable.KEY_ROLE));
+            fullname = data.getString(data.getColumnIndex(Users.USER_FULLNAME));
+            nickname = data.getString(data.getColumnIndex(Users.USER_NICKNAME));
+            email = data.getString(data.getColumnIndex(Users.USER_EMAIL));
+            project = data.getString(data.getColumnIndex(Users.USER_PROJECT_ID));
+            company = data.getString(data.getColumnIndex(Users.USER_COMPANY));
+            number = data.getString(data.getColumnIndex(Users.USER_NUMBER));
+            role = data.getString(data.getColumnIndex(Users.USER_ROLE));
             // Update UI
             mHandler.post(new Runnable() {
                 public void run() {

@@ -6,7 +6,7 @@ import static android.content.ContentResolver.requestSync;
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.SsaConstants;
 import org.inftel.ssa.mobile.authenticator.AuthenticatorActivity;
-import org.inftel.ssa.mobile.contentproviders.ProjectContentProvider;
+import org.inftel.ssa.mobile.provider.SsaContract;
 import org.inftel.ssa.mobile.util.AnalyticsUtils;
 
 import android.accounts.Account;
@@ -69,7 +69,7 @@ public class HomeActivity extends BaseActivity {
     private void triggerRefresh() {
         Account account = findAccount();
         if (account != null) {
-            requestSync(account, ProjectContentProvider.AUTHORITY, new Bundle());
+            requestSync(account, SsaContract.CONTENT_AUTHORITY, new Bundle());
         } else {
             Toast.makeText(this, "Must be registered to synchronize", Toast.LENGTH_LONG);
         }

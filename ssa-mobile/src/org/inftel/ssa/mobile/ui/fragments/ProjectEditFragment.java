@@ -2,8 +2,7 @@
 package org.inftel.ssa.mobile.ui.fragments;
 
 import org.inftel.ssa.mobile.R;
-import org.inftel.ssa.mobile.contentproviders.ProjectContentProvider;
-import org.inftel.ssa.mobile.contentproviders.ProjectTable;
+import org.inftel.ssa.mobile.provider.SsaContract.Projects;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -85,7 +84,7 @@ public class ProjectEditFragment extends Fragment implements LoaderCallbacks<Cur
     // case R.id.menu_save:
     // saveProject();
     // final Intent intent = new Intent(ACTION_VIEW,
-    // ProjectContentProvider.CONTENT_URI);
+    // Projects.CONTENT_URI);
     // startActivity(intent);
     // return true;
     // }
@@ -100,10 +99,10 @@ public class ProjectEditFragment extends Fragment implements LoaderCallbacks<Cur
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         String[] projection = new String[] {
-                ProjectTable.KEY_SUMMARY, ProjectTable.KEY_NAME,
-                ProjectTable.KEY_DESCRIPTION, ProjectTable.KEY_STARTED,
-                ProjectTable.KEY_CLOSE, ProjectTable.KEY_COMPANY,
-                ProjectTable.KEY_LICENSE
+                Projects.PROJECT_SUMMARY, Projects.PROJECT_NAME,
+                Projects.PROJECT_DESCRIPTION, Projects.PROJECT_STARTED,
+                Projects.PROJECT_CLOSE, Projects.PROJECT_COMPANY,
+                Projects.PROJECT_LICENSE
         };
         return new CursorLoader(mActivity, mContentUri, projection, null, null, null);
     }
@@ -111,8 +110,8 @@ public class ProjectEditFragment extends Fragment implements LoaderCallbacks<Cur
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (data.moveToFirst()) {
-            final String summary = data.getString(data.getColumnIndex(ProjectTable.KEY_NAME));
-            final String name = data.getString(data.getColumnIndex(ProjectTable.KEY_SUMMARY));
+            final String summary = data.getString(data.getColumnIndex(Projects.PROJECT_NAME));
+            final String name = data.getString(data.getColumnIndex(Projects.PROJECT_SUMMARY));
             // Update UI
             mHandler.post(new Runnable() {
                 public void run() {
@@ -151,18 +150,18 @@ public class ProjectEditFragment extends Fragment implements LoaderCallbacks<Cur
         ContentResolver cr = mActivity.getContentResolver();
         ContentValues values = new ContentValues();
 
-        values.put(ProjectTable.KEY_NAME, title.getText().toString());
-        values.put(ProjectTable.KEY_SUMMARY, summary.getText().toString());
-        values.put(ProjectTable.KEY_DESCRIPTION, description.getText().toString());
-        values.put(ProjectTable.KEY_STARTED, started.getText().toString());
-        values.put(ProjectTable.KEY_CLOSE, finished.getText().toString());
-        values.put(ProjectTable.KEY_COMPANY, company.getText().toString());
-        values.put(ProjectTable.KEY_LICENSE, license.getText().toString());
+        values.put(Projects.PROJECT_NAME, title.getText().toString());
+        values.put(Projects.PROJECT_SUMMARY, summary.getText().toString());
+        values.put(Projects.PROJECT_DESCRIPTION, description.getText().toString());
+        values.put(Projects.PROJECT_STARTED, started.getText().toString());
+        values.put(Projects.PROJECT_CLOSE, finished.getText().toString());
+        values.put(Projects.PROJECT_COMPANY, company.getText().toString());
+        values.put(Projects.PROJECT_LICENSE, license.getText().toString());
 
         try {
             if (mState == STATE_INSERT) {
-                values.put(ProjectTable.KEY_OPENED, Long.toString(System.currentTimeMillis()));
-                cr.insert(ProjectContentProvider.CONTENT_URI, values);
+                values.put(Projects.PROJECT_OPENED, Long.toString(System.currentTimeMillis()));
+                cr.insert(Projects.CONTENT_URI, values);
             } else {
                 cr.update(mContentUri, values, null, null);
             }

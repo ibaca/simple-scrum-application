@@ -2,8 +2,7 @@
 package org.inftel.ssa.mobile.ui.fragments;
 
 import org.inftel.ssa.mobile.R;
-import org.inftel.ssa.mobile.contentproviders.TaskContentProvider;
-import org.inftel.ssa.mobile.contentproviders.TaskTable;
+import org.inftel.ssa.mobile.provider.SsaContract.Tasks;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -86,19 +85,19 @@ public class TaskDetailFragment extends Fragment implements LoaderCallbacks<Curs
          * String[] projection = new String[] { SprintTable.KEY_SUMMARY, };
          */
         String[] projection = new String[] {
-                TaskTable.COLUMN_ID, // 0
-                TaskTable.COLUMN_SUMMARY, // 1
-                TaskTable.COLUMN_DESCRIPTION, // 2
-                TaskTable.COLUMN_ESTIMATED, // 3
-                TaskTable.COLUMN_PRIORITY, // 4
-                TaskTable.COLUMN_SPRINT, // 5
-                TaskTable.COLUMN_USER, // 6
-                TaskTable.COLUMN_STATUS, // 7
-                TaskTable.COLUMN_BEGINDATE, // 8
-                TaskTable.COLUMN_ENDDATE, // 9
-                TaskTable.COLUMN_BURNED, // 10
-                TaskTable.COLUMN_REMAINING, // 11
-                TaskTable.COLUMN_COMMENTS, // 12
+                Tasks._ID, // 0
+                Tasks.TASK_SUMMARY, // 1
+                Tasks.TASK_DESCRIPTION, // 2
+                Tasks.TASK_ESTIMATED, // 3
+                Tasks.TASK_PRIORITY, // 4
+                Tasks.TASK_SPRINT_ID, // 5
+                Tasks.TASK_USER_ID, // 6
+                Tasks.TASK_STATUS, // 7
+                Tasks.TASK_BEGINDATE, // 8
+                Tasks.TASK_ENDDATE, // 9
+                Tasks.TASK_BURNED, // 10
+                Tasks.TASK_REMAINING, // 11
+                Tasks.TASK_COMMENTS, // 12
         };
 
         return new CursorLoader(mActivity, mContentUri, projection, null, null, null);
@@ -115,24 +114,24 @@ public class TaskDetailFragment extends Fragment implements LoaderCallbacks<Curs
             // data.getString(data.getColumnIndex(SprintTable.KEY_SUMMARY));
 
             final String mTxtSummary = data
-                    .getString(data.getColumnIndex(TaskTable.COLUMN_SUMMARY));
+                    .getString(data.getColumnIndex(Tasks.TASK_SUMMARY));
             final String mTxtDescription = data.getString(data
-                    .getColumnIndex(TaskTable.COLUMN_DESCRIPTION));
+                    .getColumnIndex(Tasks.TASK_DESCRIPTION));
             final String mTxtEstimated = data.getString(data
-                    .getColumnIndex(TaskTable.COLUMN_ESTIMATED));
+                    .getColumnIndex(Tasks.TASK_ESTIMATED));
             final String mTxtPriority = data.getString(data
-                    .getColumnIndex(TaskTable.COLUMN_PRIORITY));
-            final String mTxtSprint = data.getString(data.getColumnIndex(TaskTable.COLUMN_SPRINT));
-            final String mTxtStatus = data.getString(data.getColumnIndex(TaskTable.COLUMN_STATUS));
+                    .getColumnIndex(Tasks.TASK_PRIORITY));
+            final String mTxtSprint = data.getString(data.getColumnIndex(Tasks.TASK_SPRINT_ID));
+            final String mTxtStatus = data.getString(data.getColumnIndex(Tasks.TASK_STATUS));
             final String mTxtBeginDate = data.getString(data
-                    .getColumnIndex(TaskTable.COLUMN_BEGINDATE));
+                    .getColumnIndex(Tasks.TASK_BEGINDATE));
             final String mTxtEndDate = data
-                    .getString(data.getColumnIndex(TaskTable.COLUMN_ENDDATE));
-            final String mTxtBurned = data.getString(data.getColumnIndex(TaskTable.COLUMN_BURNED));
+                    .getString(data.getColumnIndex(Tasks.TASK_ENDDATE));
+            final String mTxtBurned = data.getString(data.getColumnIndex(Tasks.TASK_BURNED));
             final String mTxtRemaining = data.getString(data
-                    .getColumnIndex(TaskTable.COLUMN_REMAINING));
+                    .getColumnIndex(Tasks.TASK_REMAINING));
             final String mTxtComments = data.getString(data
-                    .getColumnIndex(TaskTable.COLUMN_COMMENTS));
+                    .getColumnIndex(Tasks.TASK_COMMENTS));
 
             // Update UI
             mHandler.post(new Runnable() {
@@ -178,7 +177,7 @@ public class TaskDetailFragment extends Fragment implements LoaderCallbacks<Curs
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_edit:
-                startActivity(new Intent(Intent.ACTION_VIEW, TaskContentProvider.CONTENT_URI));
+                startActivity(new Intent(Intent.ACTION_VIEW, Tasks.CONTENT_URI));
                 return true;
         }
         return super.onOptionsItemSelected(item);

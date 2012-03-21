@@ -10,7 +10,7 @@
         android:paddingBottom="@dimen/body_padding_medium"
         android:paddingLeft="@dimen/body_padding_large"
         android:paddingRight="@dimen/body_padding_large"
-        android:paddingTop="@dimen/body_padding_medium" >
+        android:paddingTop="@dimen/body_padding_medium" android:background="@drawable/gradient_bg">
 
         <TextView
             android:id="@+id/detail_title"
@@ -70,20 +70,21 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/tab_off_background" >
+                android:background="#e7e7e8">
             </TabWidget>
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.43" >
+                android:layout_weight="0.43"
+                android:background="@drawable/gradient_bg">
 
                 <include
                     android:id="@+id/tab_detail_project_description"

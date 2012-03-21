@@ -4,8 +4,7 @@ package org.inftel.ssa.mobile.ui.fragments;
 import static org.inftel.ssa.mobile.ui.BaseActivity.ARGS_URI;
 
 import org.inftel.ssa.mobile.R;
-import org.inftel.ssa.mobile.contentproviders.SprintContentProvider;
-import org.inftel.ssa.mobile.contentproviders.SprintTable;
+import org.inftel.ssa.mobile.provider.SsaContract.Sprints;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -71,7 +70,7 @@ public class SprintDetailFragment extends Fragment implements LoaderCallbacks<Cu
      */
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         String[] projection = new String[] {
-                SprintTable.KEY_SUMMARY,
+                Sprints.SPRINT_SUMMARY,
         };
         return new CursorLoader(mActivity, mContentUri, projection, null, null, null);
     }
@@ -82,7 +81,7 @@ public class SprintDetailFragment extends Fragment implements LoaderCallbacks<Cu
      */
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (data.moveToFirst()) {
-            final String sumamry = data.getString(data.getColumnIndex(SprintTable.KEY_SUMMARY));
+            final String sumamry = data.getString(data.getColumnIndex(Sprints.SPRINT_SUMMARY));
             // Update UI
             mHandler.post(new Runnable() {
                 public void run() {
@@ -118,7 +117,7 @@ public class SprintDetailFragment extends Fragment implements LoaderCallbacks<Cu
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_add:
-                startActivity(new Intent(Intent.ACTION_INSERT, SprintContentProvider.CONTENT_URI));
+                startActivity(new Intent(Intent.ACTION_INSERT, Sprints.CONTENT_URI));
                 return true;
         }
         return super.onOptionsItemSelected(item);

@@ -4,10 +4,10 @@ package org.inftel.ssa.mobile.ui.fragments;
 import static android.content.Intent.ACTION_VIEW;
 
 import org.inftel.ssa.mobile.R;
-import org.inftel.ssa.mobile.contentproviders.ProjectContentProvider;
-import org.inftel.ssa.mobile.contentproviders.SprintContentProvider;
-import org.inftel.ssa.mobile.contentproviders.TaskContentProvider;
-import org.inftel.ssa.mobile.contentproviders.UserContentProvider;
+import org.inftel.ssa.mobile.provider.SsaContract.Projects;
+import org.inftel.ssa.mobile.provider.SsaContract.Sprints;
+import org.inftel.ssa.mobile.provider.SsaContract.Tasks;
+import org.inftel.ssa.mobile.provider.SsaContract.Users;
 import org.inftel.ssa.mobile.util.AnalyticsUtils;
 
 import android.content.Intent;
@@ -34,7 +34,7 @@ public class DashboardFragment extends Fragment {
             public void onClick(View view) {
                 fireTrackerEvent("Sprints");
                 // Launch sessions list
-                final Intent intent = new Intent(ACTION_VIEW, SprintContentProvider.CONTENT_URI);
+                final Intent intent = new Intent(ACTION_VIEW, Sprints.CONTENT_URI);
                 intent.putExtra(Intent.EXTRA_TITLE, getString(R.string.title_sprints));
                 startActivity(intent);
 
@@ -46,7 +46,7 @@ public class DashboardFragment extends Fragment {
             public void onClick(View view) {
                 fireTrackerEvent("Tasks");
                 // Launch sessions list
-                final Intent intent = new Intent(ACTION_VIEW, TaskContentProvider.CONTENT_URI);
+                final Intent intent = new Intent(ACTION_VIEW, Tasks.CONTENT_URI);
                 intent.putExtra(Intent.EXTRA_TITLE, getString(R.string.title_task));
                 startActivity(intent);
 
@@ -58,7 +58,7 @@ public class DashboardFragment extends Fragment {
             public void onClick(View view) {
                 fireTrackerEvent("Users");
                 // Launch sessions list
-                final Intent intent = new Intent(ACTION_VIEW, UserContentProvider.CONTENT_URI);
+                final Intent intent = new Intent(ACTION_VIEW, Users.CONTENT_URI);
                 intent.putExtra(Intent.EXTRA_TITLE, getString(R.string.title_task));
                 startActivity(intent);
 
@@ -70,7 +70,7 @@ public class DashboardFragment extends Fragment {
             public void onClick(View view) {
                 fireTrackerEvent("Projects");
                 // Launch sessions list
-                final Intent intent = new Intent(ACTION_VIEW, ProjectContentProvider.CONTENT_URI);
+                final Intent intent = new Intent(ACTION_VIEW, Projects.CONTENT_URI);
                 intent.putExtra(Intent.EXTRA_TITLE, getString(R.string.title_projects));
                 startActivity(intent);
 

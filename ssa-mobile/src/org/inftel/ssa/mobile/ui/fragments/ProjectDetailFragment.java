@@ -1,11 +1,10 @@
 
 package org.inftel.ssa.mobile.ui.fragments;
 
+import static android.content.Intent.ACTION_VIEW;
+
 import org.inftel.ssa.mobile.R;
-import org.inftel.ssa.mobile.contentproviders.ProjectTable;
-import org.inftel.ssa.mobile.contentproviders.SprintContentProvider;
-import org.inftel.ssa.mobile.contentproviders.TaskContentProvider;
-import org.inftel.ssa.mobile.contentproviders.UserContentProvider;
+import org.inftel.ssa.mobile.provider.SsaContract.Projects;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -77,9 +76,7 @@ public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<C
 
             @Override
             public void onClick(View v) {
-                Uri sprintUri = SprintContentProvider.CONTENT_URI.buildUpon()
-                        .appendQueryParameter("project_id", mProjectId).build();
-                startActivity(new Intent(Intent.ACTION_VIEW, sprintUri));
+                startActivity(new Intent(ACTION_VIEW, Projects.buildSprintsDirUri(mProjectId)));
             }
         });
         // Handle users click
@@ -87,9 +84,7 @@ public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<C
 
             @Override
             public void onClick(View v) {
-                Uri userUri = UserContentProvider.CONTENT_URI.buildUpon()
-                        .appendQueryParameter("project_id", mProjectId).build();
-                startActivity(new Intent(Intent.ACTION_VIEW, userUri));
+                startActivity(new Intent(ACTION_VIEW, Projects.buildUsersDirUri(mProjectId)));
             }
         });
         // Handle tasks click
@@ -97,9 +92,7 @@ public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<C
 
             @Override
             public void onClick(View v) {
-                Uri taskUri = TaskContentProvider.CONTENT_URI.buildUpon()
-                        .appendQueryParameter("project_id", mProjectId).build();
-                startActivity(new Intent(Intent.ACTION_VIEW, taskUri));
+                startActivity(new Intent(ACTION_VIEW, Projects.buildTasksDirUri(mProjectId)));
             }
         });
 
@@ -120,13 +113,17 @@ public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<C
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         String[] projection = new String[] {
-                ProjectTable.KEY_ID, ProjectTable.KEY_NAME,
-                ProjectTable.KEY_SUMMARY, ProjectTable.KEY_DESCRIPTION,
-                ProjectTable.KEY_OPENED, ProjectTable.KEY_STARTED,
-                ProjectTable.KEY_CLOSE, ProjectTable.KEY_COMPANY,
-                ProjectTable.KEY_LICENSE, ProjectTable.KEY_LABELS,
-                ProjectTable.KEY_LINKS
-
+                Projects._ID,
+                Projects.PROJECT_NAME,
+                Projects.PROJECT_SUMMARY,
+                Projects.PROJECT_DESCRIPTION,
+                Projects.PROJECT_OPENED,
+                Projects.PROJECT_STARTED,
+                Projects.PROJECT_CLOSE,
+                Projects.PROJECT_COMPANY,
+                Projects.PROJECT_LICENSE,
+                Projects.PROJECT_LABELS,
+                Projects.PROJECT_LINKS
         };
         return new CursorLoader(mActivity, mContentUri, projection, null, null, null);
     }
@@ -134,18 +131,17 @@ public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<C
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (data.moveToFirst()) {
-
-            mProjectId = data.getString(data.getColumnIndex(ProjectTable.KEY_ID));
-            name = data.getString(data.getColumnIndex(ProjectTable.KEY_NAME));
-            summary = data.getString(data.getColumnIndex(ProjectTable.KEY_SUMMARY));
-            description = data.getString(data.getColumnIndex(ProjectTable.KEY_DESCRIPTION));
-            opened = data.getString(data.getColumnIndex(ProjectTable.KEY_OPENED));
-            started = data.getString(data.getColumnIndex(ProjectTable.KEY_STARTED));
-            closed = data.getString(data.getColumnIndex(ProjectTable.KEY_CLOSE));
-            company = data.getString(data.getColumnIndex(ProjectTable.KEY_COMPANY));
-            license = data.getString(data.getColumnIndex(ProjectTable.KEY_LICENSE));
-            labels = data.getString(data.getColumnIndex(ProjectTable.KEY_LABELS));
-            links = data.getString(data.getColumnIndex(ProjectTable.KEY_LINKS));
+            mProjectId = data.getString(data.getColumnIndex(Projects._ID));
+            name = data.getString(data.getColumnIndex(Projects.PROJECT_NAME));
+            summary = data.getString(data.getColumnIndex(Projects.PROJECT_SUMMARY));
+            description = data.getString(data.getColumnIndex(Projects.PROJECT_DESCRIPTION));
+            opened = data.getString(data.getColumnIndex(Projects.PROJECT_OPENED));
+            started = data.getString(data.getColumnIndex(Projects.PROJECT_STARTED));
+            closed = data.getString(data.getColumnIndex(Projects.PROJECT_CLOSE));
+            company = data.getString(data.getColumnIndex(Projects.PROJECT_COMPANY));
+            license = data.getString(data.getColumnIndex(Projects.PROJECT_LICENSE));
+            labels = data.getString(data.getColumnIndex(Projects.PROJECT_LABELS));
+            links = data.getString(data.getColumnIndex(Projects.PROJECT_LINKS));
 
             // Update UI
             mHandler.post(new Runnable() {
@@ -240,10 +236,10 @@ public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<C
     //
     // mCursor.requery();
     //
-    // int colName = mCursor.getColumnIndex(ProjectTable.KEY_NAME);
-    // int colSummary = mCursor.getColumnIndex(ProjectTable.KEY_SUMMARY);
+    // int colName = mCursor.getColumnIndex(Projects.PROJECT_NAME);
+    // int colSummary = mCursor.getColumnIndex(Projects.PROJECT_SUMMARY);
     // int colDescription =
-    // mCursor.getColumnIndex(ProjectTable.KEY_DESCRIPTION);
+    // mCursor.getColumnIndex(Projects.PROJECT_DESCRIPTION);
     // String txt = "";
     // if (mCursor.moveToFirst()) {
     // txt = mCursor.getString(colName);

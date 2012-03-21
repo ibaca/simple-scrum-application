@@ -4,7 +4,7 @@ package org.inftel.ssa.mobile.ui.phone;
 import static android.content.Intent.ACTION_VIEW;
 
 import org.inftel.ssa.mobile.R;
-import org.inftel.ssa.mobile.contentproviders.ProjectContentProvider;
+import org.inftel.ssa.mobile.provider.SsaContract.Projects;
 import org.inftel.ssa.mobile.ui.BaseSinglePaneActivity;
 import org.inftel.ssa.mobile.ui.fragments.ProjectEditFragment;
 
@@ -43,9 +43,7 @@ public class ProjectEditActivity extends BaseSinglePaneActivity {
         switch (item.getItemId()) {
             case R.id.menu_save:
                 projectEditFragment.saveProject();
-                final Intent intent = new Intent(ACTION_VIEW,
-                        ProjectContentProvider.CONTENT_URI);
-                startActivity(intent);
+                startActivity(new Intent(ACTION_VIEW, Projects.CONTENT_URI));
                 return true;
         }
         return onOptionsItemSelected(item);

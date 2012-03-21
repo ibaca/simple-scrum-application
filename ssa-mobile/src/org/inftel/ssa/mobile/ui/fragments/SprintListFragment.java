@@ -4,10 +4,8 @@ package org.inftel.ssa.mobile.ui.fragments;
 import static org.inftel.ssa.mobile.ui.BaseActivity.ARGS_URI;
 
 import org.inftel.ssa.mobile.R;
-import org.inftel.ssa.mobile.contentproviders.SprintContentProvider;
-import org.inftel.ssa.mobile.contentproviders.SprintTable;
+import org.inftel.ssa.mobile.provider.SsaContract.Sprints;
 
-import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -52,7 +50,7 @@ public class SprintListFragment extends ListFragment implements LoaderCallbacks<
                 android.R.layout.simple_list_item_1,
                 mCursor,
                 new String[] {
-                        SprintTable.KEY_SUMMARY
+                        Sprints.SPRINT_SUMMARY
                 },
                 new int[] {
                         android.R.id.text1
@@ -77,8 +75,7 @@ public class SprintListFragment extends ListFragment implements LoaderCallbacks<
         Cursor c = mAdapter.getCursor();
         c.moveToPosition(position);
 
-        Uri sprintUri = ContentUris.withAppendedId(SprintContentProvider.CONTENT_URI,
-                c.getLong(c.getColumnIndex(SprintTable.KEY_ID)));
+        Uri sprintUri = Sprints.buildSprintUri(c.getString(c.getColumnIndex(Sprints._ID)));
 
         // Start view activity to show sprint details
         startActivity(new Intent(Intent.ACTION_VIEW, sprintUri));
@@ -86,7 +83,7 @@ public class SprintListFragment extends ListFragment implements LoaderCallbacks<
 
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         String[] projection = new String[] {
-                SprintTable.KEY_ID, SprintTable.KEY_SUMMARY, SprintTable.KEY_STABLE_ID
+                Sprints._ID, Sprints.SPRINT_SUMMARY
         };
         String selection = null;
         String[] selectionArgs = null;
@@ -98,7 +95,7 @@ public class SprintListFragment extends ListFragment implements LoaderCallbacks<
 
         }
 
-        return new CursorLoader(getActivity(), SprintContentProvider.CONTENT_URI,
+        return new CursorLoader(getActivity(), Sprints.CONTENT_URI,
                 projection, selection, selectionArgs, null);
     }
 
@@ -129,7 +126,8 @@ public class SprintListFragment extends ListFragment implements LoaderCallbacks<
                 return true;
             case DELETE_ID:
                 // TODO Igual un popup que pregunte si se esta seguro
-                Uri uri = ContentUris.withAppendedId(SprintContentProvider.CONTENT_URI, info.id);
+                String sprintId = String.valueOf(info.id);
+                Uri uri = Sprints.buildSprintUri(sprintId);
                 getActivity().getContentResolver().delete(uri, null, null);
                 return true;
         }

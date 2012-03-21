@@ -84,7 +84,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.dir/vnd.inftel.ssa.sprints" />
+                <data android:mimeType="vnd.android.cursor.dir/vnd.inftel.ssa.sprint" />
             </intent-filter>
         </activity>
         <activity
@@ -93,7 +93,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.item/vnd.inftel.ssa.sprints" />
+                <data android:mimeType="vnd.android.cursor.item/vnd.inftel.ssa.sprint" />
             </intent-filter>
         </activity>
         <activity
@@ -102,12 +102,12 @@
             <intent-filter>
                 <action android:name="android.intent.action.INSERT" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.dir/vnd.inftel.ssa.sprints" />
+                <data android:mimeType="vnd.android.cursor.dir/vnd.inftel.ssa.sprint" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.EDIT" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.item/vnd.inftel.ssa.sprints" />
+                <data android:mimeType="vnd.android.cursor.item/vnd.inftel.ssa.sprint" />
             </intent-filter>
         </activity>
         <activity
@@ -116,7 +116,7 @@
 	        <intent-filter>
 	            <action android:name="android.intent.action.VIEW" />
 	            <category android:name="android.intent.category.DEFAULT" />
-	            <data android:mimeType="vnd.android.cursor.dir/vnd.inftel.ssa.tasks" />
+	            <data android:mimeType="vnd.android.cursor.dir/vnd.inftel.ssa.task" />
 	        </intent-filter>
 	    </activity>
         <activity
@@ -125,7 +125,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.item/vnd.inftel.ssa.tasks" />
+                <data android:mimeType="vnd.android.cursor.item/vnd.inftel.ssa.task" />
             </intent-filter>
         </activity>
         <activity
@@ -134,26 +134,26 @@
             <intent-filter>
                 <action android:name="android.intent.action.INSERT" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.dir/vnd.inftel.ssa.tasks" />
+                <data android:mimeType="vnd.android.cursor.dir/vnd.inftel.ssa.task" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.EDIT" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.item/vnd.inftel.ssa.tasks" />
+                <data android:mimeType="vnd.android.cursor.item/vnd.inftel.ssa.task" />
             </intent-filter>
         </activity>
         <activity android:name=".ui.phone.UserListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.dir/vnd.inftel.ssa.users" />
+                <data android:mimeType="vnd.android.cursor.dir/vnd.inftel.ssa.user" />
             </intent-filter>
         </activity>
         <activity android:name=".ui.phone.UserDetailActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.item/vnd.inftel.ssa.users" />
+                <data android:mimeType="vnd.android.cursor.item/vnd.inftel.ssa.user" />
             </intent-filter>
         </activity>
         <activity
@@ -162,7 +162,7 @@
 	        <intent-filter>
 	            <action android:name="android.intent.action.VIEW" />
 	            <category android:name="android.intent.category.DEFAULT" />
-	            <data android:mimeType="vnd.android.cursor.dir/vnd.inftel.ssa.projects" />
+	            <data android:mimeType="vnd.android.cursor.dir/vnd.inftel.ssa.project" />
 	        </intent-filter>
 	    </activity>
 	    <activity
@@ -171,7 +171,7 @@
 	        <intent-filter>
 	            <action android:name="android.intent.action.VIEW" />
 	            <category android:name="android.intent.category.DEFAULT" />
-	            <data android:mimeType="vnd.android.cursor.item/vnd.inftel.ssa.projects" />
+	            <data android:mimeType="vnd.android.cursor.item/vnd.inftel.ssa.project" />
 	        </intent-filter>
 	    </activity>
 	    <activity
@@ -180,31 +180,21 @@
             <intent-filter>
                 <action android:name="android.intent.action.INSERT" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.dir/vnd.inftel.ssa.projects" />
+                <data android:mimeType="vnd.android.cursor.dir/vnd.inftel.ssa.project" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.EDIT" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.item/vnd.inftel.ssa.projects" />
+                <data android:mimeType="vnd.android.cursor.item/vnd.inftel.ssa.project" />
             </intent-filter>
         </activity>
 
         <provider
-            android:name=".contentproviders.UserContentProvider"
-            android:authorities="org.inftel.ssa.mobile.contentproviders.users" />
-        <provider
-            android:name=".contentproviders.ProjectContentProvider"
-            android:authorities="org.inftel.ssa.mobile.contentproviders.projects"
-            android:label="@string/provider_project_label"
-            android:description="@string/provider_project_description"
+            android:name=".provider.SsaProvider"
+            android:authorities="org.inftel.ssa.mobile"
+            android:label="@string/provider_label"
+            android:description="@string/provider_description"
             android:syncable="true" />
-        <provider
-            android:name=".contentproviders.SprintContentProvider"
-            android:authorities="org.inftel.ssa.mobile.provider" />
-        <provider
-            android:name=".contentproviders.TaskContentProvider"
-            android:authorities="org.inftel.ssa.mobile.task.contentprovider" >
-        </provider>
         
     </application>
 

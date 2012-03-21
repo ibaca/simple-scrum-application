@@ -3,7 +3,7 @@ package org.inftel.ssa.mobile.authenticator;
 
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.SsaConstants;
-import org.inftel.ssa.mobile.contentproviders.ProjectContentProvider;
+import org.inftel.ssa.mobile.provider.SsaContract;
 
 import android.accounts.Account;
 import android.accounts.AccountAuthenticatorActivity;
@@ -200,7 +200,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
         final Account account = new Account(mUsername, SsaConstants.ACCOUNT_TYPE);
         if (mRequestNewAccount) {
             mAccountManager.addAccountExplicitly(account, mPassword, null);
-            ContentResolver.setSyncAutomatically(account, ProjectContentProvider.AUTHORITY, true);
+            ContentResolver.setSyncAutomatically(account, SsaContract.CONTENT_AUTHORITY, true);
         } else {
             mAccountManager.setPassword(account, mPassword);
         }

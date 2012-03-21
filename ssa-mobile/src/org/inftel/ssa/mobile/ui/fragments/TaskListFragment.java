@@ -1,16 +1,9 @@
 
 package org.inftel.ssa.mobile.ui.fragments;
 
-import static org.inftel.ssa.mobile.ui.BaseActivity.ARGS_URI;
-
 import org.inftel.ssa.mobile.R;
-import org.inftel.ssa.mobile.contentproviders.ProjectContentProvider;
-import org.inftel.ssa.mobile.contentproviders.ProjectTable;
-import org.inftel.ssa.mobile.contentproviders.TaskContentProvider;
-import org.inftel.ssa.mobile.contentproviders.TaskTable;
+import org.inftel.ssa.mobile.provider.SsaContract.Tasks;
 
-import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -21,7 +14,6 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -49,7 +41,7 @@ public class TaskListFragment extends ListFragment implements LoaderCallbacks<Cu
         super.onActivityCreated(savedInstanceState);
 
         mAdapter = new TaskListAdapter(getActivity(), mCursor);
-        
+
         // Allocate the adapter to the list displayed within this fragment.
         setListAdapter(mAdapter);
 
@@ -68,21 +60,19 @@ public class TaskListFragment extends ListFragment implements LoaderCallbacks<Cu
 
         Cursor c = mAdapter.getCursor();
         c.moveToPosition(position);
-
-        Uri taskUri = ContentUris.withAppendedId(TaskContentProvider.CONTENT_URI,
-                c.getLong(c.getColumnIndex(TaskTable.COLUMN_ID)));
+        String taskId = String.valueOf(c.getLong(c.getColumnIndex(Tasks._ID)));
 
         // Start view activity to show sprint details
-        startActivity(new Intent(Intent.ACTION_VIEW, taskUri));
+        startActivity(new Intent(Intent.ACTION_VIEW, Tasks.buildTasktUri(taskId)));
     }
 
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         String[] projection = new String[] {
-                TaskTable.COLUMN_ID, TaskTable.COLUMN_SUMMARY, TaskTable.COLUMN_DESCRIPTION, 
-                TaskTable.COLUMN_ESTIMATED
+                Tasks._ID, Tasks.TASK_SUMMARY, Tasks.TASK_DESCRIPTION,
+                Tasks.TASK_ESTIMATED
         };
 
-        return new CursorLoader(getActivity(), TaskContentProvider.CONTENT_URI,
+        return new CursorLoader(getActivity(), Tasks.CONTENT_URI,
                 projection, null, null, null);
     }
 
@@ -106,36 +96,39 @@ public class TaskListFragment extends ListFragment implements LoaderCallbacks<Cu
         Log.d("TaskList", "context menu selected");
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
-            case EDIT_ID:
+            case EDIT_ID: {
                 Cursor c = mAdapter.getCursor();
                 c.moveToPosition(info.position);
+                String taskId = c.getString(c.getColumnIndex(Tasks._ID));
 
-                Uri projectUri = ContentUris.withAppendedId(TaskContentProvider.CONTENT_URI,
-                        c.getLong(c.getColumnIndex(TaskTable.COLUMN_ID)));
-
-                // Start view activity to show sprint details
-                startActivity(new Intent(Intent.ACTION_EDIT, projectUri));
+                // Start view activity to show task details
+                startActivity(new Intent(Intent.ACTION_EDIT, Tasks.buildTasktUri(taskId)));
                 return true;
-            case DELETE_ID:
+            }
+            case DELETE_ID: {
                 // TODO Igual un popup que pregunte si se esta seguro
-                Uri uri = ContentUris.withAppendedId(TaskContentProvider.CONTENT_URI, info.id);
+                String taskId = String.valueOf(info.id);
+                Uri uri = Tasks.buildTasktUri(taskId);
                 getActivity().getContentResolver().delete(uri, null, null);
                 return true;
+            }
         }
         return super.onContextItemSelected(item);
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.ssa_task_list_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_add:
                 Log.d(getClass().getSimpleName(), "Creando nueva task");
                 final Intent intent = new Intent(Intent.ACTION_INSERT,
-                        TaskContentProvider.CONTENT_URI);
+                        Tasks.CONTENT_URI);
                 startActivity(intent);
                 return true;
         }
@@ -166,20 +159,15 @@ public class TaskListFragment extends ListFragment implements LoaderCallbacks<Cu
             subtitleView = (TextView) view.findViewById(R.id.task_subtitle);
             taskEstimated = (TextView) view.findViewById(R.id.task_estimated);
 
-            int colSummary = cursor.getColumnIndex(TaskTable.COLUMN_SUMMARY);
-            int colDescription = cursor.getColumnIndex(TaskTable.COLUMN_DESCRIPTION);
-            int colEstimated = cursor.getColumnIndex(TaskTable.COLUMN_ESTIMATED);
-
-            Log.d(getClass().getSimpleName(), "" + colSummary);
-            Log.d(getClass().getSimpleName(), "" + colDescription);
+            int colSummary = cursor.getColumnIndex(Tasks.TASK_SUMMARY);
+            int colDescription = cursor.getColumnIndex(Tasks.TASK_DESCRIPTION);
+            int colEstimated = cursor.getColumnIndex(Tasks.TASK_ESTIMATED);
 
             titleView.setText(cursor.getString(colSummary));
             subtitleView.setText(cursor.getString(colDescription));
             taskEstimated.setText(cursor.getString(colEstimated));
-            
-
         }
 
     }
-    
+
 }

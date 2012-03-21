@@ -4,8 +4,7 @@ package org.inftel.ssa.mobile.ui.fragments;
 import static android.content.Intent.ACTION_VIEW;
 
 import org.inftel.ssa.mobile.R;
-import org.inftel.ssa.mobile.contentproviders.TaskContentProvider;
-import org.inftel.ssa.mobile.contentproviders.TaskTable;
+import org.inftel.ssa.mobile.provider.SsaContract.Tasks;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -98,19 +97,19 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
      */
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         String[] projection = new String[] {
-                TaskTable.COLUMN_ID, // 0
-                TaskTable.COLUMN_SUMMARY, // 1
-                TaskTable.COLUMN_DESCRIPTION, // 2
-                TaskTable.COLUMN_ESTIMATED, // 3
-                TaskTable.COLUMN_PRIORITY, // 4
-                TaskTable.COLUMN_SPRINT, // 5
-                TaskTable.COLUMN_USER, // 6
-                TaskTable.COLUMN_STATUS, // 7
-                TaskTable.COLUMN_BEGINDATE, // 8
-                TaskTable.COLUMN_ENDDATE, // 9
-                TaskTable.COLUMN_BURNED, // 10
-                TaskTable.COLUMN_REMAINING, // 11
-                TaskTable.COLUMN_COMMENTS, // 12
+                Tasks._ID, // 0
+                Tasks.TASK_SUMMARY, // 1
+                Tasks.TASK_DESCRIPTION, // 2
+                Tasks.TASK_ESTIMATED, // 3
+                Tasks.TASK_PRIORITY, // 4
+                Tasks.TASK_SPRINT_ID, // 5
+                Tasks.TASK_USER_ID, // 6
+                Tasks.TASK_STATUS, // 7
+                Tasks.TASK_BEGINDATE, // 8
+                Tasks.TASK_ENDDATE, // 9
+                Tasks.TASK_BURNED, // 10
+                Tasks.TASK_REMAINING, // 11
+                Tasks.TASK_COMMENTS, // 12
         };
 
         return new CursorLoader(mActivity, mContentUri, projection, null, null, null);
@@ -122,9 +121,9 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
      */
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (data.moveToFirst()) {
-            final String sumamry = data.getString(data.getColumnIndex(TaskTable.COLUMN_SUMMARY));
+            final String sumamry = data.getString(data.getColumnIndex(Tasks.TASK_SUMMARY));
             final String description = data.getString(data
-                    .getColumnIndex(TaskTable.COLUMN_DESCRIPTION));
+                    .getColumnIndex(Tasks.TASK_DESCRIPTION));
             // Update UI
             mHandler.post(new Runnable() {
                 public void run() {
@@ -149,7 +148,6 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
         });
     }
 
- 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.ssa_task_edit_menu, menu);
@@ -162,13 +160,13 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
             case R.id.menu_save:
                 saveTask();
                 final Intent intent = new Intent(ACTION_VIEW,
-                        TaskContentProvider.CONTENT_URI);
+                        Tasks.CONTENT_URI);
                 startActivity(intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
-    
+
     public void saveTask() {
 
         Log.d(getClass().getSimpleName(), "Save Task");
@@ -188,22 +186,22 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
         ContentResolver cr = mActivity.getContentResolver();
         ContentValues values = new ContentValues();
 
-        values.put(TaskTable.COLUMN_SUMMARY, mTxtSummary.getText().toString());
-        values.put(TaskTable.COLUMN_DESCRIPTION, mTxtDescription.getText().toString());
-        values.put(TaskTable.COLUMN_ESTIMATED, mTxtEstimated.getText().toString());
-        values.put(TaskTable.COLUMN_PRIORITY, mTxtPriority.getText().toString());
-        values.put(TaskTable.COLUMN_SPRINT, mTxtSprint.getText().toString());
-        values.put(TaskTable.COLUMN_STATUS, mTxtStatus.getText().toString());
-        values.put(TaskTable.COLUMN_BEGINDATE, mTxtBeginDate.getText().toString());
-        values.put(TaskTable.COLUMN_ENDDATE, mTxtEndDate.getText().toString());
-        values.put(TaskTable.COLUMN_BURNED, mTxtBurned.getText().toString());
-        values.put(TaskTable.COLUMN_REMAINING, mTxtRemaining.getText().toString());
-        values.put(TaskTable.COLUMN_COMMENTS, mTxtComments.getText().toString());
+        values.put(Tasks.TASK_SUMMARY, mTxtSummary.getText().toString());
+        values.put(Tasks.TASK_DESCRIPTION, mTxtDescription.getText().toString());
+        values.put(Tasks.TASK_ESTIMATED, mTxtEstimated.getText().toString());
+        values.put(Tasks.TASK_PRIORITY, mTxtPriority.getText().toString());
+        values.put(Tasks.TASK_SPRINT_ID, mTxtSprint.getText().toString());
+        values.put(Tasks.TASK_STATUS, mTxtStatus.getText().toString());
+        values.put(Tasks.TASK_BEGINDATE, mTxtBeginDate.getText().toString());
+        values.put(Tasks.TASK_ENDDATE, mTxtEndDate.getText().toString());
+        values.put(Tasks.TASK_BURNED, mTxtBurned.getText().toString());
+        values.put(Tasks.TASK_REMAINING, mTxtRemaining.getText().toString());
+        values.put(Tasks.TASK_COMMENTS, mTxtComments.getText().toString());
 
         try {
             if (mState == STATE_INSERT) {
-                values.put(TaskTable.COLUMN_CREATED, Long.toString(System.currentTimeMillis()));
-                cr.insert(TaskContentProvider.CONTENT_URI, values);
+                values.put(Tasks.TASK_CREATED, Long.toString(System.currentTimeMillis()));
+                cr.insert(Tasks.CONTENT_URI, values);
             } else {
                 cr.update(mContentUri, values, null, null);
             }
