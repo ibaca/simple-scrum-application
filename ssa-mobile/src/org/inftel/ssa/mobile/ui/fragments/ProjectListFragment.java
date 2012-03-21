@@ -1,10 +1,10 @@
 
 package org.inftel.ssa.mobile.ui.fragments;
 
+import static android.content.Intent.ACTION_EDIT;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
-import static android.content.Intent.ACTION_EDIT;
 
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.provider.SsaContract.Projects;
@@ -79,8 +79,10 @@ public class ProjectListFragment extends ListFragment implements LoaderCallbacks
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         String[] projection = new String[] {
-                Projects._ID, Projects.PROJECT_NAME,
-                Projects.PROJECT_OPENED, Projects.PROJECT_CLOSE,
+                Projects._ID,
+                Projects.PROJECT_NAME,
+                Projects.PROJECT_OPENED,
+                Projects.PROJECT_CLOSE,
                 Projects.PROJECT_SUMMARY
         };
 
@@ -197,7 +199,7 @@ public class ProjectListFragment extends ListFragment implements LoaderCallbacks
                     e.printStackTrace();
                 }
             }
-            
+
             Log.d(getClass().getSimpleName(), "" + txtOpened);
 
             titleView.setText(cursor.getString(colName));

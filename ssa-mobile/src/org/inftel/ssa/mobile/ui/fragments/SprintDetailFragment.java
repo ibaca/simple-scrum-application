@@ -2,6 +2,7 @@
 package org.inftel.ssa.mobile.ui.fragments;
 
 import static org.inftel.ssa.mobile.ui.BaseActivity.ARGS_URI;
+import static org.inftel.ssa.mobile.util.Lists.strings;
 
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.provider.SsaContract.Sprints;
@@ -36,13 +37,11 @@ public class SprintDetailFragment extends Fragment implements LoaderCallbacks<Cu
         View view = inflater.inflate(R.layout.fragment_sprint_detail, container, false);
 
         Bundle arguments = getArguments();
-        // TODO buscar donde esta la constante _uri!
         if (arguments != null && arguments.get(ARGS_URI) != null) {
             mContentUri = (Uri) arguments.get(ARGS_URI);
         }
 
         setHasOptionsMenu(true);
-
         return view;
     }
 
@@ -52,8 +51,6 @@ public class SprintDetailFragment extends Fragment implements LoaderCallbacks<Cu
 
         if (mContentUri != null) {
             getLoaderManager().initLoader(0, null, this);
-        } else {
-            // New item (set default values)
         }
     }
 
@@ -69,10 +66,8 @@ public class SprintDetailFragment extends Fragment implements LoaderCallbacks<Cu
      * the Place Detail Content Provider.
      */
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        String[] projection = new String[] {
-                Sprints.SPRINT_SUMMARY,
-        };
-        return new CursorLoader(mActivity, mContentUri, projection, null, null, null);
+        return new CursorLoader(mActivity, mContentUri,
+                strings(Sprints.SPRINT_SUMMARY), null, null, null);
     }
 
     /**
@@ -97,14 +92,11 @@ public class SprintDetailFragment extends Fragment implements LoaderCallbacks<Cu
      * {@inheritDoc}
      */
     public void onLoaderReset(Loader<Cursor> loader) {
-        mHandler.post(new Runnable() {
-            public void run() {
-                // ((TextView)
-                // getView().findViewById(R.id.sprint_title)).setText("");
-                // ((TextView)
-                // getView().findViewById(R.id.sprint_subtitle)).setText("");
-            }
-        });
+        // mHandler.post(new Runnable() {
+        // public void run() {
+        // Clean UI data
+        // }
+        // });
     }
 
     @Override

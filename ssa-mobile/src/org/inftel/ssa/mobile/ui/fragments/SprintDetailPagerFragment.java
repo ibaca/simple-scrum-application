@@ -1,94 +1,100 @@
 
 package org.inftel.ssa.mobile.ui.fragments;
 
+import static org.inftel.ssa.mobile.SsaConstants.EXTRA_LIST_CURSOR_POSITION;
 import static org.inftel.ssa.mobile.SsaConstants.EXTRA_LIST_CURSOR_URI;
 import static org.inftel.ssa.mobile.ui.BaseActivity.ARGS_URI;
+import static org.inftel.ssa.mobile.util.Lists.strings;
 
 import org.inftel.ssa.mobile.R;
-import org.inftel.ssa.mobile.SsaConstants;
 import org.inftel.ssa.mobile.provider.SsaContract.Sprints;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v4.view.PagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.LayoutParams;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 public class SprintDetailPagerFragment extends Fragment {
 
-    protected final static String TAG = "SprintDetailFragment";
-    protected Handler mHandler = new Handler();
-    protected Activity mActivity;
-    private Uri mContentUri;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    	View view = inflater.inflate(R.layout.fragment_sprint_pager, container, false);
-    	
-        ViewPager pager = (ViewPager) view.findViewById(R.id.fragment_sprint_viewpager);
-        pager.setAdapter(new CursorPagerAdapter(getFragmentManager(), getArguments()));
-        pager.setCurrentItem(0);
-        
+        View view = inflater.inflate(R.layout.fragment_viewpager, container, false);
         Bundle arguments = getArguments();
-        // TODO buscar donde esta la constante _uri!
-        if (arguments != null && arguments.get(EXTRA_LIST_CURSOR_URI) != null) {
-            mContentUri = (Uri) arguments.get(EXTRA_LIST_CURSOR_URI);
+
+        // Optional page arguments
+        Cursor cursor = null;
+        Integer position = 0;
+
+        // Si existen datos para generar cursor, se usa PageView
+        if (hasCursorData(arguments)) {
+            Uri listUri = (Uri) arguments.get(EXTRA_LIST_CURSOR_URI);
+            position = (int) arguments.getInt(EXTRA_LIST_CURSOR_POSITION);
+            ContentResolver cr = getActivity().getContentResolver();
+            cursor = cr.query(listUri, strings(Sprints._ID), null, null, null);
         }
 
-        setHasOptionsMenu(true);
+        // Populate ViewPager
+        ViewPager pager = (ViewPager) view.findViewById(R.id.fragment_viewpager);
+        pager.setAdapter(new SprintCursorPagerAdapter(getFragmentManager(), getArguments(), cursor));
+        pager.setCurrentItem(position);
 
+        setHasOptionsMenu(true);
         return view;
     }
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mActivity = getActivity();
     }
 
     @Override
     public void onResume() {
         super.onResume();
     }
-    
-    private static class CursorPagerAdapter extends FragmentPagerAdapter {
-    	
-    	private Bundle mArguments;
-    	
-    	public CursorPagerAdapter(FragmentManager fm, Bundle arguments) {
-			super(fm);
-			mArguments = arguments;
-		}
 
-		@Override
-		public Fragment getItem(int position) {
-			Fragment fragment = new SprintDetailFragment();
-			fragment.setArguments(mArguments);
-			return fragment;
-		}
+    private static class SprintCursorPagerAdapter extends FragmentStatePagerAdapter {
 
-		@Override
-		public int getCount() {
-			return 5;
-		}
+        private Bundle mArguments;
+        private Cursor mCursor;
 
-    
+        public SprintCursorPagerAdapter(FragmentManager fm, Bundle arguments, Cursor cursor) {
+            super(fm);
+            mArguments = arguments;
+            mCursor = cursor;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            Fragment fragment = new SprintDetailFragment();
+            if (mCursor != null) {
+                Bundle arguments = (Bundle) mArguments.clone();
+                mCursor.moveToPosition(position);
+                String sprintId = mCursor.getString(mCursor.getColumnIndex(Sprints._ID));
+                arguments.putParcelable(ARGS_URI, Sprints.buildSprintUri(sprintId));
+                fragment.setArguments(arguments);
+            } else {
+                fragment.setArguments(mArguments);
+            }
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            return (mCursor != null) ? mCursor.getCount() : 1;
+        }
+
+    }
+
+    private boolean hasCursorData(Bundle arguments) {
+        return arguments != null
+                && arguments.get(EXTRA_LIST_CURSOR_URI) != null
+                && arguments.get(EXTRA_LIST_CURSOR_POSITION) != null;
     }
 
 }

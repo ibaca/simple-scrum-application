@@ -46,4 +46,16 @@ public class Lists {
         Collections.addAll(list, elements);
         return list;
     }
+
+    public static String[] strings(String... elements) {
+        return elements;
+    }
+
+    public static Object[] objects(Object... elements) {
+        return elements;
+    }
+
+    public static int[] ints(int... elements) {
+        return elements;
+    }
 }

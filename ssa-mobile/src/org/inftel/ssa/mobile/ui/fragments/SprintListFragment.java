@@ -2,8 +2,11 @@
 package org.inftel.ssa.mobile.ui.fragments;
 
 import static org.inftel.ssa.mobile.ui.BaseActivity.ARGS_URI;
+import static org.inftel.ssa.mobile.util.Lists.ints;
+import static org.inftel.ssa.mobile.util.Lists.strings;
 
 import org.inftel.ssa.mobile.R;
+import org.inftel.ssa.mobile.SsaConstants;
 import org.inftel.ssa.mobile.provider.SsaContract.Sprints;
 
 import android.content.Intent;
@@ -45,17 +48,8 @@ public class SprintListFragment extends ListFragment implements LoaderCallbacks<
             mContentUri = (Uri) arguments.get(ARGS_URI);
         }
 
-        mAdapter = new SimpleCursorAdapter(
-                getActivity(),
-                android.R.layout.simple_list_item_1,
-                mCursor,
-                new String[] {
-                        Sprints.SPRINT_SUMMARY
-                },
-                new int[] {
-                        android.R.id.text1
-                },
-                0);
+        mAdapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_list_item_1,
+                mCursor, strings(Sprints.SPRINT_SUMMARY), ints(android.R.id.text1), 0);
 
         // Allocate the adapter to the List displayed within this fragment.
         setListAdapter(mAdapter);
@@ -76,27 +70,21 @@ public class SprintListFragment extends ListFragment implements LoaderCallbacks<
         c.moveToPosition(position);
 
         Uri sprintUri = Sprints.buildSprintUri(c.getString(c.getColumnIndex(Sprints._ID)));
+        Intent intent = new Intent(Intent.ACTION_VIEW, sprintUri);
+        // Se añade cursor y posicion para ViewPager
+        intent.putExtra(SsaConstants.EXTRA_LIST_CURSOR_URI, mContentUri);
+        intent.putExtra(SsaConstants.EXTRA_LIST_CURSOR_POSITION, position);
 
         // Start view activity to show sprint details
-        startActivity(new Intent(Intent.ACTION_VIEW, sprintUri));
+        startActivity(intent);
     }
 
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         String[] projection = new String[] {
                 Sprints._ID, Sprints.SPRINT_SUMMARY
         };
-        String selection = null;
-        String[] selectionArgs = null;
-        if (mContentUri.getQueryParameter("project_id") != null) {
-            selection = "project_id = ?";
-            selectionArgs = new String[] {
-                    mContentUri.getQueryParameter("project_id")
-            };
-
-        }
-
         return new CursorLoader(getActivity(), Sprints.CONTENT_URI,
-                projection, selection, selectionArgs, null);
+                projection, null, null, null);
     }
 
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
