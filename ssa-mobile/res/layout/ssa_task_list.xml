@@ -28,23 +28,13 @@
             
          <TextView
             android:id="@+id/task_estimated"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/task_title"
-            android:layout_marginRight="5dip"
-            android:gravity="right"
             style="@style/ListItemSubtitle"
-            android:textSize="10dip"
-            android:textStyle="bold" />
-       
-        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/arrow" />
-        
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/task_subtitle"
+            android:textStyle="bold" />
+
     </RelativeLayout>
 
 </FrameLayout>
