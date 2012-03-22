@@ -81,6 +81,8 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
         mTxtPriority = (EditText) view.findViewById(R.id.txtPriority);
         mTxtSprint = (EditText) view.findViewById(R.id.txtSprint);
         mTxtStatus = (EditText) view.findViewById(R.id.txtStatus);
+        mTxtBeginDate = (EditText) view.findViewById(R.id.txtBeginDate);
+        mTxtEndDate = (EditText) view.findViewById(R.id.txtEndDate);
         
         mTxtBeginDate.setOnClickListener(new View.OnClickListener() {
             @Override
