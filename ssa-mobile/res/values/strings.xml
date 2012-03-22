@@ -60,6 +60,8 @@
     <string name="error_title">DB ERROR</string>
     <string name="error_message">The query has not results</string>
     <string name="resolve_edit">Edit task</string>
+    <string name="task_information">Information</string>
+    <string name="task_description">Description</string>
         
     <string name="empty_links">Empty Links</string>
     <string name="project_links">Links</string>
