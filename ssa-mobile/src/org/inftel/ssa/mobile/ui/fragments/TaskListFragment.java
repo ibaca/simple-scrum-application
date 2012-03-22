@@ -115,7 +115,7 @@ public class TaskListFragment extends ListFragment implements LoaderCallbacks<Cu
         }
         return super.onContextItemSelected(item);
     }
-
+/*
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.ssa_task_list_menu, menu);
@@ -134,7 +134,7 @@ public class TaskListFragment extends ListFragment implements LoaderCallbacks<Cu
         }
         return super.onOptionsItemSelected(item);
     }
-
+*/
     private class TaskListAdapter extends CursorAdapter {
         private TextView subtitleView;
         private TextView titleView;
