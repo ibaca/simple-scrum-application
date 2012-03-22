@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
+import com.google.web.bindery.requestfactory.shared.EntityProxyId;
 import com.google.web.bindery.requestfactory.shared.ProxyForName;
 
 @ProxyForName(value = "org.inftel.ssa.domain.Project", locator = "org.inftel.ssa.locators.EntityLocator")
@@ -62,5 +63,14 @@ public interface ProjectProxy extends EntityProxy {
     public abstract Set<UserProxy> getUsers();
 
     public abstract void setUsers(Set<UserProxy> users);
+
+    /** Id para capa de presentacion */
+    EntityProxyId<ProjectProxy> stableId();
+
+    /** Fecha ultima modificacion. */
+    public abstract Date getUpdated();
+
+    /** Fecha creacion. */
+    public abstract Date getCreated();
 
 }

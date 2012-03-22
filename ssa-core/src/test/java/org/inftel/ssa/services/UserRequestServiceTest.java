@@ -37,7 +37,7 @@ public class UserRequestServiceTest {
     public final void testCountSurfers() {
         SsaRequestFactory rf = createSimpleFactory(SsaRequestFactory.class);
 
-        UserRequest request = rf.userRequest();
+        SsaRequestContext request = rf.ssaRequestContext();
         request.countUsers().fire(new Receiver<Long>() {
             @Override
             public void onSuccess(Long response) {
