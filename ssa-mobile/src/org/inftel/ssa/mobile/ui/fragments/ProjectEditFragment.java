@@ -63,6 +63,34 @@ public class ProjectEditFragment extends Fragment implements LoaderCallbacks<Cur
 
         View view = inflater.inflate(R.layout.ssa_project_edit, container, false);
 
+        title = (EditText) view.findViewById(R.id.project_edit_title);
+        summary = (EditText) view.findViewById(R.id.project_edit_summary);
+        description = (EditText) view.findViewById(R.id.project_edit_description);
+        started = (EditText) view.findViewById(R.id.project_edit_started);
+        finished = (EditText) view.findViewById(R.id.project_edit_finished);
+        company = (EditText) view.findViewById(R.id.project_edit_company);
+        license = (EditText) view.findViewById(R.id.project_edit_license);
+
+        started.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DateDialogFragment.newInstance(v.getContext(), started).show(
+                        getActivity().getSupportFragmentManager(),
+                        "Date Picker Dialog");
+            }
+
+        });
+
+        finished.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DateDialogFragment.newInstance(v.getContext(), finished).show(
+                        getActivity().getSupportFragmentManager(),
+                        "Date Picker Dialog");
+            }
+
+        });
+
         Bundle arguments = getArguments();
         if (arguments != null && arguments.get("_uri") != null) {
             mContentUri = (Uri) arguments.get("_uri");
@@ -112,11 +140,25 @@ public class ProjectEditFragment extends Fragment implements LoaderCallbacks<Cur
         if (data.moveToFirst()) {
             final String summary = data.getString(data.getColumnIndex(Projects.PROJECT_NAME));
             final String name = data.getString(data.getColumnIndex(Projects.PROJECT_SUMMARY));
+            final String description = data.getString(data
+                    .getColumnIndex(Projects.PROJECT_DESCRIPTION));
+            final String started = data.getString(data.getColumnIndex(Projects.PROJECT_STARTED));
+            final String close = data.getString(data.getColumnIndex(Projects.PROJECT_CLOSE));
+            final String license = data.getString(data.getColumnIndex(Projects.PROJECT_LICENSE));
+            final String company = data.getString(data.getColumnIndex(Projects.PROJECT_COMPANY));
+
             // Update UI
             mHandler.post(new Runnable() {
                 public void run() {
                     ((TextView) getView().findViewById(R.id.project_edit_title)).setText(name);
                     ((TextView) getView().findViewById(R.id.project_edit_summary)).setText(summary);
+                    ((TextView) getView().findViewById(R.id.project_edit_description))
+                            .setText(description);
+                    ((TextView) getView().findViewById(R.id.project_edit_started)).setText(started);
+                    ((TextView) getView().findViewById(R.id.project_edit_finished)).setText(close);
+                    ((TextView) getView().findViewById(R.id.project_edit_license)).setText(license);
+                    ((TextView) getView().findViewById(R.id.project_edit_company)).setText(company);
+
                 }
             });
         }
@@ -138,14 +180,6 @@ public class ProjectEditFragment extends Fragment implements LoaderCallbacks<Cur
     public void saveProject() {
 
         Log.d(getClass().getSimpleName(), "Save Project");
-
-        title = (EditText) getView().findViewById(R.id.project_edit_title);
-        summary = (EditText) getView().findViewById(R.id.project_edit_summary);
-        description = (EditText) getView().findViewById(R.id.project_edit_description);
-        started = (EditText) getView().findViewById(R.id.project_edit_started);
-        finished = (EditText) getView().findViewById(R.id.project_edit_finished);
-        company = (EditText) getView().findViewById(R.id.project_edit_company);
-        license = (EditText) getView().findViewById(R.id.project_edit_license);
 
         ContentResolver cr = mActivity.getContentResolver();
         ContentValues values = new ContentValues();

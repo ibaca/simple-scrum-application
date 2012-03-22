@@ -18,9 +18,12 @@ import android.view.MenuItem;
 public class ProjectEditActivity extends BaseSinglePaneActivity {
     ProjectEditFragment projectEditFragment;
 
+    public static final int DATE_DIALOG_ID = 0;
+
     @Override
     protected Fragment onCreatePane() {
         projectEditFragment = new ProjectEditFragment();
+
         return projectEditFragment;
     }
 
@@ -28,13 +31,14 @@ public class ProjectEditActivity extends BaseSinglePaneActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         getActivityHelper().setupSubActivity();
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.save_project_menu, menu);
+        super.onCreateOptionsMenu(menu);
         return true;
     }
 

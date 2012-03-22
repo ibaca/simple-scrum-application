@@ -74,7 +74,9 @@
                 android:id="@+id/project_edit_started"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TextBody"
                 android:layout_below="@+id/lbl_project_edit_started"
+                android:focusableInTouchMode="false"
                 android:inputType="date" />
 
             <TextView
@@ -88,7 +90,9 @@
                 android:id="@+id/project_edit_finished"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/TextBody"
                 android:layout_below="@+id/lbl_project_edit_finished"
+                android:focusableInTouchMode="false"
                 android:inputType="date" />
 
             <TextView
