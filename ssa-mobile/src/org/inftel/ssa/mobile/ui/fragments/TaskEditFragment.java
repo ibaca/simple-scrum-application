@@ -73,14 +73,44 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_task_edit, container, false);
+        View view = inflater.inflate(R.layout.ssa_task_edit, container, false);
 
+        mTxtSummary = (EditText) view.findViewById(R.id.txtSummary);
+        mTxtDescription = (EditText) view.findViewById(R.id.txtDescription);
+        mTxtEstimated = (EditText) view.findViewById(R.id.txtEstimated);
+        mTxtPriority = (EditText) view.findViewById(R.id.txtPriority);
+        mTxtSprint = (EditText) view.findViewById(R.id.txtSprint);
+        mTxtStatus = (EditText) view.findViewById(R.id.txtStatus);
+        
+        mTxtBeginDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DateDialogFragment.newInstance(v.getContext(), mTxtBeginDate).show(
+                        getActivity().getSupportFragmentManager(),
+                        "Date Picker Dialog");
+            }
+
+        });
+
+        mTxtEndDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DateDialogFragment.newInstance(v.getContext(), mTxtEndDate).show(
+                        getActivity().getSupportFragmentManager(),
+                        "Date Picker Dialog");
+            }
+
+        });
+        
+        mTxtBurned = (EditText) view.findViewById(R.id.txtEndDate);
+        mTxtRemaining = (EditText) view.findViewById(R.id.txtRemaining);
+        mTxtComments = (EditText) view.findViewById(R.id.txtComments);
+        
         Bundle arguments = getArguments();
         if (arguments != null && arguments.get("_uri") != null) {
             mContentUri = (Uri) arguments.get("_uri");
         }
 
-        setHasOptionsMenu(true);
         return view;
     }
 
@@ -121,14 +151,32 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
      */
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (data.moveToFirst()) {
-            final String sumamry = data.getString(data.getColumnIndex(Tasks.TASK_SUMMARY));
-            final String description = data.getString(data
-                    .getColumnIndex(Tasks.TASK_DESCRIPTION));
+            final String summary = data.getString(data.getColumnIndex(Tasks.TASK_SUMMARY));
+            final String description = data.getString(data.getColumnIndex(Tasks.TASK_DESCRIPTION));
+            final String estimated = data.getString(data.getColumnIndex(Tasks.TASK_ESTIMATED));
+            final String priority = data.getString(data.getColumnIndex(Tasks.TASK_PRIORITY));
+            final String sprint = data.getString(data.getColumnIndex(Tasks.TASK_SPRINT_ID));
+            final String status = data.getString(data.getColumnIndex(Tasks.TASK_STATUS));
+            final String beginDate = data.getString(data.getColumnIndex(Tasks.TASK_BEGINDATE));
+            final String endDate = data.getString(data.getColumnIndex(Tasks.TASK_ENDDATE));
+            final String burned = data.getString(data.getColumnIndex(Tasks.TASK_BURNED));
+            final String remaining = data.getString(data.getColumnIndex(Tasks.TASK_REMAINING));
+            final String comments = data.getString(data.getColumnIndex(Tasks.TASK_COMMENTS));
+            
             // Update UI
             mHandler.post(new Runnable() {
                 public void run() {
-                    ((TextView) getView().findViewById(R.id.txtSummary)).setText(sumamry);
+                    ((TextView) getView().findViewById(R.id.txtSummary)).setText(summary);
                     ((TextView) getView().findViewById(R.id.txtDescription)).setText(description);
+                    ((TextView) getView().findViewById(R.id.txtEstimated)).setText(estimated);
+                    ((TextView) getView().findViewById(R.id.txtPriority)).setText(priority);
+                    ((TextView) getView().findViewById(R.id.txtSprint)).setText(sprint);
+                    ((TextView) getView().findViewById(R.id.txtStatus)).setText(status);
+                    ((TextView) getView().findViewById(R.id.txtBeginDate)).setText(beginDate);
+                    ((TextView) getView().findViewById(R.id.txtEndDate)).setText(endDate);
+                    ((TextView) getView().findViewById(R.id.txtBurned)).setText(burned);
+                    ((TextView) getView().findViewById(R.id.txtRemaining)).setText(remaining);
+                    ((TextView) getView().findViewById(R.id.txtComments)).setText(comments);  
                 }
             });
         }
@@ -148,40 +196,21 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
         });
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.ssa_task_edit_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_save:
-                saveTask();
-                final Intent intent = new Intent(ACTION_VIEW,
-                        Tasks.CONTENT_URI);
-                startActivity(intent);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     public void saveTask() {
 
         Log.d(getClass().getSimpleName(), "Save Task");
 
-        mTxtSummary = (EditText) getView().findViewById(R.id.txtSummary);
-        mTxtDescription = (EditText) getView().findViewById(R.id.txtDescription);
-        mTxtEstimated = (EditText) getView().findViewById(R.id.txtEstimated);
-        mTxtPriority = (EditText) getView().findViewById(R.id.txtPriority);
-        mTxtSprint = (EditText) getView().findViewById(R.id.txtSprint);
-        mTxtStatus = (EditText) getView().findViewById(R.id.txtStatus);
-        mTxtBeginDate = (EditText) getView().findViewById(R.id.txtBeginDate);
-        mTxtEndDate = (EditText) getView().findViewById(R.id.txtEndDate);
-        mTxtBurned = (EditText) getView().findViewById(R.id.txtBurned);
-        mTxtRemaining = (EditText) getView().findViewById(R.id.txtRemaining);
-        mTxtComments = (EditText) getView().findViewById(R.id.txtComments);
+        //mTxtSummary = (EditText) getView().findViewById(R.id.txtSummary);
+        //mTxtDescription = (EditText) getView().findViewById(R.id.txtDescription);
+        //mTxtEstimated = (EditText) getView().findViewById(R.id.txtEstimated);
+        //mTxtPriority = (EditText) getView().findViewById(R.id.txtPriority);
+        //mTxtSprint = (EditText) getView().findViewById(R.id.txtSprint);
+        //mTxtStatus = (EditText) getView().findViewById(R.id.txtStatus);
+        //mTxtBeginDate = (EditText) getView().findViewById(R.id.txtBeginDate);
+        //mTxtEndDate = (EditText) getView().findViewById(R.id.txtEndDate);
+        //mTxtBurned = (EditText) getView().findViewById(R.id.txtBurned);
+        //mTxtRemaining = (EditText) getView().findViewById(R.id.txtRemaining);
+        //mTxtComments = (EditText) getView().findViewById(R.id.txtComments);
 
         ContentResolver cr = mActivity.getContentResolver();
         ContentValues values = new ContentValues();

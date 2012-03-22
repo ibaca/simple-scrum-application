@@ -2,6 +2,7 @@
 package org.inftel.ssa.mobile.ui.fragments;
 
 import org.inftel.ssa.mobile.R;
+import org.inftel.ssa.mobile.provider.SsaContract.Projects;
 import org.inftel.ssa.mobile.provider.SsaContract.Tasks;
 
 import android.content.Context;
@@ -99,7 +100,7 @@ public class TaskListFragment extends ListFragment implements LoaderCallbacks<Cu
             case EDIT_ID: {
                 Cursor c = mAdapter.getCursor();
                 c.moveToPosition(info.position);
-                String taskId = c.getString(c.getColumnIndex(Tasks._ID));
+                String taskId = String.valueOf(c.getLong(c.getColumnIndex(Tasks._ID)));
 
                 // Start view activity to show task details
                 startActivity(new Intent(Intent.ACTION_EDIT, Tasks.buildTasktUri(taskId)));

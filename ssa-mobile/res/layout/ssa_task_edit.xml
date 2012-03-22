@@ -1,163 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ScrollView01"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="319dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+        
+        <RelativeLayout
+            android:id="@+id/header_session"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/body_padding_medium"
+            android:paddingLeft="@dimen/body_padding_large"
+            android:paddingRight="@dimen/body_padding_large"
+            android:paddingTop="@dimen/body_padding_medium" >
 
         <TextView
             android:id="@+id/lblCaptionSummary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
             android:text="@string/task_label_summary" />
 
         <EditText
             android:id="@+id/txtSummary"
-            android:layout_width="match_parent"
+            style="@style/TextBody"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/task_field_summary">
-            
-            <requestFocus />
-        </EditText>
+            android:layout_below="@+id/lblCaptionSummary" 
+            android:hint="@string/task_field_summary" />
 
         <TextView
             android:id="@+id/lblCaptionDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/txtSummary" 
             android:text="@string/task_label_description" />
 
         <EditText
             android:id="@+id/txtDescription"
+            style="@style/TextBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/lblCaptionDescription"
             android:hint="@string/task_field_description" />
 
         <TextView
             android:id="@+id/lblCaptionEstimated"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/txtDescription"
             android:text="@string/task_label_estimated" />
 
         <EditText
             android:id="@+id/txtEstimated"
+            style="@style/TextBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/lblCaptionEstimated"
             android:hint="@string/task_field_estimated" />
 
         <TextView
             android:id="@+id/lblCaptionPriority"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/txtEstimated"
             android:text="@string/task_label_priority" />
 
         <EditText
             android:id="@+id/txtPriority"
+            style="@style/TextBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/lblCaptionPriority"
             android:hint="@string/task_field_priority" />
 
         <TextView
             android:id="@+id/lblCaptionBeginDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/txtPriority"
             android:text="@string/task_label_beginDate" />
 
         <EditText
             android:id="@+id/txtBeginDate"
+            style="@style/TextBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/task_field_beginDate" >
-        </EditText>
+            android:layout_below="@+id/lblCaptionBeginDate"
+            android:hint="@string/task_field_beginDate" />
 
         <TextView
             android:id="@+id/lblCaptionSprint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/txtBeginDate"
             android:text="@string/task_label_sprint" />
 
         <EditText
             android:id="@+id/txtSprint"
+            style="@style/TextBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/lblCaptionSprint"
             android:hint="@string/task_field_sprint" />
 
              <TextView
             android:id="@+id/lblCaptionUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/txtSprint"
             android:text="@string/task_label_user" />
 
         <EditText
             android:id="@+id/txtUser"
+            style="@style/TextBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/lblCaptionUser"
             android:hint="@string/task_field_user" />   
         
         <TextView
             android:id="@+id/lblCaptionStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/txtUser"
             android:text="@string/task_label_status" />
 
         <EditText
             android:id="@+id/txtStatus"
+            style="@style/TextBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/task_field_status" >
-        </EditText>
+            android:layout_below="@+id/lblCaptionStatus"
+            android:hint="@string/task_field_status" />
 
         <TextView
             android:id="@+id/lblCaptionEndDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/txtStatus"
             android:text="@string/task_label_endDate" />
 
         <EditText
             android:id="@+id/txtEndDate"
+            style="@style/TextBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/lblCaptionEndDate"
             android:hint="@string/task_field_endDate" />
 
         <TextView
             android:id="@+id/lblCaptionBurned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/txtEndDate"
             android:text="@string/task_label_burned" />
 
         <EditText
             android:id="@+id/txtBurned"
+            style="@style/TextBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/lblCaptionBurned"
             android:hint="@string/task_field_burned" />
 
         <TextView
             android:id="@+id/lblCaptionRemaining"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/txtBurned"
             android:text="@string/task_label_remaining" />
 
         <EditText
             android:id="@+id/txtRemaining"
+            style="@style/TextBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/lblCaptionRemaining"
             android:hint="@string/task_field_remaining" />
 
         <TextView
             android:id="@+id/lblCaptionComments"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/txtRemaining"
             android:text="@string/task_label_comments" />
 
         <EditText
             android:id="@+id/txtComments"
+            style="@style/TextBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/lblCaptionComments"
             android:hint="@string/task_field_comments" />
 
-    </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
 
-</ScrollView>
+</LinearLayout>
