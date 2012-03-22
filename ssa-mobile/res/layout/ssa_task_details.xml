@@ -1,200 +1,59 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/lblCaptionSummary"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/header_session"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/task_label_summary" />
+        android:paddingBottom="@dimen/body_padding_medium"
+        android:paddingLeft="@dimen/body_padding_large"
+        android:paddingRight="@dimen/body_padding_large"
+        android:paddingTop="@dimen/body_padding_medium" android:background="@drawable/gradient_bg">
 
-    <TextView
-        android:id="@+id/lblSummary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/lblCaptionSummary"
-        android:text="@string/task_field_summary" />
+        <TextView
+            android:id="@+id/detail_title"
+            style="@style/TextHeader"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true" />
 
-    <TextView
-        android:id="@+id/lblCaptionDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/lblCaptionSummary"
-        android:text="@string/task_label_description" />
+    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/lblDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/lblCaptionDescription"
-        android:layout_alignBottom="@+id/lblCaptionDescription"
-        android:layout_toRightOf="@+id/lblCaptionDescription"
-        android:text="@string/task_field_description" />
+    <TabHost
+        android:id="@android:id/tabhost"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/gradient_bg" >
 
-    <TextView
-        android:id="@+id/lblCaptionEstimated"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/lblCaptionDescription"
-        android:text="@string/task_label_estimated" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/lblEstimated"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/lblCaptionDescription"
-        android:layout_toRightOf="@+id/lblCaptionEstimated"
-        android:text="@string/task_field_estimated" />
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#e7e7e8" >
+            </TabWidget>
 
-    <TextView
-        android:id="@+id/lblCaptionPriority"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/lblCaptionEstimated"
-        android:text="@string/task_label_priority" />
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.43" >
 
-    <TextView
-        android:id="@+id/lblPriority"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/lblCaptionPriority"
-        android:layout_toRightOf="@+id/lblCaptionPriority"
-        android:text="@string/task_field_priority" />
+                <include
+                    android:id="@+id/tab_task_description"
+                    layout="@layout/tab_task_description" />
 
-    <TextView
-        android:id="@+id/lblCaptionSprint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/lblCaptionPriority"
-        android:text="@string/task_label_sprint" />
+                <include
+                    android:id="@+id/tab_task_information"
+                    layout="@layout/tab_task_information" />
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
 
-    <TextView
-        android:id="@+id/lblSprint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/lblCaptionSprint"
-        android:layout_toRightOf="@+id/lblCaptionSprint"
-        android:text="@string/task_field_sprint" />
-
-    <TextView
-        android:id="@+id/lblCaptionUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/lblCaptionSprint"
-        android:text="@string/task_label_user" />
-
-    <TextView
-        android:id="@+id/lblUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/lblCaptionUser"
-        android:layout_toRightOf="@+id/lblCaptionUser"
-        android:text="@string/task_field_user" />
-    
-    <TextView
-        android:id="@+id/lblCaptionStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/lblCaptionUser"
-        android:text="@string/task_label_status" />
-
-    <TextView
-        android:id="@+id/lblStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/lblCaptionStatus"
-        android:layout_toRightOf="@+id/lblCaptionStatus"
-        android:text="@string/task_field_status" />
-
-    <TextView
-        android:id="@+id/lblCaptionBeginDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/lblCaptionStatus"
-        android:text="@string/task_label_beginDate" />
-
-    <TextView
-        android:id="@+id/lblBeginDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/lblCaptionBeginDate"
-        android:layout_toRightOf="@+id/lblCaptionBeginDate"
-        android:text="@string/task_field_beginDate" />
-
-    <TextView
-        android:id="@+id/lblCaptionEndDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/lblCaptionBeginDate"
-        android:text="@string/task_label_endDate" />
-
-    <TextView
-        android:id="@+id/lblEndDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/lblCaptionEndDate"
-        android:layout_toRightOf="@+id/lblCaptionEndDate"
-        android:text="@string/task_field_endDate" />
-
-    <TextView
-        android:id="@+id/lblCaptionBurned"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/lblCaptionEndDate"
-        android:text="@string/task_label_burned" />
-
-    <TextView
-        android:id="@+id/lblBurned"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/lblCaptionBurned"
-        android:layout_toRightOf="@+id/lblCaptionBurned"
-        android:text="@string/task_field_burned" />
-
-    <TextView
-        android:id="@+id/lblCaptionRemaining"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/lblCaptionBurned"
-        android:text="@string/task_label_remaining" />
-
-    <TextView
-        android:id="@+id/lblRemaining"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/lblCaptionRemaining"
-        android:layout_toRightOf="@+id/lblCaptionRemaining"
-        android:text="@string/task_field_remaining" />
-
-    <TextView
-        android:id="@+id/lblCaptionComments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/lblCaptionRemaining"
-        android:text="@string/task_label_comments" />
-
-    <TextView
-        android:id="@+id/lblComments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/lblCaptionComments"
-        android:layout_toRightOf="@+id/lblCaptionComments"
-        android:text="@string/task_field_comments" />
-
-</RelativeLayout>
+</LinearLayout>
