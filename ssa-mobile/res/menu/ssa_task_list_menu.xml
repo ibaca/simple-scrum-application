@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <!--  This is our one standard application action (creating a new task). -->
     <item android:id="@+id/menu_add"
-          android:icon="@drawable/ic_menu_compose"
+          android:icon="@drawable/add_task"
           android:alphabeticShortcut='a'
           android:title="@string/menu_add" />
 </menu>
