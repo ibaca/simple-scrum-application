@@ -1,17 +1,17 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item 
-        android:drawable="@drawable/project_btn_tasks_pressed"
+        android:drawable="@drawable/small_btn_projects_pressed"
         android:state_focused="true"
         android:state_pressed="true" />
     <item 
-        android:drawable="@drawable/project_btn_tasks_pressed"
+        android:drawable="@drawable/small_btn_projects_pressed"
         android:state_focused="false"
         android:state_pressed="true" />
     <item 
-        android:drawable="@drawable/project_btn_tasks_selected" 
+        android:drawable="@drawable/small_btn_projects_selected" 
         android:state_focused="true" />
     <item 
-        android:drawable="@drawable/project_btn_tasks_default"
+        android:drawable="@drawable/small_btn_projects_default"
         android:state_focused="false"
         android:state_pressed="false" />
 </selector>

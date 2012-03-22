@@ -2,7 +2,6 @@
 package org.inftel.ssa.mobile.ui.fragments;
 
 import org.inftel.ssa.mobile.R;
-import org.inftel.ssa.mobile.provider.SsaContract.Projects;
 import org.inftel.ssa.mobile.provider.SsaContract.Tasks;
 
 import android.content.Context;
@@ -116,10 +115,10 @@ public class TaskListFragment extends ListFragment implements LoaderCallbacks<Cu
         }
         return super.onContextItemSelected(item);
     }
-/*
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.ssa_task_list_menu, menu);
+        inflater.inflate(R.menu.list_menu_items, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -128,21 +127,20 @@ public class TaskListFragment extends ListFragment implements LoaderCallbacks<Cu
         switch (item.getItemId()) {
             case R.id.menu_add:
                 Log.d(getClass().getSimpleName(), "Creando nueva task");
-                final Intent intent = new Intent(Intent.ACTION_INSERT,
-                        Tasks.CONTENT_URI);
+                final Intent intent = new Intent(Intent.ACTION_INSERT, Tasks.CONTENT_URI);
                 startActivity(intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
-*/
+
     private class TaskListAdapter extends CursorAdapter {
         private TextView subtitleView;
         private TextView titleView;
         private TextView taskEstimated;
 
         public TaskListAdapter(Context context, Cursor cursor) {
-            super(context, cursor, true);
+            super(context, cursor, false);
         }
 
         /** {@inheritDoc} */

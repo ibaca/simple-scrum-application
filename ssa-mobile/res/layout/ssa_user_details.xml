@@ -36,7 +36,7 @@
             android:layout_alignParentRight="true"
             android:layout_margin="15dip"
             android:layout_below="@+id/detail_subtitle"
-            android:drawableTop="@drawable/user_btn_tasks"
+            android:drawableTop="@drawable/small_btn_tasks"
             android:text="@string/btn_tasks" />
 
         <Button
@@ -47,7 +47,7 @@
             android:layout_alignParentLeft="true"
             android:layout_margin="15dip"
             android:layout_below="@+id/detail_subtitle"
-            android:drawableTop="@drawable/user_btn_projects"
+            android:drawableTop="@drawable/small_btn_projects"
             android:text="@string/btn_projects" />
 
     </RelativeLayout>

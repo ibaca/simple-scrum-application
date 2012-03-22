@@ -35,7 +35,7 @@
             android:layout_alignParentRight="true"
             android:layout_margin="15dip"
             android:layout_below="@+id/detail_subtitle"
-            android:drawableTop="@drawable/project_btn_users"
+            android:drawableTop="@drawable/small_btn_users"
             android:text="@string/btn_users" />
 
         <Button
@@ -46,7 +46,7 @@
             android:layout_below="@+id/detail_subtitle"
             android:layout_centerHorizontal="true"
             android:layout_margin="15dip"
-            android:drawableTop="@drawable/project_btn_tasks"
+            android:drawableTop="@drawable/small_btn_tasks"
             android:text="@string/btn_tasks" />
 
         <Button
@@ -57,7 +57,7 @@
             android:layout_alignParentLeft="true"
             android:layout_margin="15dip"
             android:layout_below="@+id/detail_subtitle"
-            android:drawableTop="@drawable/project_btn_sprints"
+            android:drawableTop="@drawable/small_btn_sprints"
             android:text="@string/btn_sprints" />
 
     </RelativeLayout>

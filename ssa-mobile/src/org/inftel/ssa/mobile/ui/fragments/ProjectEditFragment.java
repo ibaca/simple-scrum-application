@@ -18,6 +18,9 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -56,6 +59,7 @@ public class ProjectEditFragment extends Fragment implements LoaderCallbacks<Cur
             // New item (set default values)
         }
 
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -96,28 +100,25 @@ public class ProjectEditFragment extends Fragment implements LoaderCallbacks<Cur
             mContentUri = (Uri) arguments.get("_uri");
         }
 
-        // setHasOptionsMenu(true);
         return view;
     }
 
-    // @Override
-    // public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-    // inflater.inflate(R.menu.save_project_menu, menu);
-    // super.onCreateOptionsMenu(menu, inflater);
-    // }
-    //
-    // @Override
-    // public boolean onOptionsItemSelected(MenuItem item) {
-    // switch (item.getItemId()) {
-    // case R.id.menu_save:
-    // saveProject();
-    // final Intent intent = new Intent(ACTION_VIEW,
-    // Projects.CONTENT_URI);
-    // startActivity(intent);
-    // return true;
-    // }
-    // return onOptionsItemSelected(item);
-    // }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.edit_menu_items, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_save:
+                saveProject();
+                getActivity().finish();
+                return true;
+        }
+        return onOptionsItemSelected(item);
+    }
 
     @Override
     public void onResume() {

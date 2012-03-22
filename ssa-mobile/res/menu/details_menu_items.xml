@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <!-- This is our one standard application action (creating a new task). -->
+    <!-- This is our one standard application action (creating a new note). -->
     <item
         android:id="@+id/menu_edit"
         android:alphabeticShortcut="e"
-        android:icon="@drawable/ic_menu_edit"
+        android:icon="@drawable/new_project"
+        android:title="@string/menu_edit"
         android:orderInCategory="1"
-        android:showAsAction="ifRoom"
-        android:title="@string/menu_edit"/>
+        android:showAsAction="ifRoom"/>
 
 </menu>

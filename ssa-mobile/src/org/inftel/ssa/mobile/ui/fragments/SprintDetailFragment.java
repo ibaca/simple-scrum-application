@@ -8,7 +8,6 @@ import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.provider.SsaContract.Sprints;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +16,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -101,15 +101,17 @@ public class SprintDetailFragment extends Fragment implements LoaderCallbacks<Cu
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.sprint_detail_menu_items, menu);
+        inflater.inflate(R.menu.edit_menu_items, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_add:
-                startActivity(new Intent(Intent.ACTION_INSERT, Sprints.CONTENT_URI));
+            case R.id.menu_edit:
+                Log.d(TAG, "edit clicked");
+                // startActivity(new Intent(Intent.ACTION_INSERT,
+                // Sprints.CONTENT_URI));
                 return true;
         }
         return super.onOptionsItemSelected(item);

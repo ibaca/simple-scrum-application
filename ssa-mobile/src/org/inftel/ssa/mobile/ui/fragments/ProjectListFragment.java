@@ -2,6 +2,7 @@
 package org.inftel.ssa.mobile.ui.fragments;
 
 import static android.content.Intent.ACTION_EDIT;
+import static android.content.Intent.ACTION_INSERT;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,6 +26,7 @@ import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +41,7 @@ import com.ocpsoft.pretty.time.PrettyTime;
  */
 
 public class ProjectListFragment extends ListFragment implements LoaderCallbacks<Cursor> {
+    private static final String TAG = "ProjectListFragment";
 
     private static final int EDIT_ID = Menu.FIRST + 1;
     private static final int DELETE_ID = Menu.FIRST + 2;
@@ -61,7 +64,7 @@ public class ProjectListFragment extends ListFragment implements LoaderCallbacks
         // Populate the adapter / list using a Cursor Loader.
         getLoaderManager().initLoader(0, null, this);
 
-        // setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -137,24 +140,22 @@ public class ProjectListFragment extends ListFragment implements LoaderCallbacks
         return super.onContextItemSelected(item);
     }
 
-    // @Override
-    // public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-    // inflater.inflate(R.menu.new_project_menu, menu);
-    // super.onCreateOptionsMenu(menu, inflater);
-    // }
-    //
-    // @Override
-    // public boolean onOptionsItemSelected(MenuItem item) {
-    // switch (item.getItemId()) {
-    // case R.id.menu_add:
-    // Log.d(getClass().getSimpleName(), "Creando nuevo proyecto");
-    // final Intent intent = new Intent(Intent.ACTION_INSERT,
-    // ProjectContentProvider.CONTENT_URI);
-    // startActivity(intent);
-    // return true;
-    // }
-    // return super.onOptionsItemSelected(item);
-    // }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.list_menu_items, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_add:
+                Log.d(TAG, "Creando nuevo proyecto");
+                startActivity(new Intent(ACTION_INSERT, Projects.CONTENT_URI));
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private class ProjectListAdapter extends CursorAdapter {
         private TextView subtitleView;

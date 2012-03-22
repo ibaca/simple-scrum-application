@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
@@ -59,6 +60,8 @@ public class SprintListFragment extends ListFragment implements LoaderCallbacks<
 
         // Populate the adapter / list using a Cursor Loader.
         getLoaderManager().initLoader(0, null, this);
+
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -120,6 +123,12 @@ public class SprintListFragment extends ListFragment implements LoaderCallbacks<
                 return true;
         }
         return super.onContextItemSelected(item);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.list_menu_items, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
 }

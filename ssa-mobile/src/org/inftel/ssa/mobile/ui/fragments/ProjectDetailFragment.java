@@ -22,6 +22,8 @@ import android.support.v4.content.Loader;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
@@ -59,9 +61,9 @@ public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<C
 
         if (mContentUri != null) {
             getLoaderManager().initLoader(0, null, this);
-        } else {
-            // New item (set default values)
         }
+
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -237,6 +239,12 @@ public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<C
             }
         });
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.details_menu_items, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     // public void fillProjectDetailsFragment(View view, Uri projectUri) {
