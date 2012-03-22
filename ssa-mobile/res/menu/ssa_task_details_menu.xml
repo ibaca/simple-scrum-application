@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <!--  This is our one standard application action (creating a new task). -->
-    <item android:id="@+id/menu_edit"
-          android:icon="@drawable/ic_menu_edit"
-          android:alphabeticShortcut='e'
-          android:title="@string/menu_edit" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- This is our one standard application action (creating a new task). -->
+    <item
+        android:id="@+id/menu_edit"
+        android:alphabeticShortcut="e"
+        android:icon="@drawable/ic_menu_edit"
+        android:orderInCategory="1"
+        android:showAsAction="ifRoom"
+        android:title="@string/menu_edit"/>
+
 </menu>
