@@ -1,7 +1,9 @@
-
 package org.inftel.ssa.mobile.ui.fragments;
 
+import static android.content.Intent.ACTION_VIEW;
+
 import org.inftel.ssa.mobile.R;
+import org.inftel.ssa.mobile.provider.SsaContract.Projects;
 import org.inftel.ssa.mobile.provider.SsaContract.Tasks;
 
 import android.app.Activity;
@@ -20,167 +22,196 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TabHost;
 import android.widget.TextView;
 
-public class TaskDetailFragment extends Fragment implements LoaderCallbacks<Cursor> {
+public class TaskDetailFragment extends Fragment implements
+		LoaderCallbacks<Cursor> {
 
-    protected final static String TAG = "TaskDetailFragment";
+	protected final static String TAG = "TaskDetailFragment";
 
-    protected Handler mHandler = new Handler();
-    protected Activity mActivity;
-    private Uri mContentUri;
+	private static final String TAG_DESCRIPTION = "description";
+	private static final String TAG_INFORMATION = "information";
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mActivity = getActivity();
+	protected Handler mHandler = new Handler();
+	protected Activity mActivity;
+	private Uri mContentUri;
+	private String mTaskId;
+	private String mSummary;
+	private String mDescription;
+	private String mEstimated;
+	private String mPriority;
+	private String mSprintId;
+	private String mStatus;
+	private String mBeginDate;
+	private String mEndDate;
+	private String mBurned;
+	private String mRemaining;
+	private String mComments;
 
-        if (mContentUri != null) {
-            getLoaderManager().initLoader(0, null, this);
-        } else {
-            // New item (set default values)
-        }
-    }
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		mActivity = getActivity();
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		if (mContentUri != null) {
+			getLoaderManager().initLoader(0, null, this);
+		} else {
+			// New item (set default values)
+		}
+	}
 
-        View view = inflater.inflate(R.layout.fragment_task_detail, container, false);
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 
-        Bundle arguments = getArguments();
-        if (arguments != null && arguments.get("_uri") != null) {
-            mContentUri = (Uri) arguments.get("_uri");
-        }
+		View view = inflater.inflate(R.layout.ssa_task_details, container,
+				false);
 
-        setHasOptionsMenu(true);
+		Bundle arguments = getArguments();
+		if (arguments != null && arguments.get("_uri") != null) {
+			mContentUri = (Uri) arguments.get("_uri");
+		}
 
-        /*
-         * // Handle sprints click
-         * view.findViewById(R.id.project_btn_sprints).setOnClickListener(new
-         * View.OnClickListener() {
-         * @Override public void onClick(View v) { Uri sprintUri =
-         * SprintContentProvider.CONTENT_URI.buildUpon()
-         * .appendQueryParameter("task_id", mTaskId).build(); startActivity(new
-         * Intent(Intent.ACTION_VIEW, sprintUri)); } }); TabHost tabHost =
-         * (TabHost) view.findViewById(android.R.id.tabhost); tabHost.setup();
-         * setupDescriptionTab(view); setupLinksTab(view);
-         * setupInformationTab(view);
-         */
-        return view;
-    }
+		setHasOptionsMenu(true);
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
+		TabHost tabHost = (TabHost) view.findViewById(android.R.id.tabhost);
+		tabHost.setup();
+		setupDescriptionTab(view);
+		setupInformationTab(view);
 
-    /**
-     * {@inheritDoc} Query the {@link PlaceDetailsContentProvider} for the
-     * Phone, Address, Rating, Reference, and Url of the selected venue. TODO
-     * Expand the projection to include any other details you are recording in
-     * the Place Detail Content Provider.
-     */
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        /*
-         * String[] projection = new String[] { SprintTable.KEY_SUMMARY, };
-         */
-        String[] projection = new String[] {
-                Tasks._ID, // 0
-                Tasks.TASK_SUMMARY, // 1
-                Tasks.TASK_DESCRIPTION, // 2
-                Tasks.TASK_ESTIMATED, // 3
-                Tasks.TASK_PRIORITY, // 4
-                Tasks.TASK_SPRINT_ID, // 5
-                Tasks.TASK_USER_ID, // 6
-                Tasks.TASK_STATUS, // 7
-                Tasks.TASK_BEGINDATE, // 8
-                Tasks.TASK_ENDDATE, // 9
-                Tasks.TASK_BURNED, // 10
-                Tasks.TASK_REMAINING, // 11
-                Tasks.TASK_COMMENTS, // 12
-        };
+		return view;
+	}
 
-        return new CursorLoader(mActivity, mContentUri, projection, null, null, null);
-    }
+	@Override
+	public void onResume() {
+		super.onResume();
+	}
 
-    /**
-     * {@inheritDoc} When the Loader has completed, schedule an update of the
-     * Fragment UI on the main application thread.
-     */
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if (data.moveToFirst()) {
+	/**
+	 * {@inheritDoc} Query the {@link PlaceDetailsContentProvider} for the
+	 * Phone, Address, Rating, Reference, and Url of the selected venue. TODO
+	 * Expand the projection to include any other details you are recording in
+	 * the Place Detail Content Provider.
+	 */
+	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+		/*
+		 * String[] projection = new String[] { SprintTable.KEY_SUMMARY, };
+		 */
+		String[] projection = new String[] { Tasks._ID, // 0
+				Tasks.TASK_SUMMARY, // 1
+				Tasks.TASK_DESCRIPTION, // 2
+				Tasks.TASK_ESTIMATED, // 3
+				Tasks.TASK_PRIORITY, // 4
+				Tasks.TASK_STATUS, // 5
+				Tasks.TASK_BEGINDATE, // 6
+				Tasks.TASK_ENDDATE, // 7
+				Tasks.TASK_BURNED, // 8
+				Tasks.TASK_REMAINING, // 9
+				Tasks.TASK_COMMENTS, // 10
+		};
 
-            // final String sumamry =
-            // data.getString(data.getColumnIndex(SprintTable.KEY_SUMMARY));
+		return new CursorLoader(mActivity, mContentUri, projection, null, null,
+				null);
+	}
 
-            final String mTxtSummary = data
-                    .getString(data.getColumnIndex(Tasks.TASK_SUMMARY));
-            final String mTxtDescription = data.getString(data
-                    .getColumnIndex(Tasks.TASK_DESCRIPTION));
-            final String mTxtEstimated = data.getString(data
-                    .getColumnIndex(Tasks.TASK_ESTIMATED));
-            final String mTxtPriority = data.getString(data
-                    .getColumnIndex(Tasks.TASK_PRIORITY));
-            final String mTxtSprint = data.getString(data.getColumnIndex(Tasks.TASK_SPRINT_ID));
-            final String mTxtStatus = data.getString(data.getColumnIndex(Tasks.TASK_STATUS));
-            final String mTxtBeginDate = data.getString(data
-                    .getColumnIndex(Tasks.TASK_BEGINDATE));
-            final String mTxtEndDate = data
-                    .getString(data.getColumnIndex(Tasks.TASK_ENDDATE));
-            final String mTxtBurned = data.getString(data.getColumnIndex(Tasks.TASK_BURNED));
-            final String mTxtRemaining = data.getString(data
-                    .getColumnIndex(Tasks.TASK_REMAINING));
-            final String mTxtComments = data.getString(data
-                    .getColumnIndex(Tasks.TASK_COMMENTS));
+	/**
+	 * {@inheritDoc} When the Loader has completed, schedule an update of the
+	 * Fragment UI on the main application thread.
+	 */
+	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+		if (data.moveToFirst()) {
 
-            // Update UI
-            mHandler.post(new Runnable() {
-                public void run() {
-                    ((TextView) getView().findViewById(R.id.lblSummary)).setText(mTxtSummary);
-                    ((TextView) getView().findViewById(R.id.lblDescription))
-                            .setText(mTxtDescription);
-                    ((TextView) getView().findViewById(R.id.lblEstimated)).setText(mTxtEstimated);
-                    ((TextView) getView().findViewById(R.id.lblPriority)).setText(mTxtPriority);
-                    ((TextView) getView().findViewById(R.id.lblSprint)).setText(mTxtSprint);
-                    ((TextView) getView().findViewById(R.id.lblStatus)).setText(mTxtStatus);
-                    ((TextView) getView().findViewById(R.id.lblBeginDate)).setText(mTxtBeginDate);
-                    ((TextView) getView().findViewById(R.id.lblEndDate)).setText(mTxtEndDate);
-                    ((TextView) getView().findViewById(R.id.lblBurned)).setText(mTxtBurned);
-                    ((TextView) getView().findViewById(R.id.lblRemaining)).setText(mTxtRemaining);
-                    ((TextView) getView().findViewById(R.id.lblComments)).setText(mTxtComments);
-                }
-            });
-        }
-    }
+			mTaskId = data.getString(data.getColumnIndex(Tasks._ID));
+			mSummary = data.getString(data.getColumnIndex(Tasks.TASK_SUMMARY));
+			mDescription = data.getString(data
+					.getColumnIndex(Tasks.TASK_DESCRIPTION));
+			mEstimated = data.getString(data
+					.getColumnIndex(Tasks.TASK_ESTIMATED));
+			mPriority = data
+					.getString(data.getColumnIndex(Tasks.TASK_PRIORITY));
+			// mSprint =
+			// data.getString(data.getColumnIndex(Tasks.TASK_SPRINT_ID));
+			mStatus = data.getString(data.getColumnIndex(Tasks.TASK_STATUS));
+			mBeginDate = data.getString(data
+					.getColumnIndex(Tasks.TASK_BEGINDATE));
+			mEndDate = data.getString(data.getColumnIndex(Tasks.TASK_ENDDATE));
+			mBurned = data.getString(data.getColumnIndex(Tasks.TASK_BURNED));
+			mRemaining = data.getString(data
+					.getColumnIndex(Tasks.TASK_REMAINING));
+			mComments = data
+					.getString(data.getColumnIndex(Tasks.TASK_COMMENTS));
 
-    /**
-     * {@inheritDoc}
-     */
-    public void onLoaderReset(Loader<Cursor> loader) {
-        mHandler.post(new Runnable() {
-            public void run() {
-                // ((TextView)
-                // getView().findViewById(R.id.sprint_title)).setText("");
-                // ((TextView)
-                // getView().findViewById(R.id.sprint_subtitle)).setText("");
-            }
-        });
-    }
+			// Update UI
+			mHandler.post(new Runnable() {
+				public void run() {
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.ssa_task_details_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
+					// Header
+					((TextView) getView().findViewById(R.id.detail_title))
+							.setText(mSummary);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_edit:
-                startActivity(new Intent(Intent.ACTION_VIEW, Tasks.CONTENT_URI));
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+					// Tab description
+					((TextView) getView().findViewById(
+							R.id.task_detail_description))
+							.setText(mDescription);
+
+					// Tab Information
+					((TextView) getView().findViewById(R.id.lblEstimated))
+							.setText(mEstimated);
+					((TextView) getView().findViewById(R.id.lblPriority))
+							.setText(mPriority);
+					((TextView) getView().findViewById(R.id.lblStatus))
+							.setText(mStatus);
+					((TextView) getView().findViewById(R.id.lblBeginDate))
+							.setText(mBeginDate);
+					((TextView) getView().findViewById(R.id.lblEndDate))
+							.setText(mEndDate);
+					((TextView) getView().findViewById(R.id.lblBurned))
+							.setText(mBurned);
+					((TextView) getView().findViewById(R.id.lblRemaining))
+							.setText(mRemaining);
+					((TextView) getView().findViewById(R.id.lblComments))
+							.setText(mComments);
+				}
+			});
+		}
+	}
+
+	private void setupInformationTab(View view) {
+		TabHost mTabHost = (TabHost) view.findViewById(android.R.id.tabhost);
+		mTabHost.addTab(mTabHost.newTabSpec(TAG_INFORMATION)
+				.setIndicator(buildIndicator(R.string.task_information, view))
+				.setContent(R.id.tab_task_information));
+	}
+
+	private void setupDescriptionTab(View view) {
+		TabHost mTabHost = (TabHost) view.findViewById(android.R.id.tabhost);
+		mTabHost.addTab(mTabHost.newTabSpec(TAG_DESCRIPTION)
+				.setIndicator(buildIndicator(R.string.task_description, view))
+				.setContent(R.id.tab_task_description));
+	}
+
+	private View buildIndicator(int textRes, View view) {
+		final TextView indicator = (TextView) getActivity()
+				.getLayoutInflater()
+				.inflate(R.layout.tab_indicator,
+						(ViewGroup) view.findViewById(android.R.id.tabs), false);
+		indicator.setText(textRes);
+		return indicator;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public void onLoaderReset(Loader<Cursor> loader) {
+		mHandler.post(new Runnable() {
+			public void run() {
+				// ((TextView)
+				// getView().findViewById(R.id.sprint_title)).setText("");
+				// ((TextView)
+				// getView().findViewById(R.id.sprint_subtitle)).setText("");
+			}
+		});
+	}
 
 }
