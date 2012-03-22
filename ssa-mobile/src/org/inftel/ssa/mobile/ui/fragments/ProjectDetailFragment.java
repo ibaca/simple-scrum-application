@@ -3,6 +3,9 @@ package org.inftel.ssa.mobile.ui.fragments;
 
 import static android.content.Intent.ACTION_VIEW;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.provider.SsaContract.Projects;
 
@@ -23,6 +26,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
 import android.widget.TextView;
+
+import com.ocpsoft.pretty.time.PrettyTime;
 
 public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<Cursor> {
 
@@ -164,9 +169,10 @@ public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<C
                     l.setLinksClickable(true);
 
                     // Tab Information
-                    ((TextView) getView().findViewById(R.id.lblOpened)).setText(opened);
-                    ((TextView) getView().findViewById(R.id.lblStarted)).setText(started);
-                    ((TextView) getView().findViewById(R.id.lblClosed)).setText(closed);
+                    ((TextView) getView().findViewById(R.id.lblOpened)).setText(formatDate(opened));
+                    ((TextView) getView().findViewById(R.id.lblStarted))
+                            .setText(formatDate(started));
+                    ((TextView) getView().findViewById(R.id.lblClosed)).setText(formatDate(closed));
                     ((TextView) getView().findViewById(R.id.lblCompany)).setText(company);
                     ((TextView) getView().findViewById(R.id.lblLicense)).setText(license);
                     ((TextView) getView().findViewById(R.id.lblLabels)).setText(labels);
@@ -175,6 +181,20 @@ public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<C
             });
         }
 
+    }
+
+    private String formatDate(String txtDate) {
+        SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+        PrettyTime p = new PrettyTime();
+        String prettyTime = "no date";
+        if (txtDate != null) {
+            try {
+                prettyTime = p.format(date.parse(txtDate));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return prettyTime;
     }
 
     private void setupLinksTab(View view) {

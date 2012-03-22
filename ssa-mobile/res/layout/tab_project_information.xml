@@ -10,127 +10,146 @@
         android:layout_height="fill_parent"
         android:orientation="vertical" >
 
-        <RelativeLayout
-            android:id="@+id/header_session"
+        <ScrollView
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/body_padding_medium"
-            android:paddingLeft="@dimen/body_padding_large"
-            android:paddingRight="@dimen/body_padding_large"
-            android:paddingTop="@dimen/body_padding_medium" >
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/lblCaptionOpened"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/header_session"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:text="@string/project_label_opened"
-                android:textSize="@dimen/text_size_medium"
-                android:textStyle="normal" />
+                android:paddingBottom="@dimen/body_padding_medium"
+                android:paddingLeft="@dimen/body_padding_large"
+                android:paddingRight="@dimen/body_padding_large"
+                android:paddingTop="@dimen/body_padding_medium" >
 
-            <TextView
-                android:id="@+id/lblOpened"
-                style="@style/TextHeaderSub"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="" />
+                <TextView
+                    android:id="@+id/lblCaptionOpened"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/project_label_opened"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textStyle="normal" />
 
-            <TextView
-                android:id="@+id/lblCaptionStarted"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/lblCaptionOpened"
-                android:text="@string/project_label_started"
-                android:textSize="@dimen/text_size_medium"
-                android:textStyle="normal" />
+                <TextView
+                    android:id="@+id/lblOpened"
+                    style="@style/TextHeaderSub"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"                    
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/lblCaptionOpened"
+                    android:textSize="@dimen/text_size_small"
+                    android:textStyle="italic"
+                    android:text="" />
 
-            <TextView
-                android:id="@+id/lblStarted"
-                style="@style/TextHeaderSub"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/lblCaptionOpened"
-                android:text="" />
+                <TextView
+                    android:id="@+id/lblCaptionStarted"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/lblOpened"
+                    android:text="@string/project_label_started"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textStyle="normal" />
 
-            <TextView
-                android:id="@+id/lblCaptionClosed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/lblCaptionStarted"
-                android:text="@string/project_label_closed"
-                android:textSize="@dimen/text_size_medium"
-                android:textStyle="normal" />
+                <TextView
+                    android:id="@+id/lblStarted"
+                    style="@style/TextHeaderSub"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/lblCaptionStarted"
+                    android:textSize="@dimen/text_size_small"
+                    android:textStyle="italic"
+                    android:text="" />
 
-            <TextView
-                android:id="@+id/lblClosed"
-                style="@style/TextHeaderSub"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/lblCaptionStarted"
-                android:text="" />
+                <TextView
+                    android:id="@+id/lblCaptionClosed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/lblStarted"
+                    android:text="@string/project_label_closed"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textStyle="normal" />
 
-            <TextView
-                android:id="@+id/lblCaptionCompany"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/lblCaptionClosed"
-                android:text="@string/project_label_company"
-                android:textSize="@dimen/text_size_medium"
-                android:textStyle="normal" />
+                <TextView
+                    android:id="@+id/lblClosed"
+                    style="@style/TextHeaderSub"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lblCaptionClosed"
+                    android:textSize="@dimen/text_size_small"
+                    android:textStyle="italic"
+                    android:layout_alignParentLeft="true"
+                    android:text="" />
 
-            <TextView
-                android:id="@+id/lblCompany"
-                style="@style/TextHeaderSub"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/lblCaptionClosed"
-                android:text="" />
+                <TextView
+                    android:id="@+id/lblCaptionCompany"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/lblClosed"
+                    android:text="@string/project_label_company"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textStyle="normal" />
 
-            <TextView
-                android:id="@+id/lblCaptionLicense"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/lblCaptionCompany"
-                android:text="@string/project_label_license"
-                android:textSize="@dimen/text_size_medium"
-                android:textStyle="normal" />
+                <TextView
+                    android:id="@+id/lblCompany"
+                    style="@style/TextHeaderSub"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lblCaptionCompany"
+                    android:textSize="@dimen/text_size_small"
+                    android:textStyle="italic"
+                    android:layout_alignParentLeft="true"
+                    android:text="" />
 
-            <TextView
-                android:id="@+id/lblLicense"
-                style="@style/TextHeaderSub"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/lblCaptionCompany"
-                android:text="" />
+                <TextView
+                    android:id="@+id/lblCaptionLicense"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/lblCompany"
+                    android:text="@string/project_label_license"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textStyle="normal" />
 
-            <TextView
-                android:id="@+id/lblCaptionLabels"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/lblCaptionLicense"
-                android:text="@string/project_label_labels"
-                android:textSize="@dimen/text_size_medium"
-                android:textStyle="normal" />
+                <TextView
+                    android:id="@+id/lblLicense"
+                    style="@style/TextHeaderSub"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lblCaptionLicense"
+                    android:textSize="@dimen/text_size_small"
+                    android:textStyle="italic"                    
+                    android:layout_alignParentLeft="true"
+                    android:text="" />
 
-            <TextView
-                android:id="@+id/lblLabels"
-                style="@style/TextHeaderSub"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/lblCaptionLicense"
-                android:text="" />
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/lblCaptionLabels"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/lblLicense"
+                    android:text="@string/project_label_labels"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/lblLabels"
+                    style="@style/TextHeaderSub"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lblCaptionLabels"
+                    android:textSize="@dimen/text_size_small"
+                    android:textStyle="italic"
+                    android:layout_alignParentLeft="true"
+                    android:text="" />
+            </RelativeLayout>
+        </ScrollView>
     </LinearLayout>
 
 </ScrollView>

@@ -67,12 +67,13 @@
     <string name="project_links">Links</string>
     <string name="project_information">Information</string>
     <string name="project_description">Description</string>
-    <string name="project_label_opened">Created:  </string>
-    <string name="project_label_started">Started:  </string>
-    <string name="project_label_closed">Closed:  </string>
-    <string name="project_label_company">Company:  </string>
-    <string name="project_label_license">License:  </string>
-    <string name="project_label_labels">Labels:  </string>
+    <string name="project_label_opened">Created date project</string>
+    <string name="project_label_started">Started date project</string>
+    <string name="project_label_closed">Finished date project</string>
+    <string name="project_label_company">Company</string>
+    <string name="project_label_license">License</string>
+    <string name="project_label_labels">Labels</string>
+    <string name="associated_links">Associated links</string>
     
     <!-- Title string for Login activity-->
     <string name="ui_activity_title">Sign-in</string>
