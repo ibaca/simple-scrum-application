@@ -48,10 +48,10 @@ public class UserRequestService {
             throw new NullPointerException();
         }
         if (instance.getId() != null) {
-            throw new RuntimeException("Id debe ser nulo, es decir, surfero nuevo");
+            throw new RuntimeException("Id debe ser nulo, es decir, usuario nuevo");
         }
         if (instance.getEmail() == null || instance.getEmail().trim().length() == 0) {
-            throw new RuntimeException("Un surfero debe crearse con email valido");
+            throw new RuntimeException("Un usuario debe crearse con email valido");
         }
         users.create(instance);
     }

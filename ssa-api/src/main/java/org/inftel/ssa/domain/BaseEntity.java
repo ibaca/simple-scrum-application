@@ -1,6 +1,6 @@
+
 package org.inftel.ssa.domain;
 
-import static javax.persistence.GenerationType.TABLE;
 import static javax.persistence.TemporalType.TIMESTAMP;
 
 import java.io.Serializable;
@@ -15,16 +15,14 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.PostPersist;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.Version;
 
 /**
- * Entidad base para las entidades persistentes. Permite unificar el comportamiento y facilita el
- * desarrollo de los servicios DAO.<br>
+ * Entidad base para las entidades persistentes. Permite unificar el
+ * comportamiento y facilita el desarrollo de los servicios DAO.<br>
  * 
  * @author ibaca
- * 
  */
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable {
@@ -34,9 +32,9 @@ public abstract class BaseEntity implements Serializable {
     @Temporal(TIMESTAMP)
     private Date created;
     @Id
-    //@TableGenerator(name = "base_entity_generator", initialValue = 10000)
-    //@GeneratedValue(strategy = TABLE, generator = "base_entity_generator")
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
+    // @TableGenerator(name = "base_entity_generator", initialValue = 10000)
+    // @GeneratedValue(strategy = TABLE, generator = "base_entity_generator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Temporal(TIMESTAMP)
     private Date updated;
@@ -74,8 +72,8 @@ public abstract class BaseEntity implements Serializable {
     public void setVersion(Long version) {
         this.version = version;
     }
-	
-	public boolean isNew() {
+
+    public boolean isNew() {
         return (this.id == null);
     }
 
@@ -108,7 +106,8 @@ public abstract class BaseEntity implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        // TODO: Warning - this method won't work in the case the id fields are
+        // not set
         if (!(getClass().isAssignableFrom(object.getClass()))) {
             return false;
         }
