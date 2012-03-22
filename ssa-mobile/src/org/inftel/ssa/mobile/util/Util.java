@@ -140,6 +140,11 @@ public class Util {
      */
     public static <T extends RequestFactory> T getRequestFactory(Context context,
             Class<T> factoryClass) {
+        // FIXME problema currentThread#getContextClassLoader es nulo
+        // en InProcessRequestFactory linea 82
+        if (Thread.currentThread().getContextClassLoader() == null) {
+            Thread.currentThread().setContextClassLoader(context.getClassLoader());
+        }
         T requestFactory = RequestFactorySource.create(factoryClass);
 
         SharedPreferences prefs = getSharedPreferences(context);

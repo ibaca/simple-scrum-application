@@ -3,14 +3,13 @@ package org.inftel.ssa.mobile.authenticator;
 
 import static org.inftel.ssa.mobile.util.Util.getRequestFactory;
 
-import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 import org.inftel.ssa.domain.UserProxy;
 import org.inftel.ssa.mobile.SsaConstants;
+import org.inftel.ssa.services.SsaRequestContext;
 import org.inftel.ssa.services.SsaRequestFactory;
-import org.inftel.ssa.services.UserRequest;
 
 import android.accounts.AbstractAccountAuthenticator;
 import android.accounts.Account;
@@ -26,7 +25,7 @@ import android.util.Log;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
-class Authenticator extends AbstractAccountAuthenticator {
+public class Authenticator extends AbstractAccountAuthenticator {
 
     private static final String TAG = "Authenticator";
 
@@ -106,29 +105,23 @@ class Authenticator extends AbstractAccountAuthenticator {
             final String password) {
         final BlockingQueue<String> authTokenQueue = new ArrayBlockingQueue<String>(1);
         // NetworkUtilities.authenticate(account.name, password);
-        UserRequest ur = getRequestFactory(context, SsaRequestFactory.class).userRequest();
-        ur.findAllUsers().fire(new Receiver<List<UserProxy>>() {
+        SsaRequestFactory requestFactory = getRequestFactory(context, SsaRequestFactory.class);
+        SsaRequestContext requestContext = requestFactory.ssaRequestContext();
+        requestContext.findUserByEmail(account).fire(new Receiver<UserProxy>() {
 
             @Override
-            public void onSuccess(List<UserProxy> response) {
-                String authResult = "";
-                // TODO crear un metodo especifico y generar authtoken
-                findUserPassword: for (UserProxy userProxy : response) {
-                    String userEmail = userProxy.getEmail();
-                    String userPassword = userProxy.getPassword();
-                    if ((userEmail != null && userEmail.equals(account)) &&
-                            (userPassword != null && userPassword.equals(password))) {
-                        authResult = "success";
-                        break findUserPassword;
-                    }
+            public void onSuccess(UserProxy response) {
+                if (response != null && account.equals(response.getEmail())) {
+                    authTokenQueue.add("success");
+                } else {
+                    authTokenQueue.add("");
                 }
-                authTokenQueue.add(authResult);
             };
 
             @Override
             public void onFailure(ServerFailure error) {
-                Log.e(TAG,
-                        "fallo comunicacion servidor al intentar autenticar: " + error.getMessage());
+                Log.e(TAG, "fallo comunicacion servidor " +
+                        "al intentar autenticar: " + error.getMessage());
                 authTokenQueue.add("");
             }
         });
