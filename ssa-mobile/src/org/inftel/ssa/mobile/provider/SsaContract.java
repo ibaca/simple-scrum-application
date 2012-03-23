@@ -9,25 +9,25 @@ import android.provider.BaseColumns;
 final public class SsaContract {
 
     /**
+     * Value for {@link SyncColumns#SYNC_STATUS} indicating that an entry has
+     * been locally deleted.
+     */
+    public static final int STATUS_DELETED = -1;
+    /**
      * Value for {@link SyncColumns#SYNC_STATUS} indicating that an entry is
      * syncqued.
      */
     public static final int STATUS_SYNC = 0;
     /**
      * Value for {@link SyncColumns#SYNC_STATUS} indicating that an entry has
-     * some pending changes.
-     */
-    public static final int STATUS_DIRTY = 1;
-    /**
-     * Value for {@link SyncColumns#SYNC_STATUS} indicating that an entry has
-     * been locally deleted.
-     */
-    public static final int STATUS_DELETED = 2;
-    /**
-     * Value for {@link SyncColumns#SYNC_STATUS} indicating that an entry has
      * been locally created.
      */
-    public static final int STATUS_CREATED = 3;
+    public static final int STATUS_CREATED = 1;
+    /**
+     * Value for {@link SyncColumns#SYNC_STATUS} indicating that an entry has
+     * some pending changes.
+     */
+    public static final int STATUS_DIRTY = 2;
 
     public interface SyncColumns {
         /** Id que relaciona la entidad local con la remota. */
