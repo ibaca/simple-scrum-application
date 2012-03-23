@@ -243,6 +243,7 @@ public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<C
                 return true;
         }
         return super.onOptionsItemSelected(item);
+
     }
 
     // public void taskChart(String projectId) {

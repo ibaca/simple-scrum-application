@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TaskDetailFragment extends Fragment implements
         LoaderCallbacks<Cursor> {
@@ -85,7 +86,19 @@ public class TaskDetailFragment extends Fragment implements
         view.findViewById(R.id.task_btn_project).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Projects.buildProjectUri(mProjectId)));
+
+                System.out.println("Project: " + mProjectId);
+                if (!(mProjectId.isEmpty()) && !(mProjectId.contains("-"))
+                        && !(mProjectId.contains(""))) {
+
+                    startActivity(new Intent(Intent.ACTION_VIEW, Projects
+                            .buildProjectUri(mProjectId)));
+                }
+                else {
+                    Toast.makeText(mActivity, "This task hasn't any Project associated",
+                            Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
 
@@ -93,7 +106,18 @@ public class TaskDetailFragment extends Fragment implements
         view.findViewById(R.id.task_btn_sprint).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Sprints.buildSprintUri(mSprintId)));
+
+                mSprintId.contentEquals("null");
+                System.out.println("Sprint: " + mSprintId);
+                if (!(mSprintId.isEmpty()) && !(mSprintId.contains("-"))
+                        && !(mSprintId.contains(""))) {
+
+                    startActivity(new Intent(Intent.ACTION_VIEW, Sprints.buildSprintUri(mSprintId)));
+                }
+                else {
+                    Toast.makeText(mActivity, "This task hasn't any Sprint associated",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -101,7 +125,16 @@ public class TaskDetailFragment extends Fragment implements
         view.findViewById(R.id.task_btn_user).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Users.buildUserUri(mUserId)));
+                System.out.println("user: " + mUserId.contentEquals("null"));
+                if (!(mUserId.isEmpty()) && !(mUserId.contains("-"))
+                        && !(mUserId.contains(""))) {
+
+                    startActivity(new Intent(Intent.ACTION_VIEW, Users.buildUserUri(mUserId)));
+                }
+                else {
+                    Toast.makeText(mActivity, "This task hasn't any User associated",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -141,7 +174,8 @@ public class TaskDetailFragment extends Fragment implements
                 Tasks.TASK_REMAINING, // 9
                 Tasks.TASK_COMMENTS, // 10
                 Tasks.TASK_PROJECT_ID, // 11
-                Tasks.TASK_USER_ID
+                Tasks.TASK_USER_ID,
+                Tasks.TASK_SPRINT_ID
                 // 12
         };
 
@@ -177,6 +211,7 @@ public class TaskDetailFragment extends Fragment implements
                     .getString(data.getColumnIndex(Tasks.TASK_COMMENTS));
             mUserId = data.getString(data.getColumnIndex(Tasks.TASK_USER_ID));
             mProjectId = data.getString(data.getColumnIndex(Tasks.TASK_PROJECT_ID));
+            mSprintId = data.getString(data.getColumnIndex(Tasks.TASK_SPRINT_ID));
 
             // Update UI
             mHandler.post(new Runnable() {
@@ -234,6 +269,7 @@ public class TaskDetailFragment extends Fragment implements
                         (ViewGroup) view.findViewById(android.R.id.tabs), false);
         indicator.setText(textRes);
         return indicator;
+
     }
 
     @Override
