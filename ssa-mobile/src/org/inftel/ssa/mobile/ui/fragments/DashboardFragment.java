@@ -61,7 +61,7 @@ public class DashboardFragment extends Fragment {
                 fireTrackerEvent("Users");
                 // Launch sessions list
                 final Intent intent = new Intent(ACTION_VIEW, Users.CONTENT_URI);
-                intent.putExtra(Intent.EXTRA_TITLE, getString(R.string.title_task));
+                intent.putExtra(Intent.EXTRA_TITLE, getString(R.string.title_users));
                 startActivity(intent);
 
             }

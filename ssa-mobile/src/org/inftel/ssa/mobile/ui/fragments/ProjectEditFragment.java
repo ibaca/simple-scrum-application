@@ -1,7 +1,12 @@
 
 package org.inftel.ssa.mobile.ui.fragments;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.inftel.ssa.mobile.R;
+import org.inftel.ssa.mobile.provider.SsaContract;
 import org.inftel.ssa.mobile.provider.SsaContract.Projects;
 
 import android.app.Activity;
@@ -113,7 +118,11 @@ public class ProjectEditFragment extends Fragment implements LoaderCallbacks<Cur
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_save:
-                saveProject();
+                try {
+                    saveProject();
+                } catch (ParseException e) {
+                    Log.w(getClass().getSimpleName(), "Formato no correcto de fecha");
+                }
                 getActivity().finish();
                 return true;
         }
@@ -148,6 +157,8 @@ public class ProjectEditFragment extends Fragment implements LoaderCallbacks<Cur
             final String license = data.getString(data.getColumnIndex(Projects.PROJECT_LICENSE));
             final String company = data.getString(data.getColumnIndex(Projects.PROJECT_COMPANY));
 
+            final SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+
             // Update UI
             mHandler.post(new Runnable() {
                 public void run() {
@@ -155,8 +166,10 @@ public class ProjectEditFragment extends Fragment implements LoaderCallbacks<Cur
                     ((TextView) getView().findViewById(R.id.project_edit_summary)).setText(summary);
                     ((TextView) getView().findViewById(R.id.project_edit_description))
                             .setText(description);
-                    ((TextView) getView().findViewById(R.id.project_edit_started)).setText(started);
-                    ((TextView) getView().findViewById(R.id.project_edit_finished)).setText(close);
+                    ((TextView) getView().findViewById(R.id.project_edit_started))
+                            .setText(sdf.format(new Date(Long.parseLong(started))));
+                    ((TextView) getView().findViewById(R.id.project_edit_finished))
+                            .setText(sdf.format(new Date(Long.parseLong(close))));
                     ((TextView) getView().findViewById(R.id.project_edit_license)).setText(license);
                     ((TextView) getView().findViewById(R.id.project_edit_company)).setText(company);
 
@@ -178,8 +191,9 @@ public class ProjectEditFragment extends Fragment implements LoaderCallbacks<Cur
         });
     }
 
-    public void saveProject() {
+    public void saveProject() throws ParseException {
 
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
         Log.d(getClass().getSimpleName(), "Save Project");
 
         ContentResolver cr = mActivity.getContentResolver();
@@ -188,16 +202,20 @@ public class ProjectEditFragment extends Fragment implements LoaderCallbacks<Cur
         values.put(Projects.PROJECT_NAME, title.getText().toString());
         values.put(Projects.PROJECT_SUMMARY, summary.getText().toString());
         values.put(Projects.PROJECT_DESCRIPTION, description.getText().toString());
-        values.put(Projects.PROJECT_STARTED, started.getText().toString());
-        values.put(Projects.PROJECT_CLOSE, finished.getText().toString());
+        values.put(Projects.PROJECT_STARTED,
+                String.valueOf(sdf.parse(started.getText().toString()).getTime()));
+        values.put(Projects.PROJECT_CLOSE,
+                String.valueOf(sdf.parse(finished.getText().toString()).getTime()));
         values.put(Projects.PROJECT_COMPANY, company.getText().toString());
         values.put(Projects.PROJECT_LICENSE, license.getText().toString());
 
         try {
             if (mState == STATE_INSERT) {
+                values.put(Projects.SYNC_STATUS, SsaContract.STATUS_CREATED);
                 values.put(Projects.PROJECT_OPENED, Long.toString(System.currentTimeMillis()));
                 cr.insert(Projects.CONTENT_URI, values);
             } else {
+                values.put(Projects.SYNC_STATUS, SsaContract.STATUS_DIRTY);
                 cr.update(mContentUri, values, null, null);
             }
         } catch (NullPointerException e) {
@@ -205,5 +223,4 @@ public class ProjectEditFragment extends Fragment implements LoaderCallbacks<Cur
         }
 
     }
-
 }

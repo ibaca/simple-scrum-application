@@ -25,7 +25,7 @@ public class HomeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        checkIfExistsAnAccount(); // or show a login dialog
+        // checkIfExistsAnAccount(); // or show a login dialog
 
         AnalyticsUtils.getInstance(this).trackPageView("/Home");
 

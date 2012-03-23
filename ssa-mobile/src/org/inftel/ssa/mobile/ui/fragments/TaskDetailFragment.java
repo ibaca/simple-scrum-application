@@ -1,6 +1,8 @@
 
 package org.inftel.ssa.mobile.ui.fragments;
 
+import static org.inftel.ssa.mobile.util.Util.formatDate;
+
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.provider.SsaContract.Projects;
 import org.inftel.ssa.mobile.provider.SsaContract.Sprints;
@@ -17,7 +19,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
@@ -136,7 +142,7 @@ public class TaskDetailFragment extends Fragment implements
                 Tasks.TASK_COMMENTS, // 10
                 Tasks.TASK_PROJECT_ID, // 11
                 Tasks.TASK_USER_ID
-        // 12
+                // 12
         };
 
         return new CursorLoader(mActivity, mContentUri, projection, null, null,
@@ -193,9 +199,9 @@ public class TaskDetailFragment extends Fragment implements
                     ((TextView) getView().findViewById(R.id.lblStatus))
                             .setText(mStatus);
                     ((TextView) getView().findViewById(R.id.lblBeginDate))
-                            .setText(mBeginDate);
+                            .setText(formatDate(mBeginDate));
                     ((TextView) getView().findViewById(R.id.lblEndDate))
-                            .setText(mEndDate);
+                            .setText(formatDate(mEndDate));
                     ((TextView) getView().findViewById(R.id.lblBurned))
                             .setText(mBurned);
                     ((TextView) getView().findViewById(R.id.lblRemaining))
@@ -228,6 +234,23 @@ public class TaskDetailFragment extends Fragment implements
                         (ViewGroup) view.findViewById(android.R.id.tabs), false);
         indicator.setText(textRes);
         return indicator;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.details_menu_items, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_edit:
+                Log.d(TAG, "Editando task");
+                startActivity(new Intent(Intent.ACTION_EDIT, Tasks.buildTasktUri(mTaskId)));
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**

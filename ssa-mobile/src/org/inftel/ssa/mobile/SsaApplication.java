@@ -1,6 +1,8 @@
 
 package org.inftel.ssa.mobile;
 
+import java.util.Date;
+
 import org.inftel.ssa.mobile.provider.SsaContract;
 import org.inftel.ssa.mobile.provider.SsaContract.Projects;
 import org.inftel.ssa.mobile.provider.SsaContract.Sprints;
@@ -69,9 +71,9 @@ public class SsaApplication extends Application {
             values.put(Projects.PROJECT_NAME, "Proyecto 1");
             values.put(Projects.PROJECT_SUMMARY, "Pasos");
             values.put(Projects.PROJECT_DESCRIPTION, "Gestion de alarmas para ancianos");
-            values.put(Projects.PROJECT_OPENED, "12/3/2012");
-            values.put(Projects.PROJECT_STARTED, "12/3/2012");
-            values.put(Projects.PROJECT_CLOSE, "12/3/2012");
+            values.put(Projects.PROJECT_OPENED, String.valueOf(new Date().getTime()));
+            values.put(Projects.PROJECT_STARTED, String.valueOf(new Date().getTime()));
+            values.put(Projects.PROJECT_CLOSE, String.valueOf(new Date().getTime()));
             values.put(Projects.PROJECT_COMPANY, "Inftel");
             values.put(Projects.PROJECT_LINKS, "www.inftel.com");
             values.put(Projects.PROJECT_LABELS, "");
@@ -81,9 +83,9 @@ public class SsaApplication extends Application {
             values.put(Projects.PROJECT_NAME, "Proyecto 2");
             values.put(Projects.PROJECT_SUMMARY, "Centro Medico");
             values.put(Projects.PROJECT_DESCRIPTION, "Gestion del centro ambulatorio");
-            values.put(Projects.PROJECT_OPENED, "12/3/2012");
-            values.put(Projects.PROJECT_STARTED, "12/3/2012");
-            values.put(Projects.PROJECT_CLOSE, "12/3/2012");
+            values.put(Projects.PROJECT_OPENED, String.valueOf(new Date().getTime()));
+            values.put(Projects.PROJECT_STARTED, String.valueOf(new Date().getTime()));
+            values.put(Projects.PROJECT_CLOSE, String.valueOf(new Date().getTime()));
             values.put(Projects.PROJECT_COMPANY, "Inftel");
             values.put(Projects.PROJECT_LINKS, "www.inftel.com");
             values.put(Projects.PROJECT_LABELS, "");
@@ -93,9 +95,9 @@ public class SsaApplication extends Application {
             values.put(Projects.PROJECT_NAME, "Proyecto 3");
             values.put(Projects.PROJECT_SUMMARY, "Centro de Reparaciones");
             values.put(Projects.PROJECT_DESCRIPTION, "Control de inventario");
-            values.put(Projects.PROJECT_OPENED, "12/3/2012");
-            values.put(Projects.PROJECT_STARTED, "12/3/2012");
-            values.put(Projects.PROJECT_CLOSE, "12/3/2012");
+            values.put(Projects.PROJECT_OPENED, String.valueOf(new Date().getTime()));
+            values.put(Projects.PROJECT_STARTED, String.valueOf(new Date().getTime()));
+            values.put(Projects.PROJECT_CLOSE, String.valueOf(new Date().getTime()));
             values.put(Projects.PROJECT_COMPANY, "Inftel");
             values.put(Projects.PROJECT_LINKS, "www.inftel.com");
             values.put(Projects.PROJECT_LABELS, "");
@@ -105,9 +107,9 @@ public class SsaApplication extends Application {
             values.put(Projects.PROJECT_NAME, "Proyecto 4");
             values.put(Projects.PROJECT_SUMMARY, "Central Eolica");
             values.put(Projects.PROJECT_DESCRIPTION, "Gestion de recursos");
-            values.put(Projects.PROJECT_OPENED, "12/3/2012");
-            values.put(Projects.PROJECT_STARTED, "12/3/2012");
-            values.put(Projects.PROJECT_CLOSE, "12/3/2012");
+            values.put(Projects.PROJECT_OPENED, String.valueOf(new Date().getTime()));
+            values.put(Projects.PROJECT_STARTED, String.valueOf(new Date().getTime()));
+            values.put(Projects.PROJECT_CLOSE, String.valueOf(new Date().getTime()));
             values.put(Projects.PROJECT_COMPANY, "Inftel");
             values.put(Projects.PROJECT_LINKS, "www.inftel.com");
             values.put(Projects.PROJECT_LABELS, "");
@@ -125,8 +127,8 @@ public class SsaApplication extends Application {
             values.put(Tasks.TASK_BURNED, "4");
             values.put(Tasks.TASK_REMAINING, "0");
             values.put(Tasks.TASK_PRIORITY, "2");
-            values.put(Tasks.TASK_BEGINDATE, "2011-12-01");
-            values.put(Tasks.TASK_ENDDATE, "2011-12-01");
+            values.put(Tasks.TASK_BEGINDATE, String.valueOf(new Date().getTime()));
+            values.put(Tasks.TASK_ENDDATE, String.valueOf(new Date().getTime()));
             values.put(Tasks.TASK_STATUS, "2");
             values.put(Tasks.TASK_CREATED, "2012-03-07");
             values.put(Tasks.TASK_COMMENTS, "comentario");
@@ -142,15 +144,15 @@ public class SsaApplication extends Application {
             values.put(Tasks.TASK_BURNED, "3");
             values.put(Tasks.TASK_REMAINING, "0");
             values.put(Tasks.TASK_PRIORITY, "10");
-            values.put(Tasks.TASK_BEGINDATE, "2011-12-01");
-            values.put(Tasks.TASK_ENDDATE, "2011-12-01");
+            values.put(Tasks.TASK_BEGINDATE, String.valueOf(new Date().getTime()));
+            values.put(Tasks.TASK_ENDDATE, String.valueOf(new Date().getTime()));
             values.put(Tasks.TASK_STATUS, "2");
-            values.put(Tasks.TASK_CREATED, "2012-03-07");
+            values.put(Tasks.TASK_CREATED, String.valueOf(new Date().getTime()));
             values.put(Tasks.TASK_COMMENTS, "comentario");
             cr.insert(Tasks.CONTENT_URI, values);
 
             values.clear();
-            values.put(Tasks.TASK_USER_ID, "-102");
+            values.put(Tasks.TASK_USER_ID, "1");
             values.put(Tasks.TASK_PROJECT_ID, "1");
             values.put(Tasks.TASK_SPRINT_ID, "-400");
             values.put(Tasks.TASK_SUMMARY, "Creacion de estructura del proyecto");
@@ -159,10 +161,10 @@ public class SsaApplication extends Application {
             values.put(Tasks.TASK_BURNED, "2");
             values.put(Tasks.TASK_REMAINING, "0");
             values.put(Tasks.TASK_PRIORITY, "10");
-            values.put(Tasks.TASK_BEGINDATE, "2011-12-01");
-            values.put(Tasks.TASK_ENDDATE, "2011-12-01");
+            values.put(Tasks.TASK_BEGINDATE, String.valueOf(new Date().getTime()));
+            values.put(Tasks.TASK_ENDDATE, String.valueOf(new Date().getTime()));
             values.put(Tasks.TASK_STATUS, "2");
-            values.put(Tasks.TASK_CREATED, "2012-03-07");
+            values.put(Tasks.TASK_CREATED, String.valueOf(new Date().getTime()));
             values.put(Tasks.TASK_COMMENTS, "comentario");
             cr.insert(Tasks.CONTENT_URI, values);
 
@@ -208,8 +210,8 @@ public class SsaApplication extends Application {
             values.put(Users.USER_ROLE, "SM");
 
             cr.insert(Users.CONTENT_URI, values);
+
         }
 
     }
-
 }

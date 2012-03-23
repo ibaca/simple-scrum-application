@@ -1,7 +1,13 @@
 
 package org.inftel.ssa.mobile.ui.fragments;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.inftel.ssa.mobile.R;
+import org.inftel.ssa.mobile.provider.SsaContract;
+import org.inftel.ssa.mobile.provider.SsaContract.Projects;
 import org.inftel.ssa.mobile.provider.SsaContract.Tasks;
 import org.inftel.ssa.mobile.provider.SsaContract.Users;
 
@@ -118,7 +124,7 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
 
         });
 
-        mTxtBurned = (EditText) view.findViewById(R.id.txtEndDate);
+        mTxtBurned = (EditText) view.findViewById(R.id.txtBurned);
         mTxtRemaining = (EditText) view.findViewById(R.id.txtRemaining);
         mTxtComments = (EditText) view.findViewById(R.id.txtComments);
 
@@ -180,6 +186,8 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
             final String remaining = data.getString(data.getColumnIndex(Tasks.TASK_REMAINING));
             final String comments = data.getString(data.getColumnIndex(Tasks.TASK_COMMENTS));
 
+            final SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+
             // Update UI
             mHandler.post(new Runnable() {
                 public void run() {
@@ -189,8 +197,10 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
                     ((TextView) getView().findViewById(R.id.txtPriority)).setText(priority);
                     ((TextView) getView().findViewById(R.id.txtSprint)).setText(sprint);
                     ((TextView) getView().findViewById(R.id.txtStatus)).setText(status);
-                    ((TextView) getView().findViewById(R.id.txtBeginDate)).setText(beginDate);
-                    ((TextView) getView().findViewById(R.id.txtEndDate)).setText(endDate);
+                    ((TextView) getView().findViewById(R.id.txtBeginDate)).setText(sdf
+                            .format(new Date(Long.parseLong(beginDate))));
+                    ((TextView) getView().findViewById(R.id.txtEndDate)).setText(sdf
+                            .format(new Date(Long.parseLong(endDate))));
                     ((TextView) getView().findViewById(R.id.txtUser)).setText(user);
                     ((TextView) getView().findViewById(R.id.txtBurned)).setText(burned);
                     ((TextView) getView().findViewById(R.id.txtRemaining)).setText(remaining);
@@ -214,8 +224,8 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
         });
     }
 
-    public void saveTask() {
-
+    public void saveTask() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
         Log.d(getClass().getSimpleName(), "Save Task");
 
         // mTxtSummary = (EditText) getView().findViewById(R.id.txtSummary);
@@ -240,8 +250,10 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
         values.put(Tasks.TASK_PRIORITY, mTxtPriority.getText().toString());
         values.put(Tasks.TASK_SPRINT_ID, mTxtSprint.getText().toString());
         values.put(Tasks.TASK_STATUS, mTxtStatus.getText().toString());
-        values.put(Tasks.TASK_BEGINDATE, mTxtBeginDate.getText().toString());
-        values.put(Tasks.TASK_ENDDATE, mTxtEndDate.getText().toString());
+        values.put(Tasks.TASK_BEGINDATE,
+                String.valueOf(sdf.parse(mTxtBeginDate.getText().toString()).getTime()));
+        values.put(Tasks.TASK_ENDDATE,
+                String.valueOf(sdf.parse(mTxtEndDate.getText().toString()).getTime()));
         values.put(Tasks.TASK_BURNED, mTxtBurned.getText().toString());
         values.put(Tasks.TASK_REMAINING, mTxtRemaining.getText().toString());
         values.put(Tasks.TASK_COMMENTS, mTxtComments.getText().toString());
@@ -249,8 +261,10 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
         try {
             if (mState == STATE_INSERT) {
                 values.put(Tasks.TASK_CREATED, Long.toString(System.currentTimeMillis()));
+                values.put(Projects.SYNC_STATUS, SsaContract.STATUS_CREATED);
                 cr.insert(Tasks.CONTENT_URI, values);
             } else {
+                values.put(Projects.SYNC_STATUS, SsaContract.STATUS_DIRTY);
                 cr.update(mContentUri, values, null, null);
             }
         } catch (NullPointerException e) {
@@ -269,7 +283,13 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_save:
-                saveTask();
+                try {
+                    saveTask();
+                } catch (ParseException e) {
+
+                    Log.w(getClass().getSimpleName(), "Formato no correcto de fecha");
+
+                }
                 // startActivity(new Intent(ACTION_VIEW, Tasks.CONTENT_URI));
                 getActivity().finish();
                 return true;

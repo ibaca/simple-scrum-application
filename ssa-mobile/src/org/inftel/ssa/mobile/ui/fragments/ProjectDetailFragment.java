@@ -149,7 +149,7 @@ public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<C
             labels = data.getString(data.getColumnIndex(Projects.PROJECT_LABELS));
             links = data.getString(data.getColumnIndex(Projects.PROJECT_LINKS));
 
-            taskChart(mProjectId);
+            // taskChart(mProjectId);
 
             // Update UI
             mHandler.post(new Runnable() {
@@ -245,76 +245,140 @@ public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<C
         return super.onOptionsItemSelected(item);
     }
 
-    public void taskChart(String projectId) {
+    // public void taskChart(String projectId) {
+    //
+    // ContentResolver cr = getActivity().getContentResolver();
+    // String[] projection = new String[] {
+    // Tasks.TASK_ESTIMATED,
+    // Tasks.TASK_REMAINING,
+    // Tasks.TASK_BURNED
+    // };
+    // String selection = "project_id = ?";
+    // String[] selectionArgs = new String[] {
+    // projectId
+    // };
+    // Cursor cursor = cr.query(Tasks.CONTENT_URI, projection, selection,
+    // selectionArgs, null);
+    // int taskCount = cursor.getCount();
+    // int i = 1;
+    // ArrayList<GraphViewData> estimatedData = new ArrayList<GraphViewData>();
+    // ArrayList<GraphViewData> realData = new ArrayList<GraphViewData>();
+    //
+    // if (taskCount > 0) {
+    // while (cursor.moveToNext()) {
+    // int estimated = Integer.parseInt(cursor.getString(cursor
+    // .getColumnIndex(Tasks.TASK_ESTIMATED)));
+    // String remaining =
+    // cursor.getString(cursor.getColumnIndex(Tasks.TASK_REMAINING));
+    // String burned =
+    // cursor.getString(cursor.getColumnIndex(Tasks.TASK_BURNED));
+    // int real = Integer.parseInt(remaining) + Integer.parseInt(burned);
+    // System.out.println("estimated: " + estimated);
+    // System.out.println("real " + real);
+    //
+    // estimatedData.add(new GraphViewData(i, estimated));
+    // realData.add(new GraphViewData(i, real));
+    // i++;
+    // System.out.println("i: " + i);
+    //
+    // }
+    //
+    // GraphViewData[] estimatedDataArray = new GraphViewData[taskCount];
+    // GraphViewData[] realDataArray = new GraphViewData[taskCount];
+    //
+    // estimatedData.toArray(estimatedDataArray);
+    // realData.toArray(realDataArray);
+    //
+    // GraphViewSeries estimatedSeries = new GraphViewSeries("Stimated",
+    // Color.BLUE,
+    // estimatedDataArray);
+    // GraphViewSeries realSeries = new GraphViewSeries("Stimated", Color.BLUE,
+    // realDataArray);
+    // GraphView graphView;
+    // graphView = new LineGraphView(
+    // getActivity() // context
+    // , "Stress Chart" // heading
+    // );
+    // graphView.addSeries(estimatedSeries);
+    // graphView.addSeries(realSeries);
+    // graphView.setBackgroundColor(Color.BLACK);
+    //
+    // // set legend
+    // graphView.setShowLegend(true);
+    // graphView.setLegendAlign(LegendAlign.BOTTOM);
+    // graphView.setLegendWidth(200);
+    //
+    // LinearLayout layout = (LinearLayout) getView().findViewById(R.id.graph1);
+    // layout.addView(graphView);
+    // }
+    // ContentResolver cr = getActivity().getContentResolver();
+    // String[] projection = new String[] {
+    // Tasks.TASK_ESTIMATED,
+    // Tasks.TASK_REMAINING,
+    // Tasks.TASK_BURNED
+    // };
+    // String selection = "project = ?";
+    // String[] selectionArgs = new String[] {
+    // projectId
+    // };
+    // Cursor cursor = cr.query(Tasks.CONTENT_URI, projection, selection,
+    // selectionArgs, null);
+    // int taskCount = cursor.getCount();
+    // int i = 1;
+    // ArrayList<GraphViewData> estimatedData = new
+    // ArrayList<GraphViewData>();
+    // ArrayList<GraphViewData> realData = new ArrayList<GraphViewData>();
+    //
+    // if (taskCount > 0) {
+    // while (cursor.moveToNext()) {
+    // int estimated = Integer.parseInt(cursor.getString(cursor
+    // .getColumnIndex(Tasks.TASK_ESTIMATED)));
+    // String remaining =
+    // cursor.getString(cursor.getColumnIndex(Tasks.TASK_REMAINING));
+    // String burned =
+    // cursor.getString(cursor.getColumnIndex(Tasks.TASK_BURNED));
+    // int real = Integer.parseInt(remaining) + Integer.parseInt(burned);
+    // System.out.println("estimated: " + estimated);
+    // System.out.println("real " + real);
+    //
+    // estimatedData.add(new GraphViewData(i, estimated));
+    // realData.add(new GraphViewData(i, real));
+    // i++;
+    // System.out.println("i: " + i);
+    //
+    // }
+    //
+    // GraphViewData[] estimatedDataArray = new GraphViewData[taskCount];
+    // GraphViewData[] realDataArray = new GraphViewData[taskCount];
+    //
+    // estimatedData.toArray(estimatedDataArray);
+    // realData.toArray(realDataArray);
+    //
+    // GraphViewSeries estimatedSeries = new GraphViewSeries("Stimated",
+    // Color.BLUE,
+    // estimatedDataArray);
+    // GraphViewSeries realSeries = new GraphViewSeries("Stimated",
+    // Color.BLUE, realDataArray);
+    // GraphView graphView;
+    // graphView = new LineGraphView(
+    // getActivity() // context
+    // , "Stress Chart" // heading
+    // );
+    // graphView.addSeries(estimatedSeries);
+    // graphView.addSeries(realSeries);
+    // graphView.setBackgroundColor(Color.BLACK);
+    //
+    // // set legend
+    // graphView.setShowLegend(true);
+    // graphView.setLegendAlign(LegendAlign.BOTTOM);
+    // graphView.setLegendWidth(200);
+    //
+    // LinearLayout layout = (LinearLayout)
+    // getView().findViewById(R.id.graph1);
+    // layout.addView(graphView);
+    // }
 
-        // ContentResolver cr = getActivity().getContentResolver();
-        // String[] projection = new String[] {
-        // Tasks.TASK_ESTIMATED,
-        // Tasks.TASK_REMAINING,
-        // Tasks.TASK_BURNED
-        // };
-        // String selection = "project = ?";
-        // String[] selectionArgs = new String[] {
-        // projectId
-        // };
-        // Cursor cursor = cr.query(Tasks.CONTENT_URI, projection, selection,
-        // selectionArgs, null);
-        // int taskCount = cursor.getCount();
-        // int i = 1;
-        // ArrayList<GraphViewData> estimatedData = new
-        // ArrayList<GraphViewData>();
-        // ArrayList<GraphViewData> realData = new ArrayList<GraphViewData>();
-        //
-        // if (taskCount > 0) {
-        // while (cursor.moveToNext()) {
-        // int estimated = Integer.parseInt(cursor.getString(cursor
-        // .getColumnIndex(Tasks.TASK_ESTIMATED)));
-        // String remaining =
-        // cursor.getString(cursor.getColumnIndex(Tasks.TASK_REMAINING));
-        // String burned =
-        // cursor.getString(cursor.getColumnIndex(Tasks.TASK_BURNED));
-        // int real = Integer.parseInt(remaining) + Integer.parseInt(burned);
-        // System.out.println("estimated: " + estimated);
-        // System.out.println("real " + real);
-        //
-        // estimatedData.add(new GraphViewData(i, estimated));
-        // realData.add(new GraphViewData(i, real));
-        // i++;
-        // System.out.println("i: " + i);
-        //
-        // }
-        //
-        // GraphViewData[] estimatedDataArray = new GraphViewData[taskCount];
-        // GraphViewData[] realDataArray = new GraphViewData[taskCount];
-        //
-        // estimatedData.toArray(estimatedDataArray);
-        // realData.toArray(realDataArray);
-        //
-        // GraphViewSeries estimatedSeries = new GraphViewSeries("Stimated",
-        // Color.BLUE,
-        // estimatedDataArray);
-        // GraphViewSeries realSeries = new GraphViewSeries("Stimated",
-        // Color.BLUE, realDataArray);
-        // GraphView graphView;
-        // graphView = new LineGraphView(
-        // getActivity() // context
-        // , "Stress Chart" // heading
-        // );
-        // graphView.addSeries(estimatedSeries);
-        // graphView.addSeries(realSeries);
-        // graphView.setBackgroundColor(Color.BLACK);
-        //
-        // // set legend
-        // graphView.setShowLegend(true);
-        // graphView.setLegendAlign(LegendAlign.BOTTOM);
-        // graphView.setLegendWidth(200);
-        //
-        // LinearLayout layout = (LinearLayout)
-        // getView().findViewById(R.id.graph1);
-        // layout.addView(graphView);
-        // }
-
-    }
+    // }
 
     // public void fillProjectDetailsFragment(View view, Uri projectUri) {
     //
