@@ -2,6 +2,7 @@
 package org.inftel.ssa.mobile.ui.fragments;
 
 import org.inftel.ssa.mobile.R;
+import org.inftel.ssa.mobile.provider.SsaContract.Projects;
 import org.inftel.ssa.mobile.provider.SsaContract.Users;
 
 import android.app.Activity;
@@ -68,7 +69,7 @@ public class UserDetailFragment extends Fragment implements LoaderCallbacks<Curs
         view.findViewById(R.id.user_btn_projects).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Users.buildUserUri(mUserId)));
+                startActivity(new Intent(Intent.ACTION_VIEW, Projects.buildProjectUri(mUserId)));
             }
         });
         // Handle tasks click
