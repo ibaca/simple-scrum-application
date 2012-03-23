@@ -139,8 +139,8 @@ public class ProjectEditFragment extends Fragment implements LoaderCallbacks<Cur
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (data.moveToFirst()) {
-            final String summary = data.getString(data.getColumnIndex(Projects.PROJECT_NAME));
-            final String name = data.getString(data.getColumnIndex(Projects.PROJECT_SUMMARY));
+            final String summary = data.getString(data.getColumnIndex(Projects.PROJECT_SUMMARY));
+            final String name = data.getString(data.getColumnIndex(Projects.PROJECT_NAME));
             final String description = data.getString(data
                     .getColumnIndex(Projects.PROJECT_DESCRIPTION));
             final String started = data.getString(data.getColumnIndex(Projects.PROJECT_STARTED));

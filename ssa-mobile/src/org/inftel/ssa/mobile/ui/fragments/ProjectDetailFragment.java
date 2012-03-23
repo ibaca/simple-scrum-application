@@ -1,6 +1,7 @@
 
 package org.inftel.ssa.mobile.ui.fragments;
 
+import static android.content.Intent.ACTION_EDIT;
 import static android.content.Intent.ACTION_VIEW;
 
 import java.text.ParseException;
@@ -21,9 +22,11 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
@@ -245,6 +248,17 @@ public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<C
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.details_menu_items, menu);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_edit:
+                Log.d(TAG, "Editando proyecto");
+                startActivity(new Intent(ACTION_EDIT, Projects.buildProjectUri(mProjectId)));
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     // public void fillProjectDetailsFragment(View view, Uri projectUri) {
