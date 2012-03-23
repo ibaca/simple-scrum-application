@@ -8,10 +8,12 @@ import android.preference.PreferenceActivity;
 
 public class PreferencesActivity extends PreferenceActivity {
 
-    /** Called when the activity is first created. */
+    private static final String TAG = "PreferencesActivity";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
     }
+
 }
