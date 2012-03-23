@@ -139,15 +139,13 @@
     <string name="default_max_tasks_preference">150</string>
 
     <!-- Strings for about -->
-    <string name="member_agumpg">Agustín M. Pereña García</string>
-    <string name="desc_agumpg">Preferencias y Diseño</string>
-    <string name="member_miguelqm">Miguel Angel Quero Marín</string>
-    <string name="desc_miguelqm">Sensores y Alertas</string>
-    <string name="member_miguepintor">Miguel Pintor Moral</string>
-    <string name="desc_miguepintor">Comunicación y Protocolos</string>
-    <string name="member_cristian">Cristian Jiménez Salvatierra</string>
-    <string name="desc_cristian">Interfaz de usuario</string>
     <string name="member_ibaca">Ignacio Baca Moreno</string>
-    <string name="desc_ibaca">Geolocalización</string>
+    <string name="desc_ibaca">Application Architecture and Test</string>
+    <string name="member_jsbaes">Jesús S. Barriga Antonio</string>
+    <string name="desc_jsbaes">Views and Content Provider</string>
+    <string name="member_juanan">Juan Antonio Cobo Zamora</string>
+    <string name="desc_juanan">Views and Content Provider</string>
+    <string name="member_miguepintor">Jesús Ruiz Oliva</string>
+    <string name="desc_miguepintor">Views and Content Provider</string>
 
 </resources>
