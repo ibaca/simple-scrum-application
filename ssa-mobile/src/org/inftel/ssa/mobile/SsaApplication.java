@@ -116,9 +116,9 @@ public class SsaApplication extends Application {
 
             // Tasks
             values.clear();
-            values.put(Tasks.TASK_USER_ID, "-100");
-            values.put(Tasks.TASK_PROJECT_ID, "-200");
-            values.put(Tasks.TASK_SPRINT_ID, "-400");
+            values.put(Tasks.TASK_USER_ID, "1");
+            values.put(Tasks.TASK_PROJECT_ID, "1");
+            values.put(Tasks.TASK_SPRINT_ID, "1");
             values.put(Tasks.TASK_SUMMARY, "Definir modelo de datos");
             values.put(Tasks.TASK_DESCRIPTION, "Se define el modelo de datos de la app.");
             values.put(Tasks.TASK_ESTIMATED, "4");
@@ -151,7 +151,7 @@ public class SsaApplication extends Application {
 
             values.clear();
             values.put(Tasks.TASK_USER_ID, "-102");
-            values.put(Tasks.TASK_PROJECT_ID, "-200");
+            values.put(Tasks.TASK_PROJECT_ID, "1");
             values.put(Tasks.TASK_SPRINT_ID, "-400");
             values.put(Tasks.TASK_SUMMARY, "Creacion de estructura del proyecto");
             values.put(Tasks.TASK_DESCRIPTION, "Arquitectura maven y eclipse.");

@@ -18,6 +18,47 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true" />
+        
+        <TextView
+            android:id="@+id/detail_subtitle"
+            style="@style/TextHeaderSub"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/detail_title" />
+        
+        <Button
+            android:id="@+id/task_btn_user"
+            style="@style/DashboardButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="15dip"
+            android:layout_below="@+id/detail_subtitle"
+            android:drawableTop="@drawable/small_btn_users"
+            android:text="@string/btn_users" />
+
+        <Button
+            android:id="@+id/task_btn_project"
+            style="@style/DashboardButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/detail_subtitle"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="15dip"
+            android:drawableTop="@drawable/small_btn_projects"
+            android:text="@string/btn_projects" />
+
+        <Button
+            android:id="@+id/task_btn_sprint"
+            style="@style/DashboardButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="15dip"
+            android:layout_below="@+id/detail_subtitle"
+            android:drawableTop="@drawable/small_btn_sprints"
+            android:text="@string/btn_sprints" />
 
     </RelativeLayout>
 
