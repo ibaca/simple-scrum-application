@@ -1,20 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:fillViewport="true" >
+    android:id="@+id/scrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="vertical" >
 
     <LinearLayout
-        android:id="@+id/information_container"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical" >
 
         <RelativeLayout
-            android:id="@+id/header_session"
+            android:id="@+id/RelativeLayout3"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/body_padding_medium"
             android:paddingLeft="@dimen/body_padding_large"
             android:paddingRight="@dimen/body_padding_large"
             android:paddingTop="@dimen/body_padding_medium" >
@@ -23,129 +21,200 @@
                 android:id="@+id/lblCaptionEstimated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/lblCaptionDescription"
-                android:text="@string/task_label_estimated" />
+                android:text="@string/task_label_estimated"
+                android:textSize="@dimen/text_size_medium" />
 
             <TextView
                 android:id="@+id/lblEstimated"
+                style="@style/TextHeaderSub"
+                    android:textStyle="italic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/lblCaptionDescription"
-                android:layout_toRightOf="@+id/lblCaptionEstimated"
-                android:text="@string/task_field_estimated" />
+                android:layout_below="@+id/lblCaptionEstimated"
+                android:text="@string/task_field_estimated"
+                android:textSize="@dimen/text_size_small" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/body_padding_large"
+            android:paddingRight="@dimen/body_padding_large"
+            android:paddingTop="@dimen/body_padding_medium" >
 
             <TextView
                 android:id="@+id/lblCaptionPriority"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/lblCaptionEstimated"
-                android:text="@string/task_label_priority" />
+                android:text="@string/task_label_priority"
+                android:textSize="@dimen/text_size_medium" />
 
             <TextView
                 android:id="@+id/lblPriority"
+                style="@style/TextHeaderSub"
+                    android:textStyle="italic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/lblCaptionPriority"
-                android:layout_toRightOf="@+id/lblCaptionPriority"
-                android:text="@string/task_field_priority" />
+                android:layout_below="@+id/lblCaptionPriority"
+                android:text="@string/task_field_priority"
+                android:textSize="@dimen/text_size_small" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout7"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/body_padding_large"
+            android:paddingRight="@dimen/body_padding_large"
+            android:paddingTop="@dimen/body_padding_medium" >
 
             <TextView
                 android:id="@+id/lblCaptionStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/lblCaptionPriority"
-                android:text="@string/task_label_status" />
+                android:text="@string/task_label_status"
+                android:textSize="@dimen/text_size_medium" />
 
             <TextView
                 android:id="@+id/lblStatus"
+                style="@style/TextHeaderSub"
+                    android:textStyle="italic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/lblCaptionStatus"
-                android:layout_toRightOf="@+id/lblCaptionStatus"
-                android:text="@string/task_field_status" />
+                android:layout_below="@+id/lblCaptionStatus"
+                android:text="@string/task_field_status"
+                android:textSize="@dimen/text_size_small" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout7"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/body_padding_large"
+            android:paddingRight="@dimen/body_padding_large"
+            android:paddingTop="@dimen/body_padding_medium" >
 
             <TextView
                 android:id="@+id/lblCaptionBeginDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/lblCaptionStatus"
-                android:text="@string/task_label_beginDate" />
+                android:text="@string/task_label_beginDate"
+                android:textSize="@dimen/text_size_medium" />
 
             <TextView
                 android:id="@+id/lblBeginDate"
+                style="@style/TextHeaderSub"
+                    android:textStyle="italic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/lblCaptionBeginDate"
-                android:layout_toRightOf="@+id/lblCaptionBeginDate"
-                android:text="@string/task_field_beginDate" />
+                android:layout_below="@+id/lblCaptionBeginDate"
+                android:text="@string/task_field_beginDate"
+                android:textSize="@dimen/text_size_small" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout8"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/body_padding_large"
+            android:paddingRight="@dimen/body_padding_large"
+            android:paddingTop="@dimen/body_padding_medium" >
 
             <TextView
                 android:id="@+id/lblCaptionEndDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/lblCaptionBeginDate"
-                android:text="@string/task_label_endDate" />
+                android:text="@string/task_label_endDate"
+                android:textSize="@dimen/text_size_medium" />
 
             <TextView
                 android:id="@+id/lblEndDate"
+                style="@style/TextHeaderSub"
+                    android:textStyle="italic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/lblCaptionEndDate"
-                android:layout_toRightOf="@+id/lblCaptionEndDate"
-                android:text="@string/task_field_endDate" />
+                android:layout_below="@+id/lblCaptionEndDate"
+                android:text="@string/task_field_endDate"
+                android:textSize="@dimen/text_size_small" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout9"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/body_padding_large"
+            android:paddingRight="@dimen/body_padding_large"
+            android:paddingTop="@dimen/body_padding_medium" >
 
             <TextView
                 android:id="@+id/lblCaptionBurned"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/lblCaptionEndDate"
-                android:text="@string/task_label_burned" />
+                android:text="@string/task_label_burned"
+                android:textSize="@dimen/text_size_medium" />
 
             <TextView
                 android:id="@+id/lblBurned"
+                style="@style/TextHeaderSub"
+                    android:textStyle="italic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/lblCaptionBurned"
-                android:layout_toRightOf="@+id/lblCaptionBurned"
-                android:text="@string/task_field_burned" />
+                android:layout_below="@+id/lblCaptionBurned"
+                android:text="@string/task_field_burned"
+                android:textSize="@dimen/text_size_small" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout10"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/body_padding_large"
+            android:paddingRight="@dimen/body_padding_large"
+            android:paddingTop="@dimen/body_padding_medium" >
 
             <TextView
                 android:id="@+id/lblCaptionRemaining"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/lblCaptionBurned"
-                android:text="@string/task_label_remaining" />
+                android:text="@string/task_label_remaining"
+                android:textSize="@dimen/text_size_medium" />
 
             <TextView
                 android:id="@+id/lblRemaining"
+                style="@style/TextHeaderSub"
+                    android:textStyle="italic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/lblCaptionRemaining"
-                android:layout_toRightOf="@+id/lblCaptionRemaining"
-                android:text="@string/task_field_remaining" />
+                android:layout_below="@+id/lblCaptionRemaining"
+                android:text="@string/task_field_remaining"
+                android:textSize="@dimen/text_size_small" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout11"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/body_padding_large"
+            android:paddingRight="@dimen/body_padding_large"
+            android:paddingTop="@dimen/body_padding_medium" >
 
             <TextView
                 android:id="@+id/lblCaptionComments"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/lblCaptionRemaining"
-                android:text="@string/task_label_comments" />
+                android:text="@string/task_label_comments"
+                android:textSize="@dimen/text_size_medium" />
 
             <TextView
                 android:id="@+id/lblComments"
+                style="@style/TextHeaderSub"
+                    android:textStyle="italic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/lblCaptionComments"
-                android:layout_toRightOf="@+id/lblCaptionComments"
-                android:text="@string/task_field_comments" />
+                android:layout_below="@+id/lblCaptionComments"
+                android:text="@string/task_field_comments"
+                android:textSize="@dimen/text_size_small" />
         </RelativeLayout>
     </LinearLayout>
 

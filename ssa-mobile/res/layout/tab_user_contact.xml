@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fillViewport="true" >
-
+
     <LinearLayout
         android:id="@+id/contact_user_container"
         android:layout_width="fill_parent"
@@ -39,13 +39,15 @@
 
             <TextView
                 android:id="@+id/number"
+                style="@style/TextHeaderSub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/numberlb"
                 android:layout_below="@+id/numberlb"
-                android:textSize="@dimen/text_size_small" />
+                android:textSize="@dimen/text_size_small"
+                android:textStyle="italic" />
         </RelativeLayout>
-
+
         <RelativeLayout
             android:id="@+id/email_layout"
             android:layout_width="fill_parent"
@@ -74,12 +76,13 @@
 
             <TextView
                 android:id="@+id/email"
+                style="@style/TextHeaderSub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/emaillb"
                 android:layout_below="@+id/emaillb"
-                android:textSize="@dimen/text_size_small" />
-
+                android:textSize="@dimen/text_size_small"
+                android:textStyle="italic" />
         </RelativeLayout>
     </LinearLayout>
 

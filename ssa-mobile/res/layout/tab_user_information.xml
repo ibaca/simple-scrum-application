@@ -27,11 +27,13 @@
 
             <TextView
                 android:id="@+id/fullname"
+                style="@style/TextHeaderSub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
                 android:layout_below="@+id/fullnamelb"
-                android:textSize="@dimen/text_size_small" />
+                android:text=""
+                android:textSize="@dimen/text_size_small"
+                android:textStyle="italic" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -51,11 +53,13 @@
 
             <TextView
                 android:id="@+id/nickname"
+                style="@style/TextHeaderSub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
                 android:layout_below="@+id/nicknamelb"
-                android:textSize="@dimen/text_size_small" />
+                android:text=""
+                android:textSize="@dimen/text_size_small"
+                android:textStyle="italic" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -75,11 +79,13 @@
 
             <TextView
                 android:id="@+id/project"
+                style="@style/TextHeaderSub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
                 android:layout_below="@+id/projectlb"
-                android:textSize="@dimen/text_size_small" />
+                android:text=""
+                android:textSize="@dimen/text_size_small"
+                android:textStyle="italic" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -99,11 +105,13 @@
 
             <TextView
                 android:id="@+id/company"
+                style="@style/TextHeaderSub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
                 android:layout_below="@+id/companylb"
-                android:textSize="@dimen/text_size_small" />
+                android:text=""
+                android:textSize="@dimen/text_size_small"
+                android:textStyle="italic" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -123,11 +131,13 @@
 
             <TextView
                 android:id="@+id/role"
+                style="@style/TextHeaderSub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
                 android:layout_below="@+id/rolelb"
-                android:textSize="@dimen/text_size_small" />
+                android:text=""
+                android:textSize="@dimen/text_size_small"
+                android:textStyle="italic" />
         </RelativeLayout>
     </LinearLayout>
 
