@@ -3,6 +3,7 @@ package org.inftel.ssa.mobile.ui.fragments;
 
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.provider.SsaContract.Tasks;
+import org.inftel.ssa.mobile.provider.SsaContract.Users;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -32,6 +33,8 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
 
     private static final int STATE_EDIT = 0;
     private static final int STATE_INSERT = 1;
+
+    private static final int PICK_CONTACT_REQUEST = 1;
 
     protected Handler mHandler = new Handler();
     protected Activity mActivity;
@@ -102,6 +105,19 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
 
         });
 
+        mTxtSprint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // DateDialogFragment.newInstance(v.getContext(),
+                // mTxtEndDate).show(
+                // getActivity().getSupportFragmentManager(),
+                // "Date Picker Dialog");
+                Intent intent = new Intent(Intent.ACTION_PICK, Tasks.CONTENT_URI);
+                startActivityForResult(intent, PICK_CONTACT_REQUEST);
+            }
+
+        });
+
         mTxtBurned = (EditText) view.findViewById(R.id.txtEndDate);
         mTxtRemaining = (EditText) view.findViewById(R.id.txtRemaining);
         mTxtComments = (EditText) view.findViewById(R.id.txtComments);
@@ -158,6 +174,7 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
             final String sprint = data.getString(data.getColumnIndex(Tasks.TASK_SPRINT_ID));
             final String status = data.getString(data.getColumnIndex(Tasks.TASK_STATUS));
             final String beginDate = data.getString(data.getColumnIndex(Tasks.TASK_BEGINDATE));
+            final String user = data.getString(data.getColumnIndex(Tasks.TASK_USER_ID));
             final String endDate = data.getString(data.getColumnIndex(Tasks.TASK_ENDDATE));
             final String burned = data.getString(data.getColumnIndex(Tasks.TASK_BURNED));
             final String remaining = data.getString(data.getColumnIndex(Tasks.TASK_REMAINING));
@@ -174,6 +191,7 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
                     ((TextView) getView().findViewById(R.id.txtStatus)).setText(status);
                     ((TextView) getView().findViewById(R.id.txtBeginDate)).setText(beginDate);
                     ((TextView) getView().findViewById(R.id.txtEndDate)).setText(endDate);
+                    ((TextView) getView().findViewById(R.id.txtUser)).setText(user);
                     ((TextView) getView().findViewById(R.id.txtBurned)).setText(burned);
                     ((TextView) getView().findViewById(R.id.txtRemaining)).setText(remaining);
                     ((TextView) getView().findViewById(R.id.txtComments)).setText(comments);
@@ -257,6 +275,33 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
                 return true;
         }
         return onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        String[] projection = new String[] {
+                Users._ID,
+                Users.USER_FULLNAME, Users.USER_NICKNAME,
+                Users.USER_EMAIL, Users.USER_PROJECT_ID,
+                Users.USER_NUMBER,
+                Users.USER_COMPANY,
+                Users.USER_ROLE
+        };
+
+        // If the request went well (OK) and the request was
+        // PICK_CONTACT_REQUEST
+        // if (resultCode == Activity.RESULT_OK && requestCode ==
+        // PICK_CONTACT_REQUEST) {
+
+        // Cursor cursor = getContentResolver().query(data.getData(),
+        // projection, null, null, null);
+
+        // if (cursor.moveToFirst()) { // True if the cursor is not empty
+        // columnIndex = cursor.getColumnIndex(Contacts.DISPLAY_NAME);
+        // String name = cursor.getString(columnIndex);
+
+        // }
+        // }
     }
 
 }

@@ -90,6 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/lblCaptionBeginDate"
+            android:focusableInTouchMode="false"
             android:hint="@string/task_field_beginDate" />
 
         <TextView
@@ -150,6 +151,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/lblCaptionEndDate"
+            android:focusableInTouchMode="false"
             android:hint="@string/task_field_endDate" />
 
         <TextView
