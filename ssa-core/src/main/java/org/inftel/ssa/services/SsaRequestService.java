@@ -117,6 +117,17 @@ public class SsaRequestService {
         projects.create(instance);
     }
 
+    public void persist(Task instance) {
+        log.info("creando proyecto " + instance);
+        if (instance == null) {
+            throw new NullPointerException();
+        }
+        if (instance.getId() != null) {
+            throw new RuntimeException("Id debe ser nulo, es decir, proyecto nuevo");
+        }
+        tasks.create(instance);
+    }
+
     public void remove(User instance) {
         log.info("borrando usuario " + instance);
         users.remove(instance);

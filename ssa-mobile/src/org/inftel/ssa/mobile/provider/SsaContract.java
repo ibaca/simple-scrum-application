@@ -31,6 +31,8 @@ final public class SsaContract {
 
     public interface SyncColumns {
         /** Id que relaciona la entidad local con la remota. */
+        String REMOTE_ID = "remote_id";
+        /** Id usado internamente por request factory. */
         String STABLE_ID = "stable_id";
         /** Estado de sincronizacion. */
         String SYNC_STATUS = "sync_status";

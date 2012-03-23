@@ -55,6 +55,7 @@ public class SsaDatabase extends SQLiteOpenHelper {
                 + ProjectsColumns.PROJECT_LINKS + " TEXT,"
                 + ProjectsColumns.PROJECT_LABELS + " TEXT,"
                 + ProjectsColumns.PROJECT_LICENSE + " TEXT,"
+                + SyncColumns.REMOTE_ID + " TEXT,"
                 + SyncColumns.STABLE_ID + " TEXT,"
                 + SyncColumns.SYNC_STATUS + " INTEGER)");
 
@@ -81,6 +82,7 @@ public class SsaDatabase extends SQLiteOpenHelper {
                 + TasksColumns.TASK_SPRINT_ID + " INTEGER,"
                 + TasksColumns.TASK_PROJECT_ID + " INTEGER,"
                 + TasksColumns.TASK_USER_ID + " INTEGER,"
+                + SyncColumns.REMOTE_ID + " TEXT,"
                 + SyncColumns.STABLE_ID + " TEXT,"
                 + SyncColumns.SYNC_STATUS + " INTEGER)");
 
@@ -88,6 +90,7 @@ public class SsaDatabase extends SQLiteOpenHelper {
                 + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + SprintsColumns.SPRINT_SUMMARY + " TEXT,"
                 + SprintsColumns.SPRINT_PROJECT_ID + " INTEGER,"
+                + SyncColumns.REMOTE_ID + " TEXT,"
                 + SyncColumns.STABLE_ID + " TEXT,"
                 + SyncColumns.SYNC_STATUS + " INTEGER)");
 
@@ -100,6 +103,7 @@ public class SsaDatabase extends SQLiteOpenHelper {
                 + UsersColumns.USER_COMPANY + " TEXT,"
                 + UsersColumns.USER_PASS + " TEXT,"
                 + UsersColumns.USER_ROLE + " TEXT,"
+                + SyncColumns.REMOTE_ID + " TEXT,"
                 + SyncColumns.STABLE_ID + " TEXT,"
                 + SyncColumns.SYNC_STATUS + " INTEGER)");
     }

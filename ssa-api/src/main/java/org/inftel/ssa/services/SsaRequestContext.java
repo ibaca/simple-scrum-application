@@ -32,6 +32,8 @@ public interface SsaRequestContext extends RequestContext {
 
     Request<List<UserProxy>> findUserEntries(int firstResult, int maxResults);
 
+    Request<Void> persist(UserProxy user);
+
     // Projects
 
     Request<Long> countProjects();
@@ -42,6 +44,8 @@ public interface SsaRequestContext extends RequestContext {
 
     Request<List<ProjectProxy>> findProjectsSince(Date date);
 
+    Request<Void> persist(ProjectProxy project);
+
     // Tasks
 
     /**
@@ -49,5 +53,7 @@ public interface SsaRequestContext extends RequestContext {
      * pasada. La fecha pasada puede ser nula, devolviendose todas las tareas.
      */
     Request<List<TaskProxy>> findTasksByProjectSince(Long projectId, Date since);
+
+    Request<Void> persist(TaskProxy task);
 
 }

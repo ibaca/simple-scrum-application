@@ -1,6 +1,8 @@
 
 package org.inftel.ssa.locators;
 
+import java.util.logging.Logger;
+
 import javax.persistence.EntityManager;
 
 import org.inftel.ssa.domain.BaseEntity;
@@ -27,6 +29,8 @@ import com.google.web.bindery.requestfactory.shared.Locator;
  */
 public class EntityLocator extends Locator<BaseEntity, Long> {
 
+    private final static Logger logger = Logger.getLogger(EntityLocator.class.getName());
+
     private EntityManager entityManager;
 
     public final EntityManager getEntityManager() {
@@ -39,6 +43,7 @@ public class EntityLocator extends Locator<BaseEntity, Long> {
 
     @Override
     public BaseEntity create(Class<? extends BaseEntity> clazz) {
+        logger.info("creando nueva instancia de clase " + clazz);
         try {
             return clazz.newInstance();
         } catch (InstantiationException e) {
@@ -50,6 +55,7 @@ public class EntityLocator extends Locator<BaseEntity, Long> {
 
     @Override
     public BaseEntity find(Class<? extends BaseEntity> clazz, Long id) {
+        logger.info("buscando entidad " + clazz + " con id " + id);
         if (clazz.equals(User.class)) {
             return BeanLocator.lookupBean(UserFacade.class).find(id);
         } else if (clazz.equals(Project.class)) {

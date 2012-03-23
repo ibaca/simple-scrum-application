@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Built-By: ibaca
+Build-Jdk: 1.6.0_29
+Specification-Title: SSA :: Mobile
+Specification-Version: 1.0-SNAPSHOT
+Specification-Vendor: Master INFTEL
+Implementation-Title: SSA :: Mobile
+Implementation-Version: 1.0-SNAPSHOT
+Implementation-Vendor-Id: org.inftel.ssa
+Implementation-Vendor: Master INFTEL
+Created-By: Maven Integration for Eclipse
+

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    
+  <datamining id='2059' name='alert.reciverProcessTime' periodtype='0' perioddate='2012-02-27' datacount='10' datasum='200'/>
+  <datamining id='2060' name='alert.reciverProcessTime' periodtype='0' perioddate='2012-02-28' datacount='20' datasum='600'/>
+    
+  <datamining id='1000' name='alert.counter' periodtype='0' perioddate='2011-12-01' datacount='3'/>
+  <datamining id='1001' name='alert.counter' periodtype='0' perioddate='2011-12-02' datacount='5'/>
+  <datamining id='1002' name='alert.counter' periodtype='0' perioddate='2011-12-03' datacount='2'/>
+  <datamining id='1003' name='alert.counter' periodtype='1' perioddate='2011-12-01' datacount='10'/>
+  <datamining id='1004' name='alert.counter' periodtype='2' perioddate='2011-01-01' datacount='10'/>
+  
+  <datamining id='1005' name='alert.type.user' periodtype='2' perioddate='2011-01-01' datacount='10'/>
+  <datamining id='2000' name='alert.type.user' periodtype='0' perioddate='2012-01-01' datacount='10'/>
+  <datamining id='2001' name='alert.type.user' periodtype='0' perioddate='2012-01-02' datacount='20'/>
+  <datamining id='2002' name='alert.type.user' periodtype='0' perioddate='2012-01-03' datacount='15'/>
+  <datamining id='2003' name='alert.type.user' periodtype='0' perioddate='2012-01-04' datacount='30'/>
+  <datamining id='2004' name='alert.type.user' periodtype='0' perioddate='2012-01-05' datacount='50'/>
+  <datamining id='2005' name='alert.type.user' periodtype='0' perioddate='2012-01-06' datacount='55'/>
+  <datamining id='2006' name='alert.type.user' periodtype='0' perioddate='2012-01-07' datacount='40'/>
+  <datamining id='2007' name='alert.type.user' periodtype='0' perioddate='2012-01-08' datacount='25'/>
+  <datamining id='2008' name='alert.type.user' periodtype='0' perioddate='2012-01-09' datacount='15'/>
+  <datamining id='2009' name='alert.type.user' periodtype='0' perioddate='2012-01-10' datacount='12'/>
+  <datamining id='2010' name='alert.type.user' periodtype='0' perioddate='2012-01-11' datacount='10'/>
+  <datamining id='2011' name='alert.type.user' periodtype='0' perioddate='2012-01-12' datacount='28'/>
+  <datamining id='2012' name='alert.type.user' periodtype='0' perioddate='2012-01-13' datacount='30'/>
+  <datamining id='2013' name='alert.type.user' periodtype='0' perioddate='2012-01-14' datacount='45'/>
+  <datamining id='2014' name='alert.type.user' periodtype='0' perioddate='2012-01-15' datacount='58'/>
+  <datamining id='2015' name='alert.type.user' periodtype='0' perioddate='2012-01-16' datacount='62'/>
+  <datamining id='2016' name='alert.type.user' periodtype='0' perioddate='2012-01-17' datacount='40'/>
+  <datamining id='2017' name='alert.type.user' periodtype='0' perioddate='2012-01-18' datacount='30'/>
+  
+  <datamining id='2018' name='alert.type.device' periodtype='2' perioddate='2011-01-01' datacount='10'/>
+  <datamining id='2019' name='alert.type.device' periodtype='0' perioddate='2012-01-01' datacount='5'/>
+  <datamining id='2020' name='alert.type.device' periodtype='0' perioddate='2012-01-02' datacount='8'/>
+  <datamining id='2021' name='alert.type.device' periodtype='0' perioddate='2012-01-03' datacount='11'/>
+  <datamining id='2022' name='alert.type.device' periodtype='0' perioddate='2012-01-04' datacount='14'/>
+  <datamining id='2023' name='alert.type.device' periodtype='0' perioddate='2012-01-05' datacount='12'/>
+  <datamining id='2024' name='alert.type.device' periodtype='0' perioddate='2012-01-06' datacount='16'/>
+  <datamining id='2025' name='alert.type.device' periodtype='0' perioddate='2012-01-07' datacount='20'/>
+  <datamining id='2026' name='alert.type.device' periodtype='0' perioddate='2012-01-08' datacount='15'/>
+  <datamining id='2027' name='alert.type.device' periodtype='0' perioddate='2012-01-09' datacount='13'/>
+  <datamining id='2028' name='alert.type.device' periodtype='0' perioddate='2012-01-10' datacount='12'/>
+  <datamining id='2029' name='alert.type.device' periodtype='0' perioddate='2012-01-11' datacount='6'/>
+  <datamining id='2030' name='alert.type.device' periodtype='0' perioddate='2012-01-12' datacount='8'/>
+  <datamining id='2031' name='alert.type.device' periodtype='0' perioddate='2012-01-13' datacount='5'/>
+  <datamining id='2032' name='alert.type.device' periodtype='0' perioddate='2012-01-14' datacount='6'/>
+  <datamining id='2033' name='alert.type.device' periodtype='0' perioddate='2012-01-15' datacount='10'/>
+  <datamining id='2034' name='alert.type.device' periodtype='0' perioddate='2012-01-16' datacount='12'/>
+  <datamining id='2035' name='alert.type.device' periodtype='0' perioddate='2012-01-17' datacount='8'/>
+  <datamining id='2036' name='alert.type.device' periodtype='0' perioddate='2012-01-18' datacount='4'/>
+  
+  <datamining id='2037' name='alert.type.technical' periodtype='2' perioddate='2011-01-01' datacount='3'/>
+  <datamining id='2038' name='alert.type.technical' periodtype='0' perioddate='2012-01-01' datacount='6'/>
+  <datamining id='2039' name='alert.type.technical' periodtype='0' perioddate='2012-01-02' datacount='8'/>
+  <datamining id='2040' name='alert.type.technical' periodtype='0' perioddate='2012-01-03' datacount='10'/>
+  <datamining id='2041' name='alert.type.technical' periodtype='0' perioddate='2012-01-04' datacount='12'/>
+  <datamining id='2042' name='alert.type.technical' periodtype='0' perioddate='2012-01-05' datacount='16'/>
+  <datamining id='2043' name='alert.type.technical' periodtype='0' perioddate='2012-01-06' datacount='20'/>
+  <datamining id='2044' name='alert.type.technical' periodtype='0' perioddate='2012-01-07' datacount='25'/>
+  <datamining id='2045' name='alert.type.technical' periodtype='0' perioddate='2012-01-08' datacount='22'/>
+  <datamining id='2046' name='alert.type.technical' periodtype='0' perioddate='2012-01-09' datacount='30'/>
+  <datamining id='2047' name='alert.type.technical' periodtype='0' perioddate='2012-01-10' datacount='20'/>
+  <datamining id='2048' name='alert.type.technical' periodtype='0' perioddate='2012-01-11' datacount='15'/>
+  <datamining id='2049' name='alert.type.technical' periodtype='0' perioddate='2012-01-12' datacount='10'/>
+  <datamining id='2050' name='alert.type.technical' periodtype='0' perioddate='2012-01-13' datacount='12'/>
+  <datamining id='2051' name='alert.type.technical' periodtype='0' perioddate='2012-01-14' datacount='8'/>
+  <datamining id='2052' name='alert.type.technical' periodtype='0' perioddate='2012-01-15' datacount='7'/>
+  <datamining id='2053' name='alert.type.technical' periodtype='0' perioddate='2012-01-16' datacount='9'/>
+  <datamining id='2054' name='alert.type.technical' periodtype='0' perioddate='2012-01-17' datacount='8'/>
+  <datamining id='2055' name='alert.type.technical' periodtype='0' perioddate='2012-01-18' datacount='6'/>
+  
+  <datamining id='2056' name='alert.type.user' periodtype='0' perioddate='2012-02-1' datacount='10'/>
+  <datamining id='2057' name='alert.type.user' periodtype='0' perioddate='2012-02-2' datacount='20'/>
+  <datamining id='2058' name='alert.type.user' periodtype='0' perioddate='2012-02-3' datacount='30'/>
+  
+</dataset>

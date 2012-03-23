@@ -121,7 +121,8 @@ public class ProjectEditFragment extends Fragment implements LoaderCallbacks<Cur
                 try {
                     saveProject();
                 } catch (ParseException e) {
-                    Log.w(getClass().getSimpleName(), "Formato no correcto de fecha");
+                    Log.w(getClass().getSimpleName(),
+                            "Fallo inesperado guardando proyecto: " + e.getMessage(), e);
                 }
                 getActivity().finish();
                 return true;
@@ -157,26 +158,27 @@ public class ProjectEditFragment extends Fragment implements LoaderCallbacks<Cur
             final String license = data.getString(data.getColumnIndex(Projects.PROJECT_LICENSE));
             final String company = data.getString(data.getColumnIndex(Projects.PROJECT_COMPANY));
 
-            final SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
-
             // Update UI
             mHandler.post(new Runnable() {
                 public void run() {
-                    ((TextView) getView().findViewById(R.id.project_edit_title)).setText(name);
-                    ((TextView) getView().findViewById(R.id.project_edit_summary)).setText(summary);
-                    ((TextView) getView().findViewById(R.id.project_edit_description))
-                            .setText(description);
-                    ((TextView) getView().findViewById(R.id.project_edit_started))
-                            .setText(sdf.format(new Date(Long.parseLong(started))));
-                    ((TextView) getView().findViewById(R.id.project_edit_finished))
-                            .setText(sdf.format(new Date(Long.parseLong(close))));
-                    ((TextView) getView().findViewById(R.id.project_edit_license)).setText(license);
-                    ((TextView) getView().findViewById(R.id.project_edit_company)).setText(company);
-
+                    populateView(summary, name, description, started, close, license, company);
                 }
+
             });
         }
 
+    }
+
+    private void populateView(final String summary, final String name,
+            final String description, final String started, final String close,
+            final String license, final String company) {
+        ((TextView) getView().findViewById(R.id.project_edit_title)).setText(name);
+        ((TextView) getView().findViewById(R.id.project_edit_summary)).setText(summary);
+        ((TextView) getView().findViewById(R.id.project_edit_description)).setText(description);
+        ((TextView) getView().findViewById(R.id.project_edit_started)).setText(formatDate(started));
+        ((TextView) getView().findViewById(R.id.project_edit_finished)).setText(formatDate(close));
+        ((TextView) getView().findViewById(R.id.project_edit_license)).setText(license);
+        ((TextView) getView().findViewById(R.id.project_edit_company)).setText(company);
     }
 
     @Override
@@ -192,8 +194,6 @@ public class ProjectEditFragment extends Fragment implements LoaderCallbacks<Cur
     }
 
     public void saveProject() throws ParseException {
-
-        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
         Log.d(getClass().getSimpleName(), "Save Project");
 
         ContentResolver cr = mActivity.getContentResolver();
@@ -202,10 +202,8 @@ public class ProjectEditFragment extends Fragment implements LoaderCallbacks<Cur
         values.put(Projects.PROJECT_NAME, title.getText().toString());
         values.put(Projects.PROJECT_SUMMARY, summary.getText().toString());
         values.put(Projects.PROJECT_DESCRIPTION, description.getText().toString());
-        values.put(Projects.PROJECT_STARTED,
-                String.valueOf(sdf.parse(started.getText().toString()).getTime()));
-        values.put(Projects.PROJECT_CLOSE,
-                String.valueOf(sdf.parse(finished.getText().toString()).getTime()));
+        values.put(Projects.PROJECT_STARTED, secureEpochDate(started.getText().toString()));
+        values.put(Projects.PROJECT_CLOSE, secureEpochDate(finished.getText().toString()));
         values.put(Projects.PROJECT_COMPANY, company.getText().toString());
         values.put(Projects.PROJECT_LICENSE, license.getText().toString());
 
@@ -222,5 +220,23 @@ public class ProjectEditFragment extends Fragment implements LoaderCallbacks<Cur
             Log.e(getClass().getSimpleName(), e.getMessage());
         }
 
+    }
+
+    final SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+
+    private String secureEpochDate(String insecureDate) {
+        try {
+            return String.valueOf(sdf.parse(insecureDate).getTime());
+        } catch (Exception ignored) {
+            return null; // FIXME jeje esto es poco 'elegante'
+        }
+    }
+
+    private String formatDate(final String started) {
+        try {
+            return sdf.format(new Date(Long.parseLong(started)));
+        } catch (Exception ignored) {
+            return "no date"; // FIXME jeje esto es poco 'elegante'
+        }
     }
 }
