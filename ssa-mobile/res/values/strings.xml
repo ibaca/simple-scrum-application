@@ -112,17 +112,16 @@
     <string name="sumary_alternative_ip_preference">Alternative server IP</string>
     <string name="dialog_title_alternative_ip_preference">Enter alternative IP address</string>
     <string name="default_alternative_ip_preference">home.bacamt.com</string>
-    <string name="title_alternative_port_preference">Alternative Port</string>
+    <string name="title_alternative_port_preference">Port</string>
     <string name="sumary_alternative_port_preference">Alternative TCP server port</string>
-    <string name="dialog_title_alternative_port_preference">Enter port</string>
+    <string name="dialog_title_alternative_port_preference">Enter alternative port number</string>
     <string name="default_alternative_port_preference">83</string>
-    <string name="title_synchronize_preference">Path</string>
-    <string name="sumary_synchronize_preference">Minimum synchronize time</string>
-    <string name="dialog_title_synchronize_preference">Enter minimum synchronize time</string>
-    <string name="default_synchronize_preference">1sg</string>
+    <string name="title_synchronize_preference">Synchronization time</string>
+    <string name="sumary_synchronize_preference">Minimum synchronization time</string>
+    <string name="dialog_title_synchronize_preference">Enter minimum synchronization time (sg)</string>
+    <string name="default_synchronize_preference">1</string>
     <string name="title_update_before_edit_preference">Update before edit</string>
-    <string name="sumary_update_before_edit_preference">Force update before edit data</string>
-    <string name="dialog_title_update_before_edit_preference">Enter update preference</string>
+    <string name="sumary_update_before_edit_preference">Force update before data edit</string>
     <string name="default_update_before_edit_preference">true</string>
     <string name="unit_type1">Days</string>
     <string name="unit_type2">Hours</string>
@@ -133,9 +132,9 @@
     <string name="sumary_units_preference">Units type for estimation</string>
     <string name="dialog_title_units_preference">Enter estimation unit</string>
     <string name="default_units_preference">d</string>
-    <string name="title_max_tasks_preference">Max tasks per sprint</string>
+    <string name="title_max_tasks_preference">Tasks per sprint</string>
     <string name="sumary_max_tasks_preference">Maximum number of tasks per sprint</string>
-    <string name="dialog_title_max_tasks_preference">Enter max tasks for sprint</string>
+    <string name="dialog_title_max_tasks_preference">Enter maximum number of tasks per sprint</string>
     <string name="default_max_tasks_preference">150</string>
 
     <!-- Strings for about -->
@@ -147,5 +146,7 @@
     <string name="desc_juanan">Views and Content Provider</string>
     <string name="member_jrovillano">Jesús Ruiz Oliva</string>
     <string name="desc_jrovillano">Views and Content Provider</string>
+    <string name="member_nobody"></string>
+    <string name="desc_nobody"></string>
 
 </resources>
