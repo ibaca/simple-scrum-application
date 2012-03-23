@@ -197,7 +197,7 @@
 
     <!-- Style for the about credits -->
     <style name="about_title" parent="@android:style/TextAppearance.Medium">
-        <item name="android:textSize">25sp</item>
+        <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:shadowColor">#000</item>
         <item name="android:shadowDx">0</item>
@@ -221,6 +221,10 @@
         <item name="android:gravity">center_vertical|center_horizontal</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:layout_marginTop">35px</item>
+        <item name="android:shadowColor">#C000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">2</item>
     </style>
     
     <!-- Style for the about credits -->
@@ -231,6 +235,10 @@
         <item name="android:gravity">center_vertical|center_horizontal</item>
         <item name="android:textColor">#BCBCBC</item>
         <item name="android:layout_marginTop">5px</item>
+        <item name="android:shadowColor">#C000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">2</item>
     </style>
 
 </resources>
