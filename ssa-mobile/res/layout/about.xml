@@ -46,6 +46,22 @@
             style="@style/about_description"
             android:text="@string/desc_jrovillano" />
 
+        <TextView
+            style="@style/about_member"
+            android:text="@string/member_nobody" />
+
+        <TextView
+            style="@style/about_description"
+            android:text="@string/desc_nobody" />
+        
+        <TextView
+            style="@style/about_member"
+            android:text="@string/member_nobody" />
+                
+        <TextView
+            style="@style/about_description"
+            android:text="@string/desc_nobody" />
+
     </LinearLayout>
 
 </ScrollView>
