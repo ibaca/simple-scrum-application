@@ -8,6 +8,8 @@ import org.inftel.ssa.mobile.provider.SsaContract.Projects;
 import org.inftel.ssa.mobile.provider.SsaContract.Sprints;
 import org.inftel.ssa.mobile.provider.SsaContract.Tasks;
 import org.inftel.ssa.mobile.provider.SsaContract.Users;
+import org.inftel.ssa.mobile.ui.phone.AboutActivity;
+import org.inftel.ssa.mobile.ui.phone.PreferencesActivity;
 import org.inftel.ssa.mobile.util.AnalyticsUtils;
 
 import android.content.Intent;
@@ -77,6 +79,23 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+        // Attach event handlers
+        root.findViewById(R.id.home_btn_preferences).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                fireTrackerEvent("Preferences");
+
+                startActivity(new Intent(getActivity(), PreferencesActivity.class));
+            }
+        });
+
+        // Attach event handlers
+        root.findViewById(R.id.home_btn_about).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                fireTrackerEvent("About");
+
+                startActivity(new Intent(getActivity(), AboutActivity.class));
+            }
+        });
         return root;
     }
 }
