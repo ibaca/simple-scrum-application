@@ -24,7 +24,7 @@ public class SsaApplication extends Application {
 
         // Algunos datos para hacer pruebas
         ContentResolver cr = getContentResolver();
-        
+
         Cursor cursor = cr.query(SsaContract.Sprints.CONTENT_URI, new String[] {
                 Sprints.SPRINT_SUMMARY
         }, null, null, null);
@@ -130,7 +130,7 @@ public class SsaApplication extends Application {
 
             values.clear();
             values.put(Tasks.TASK_USER_ID, "-101");
-            values.put(Tasks.TASK_PROJECT_ID, "-200");
+            values.put(Tasks.TASK_PROJECT_ID, "1");
             values.put(Tasks.TASK_SPRINT_ID, "-400");
             values.put(Tasks.TASK_SUMMARY, "Definir casos de uso iniciales");
             values.put(Tasks.TASK_DESCRIPTION, "Se definen los casos de uso.");
@@ -167,6 +167,7 @@ public class SsaApplication extends Application {
 
             values.put(Users.USER_FULLNAME, "Ignacio Baca");
             values.put(Users.USER_NICKNAME, "ibaca");
+            values.put(Users.USER_PROJECT_ID, "1");
             values.put(Users.USER_EMAIL, "ignacio@gmail.com");
             values.put(Users.USER_NUMBER, "957700652");
             values.put(Users.USER_COMPANY, "Inftel");
@@ -177,6 +178,7 @@ public class SsaApplication extends Application {
 
             values.put(Users.USER_FULLNAME, "Juan Ant. Cobo");
             values.put(Users.USER_NICKNAME, "JuaNaN");
+            values.put(Users.USER_PROJECT_ID, "1");
             values.put(Users.USER_EMAIL, "juanan20@gmail.com");
             values.put(Users.USER_NUMBER, "957700652");
             values.put(Users.USER_COMPANY, "Inftel");
@@ -187,6 +189,7 @@ public class SsaApplication extends Application {
 
             values.put(Users.USER_FULLNAME, "Jesus Ruiz");
             values.put(Users.USER_NICKNAME, "3");
+            values.put(Users.USER_PROJECT_ID, "1");
             values.put(Users.USER_EMAIL, "jrovillano@gmail.com");
             values.put(Users.USER_NUMBER, "957700652");
             values.put(Users.USER_COMPANY, "Master Inftel");
@@ -196,6 +199,7 @@ public class SsaApplication extends Application {
             cr.insert(Users.CONTENT_URI, values);
 
             values.put(Users.USER_FULLNAME, "Jesus Barriga");
+            values.put(Users.USER_PROJECT_ID, "1");
             values.put(Users.USER_NICKNAME, "4");
             values.put(Users.USER_EMAIL, "jesusbarriga@gmail.com");
             values.put(Users.USER_NUMBER, "957700652");

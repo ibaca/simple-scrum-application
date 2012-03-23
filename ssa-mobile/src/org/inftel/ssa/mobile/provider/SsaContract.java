@@ -61,7 +61,7 @@ final public class SsaContract {
         static final String TASK_STATUS = "status";
         static final String TASK_USER_ID = "user";
         static final String TASK_SPRINT_ID = "sprint";
-        static final String TASK_PROJECT_ID = "project";
+        static final String TASK_PROJECT_ID = "project_id";
         static final String TASK_COMMENTS = "comments";
         static final String TASK_CREATED = "created";
     }
@@ -75,7 +75,7 @@ final public class SsaContract {
         static final String USER_FULLNAME = "fullname";
         static final String USER_NICKNAME = "nickname";
         static final String USER_EMAIL = "email";
-        static final String USER_PROJECT_ID = "project";
+        static final String USER_PROJECT_ID = "project_id";
         static final String USER_COMPANY = "company";
         static final String USER_PASS = "password";
         static final String USER_ROLE = "user_role";
@@ -90,7 +90,7 @@ final public class SsaContract {
     private static final String PATH_TASKS = "tasks";
     private static final String PATH_SPRINTS = "sprints";
     private static final String PATH_USERS = "users";
-    
+
     private static final String ASC = "ASC";
 
     final public static class Projects implements ProjectsColumns, SyncColumns, BaseColumns {
@@ -131,14 +131,14 @@ final public class SsaContract {
         public static String getProjectId(Uri uri) {
             return uri.getPathSegments().get(1);
         }
-        
+
         private Projects() {
         }
     }
 
     final public static class Tasks implements TasksColumns, SyncColumns, BaseColumns {
 
-		public static final Uri CONTENT_URI = BASE_CONTENT_URI
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI
                 .buildUpon().appendPath(PATH_TASKS).build();
 
         public static final String CONTENT_TYPE =
@@ -156,7 +156,7 @@ final public class SsaContract {
         public static String getTaskId(Uri uri) {
             return uri.getPathSegments().get(1);
         }
-        
+
         private Tasks() {
         }
     }
@@ -180,7 +180,7 @@ final public class SsaContract {
         public static String getSprintId(Uri uri) {
             return uri.getPathSegments().get(1);
         }
-        
+
         private Sprints() {
         }
     }
@@ -208,7 +208,7 @@ final public class SsaContract {
         public static String getUserId(Uri uri) {
             return uri.getPathSegments().get(1);
         }
-        
+
         private Users() {
         }
     }

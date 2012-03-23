@@ -89,18 +89,9 @@ public class UserListFragment extends ListFragment implements LoaderCallbacks<Cu
         String[] projection = new String[] {
                 Users._ID, Users.USER_FULLNAME
         };
-        String selection = null;
-        String[] selectionArgs = null;
-        if (mContentUri.getQueryParameter("project_id") != null) {
-            selection = Users.USER_PROJECT_ID + " = ?";
-            selectionArgs = new String[] {
-                    mContentUri.getQueryParameter("project_id")
-            };
-
-        }
 
         return new CursorLoader(getActivity(),
-                Users.CONTENT_URI, projection, selection, selectionArgs, null);
+                mContentUri, projection, null, null, null);
     }
 
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {

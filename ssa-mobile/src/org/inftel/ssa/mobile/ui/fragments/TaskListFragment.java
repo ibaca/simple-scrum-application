@@ -1,6 +1,8 @@
 
 package org.inftel.ssa.mobile.ui.fragments;
 
+import static org.inftel.ssa.mobile.ui.BaseActivity.ARGS_URI;
+
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.provider.SsaContract.Tasks;
 
@@ -35,10 +37,16 @@ public class TaskListFragment extends ListFragment implements LoaderCallbacks<Cu
 
     protected Cursor mCursor = null;
     protected TaskListAdapter mAdapter;
+    protected Uri mContentUri;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        Bundle arguments = getArguments();
+        if (arguments != null && arguments.get(ARGS_URI) != null) {
+            mContentUri = (Uri) arguments.get(ARGS_URI);
+        }
 
         mAdapter = new TaskListAdapter(getActivity(), mCursor);
 
@@ -67,12 +75,13 @@ public class TaskListFragment extends ListFragment implements LoaderCallbacks<Cu
     }
 
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+
         String[] projection = new String[] {
                 Tasks._ID, Tasks.TASK_SUMMARY, Tasks.TASK_DESCRIPTION,
                 Tasks.TASK_ESTIMATED
         };
 
-        return new CursorLoader(getActivity(), Tasks.CONTENT_URI,
+        return new CursorLoader(getActivity(), mContentUri,
                 projection, null, null, null);
     }
 

@@ -283,6 +283,11 @@ public class SsaProvider extends ContentProvider {
                 return builder.table(Tables.SPRINTS)
                         .where(Sprints.SPRINT_PROJECT_ID + "=?", projectId);
             }
+            case PROJECTS_ID_USERS: {
+                final String projectId = Projects.getProjectId(uri);
+                return builder.table(Tables.USERS)
+                        .where(Users.USER_PROJECT_ID + "=?", projectId);
+            }
             case TASKS: {
                 return builder.table(Tables.TASKS);
             }
