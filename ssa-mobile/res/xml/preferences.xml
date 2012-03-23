@@ -45,7 +45,6 @@
 
         <CheckBoxPreference
             android:defaultValue="@string/default_update_before_edit_preference"
-            android:dialogTitle="@string/dialog_title_update_before_edit_preference"
             android:key="update_before_edit"
             android:summary="@string/sumary_update_before_edit_preference"
             android:title="@string/title_update_before_edit_preference" />
