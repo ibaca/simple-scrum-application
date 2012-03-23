@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="@string/tasks_preferences" >
+
+        <ListPreference
+            android:defaultValue="@string/default_units_preference"
+            android:dialogTitle="@string/dialog_title_units_preference"
+            android:entries="@array/units"
+            android:entryValues="@array/units_code"
+            android:key="units_preference"
+            android:summary="@string/sumary_units_preference"
+            android:title="@string/title_units_preference" />
+
+        <EditTextPreference
+            android:defaultValue="@string/default_max_tasks_preference"
+            android:dialogTitle="@string/dialog_title_max_tasks_preference"
+            android:key="max_tasks_preference"
+            android:summary="@string/sumary_max_tasks_preference"
+            android:title="@string/title_max_tasks_preference" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/server_preferences" >
+
+        <EditTextPreference
+            android:defaultValue="@string/default_alternative_ip_preference"
+            android:dialogTitle="@string/dialog_title_alternative_ip_preference"
+            android:key="alternative_ip_preference"
+            android:summary="@string/sumary_alternative_ip_preference"
+            android:title="@string/title_alternative_ip_preference" />
+
+        <EditTextPreference
+            android:defaultValue="@string/default_alternative_port_preference"
+            android:dialogTitle="@string/dialog_title_alternative_port_preference"
+            android:key="alternative_port_preference"
+            android:summary="@string/sumary_alternative_port_preference"
+            android:title="@string/title_alternative_port_preference" />
+
+        <EditTextPreference
+            android:defaultValue="@string/default_synchronize_preference"
+            android:dialogTitle="@string/dialog_title_synchronize_preference"
+            android:key="synchronize_preference"
+            android:summary="@string/sumary_synchronize_preference"
+            android:title="@string/title_synchronize_preference" />
+
+        <CheckBoxPreference
+            android:defaultValue="@string/default_update_before_edit_preference"
+            android:dialogTitle="@string/dialog_title_update_before_edit_preference"
+            android:key="update_before_edit"
+            android:summary="@string/sumary_update_before_edit_preference"
+            android:title="@string/title_update_before_edit_preference" />
+        
+    </PreferenceCategory>
+
+</PreferenceScreen>
