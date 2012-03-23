@@ -144,6 +144,7 @@ public class UserDetailFragment extends Fragment implements LoaderCallbacks<Curs
      */
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (data.moveToFirst()) {
+            mUserId = data.getString(data.getColumnIndex(Users._ID));
             fullname = data.getString(data.getColumnIndex(Users.USER_FULLNAME));
             nickname = data.getString(data.getColumnIndex(Users.USER_NICKNAME));
             email = data.getString(data.getColumnIndex(Users.USER_EMAIL));
