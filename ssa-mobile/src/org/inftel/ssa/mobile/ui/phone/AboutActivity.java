@@ -1,17 +1,22 @@
 
 package org.inftel.ssa.mobile.ui.phone;
 
-import org.inftel.ssa.mobile.R;
+import org.inftel.ssa.mobile.ui.BaseSinglePaneActivity;
+import org.inftel.ssa.mobile.ui.fragments.AboutFragment;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
-public class AboutActivity extends Activity {
+public class AboutActivity extends BaseSinglePaneActivity {
 
-    /** Called when the activity is first created. */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.about);
+    protected Fragment onCreatePane() {
+        return new AboutFragment();
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        getActivityHelper().setupSubActivity();
     }
 }
