@@ -10,6 +10,8 @@ import com.google.web.bindery.requestfactory.shared.ProxyForName;
 @ProxyForName(value = "org.inftel.ssa.domain.Task", locator = "org.inftel.ssa.locators.EntityLocator")
 public interface TaskProxy extends EntityProxy {
 
+    public abstract Long getId();
+
     public abstract Date getBeginDate();
 
     public abstract void setBeginDate(Date beginDate);

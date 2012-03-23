@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.inftel.ssa.domain.ProjectProxy;
+import org.inftel.ssa.domain.TaskProxy;
 import org.inftel.ssa.domain.UserProxy;
 
 import com.google.web.bindery.requestfactory.shared.Request;
@@ -40,5 +41,13 @@ public interface SsaRequestContext extends RequestContext {
     Request<List<ProjectProxy>> findProjectEntries(int firstResult, int maxResults);
 
     Request<List<ProjectProxy>> findProjectsSince(Date date);
+
+    // Tasks
+
+    /**
+     * Tareas asociadas al proyecto actualizadas posteriormente a la fecha
+     * pasada. La fecha pasada puede ser nula, devolviendose todas las tareas.
+     */
+    Request<List<TaskProxy>> findTasksByProjectSince(Long projectId, Date since);
 
 }

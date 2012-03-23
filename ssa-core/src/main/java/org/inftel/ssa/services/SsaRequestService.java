@@ -11,6 +11,8 @@ import javax.ejb.Stateless;
 
 import org.inftel.ssa.domain.Project;
 import org.inftel.ssa.domain.ProjectFacade;
+import org.inftel.ssa.domain.Task;
+import org.inftel.ssa.domain.TaskFacade;
 import org.inftel.ssa.domain.User;
 import org.inftel.ssa.domain.UserFacade;
 
@@ -25,6 +27,9 @@ public class SsaRequestService {
 
     @EJB
     private ProjectFacade projects;
+
+    @EJB
+    private TaskFacade tasks;
 
     public SsaRequestService() {
     }
@@ -74,9 +79,14 @@ public class SsaRequestService {
         return projects.find(firstResult, maxResults, null, null, null);
     }
 
+    // TODO es necesario q sea by user since, sino no sirve!
     public List<Project> findProjectsSince(Date date) {
         log.info("buscanado proyectos desde: " + date);
         return projects.findSince(date);
+    }
+
+    public List<Task> findTasksByProjectSince(Long projectId, Date since) {
+        return tasks.findByProjectSince(projectId, since);
     }
 
     public void persist(User instance) {

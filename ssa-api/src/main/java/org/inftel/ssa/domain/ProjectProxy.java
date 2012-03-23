@@ -12,6 +12,8 @@ import com.google.web.bindery.requestfactory.shared.ProxyForName;
 @ProxyForName(value = "org.inftel.ssa.domain.Project", locator = "org.inftel.ssa.locators.EntityLocator")
 public interface ProjectProxy extends EntityProxy {
 
+    public abstract Long getId();
+
     public abstract String getSummary();
 
     public abstract void setSummary(String summary);
