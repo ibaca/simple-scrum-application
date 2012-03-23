@@ -4,6 +4,7 @@ package org.inftel.ssa.mobile.ui.fragments;
 import static org.inftel.ssa.mobile.ui.BaseActivity.ARGS_URI;
 import static org.inftel.ssa.mobile.util.Lists.strings;
 
+import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.provider.SsaContract.Users;
 
 import android.content.ContentResolver;
@@ -37,12 +38,12 @@ public class UserListFragment extends ListFragment implements LoaderCallbacks<Cu
         }
 
         mAdapter = new SimpleCursorAdapter(
-                getActivity(), android.R.layout.simple_list_item_1,
+                getActivity(), R.layout.ssa_user_list,
                 mCursor,
                 new String[] {
                         Users.USER_FULLNAME
                 }, new int[] {
-                        android.R.id.text1
+                        R.id.username
                 },
                 0);
         // Allocate the adapter to the List displayed within this fragment.

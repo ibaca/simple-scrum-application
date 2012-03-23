@@ -53,8 +53,8 @@ public class SprintListFragment extends ListFragment implements LoaderCallbacks<
             mContentUri = (Uri) arguments.get(ARGS_URI);
         }
 
-        mAdapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_list_item_1,
-                mCursor, strings(Sprints.SPRINT_SUMMARY), ints(android.R.id.text1), 0);
+        mAdapter = new SimpleCursorAdapter(getActivity(), R.layout.ssa_sprint_list,
+                mCursor, strings(Sprints.SPRINT_SUMMARY), ints(R.id.sprintname), 0);
 
         // Allocate the adapter to the List displayed within this fragment.
         setListAdapter(mAdapter);
