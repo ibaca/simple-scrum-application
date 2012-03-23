@@ -8,6 +8,8 @@ import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.provider.SsaContract.Sprints;
 
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,6 +33,7 @@ public class SprintDetailFragment extends Fragment implements LoaderCallbacks<Cu
     protected Handler mHandler = new Handler();
     protected Activity mActivity;
     private Uri mContentUri;
+    private Cursor mCursor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,6 +79,7 @@ public class SprintDetailFragment extends Fragment implements LoaderCallbacks<Cu
      */
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (data.moveToFirst()) {
+            mCursor = data;
             final String sumamry = data.getString(data.getColumnIndex(Sprints.SPRINT_SUMMARY));
             // Update UI
             mHandler.post(new Runnable() {
@@ -108,8 +112,15 @@ public class SprintDetailFragment extends Fragment implements LoaderCallbacks<Cu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_edit:
+            case R.id.menu_save:
                 Log.d(TAG, "edit clicked");
+
+                ContentResolver cr = mActivity.getContentResolver();
+                ContentValues values = new ContentValues();
+                values.put(Sprints.SPRINT_SUMMARY,
+                        mCursor.getString(mCursor.getColumnIndex(Sprints.SPRINT_SUMMARY)) + ">");
+                cr.update(mContentUri, values, null, null);
+
                 // startActivity(new Intent(Intent.ACTION_INSERT,
                 // Sprints.CONTENT_URI));
                 return true;

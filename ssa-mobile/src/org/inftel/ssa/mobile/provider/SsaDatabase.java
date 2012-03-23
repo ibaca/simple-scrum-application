@@ -27,6 +27,9 @@ public class SsaDatabase extends SQLiteOpenHelper {
         String SPRINTS = "sprints";
         String USERS = "users";
         String PROJECTS_USERS = "projects_users";
+
+        String PROJECTS_USERS_JOIN_USERS = "projects_users " +
+                "LEFT OUTER JOIN users ON projects_users.user_id=users._id";
     }
 
     public interface ProjectsUsers {
@@ -93,7 +96,6 @@ public class SsaDatabase extends SQLiteOpenHelper {
                 + UsersColumns.USER_FULLNAME + " TEXT,"
                 + UsersColumns.USER_NICKNAME + " TEXT,"
                 + UsersColumns.USER_EMAIL + " TEXT,"
-                + UsersColumns.USER_PROJECT_ID + " TEXT,"
                 + UsersColumns.USER_NUMBER + " TEXT,"
                 + UsersColumns.USER_COMPANY + " TEXT,"
                 + UsersColumns.USER_PASS + " TEXT,"

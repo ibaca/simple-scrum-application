@@ -129,8 +129,9 @@ public class UserDetailFragment extends Fragment implements LoaderCallbacks<Curs
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         String[] projection = new String[] {
                 Users._ID,
-                Users.USER_FULLNAME, Users.USER_NICKNAME,
-                Users.USER_EMAIL, Users.USER_PROJECT_ID,
+                Users.USER_FULLNAME,
+                Users.USER_NICKNAME,
+                Users.USER_EMAIL,
                 Users.USER_NUMBER,
                 Users.USER_COMPANY,
                 Users.USER_ROLE
@@ -148,7 +149,6 @@ public class UserDetailFragment extends Fragment implements LoaderCallbacks<Curs
             fullname = data.getString(data.getColumnIndex(Users.USER_FULLNAME));
             nickname = data.getString(data.getColumnIndex(Users.USER_NICKNAME));
             email = data.getString(data.getColumnIndex(Users.USER_EMAIL));
-            project = data.getString(data.getColumnIndex(Users.USER_PROJECT_ID));
             company = data.getString(data.getColumnIndex(Users.USER_COMPANY));
             number = data.getString(data.getColumnIndex(Users.USER_NUMBER));
             role = data.getString(data.getColumnIndex(Users.USER_ROLE));

@@ -2,6 +2,7 @@
 package org.inftel.ssa.mobile.ui.fragments;
 
 import static org.inftel.ssa.mobile.ui.BaseActivity.ARGS_URI;
+import static org.inftel.ssa.mobile.util.Lists.strings;
 
 import org.inftel.ssa.mobile.provider.SsaContract.Users;
 
@@ -86,12 +87,8 @@ public class UserListFragment extends ListFragment implements LoaderCallbacks<Cu
     }
 
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        String[] projection = new String[] {
-                Users._ID, Users.USER_FULLNAME
-        };
-
-        return new CursorLoader(getActivity(),
-                mContentUri, projection, null, null, null);
+        return new CursorLoader(getActivity(), mContentUri,
+                strings(Users._ID, Users.USER_FULLNAME), null, null, null);
     }
 
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {

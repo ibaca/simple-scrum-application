@@ -3,20 +3,14 @@ package org.inftel.ssa.mobile.ui.fragments;
 
 import static android.content.Intent.ACTION_EDIT;
 import static android.content.Intent.ACTION_VIEW;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import static org.inftel.ssa.mobile.util.Util.formatDate;
 
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.provider.SsaContract.Projects;
-import org.inftel.ssa.mobile.provider.SsaContract.Tasks;
 
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,16 +27,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
-
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.GraphView.GraphViewData;
-import com.jjoe64.graphview.GraphView.GraphViewSeries;
-import com.jjoe64.graphview.GraphView.LegendAlign;
-import com.jjoe64.graphview.LineGraphView;
-import com.ocpsoft.pretty.time.PrettyTime;
 
 public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<Cursor> {
 
@@ -200,20 +186,6 @@ public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<C
 
     }
 
-    private String formatDate(String txtDate) {
-        SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
-        PrettyTime p = new PrettyTime();
-        String prettyTime = "no date";
-        if (txtDate != null) {
-            try {
-                prettyTime = p.format(date.parse(txtDate));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-        return prettyTime;
-    }
-
     private void setupLinksTab(View view) {
         TabHost mTabHost = (TabHost) view.findViewById(android.R.id.tabhost);
         mTabHost.addTab(mTabHost.newTabSpec(TAG_LINKS)
@@ -275,66 +247,72 @@ public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<C
 
     public void taskChart(String projectId) {
 
-        ContentResolver cr = getActivity().getContentResolver();
-        String[] projection = new String[] {
-                Tasks.TASK_ESTIMATED,
-                Tasks.TASK_REMAINING,
-                Tasks.TASK_BURNED
-        };
-        String selection = "project = ?";
-        String[] selectionArgs = new String[] {
-                projectId
-        };
-        Cursor cursor = cr.query(Tasks.CONTENT_URI, projection, selection,
-                selectionArgs, null);
-        int taskCount = cursor.getCount();
-        int i = 1;
-        ArrayList<GraphViewData> estimatedData = new ArrayList<GraphViewData>();
-        ArrayList<GraphViewData> realData = new ArrayList<GraphViewData>();
-
-        if (taskCount > 0) {
-            while (cursor.moveToNext()) {
-                int estimated = Integer.parseInt(cursor.getString(cursor
-                        .getColumnIndex(Tasks.TASK_ESTIMATED)));
-                String remaining = cursor.getString(cursor.getColumnIndex(Tasks.TASK_REMAINING));
-                String burned = cursor.getString(cursor.getColumnIndex(Tasks.TASK_BURNED));
-                int real = Integer.parseInt(remaining) + Integer.parseInt(burned);
-                System.out.println("estimated: " + estimated);
-                System.out.println("real " + real);
-
-                estimatedData.add(new GraphViewData(i, estimated));
-                realData.add(new GraphViewData(i, real));
-                i++;
-                System.out.println("i: " + i);
-
-            }
-
-            GraphViewData[] estimatedDataArray = new GraphViewData[taskCount];
-            GraphViewData[] realDataArray = new GraphViewData[taskCount];
-
-            estimatedData.toArray(estimatedDataArray);
-            realData.toArray(realDataArray);
-
-            GraphViewSeries estimatedSeries = new GraphViewSeries("Stimated", Color.BLUE,
-                    estimatedDataArray);
-            GraphViewSeries realSeries = new GraphViewSeries("Stimated", Color.BLUE, realDataArray);
-            GraphView graphView;
-            graphView = new LineGraphView(
-                    getActivity() // context
-                    , "Stress Chart" // heading
-            );
-            graphView.addSeries(estimatedSeries);
-            graphView.addSeries(realSeries);
-            graphView.setBackgroundColor(Color.BLACK);
-
-            // set legend
-            graphView.setShowLegend(true);
-            graphView.setLegendAlign(LegendAlign.BOTTOM);
-            graphView.setLegendWidth(200);
-
-            LinearLayout layout = (LinearLayout) getView().findViewById(R.id.graph1);
-            layout.addView(graphView);
-        }
+        // ContentResolver cr = getActivity().getContentResolver();
+        // String[] projection = new String[] {
+        // Tasks.TASK_ESTIMATED,
+        // Tasks.TASK_REMAINING,
+        // Tasks.TASK_BURNED
+        // };
+        // String selection = "project = ?";
+        // String[] selectionArgs = new String[] {
+        // projectId
+        // };
+        // Cursor cursor = cr.query(Tasks.CONTENT_URI, projection, selection,
+        // selectionArgs, null);
+        // int taskCount = cursor.getCount();
+        // int i = 1;
+        // ArrayList<GraphViewData> estimatedData = new
+        // ArrayList<GraphViewData>();
+        // ArrayList<GraphViewData> realData = new ArrayList<GraphViewData>();
+        //
+        // if (taskCount > 0) {
+        // while (cursor.moveToNext()) {
+        // int estimated = Integer.parseInt(cursor.getString(cursor
+        // .getColumnIndex(Tasks.TASK_ESTIMATED)));
+        // String remaining =
+        // cursor.getString(cursor.getColumnIndex(Tasks.TASK_REMAINING));
+        // String burned =
+        // cursor.getString(cursor.getColumnIndex(Tasks.TASK_BURNED));
+        // int real = Integer.parseInt(remaining) + Integer.parseInt(burned);
+        // System.out.println("estimated: " + estimated);
+        // System.out.println("real " + real);
+        //
+        // estimatedData.add(new GraphViewData(i, estimated));
+        // realData.add(new GraphViewData(i, real));
+        // i++;
+        // System.out.println("i: " + i);
+        //
+        // }
+        //
+        // GraphViewData[] estimatedDataArray = new GraphViewData[taskCount];
+        // GraphViewData[] realDataArray = new GraphViewData[taskCount];
+        //
+        // estimatedData.toArray(estimatedDataArray);
+        // realData.toArray(realDataArray);
+        //
+        // GraphViewSeries estimatedSeries = new GraphViewSeries("Stimated",
+        // Color.BLUE,
+        // estimatedDataArray);
+        // GraphViewSeries realSeries = new GraphViewSeries("Stimated",
+        // Color.BLUE, realDataArray);
+        // GraphView graphView;
+        // graphView = new LineGraphView(
+        // getActivity() // context
+        // , "Stress Chart" // heading
+        // );
+        // graphView.addSeries(estimatedSeries);
+        // graphView.addSeries(realSeries);
+        // graphView.setBackgroundColor(Color.BLACK);
+        //
+        // // set legend
+        // graphView.setShowLegend(true);
+        // graphView.setLegendAlign(LegendAlign.BOTTOM);
+        // graphView.setLegendWidth(200);
+        //
+        // LinearLayout layout = (LinearLayout)
+        // getView().findViewById(R.id.graph1);
+        // layout.addView(graphView);
+        // }
 
     }
 

@@ -281,8 +281,9 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         String[] projection = new String[] {
                 Users._ID,
-                Users.USER_FULLNAME, Users.USER_NICKNAME,
-                Users.USER_EMAIL, Users.USER_PROJECT_ID,
+                Users.USER_FULLNAME,
+                Users.USER_NICKNAME,
+                Users.USER_EMAIL,
                 Users.USER_NUMBER,
                 Users.USER_COMPANY,
                 Users.USER_ROLE

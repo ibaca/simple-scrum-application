@@ -75,7 +75,6 @@ final public class SsaContract {
         static final String USER_FULLNAME = "fullname";
         static final String USER_NICKNAME = "nickname";
         static final String USER_EMAIL = "email";
-        static final String USER_PROJECT_ID = "project_id";
         static final String USER_COMPANY = "company";
         static final String USER_PASS = "password";
         static final String USER_ROLE = "user_role";

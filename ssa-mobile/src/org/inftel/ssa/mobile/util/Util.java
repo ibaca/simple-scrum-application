@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +26,7 @@ import android.util.Log;
 import com.google.web.bindery.event.shared.SimpleEventBus;
 import com.google.web.bindery.requestfactory.shared.RequestFactory;
 import com.google.web.bindery.requestfactory.vm.RequestFactorySource;
+import com.ocpsoft.pretty.time.PrettyTime;
 
 /**
  * Utility methods for getting the base URL for client-server communication and
@@ -229,5 +231,19 @@ public class Util {
      */
     private static String getPackageName() {
         return Util.class.getPackage().getName();
+    }
+
+    public static String formatDate(String epochDate) {
+        String prettyTime = "no date";
+        if (epochDate == null) {
+            return prettyTime;
+        }
+        PrettyTime p = new PrettyTime();
+        try {
+            prettyTime = p.format(new Date(Long.parseLong(epochDate)));
+        } catch (NumberFormatException e) {
+            Log.w(TAG, "Formato [" + epochDate + "] de fecha invalido, se esperaba epoch long");
+        }
+        return prettyTime;
     }
 }

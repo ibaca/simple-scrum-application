@@ -285,8 +285,9 @@ public class SsaProvider extends ContentProvider {
             }
             case PROJECTS_ID_USERS: {
                 final String projectId = Projects.getProjectId(uri);
-                return builder.table(Tables.USERS)
-                        .where(Users.USER_PROJECT_ID + "=?", projectId);
+                return builder.table(Tables.PROJECTS_USERS_JOIN_USERS)
+                        .mapToTable(Users._ID, Tables.USERS)
+                        .where(ProjectsUsers.PROJECT_ID + "=?", projectId);
             }
             case TASKS: {
                 return builder.table(Tables.TASKS);

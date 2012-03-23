@@ -5,10 +5,14 @@ import static org.inftel.ssa.mobile.ui.BaseActivity.ARGS_URI;
 import static org.inftel.ssa.mobile.util.Lists.ints;
 import static org.inftel.ssa.mobile.util.Lists.strings;
 
+import java.util.Date;
+
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.SsaConstants;
 import org.inftel.ssa.mobile.provider.SsaContract.Sprints;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -129,6 +133,24 @@ public class SprintListFragment extends ListFragment implements LoaderCallbacks<
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.list_menu_items, menu);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_add:
+                Log.d("SprintListFragment", "add clicked");
+
+                ContentResolver cr = getActivity().getContentResolver();
+                ContentValues values = new ContentValues();
+                values.put(Sprints.SPRINT_SUMMARY, new Date().toString());
+                cr.update(mContentUri.buildUpon().appendPath("1").build(), values, null, null);
+
+                // startActivity(new Intent(Intent.ACTION_INSERT,
+                // Sprints.CONTENT_URI));
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

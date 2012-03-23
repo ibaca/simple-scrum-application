@@ -4,12 +4,10 @@ package org.inftel.ssa.mobile.ui.fragments;
 import static android.content.Intent.ACTION_EDIT;
 import static android.content.Intent.ACTION_INSERT;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.provider.SsaContract.Projects;
 import org.inftel.ssa.mobile.provider.SsaContract.Tasks;
+import org.inftel.ssa.mobile.util.Util;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -33,8 +31,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.ocpsoft.pretty.time.PrettyTime;
 
 /**
  * Fragmento UI para mostrar lista de projectos
@@ -189,23 +185,13 @@ public class ProjectListFragment extends ListFragment implements LoaderCallbacks
 
             // String doneTask = numberTaskComplete(cursor.getString(colId));
             String txtOpened = cursor.getString(colOpened);
-            SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
-            PrettyTime p = new PrettyTime();
-            String prettyTime = "no date";
-            if (txtOpened != null) {
-                try {
-                    prettyTime = p.format(date.parse(txtOpened));
-                } catch (ParseException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
+            String prettyTime = Util.formatDate(txtOpened);
 
             Log.d(getClass().getSimpleName(), "" + txtOpened);
 
             titleView.setText(cursor.getString(colName));
             subtitleView.setText(cursor.getString(colSummary));
-            createdView.setText("Created " + prettyTime + " ");
+            createdView.setText("Created " + prettyTime);
             // countDoneTask.setText(doneTask);
         }
 
