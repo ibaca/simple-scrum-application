@@ -71,8 +71,21 @@ public class ProjectListFragment extends ListFragment implements LoaderCallbacks
 
         String projectId = String.valueOf(c.getLong(c.getColumnIndex(Projects._ID)));
 
-        // Start view activity to show sprint details
-        startActivity(new Intent(Intent.ACTION_VIEW, Projects.buildProjectUri(projectId)));
+        Uri projectUri = Projects.buildProjectUri(c.getString(c.getColumnIndex(Projects._ID)));
+
+        // ACTION PICK
+        String action = getActivity().getIntent().getAction();
+        if (Intent.ACTION_PICK.equals(action) ||
+                Intent.ACTION_GET_CONTENT.equals(action)) {
+            Intent intent = new Intent();
+            intent.setData(projectUri);
+            getActivity().setResult(-1, intent);
+            getActivity().finish();
+        } else {
+
+            // Start view activity to show sprint details
+            startActivity(new Intent(Intent.ACTION_VIEW, Projects.buildProjectUri(projectId)));
+        }
     }
 
     @Override

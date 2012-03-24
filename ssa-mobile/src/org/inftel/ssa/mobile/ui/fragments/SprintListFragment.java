@@ -77,13 +77,27 @@ public class SprintListFragment extends ListFragment implements LoaderCallbacks<
         c.moveToPosition(position);
 
         Uri sprintUri = Sprints.buildSprintUri(c.getString(c.getColumnIndex(Sprints._ID)));
-        Intent intent = new Intent(Intent.ACTION_VIEW, sprintUri);
-        // Se añade cursor y posicion para ViewPager
-        intent.putExtra(SsaConstants.EXTRA_LIST_CURSOR_URI, mContentUri);
-        intent.putExtra(SsaConstants.EXTRA_LIST_CURSOR_POSITION, position);
 
-        // Start view activity to show sprint details
-        startActivity(intent);
+        // ACTION PICK
+        String action = getActivity().getIntent().getAction();
+        if (Intent.ACTION_PICK.equals(action) ||
+                Intent.ACTION_GET_CONTENT.equals(action)) {
+            // The caller is waiting for us to return a user selected by
+            // the user. The have clicked on one, so return it now.
+            Intent intent = new Intent();
+            intent.setData(sprintUri);
+            getActivity().setResult(-1, intent);
+            getActivity().finish();
+        } else {
+
+            Intent intent = new Intent(Intent.ACTION_VIEW, sprintUri);
+            // Se añade cursor y posicion para ViewPager
+            intent.putExtra(SsaConstants.EXTRA_LIST_CURSOR_URI, mContentUri);
+            intent.putExtra(SsaConstants.EXTRA_LIST_CURSOR_POSITION, position);
+
+            // Start view activity to show sprint details
+            startActivity(intent);
+        }
     }
 
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
