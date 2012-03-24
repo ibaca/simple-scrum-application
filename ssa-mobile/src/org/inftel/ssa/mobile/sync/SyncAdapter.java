@@ -16,6 +16,7 @@ import java.util.Set;
 
 import org.inftel.ssa.domain.ProjectProxy;
 import org.inftel.ssa.domain.TaskProxy;
+import org.inftel.ssa.domain.TaskStatus;
 import org.inftel.ssa.domain.UserProxy;
 import org.inftel.ssa.mobile.provider.SsaContract;
 import org.inftel.ssa.mobile.provider.SsaContract.Projects;
@@ -31,6 +32,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -50,7 +52,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     private static final String SYNC_TASKS_LASTUPDATE = "sync_project_lastupdate";
     private static final String TAG = "SyncAdapter";
-    private static final String ACCOUNT_HISTORY_TOKEN = "org.inftel.ssa.mobile.accountHistoryToken";
     // private static final boolean NOTIFY_AUTH_FAILURE = true;
 
     private final AccountManager mAccountManager;
@@ -78,22 +79,25 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         Log.d(TAG, "onPerformSync: authority=" + authority);
         Log.d(TAG, "onPerformSync: provider=" + provider);
 
+        boolean upload = extras.containsKey(ContentResolver.SYNC_EXTRAS_UPLOAD);
+
         mAccount = account;
         mRequestFactory = getRequestFactory(mContext, SsaRequestFactory.class);
         final SsaRequestFactory rf = mRequestFactory;
 
         // Perform UPLOADS
-        // if (extras.getBoolean("upload")) {
-        try {
-            Log.i(TAG, "uploading data to server...");
-            uploadProjects(provider, rf);
-        } catch (Exception e) {
-            Log.w(TAG, "problema durante la subida de actualizaciones: " + e.getMessage(), e);
-            syncResult.stats.numIoExceptions++;
+        if (upload) {
+            try {
+                Log.i(TAG, "uploading data to server...");
+                uploadProjects(provider, rf);
+                uploadTasks(provider, rf);
+            } catch (Exception e) {
+                Log.w(TAG, "problema durante la subida de actualizaciones: " + e.getMessage(), e);
+                syncResult.stats.numIoExceptions++;
+            }
+            Log.i(TAG, "just uploading data... skipping full sync");
+            return;
         }
-        // Log.i(TAG, "just uploading data... skipping full sync");
-        // return;
-        // }
 
         // Perform DOWNLOADS
         try {
@@ -235,10 +239,10 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                     }
                 });
                 Set<UserProxy> owner = new HashSet<UserProxy>(1);
-                owner.add(getRemoteUserByStableId(accountStableId));
+                owner.add(getRemoteByStableId(UserProxy.class, accountStableId));
                 edit.setUsers(owner);
             } else { // STATUS_DIRTY
-                edit = remoteUpdateRequest.edit(getRemoteProjectByStableId(stableId));
+                edit = remoteUpdateRequest.edit(getRemoteByStableId(ProjectProxy.class, stableId));
                 remoteUpdateRequest.save(edit).to(new Receiver<EntityProxy>() {
                     @Override
                     public void onSuccess(EntityProxy response) {
@@ -261,6 +265,132 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             String started = cursor.getString(cursor.getColumnIndex(Projects.PROJECT_STARTED));
             edit.setStarted((started == null) ? null : new Date(Long.parseLong(started)));
             edit.setSummary(cursor.getString(cursor.getColumnIndex(Projects.PROJECT_SUMMARY)));
+        }
+        remoteUpdateRequest.fire();
+    }
+
+    /** Upload DIRTY tasks to the server. */
+    private void uploadTasks(final ContentProviderClient provider, final SsaRequestFactory rf)
+            throws RemoteException {
+        Cursor cursor = provider.query(Tasks.CONTENT_URI, strings(
+                Tasks._ID,
+                Tasks.TASK_BEGINDATE,
+                Tasks.TASK_BURNED,
+                Tasks.TASK_COMMENTS,
+                Tasks.TASK_CREATED,
+                Tasks.TASK_DESCRIPTION,
+                Tasks.TASK_ENDDATE,
+                Tasks.TASK_ESTIMATED,
+                Tasks.TASK_PRIORITY,
+                // Tasks.TASK_PROJECT_ID,
+                Tasks.TASK_REMAINING,
+                // Tasks.TASK_SPRINT_ID,
+                Tasks.TASK_STATUS,
+                Tasks.TASK_SUMMARY,
+                Tasks.TASK_USER_ID,
+                SyncColumns.REMOTE_ID,
+                SyncColumns.STABLE_ID,
+                SyncColumns.SYNC_STATUS
+                ),
+                SyncColumns.SYNC_STATUS + "=? "
+                        + "OR " + SyncColumns.SYNC_STATUS + "=?"
+                        + "OR " + SyncColumns.SYNC_STATUS + " IS NULL",
+                strings(SsaContract.STATUS_DIRTY + "", SsaContract.STATUS_CREATED + ""), null);
+        SsaRequestContext remoteUpdateRequest = rf.ssaRequestContext();
+        while (cursor.moveToNext()) {
+            Log.d(TAG, "Sending task to remote server: "
+                    + cursor.getString(cursor.getColumnIndex(Tasks._ID)));
+
+            // Acumulate changes here
+            TaskProxy edit;
+
+            // Prepare for editing
+            final String taskId = cursor.getString(cursor.getColumnIndex(Tasks._ID));
+            String syncStat = cursor.getString(cursor.getColumnIndex(Tasks.SYNC_STATUS));
+            String stableId = cursor.getString(cursor.getColumnIndex(SyncColumns.STABLE_ID));
+            if (syncStat == null || Long.parseLong(syncStat) == SsaContract.STATUS_CREATED) {
+                // Se comprueba si ya esta configurado StableId del account
+                String accountStableId = getAccountStableId(provider, mAccount);
+                if (TextUtils.isEmpty(accountStableId)) {
+                    // Si no esta definido se espera ya que en el primer update
+                    // debería actualizarse este valor
+                    continue; // se pueden realizar updates, pero no crear
+                              // nuevos tasks
+                }
+                edit = remoteUpdateRequest.create(TaskProxy.class);
+                remoteUpdateRequest.persistTask(edit).to(new Receiver<TaskProxy>() {
+                    @Override
+                    public void onSuccess(TaskProxy response) {
+                        Log.d(TAG, "Upload new task persited received: " + response);
+                        ContentValues values = new ContentValues();
+
+                        // Sync data
+                        final String remoteId = response.getId().toString();
+                        final String stableId = mRequestFactory.getHistoryToken(response.stableId());
+                        values.put(SyncColumns.REMOTE_ID, remoteId);
+                        values.put(SyncColumns.STABLE_ID, stableId);
+                        values.put(SyncColumns.SYNC_STATUS, SsaContract.STATUS_SYNC);
+                        try {
+                            int count = provider.update(Tasks.buildTasktUri(taskId),
+                                    values, null, null);
+                            if (count == 0) {
+                                Log.w(TAG, "Updating " + values + " to " + Tasks.CONTENT_URI
+                                        + " dont affect any row");
+                            }
+                        } catch (RemoteException e) {
+                            Log.e(TAG, "Updating " + values + " to " + Tasks.CONTENT_URI
+                                    + " failed", e);
+                        }
+                    }
+                });
+            } else { // STATUS_DIRTY
+                edit = remoteUpdateRequest.edit(getRemoteByStableId(TaskProxy.class, stableId));
+                remoteUpdateRequest.save(edit).to(new Receiver<EntityProxy>() {
+                    @Override
+                    public void onSuccess(EntityProxy response) {
+                        Log.d(TAG, "Upload updated task persited received: " + response);
+                    }
+                });
+            }
+
+            // Edit ProjectProxy
+            String begin = cursor.getString(cursor.getColumnIndex(Tasks.TASK_BEGINDATE));
+            edit.setBeginDate((begin == null) ? null : new Date(Long.parseLong(begin)));
+
+            String burned = cursor.getString(cursor.getColumnIndex(Tasks.TASK_BURNED));
+            edit.setBurned((burned == null) ? null : Integer.parseInt(burned));
+
+            edit.setDescription(
+                    cursor.getString(cursor.getColumnIndex(Tasks.TASK_DESCRIPTION)));
+
+            String end = cursor.getString(cursor.getColumnIndex(Tasks.TASK_ENDDATE));
+            edit.setEndDate((end == null) ? null : new Date(Long.parseLong(end)));
+
+            String estimated = cursor.getString(cursor.getColumnIndex(Tasks.TASK_ESTIMATED));
+            edit.setEstimated((estimated == null) ? null : Integer.valueOf(estimated));
+
+            String priority = cursor.getString(cursor.getColumnIndex(Tasks.TASK_PRIORITY));
+            edit.setPriority((priority == null) ? null : Integer.valueOf(priority));
+
+            String projectId = cursor.getString(cursor.getColumnIndex(Tasks.TASK_PROJECT_ID));
+            if (!TextUtils.isEmpty(projectId)) {
+                edit.setProject(getRemoteByStableId(ProjectProxy.class,
+                        getProjectStableId(provider, projectId)));
+            }
+
+            String remaining = cursor.getString(cursor.getColumnIndex(Tasks.TASK_REMAINING));
+            edit.setRemaining((remaining == null) ? null : Integer.valueOf(remaining));
+
+            String status = cursor.getString(cursor.getColumnIndex(Tasks.TASK_STATUS));
+            edit.setStatus((status == null) ? null : TaskStatus.valueOf(status));
+
+            edit.setSummary(cursor.getString(cursor.getColumnIndex(Tasks.TASK_SUMMARY)));
+
+            String userId = cursor.getString(cursor.getColumnIndex(Tasks.TASK_USER_ID));
+            if (!TextUtils.isEmpty(userId)) {
+                edit.setUser(getRemoteByStableId(UserProxy.class,
+                        getUserStableId(provider, projectId)));
+            }
         }
         remoteUpdateRequest.fire();
     }
@@ -494,42 +624,20 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     }
 
-    private ProjectProxy getRemoteProjectByStableId(final String stableId) {
+    private <T extends EntityProxy> T getRemoteByStableId(final Class<T> clazz,
+            final String stableId) {
         SsaRequestContext getProjectRequest = mRequestFactory.ssaRequestContext();
-        final List<ProjectProxy> getResult = new ArrayList<ProjectProxy>(1);
+        final List<T> getResult = new ArrayList<T>(1);
         getProjectRequest.find(mRequestFactory.getProxyId(stableId)).fire(
                 new Receiver<EntityProxy>() {
                     @Override
                     public void onSuccess(EntityProxy response) {
-                        getResult.add((ProjectProxy) response);
+                        getResult.add(clazz.cast(response));
                     }
 
                     @Override
                     public void onFailure(ServerFailure error) {
-                        Log.w(TAG, "Problema al obtener el proyecto remoto " +
-                                "[" + stableId + "]: " + error.getMessage());
-                    }
-                });
-        if (getResult.isEmpty()) {
-            return null;
-        } else {
-            return getResult.iterator().next();
-        }
-    }
-
-    private UserProxy getRemoteUserByStableId(final String stableId) {
-        SsaRequestContext request = mRequestFactory.ssaRequestContext();
-        final List<UserProxy> getResult = new ArrayList<UserProxy>(1);
-        request.find(mRequestFactory.getProxyId(stableId)).fire(
-                new Receiver<EntityProxy>() {
-                    @Override
-                    public void onSuccess(EntityProxy response) {
-                        getResult.add((UserProxy) response);
-                    }
-
-                    @Override
-                    public void onFailure(ServerFailure error) {
-                        Log.w(TAG, "Problema al obtener el usuario remoto " +
+                        Log.w(TAG, "Problema al obtener la entidad remota " +
                                 "[" + stableId + "]: " + error.getMessage());
                     }
                 });
@@ -552,6 +660,38 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             }
         } catch (RemoteException e) {
             Log.e(TAG, "Error inesperado obteniendo stableId del account", e);
+        }
+        return null;
+    }
+
+    private String getUserStableId(ContentProviderClient provider, String userId) {
+        try {
+            Cursor cursor = provider.query(Users.buildUserUri(userId),
+                    strings(Users.STABLE_ID), null, null, null);
+            if (cursor.moveToNext()) {
+                String stableId = cursor.getString(cursor.getColumnIndex(Users.STABLE_ID));
+                if (!TextUtils.isEmpty(stableId)) {
+                    return stableId;
+                }
+            }
+        } catch (RemoteException e) {
+            Log.e(TAG, "Error inesperado obteniendo stableId del usuario " + userId, e);
+        }
+        return null;
+    }
+
+    private String getProjectStableId(ContentProviderClient provider, String projectId) {
+        try {
+            Cursor cursor = provider.query(Projects.buildProjectUri(projectId),
+                    strings(Projects.STABLE_ID), null, null, null);
+            if (cursor.moveToNext()) {
+                String stableId = cursor.getString(cursor.getColumnIndex(Users.STABLE_ID));
+                if (!TextUtils.isEmpty(stableId)) {
+                    return stableId;
+                }
+            }
+        } catch (RemoteException e) {
+            Log.e(TAG, "Error inesperado obteniendo stableId del proyecto " + projectId, e);
         }
         return null;
     }
