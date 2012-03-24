@@ -66,15 +66,13 @@ public class UserListFragment extends ListFragment implements LoaderCallbacks<Cu
         String action = getActivity().getIntent().getAction();
         if (Intent.ACTION_PICK.equals(action) ||
                 Intent.ACTION_GET_CONTENT.equals(action)) {
-            System.out.println("entro en el ACTION_PICK");
-            // The caller is waiting for us to return a note selected by
+            // The caller is waiting for us to return a user selected by
             // the user. The have clicked on one, so return it now.
             Intent intent = new Intent();
             intent.setData(userUri);
             getActivity().setResult(-1, intent);
             getActivity().finish();
         } else {
-            System.out.println("no entro en el ACTION_PICK");
             // Launch activity to view/edit the currently selected item
             startActivity(new Intent(Intent.ACTION_VIEW, userUri));
         }
