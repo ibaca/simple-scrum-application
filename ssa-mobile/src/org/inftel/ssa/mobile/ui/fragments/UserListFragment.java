@@ -8,6 +8,7 @@ import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.provider.SsaContract.Users;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -16,14 +17,16 @@ import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v4.widget.CursorAdapter;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class UserListFragment extends ListFragment implements LoaderCallbacks<Cursor> {
 
     protected Cursor mCursor = null;
-    protected SimpleCursorAdapter mAdapter;
+    protected UserListAdapter mAdapter;
     protected Uri mContentUri;
 
     @Override
@@ -37,16 +40,9 @@ public class UserListFragment extends ListFragment implements LoaderCallbacks<Cu
             mContentUri = (Uri) arguments.get(ARGS_URI);
         }
 
-        mAdapter = new SimpleCursorAdapter(
-                getActivity(), R.layout.ssa_user_list,
-                mCursor,
-                new String[] {
-                        Users.USER_FULLNAME
-                }, new int[] {
-                        R.id.username
-                },
-                0);
-        // Allocate the adapter to the List displayed within this fragment.
+        mAdapter = new UserListAdapter(getActivity(), mCursor);
+
+        // Allocate the adapter to the list displayed within this fragment.
         setListAdapter(mAdapter);
 
         // Enable context menu
@@ -89,7 +85,7 @@ public class UserListFragment extends ListFragment implements LoaderCallbacks<Cu
 
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(getActivity(), mContentUri,
-                strings(Users._ID, Users.USER_FULLNAME), null, null, null);
+                strings(Users._ID, Users.USER_FULLNAME, Users.USER_ROLE), null, null, null);
     }
 
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
@@ -98,6 +94,36 @@ public class UserListFragment extends ListFragment implements LoaderCallbacks<Cu
 
     public void onLoaderReset(Loader<Cursor> loader) {
         mAdapter.swapCursor(null);
+    }
+
+    private class UserListAdapter extends CursorAdapter {
+        private TextView titleView;
+        private TextView subtitleView;
+
+        public UserListAdapter(Context context, Cursor cursor) {
+            super(context, cursor, true);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public View newView(Context context, Cursor cursor, ViewGroup parent) {
+            return getActivity().getLayoutInflater().inflate(R.layout.ssa_user_list, parent,
+                    false);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public void bindView(View view, Context context, Cursor cursor) {
+            titleView = (TextView) view.findViewById(R.id.user_fullname);
+            subtitleView = (TextView) view.findViewById(R.id.user_role);
+
+            int colName = cursor.getColumnIndex(Users.USER_FULLNAME);
+            int colRole = cursor.getColumnIndex(Users.USER_ROLE);
+
+            titleView.setText(cursor.getString(colName));
+            subtitleView.setText(cursor.getString(colRole));
+        }
+
     }
 
 }
