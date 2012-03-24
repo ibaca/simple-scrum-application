@@ -92,12 +92,28 @@
             android:layout_below="@+id/lblCaptionBeginDate"
             android:focusableInTouchMode="false"
             android:hint="@string/task_field_beginDate" />
+        
+        <TextView
+            android:id="@+id/lblCaptionProject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtBeginDate"
+            android:text="@string/task_label_project" />
+
+        <EditText
+            android:id="@+id/txtProject"
+            style="@style/TextBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblCaptionProject"
+            android:focusableInTouchMode="false"
+            android:hint="@string/task_field_project" />
 
         <TextView
             android:id="@+id/lblCaptionSprint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtBeginDate"
+            android:layout_below="@+id/txtProject"
             android:text="@string/task_label_sprint" />
 
         <EditText
@@ -106,6 +122,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/lblCaptionSprint"
+            android:focusableInTouchMode="false"
             android:hint="@string/task_field_sprint" />
 
              <TextView
@@ -121,6 +138,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/lblCaptionUser"
+            android:focusableInTouchMode="false"
             android:hint="@string/task_field_user" />   
         
         <TextView
