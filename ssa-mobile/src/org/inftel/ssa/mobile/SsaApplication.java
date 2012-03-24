@@ -135,9 +135,9 @@ public class SsaApplication extends Application {
             cr.insert(Tasks.CONTENT_URI, values);
 
             values.clear();
-            values.put(Tasks.TASK_USER_ID, "-101");
+            values.put(Tasks.TASK_USER_ID, "2");
             values.put(Tasks.TASK_PROJECT_ID, "1");
-            values.put(Tasks.TASK_SPRINT_ID, "-400");
+            values.put(Tasks.TASK_SPRINT_ID, "2");
             values.put(Tasks.TASK_SUMMARY, "Definir casos de uso iniciales");
             values.put(Tasks.TASK_DESCRIPTION, "Se definen los casos de uso.");
             values.put(Tasks.TASK_ESTIMATED, "2");
@@ -152,9 +152,9 @@ public class SsaApplication extends Application {
             cr.insert(Tasks.CONTENT_URI, values);
 
             values.clear();
-            values.put(Tasks.TASK_USER_ID, "1");
+            values.put(Tasks.TASK_USER_ID, "3");
             values.put(Tasks.TASK_PROJECT_ID, "1");
-            values.put(Tasks.TASK_SPRINT_ID, "-400");
+            values.put(Tasks.TASK_SPRINT_ID, "3");
             values.put(Tasks.TASK_SUMMARY, "Creacion de estructura del proyecto");
             values.put(Tasks.TASK_DESCRIPTION, "Arquitectura maven y eclipse.");
             values.put(Tasks.TASK_ESTIMATED, "2");
