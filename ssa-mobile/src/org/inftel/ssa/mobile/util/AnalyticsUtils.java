@@ -36,7 +36,7 @@ public class AnalyticsUtils {
      * The analytics tracking code for the app.
      */
     // TODO: insert your Analytics UA code here.
-    private static final String UACODE = "INSERT_YOUR_ANALYTICS_UA_CODE_HERE";
+    private static final String UACODE = "UA-30302017-1";
 
     private static final int VISITOR_SCOPE = 1;
     private static final String FIRST_RUN_KEY = "firstRun";
@@ -108,12 +108,12 @@ public class AnalyticsUtils {
             protected Void doInBackground(Void... voids) {
                 try {
                     // mTracker.trackEvent(category, action, label, value);
-                    Log.d(TAG, "iosched Analytics trackEvent: "
+                    Log.d(TAG, "ssa Analytics trackEvent: "
                             + category + " / " + action + " / " + label + " / " + value);
                 } catch (Exception e) {
                     // We don't want to crash if there's an Analytics library
                     // exception.
-                    Log.w(TAG, "iosched Analytics trackEvent error: "
+                    Log.w(TAG, "ssa Analytics trackEvent error: "
                             + category + " / " + action + " / " + label + " / " + value, e);
                 }
                 return null;
@@ -130,11 +130,11 @@ public class AnalyticsUtils {
             protected Void doInBackground(Void... voids) {
                 try {
                     // mTracker.trackPageView(path);
-                    Log.d(TAG, "iosched Analytics trackPageView: " + path);
+                    Log.d(TAG, "ssa Analytics trackPageView: " + path);
                 } catch (Exception e) {
                     // We don't want to crash if there's an Analytics library
                     // exception.
-                    Log.w(TAG, "iosched Analytics trackPageView error: " + path, e);
+                    Log.w(TAG, "ssa Analytics trackPageView error: " + path, e);
                 }
                 return null;
             }

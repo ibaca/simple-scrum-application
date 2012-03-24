@@ -33,9 +33,4 @@ public class Setup {
     public static final String PROD_URL = "http://home.bacamt.com:83/" + APP_NAME;
     // "https://" + APP_NAME + ".appspot.com";
 
-    /**
-     * The C2DM sender ID for the server. A C2DM registration with this name
-     * must exist for the app to function correctly.
-     */
-    public static final String SENDER_ID = "socialwind.app@gmail.com";
 }
