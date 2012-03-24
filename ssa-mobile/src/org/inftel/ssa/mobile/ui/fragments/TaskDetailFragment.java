@@ -87,10 +87,7 @@ public class TaskDetailFragment extends Fragment implements
             @Override
             public void onClick(View v) {
 
-                System.out.println("Project: " + mProjectId);
-                if (!(mProjectId.isEmpty()) && !(mProjectId.contains("-"))
-                        && !(mProjectId.contains(""))) {
-
+                if (!(mProjectId.isEmpty()) && !(mProjectId.trim().equals(""))) {
                     startActivity(new Intent(Intent.ACTION_VIEW, Projects
                             .buildProjectUri(mProjectId)));
                 }
@@ -107,11 +104,7 @@ public class TaskDetailFragment extends Fragment implements
             @Override
             public void onClick(View v) {
 
-                mSprintId.contentEquals("null");
-                System.out.println("Sprint: " + mSprintId);
-                if (!(mSprintId.isEmpty()) && !(mSprintId.contains("-"))
-                        && !(mSprintId.contains(""))) {
-
+                if (!(mSprintId.isEmpty()) && !(mSprintId.trim().equals(""))) {
                     startActivity(new Intent(Intent.ACTION_VIEW, Sprints.buildSprintUri(mSprintId)));
                 }
                 else {
@@ -125,10 +118,7 @@ public class TaskDetailFragment extends Fragment implements
         view.findViewById(R.id.task_btn_user).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("user: " + mUserId.contentEquals("null"));
-                if (!(mUserId.isEmpty()) && !(mUserId.contains("-"))
-                        && !(mUserId.contains(""))) {
-
+                if (!(mUserId.isEmpty()) && !(mUserId.trim().equals(""))) {
                     startActivity(new Intent(Intent.ACTION_VIEW, Users.buildUserUri(mUserId)));
                 }
                 else {
