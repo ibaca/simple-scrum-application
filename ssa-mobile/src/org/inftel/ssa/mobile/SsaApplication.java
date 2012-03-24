@@ -106,7 +106,8 @@ public class SsaApplication extends Application {
 
             values.put(Projects.PROJECT_NAME, "Proyecto 4");
             values.put(Projects.PROJECT_SUMMARY, "Central Eolica");
-            values.put(Projects.PROJECT_DESCRIPTION, "Gestion de recursos");
+            values.put(Projects.PROJECT_DESCRIPTION,
+                    "<a href='http://www.masterinftel.uma.es/'>Master Inftel</a>");
             values.put(Projects.PROJECT_OPENED, String.valueOf(new Date().getTime()));
             values.put(Projects.PROJECT_STARTED, String.valueOf(new Date().getTime()));
             values.put(Projects.PROJECT_CLOSE, String.valueOf(new Date().getTime()));

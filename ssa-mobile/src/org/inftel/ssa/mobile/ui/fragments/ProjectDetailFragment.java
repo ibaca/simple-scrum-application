@@ -161,7 +161,7 @@ public class ProjectDetailFragment extends Fragment implements LoaderCallbacks<C
 
                     // Tab description
                     ((TextView) getView().findViewById(R.id.project_detail_description))
-                            .setText(description);
+                            .setText(Html.fromHtml(description));
 
                     // Tab links
                     // TODO Ver como llegan los links y aplicarle formato
