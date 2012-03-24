@@ -282,7 +282,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                 Tasks.TASK_ENDDATE,
                 Tasks.TASK_ESTIMATED,
                 Tasks.TASK_PRIORITY,
-                // Tasks.TASK_PROJECT_ID,
+                Tasks.TASK_PROJECT_ID,
                 Tasks.TASK_REMAINING,
                 // Tasks.TASK_SPRINT_ID,
                 Tasks.TASK_STATUS,
@@ -358,19 +358,19 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             edit.setBeginDate((begin == null) ? null : new Date(Long.parseLong(begin)));
 
             String burned = cursor.getString(cursor.getColumnIndex(Tasks.TASK_BURNED));
-            edit.setBurned((burned == null) ? null : Integer.parseInt(burned));
+            edit.setBurned((TextUtils.isEmpty(burned)) ? null : Integer.parseInt(burned));
 
             edit.setDescription(
                     cursor.getString(cursor.getColumnIndex(Tasks.TASK_DESCRIPTION)));
 
             String end = cursor.getString(cursor.getColumnIndex(Tasks.TASK_ENDDATE));
-            edit.setEndDate((end == null) ? null : new Date(Long.parseLong(end)));
+            edit.setEndDate((TextUtils.isEmpty(end)) ? null : new Date(Long.parseLong(end)));
 
             String estimated = cursor.getString(cursor.getColumnIndex(Tasks.TASK_ESTIMATED));
-            edit.setEstimated((estimated == null) ? null : Integer.valueOf(estimated));
+            edit.setEstimated((TextUtils.isEmpty(estimated)) ? null : Integer.valueOf(estimated));
 
             String priority = cursor.getString(cursor.getColumnIndex(Tasks.TASK_PRIORITY));
-            edit.setPriority((priority == null) ? null : Integer.valueOf(priority));
+            edit.setPriority((TextUtils.isEmpty(priority)) ? null : Integer.valueOf(priority));
 
             String projectId = cursor.getString(cursor.getColumnIndex(Tasks.TASK_PROJECT_ID));
             if (!TextUtils.isEmpty(projectId)) {
@@ -379,10 +379,10 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             }
 
             String remaining = cursor.getString(cursor.getColumnIndex(Tasks.TASK_REMAINING));
-            edit.setRemaining((remaining == null) ? null : Integer.valueOf(remaining));
+            edit.setRemaining((TextUtils.isEmpty(remaining)) ? null : Integer.valueOf(remaining));
 
             String status = cursor.getString(cursor.getColumnIndex(Tasks.TASK_STATUS));
-            edit.setStatus((status == null) ? null : TaskStatus.valueOf(status));
+            edit.setStatus((TextUtils.isEmpty(status)) ? null : TaskStatus.valueOf(status));
 
             edit.setSummary(cursor.getString(cursor.getColumnIndex(Tasks.TASK_SUMMARY)));
 
@@ -533,16 +533,16 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
             // Task data
             if (task.getBeginDate() != null) {
-                values.put(Tasks.TASK_BEGINDATE, task.getBeginDate().toString());
+                values.put(Tasks.TASK_BEGINDATE, task.getBeginDate().getTime());
             }
             values.put(Tasks.TASK_BURNED, task.getBurned());
             // values.put(Tasks.TASK_COMMENTS, task.get);
             if (task.getCreated() != null) {
-                values.put(Tasks.TASK_CREATED, task.getCreated().toString());
+                values.put(Tasks.TASK_CREATED, task.getCreated().getTime());
             }
             values.put(Tasks.TASK_DESCRIPTION, task.getDescription());
             if (task.getEndDate() != null) {
-                values.put(Tasks.TASK_ENDDATE, task.getEndDate().toString());
+                values.put(Tasks.TASK_ENDDATE, task.getEndDate().getTime());
             }
             values.put(Tasks.TASK_ESTIMATED, task.getEstimated());
             values.put(Tasks.TASK_PRIORITY, task.getPriority());
