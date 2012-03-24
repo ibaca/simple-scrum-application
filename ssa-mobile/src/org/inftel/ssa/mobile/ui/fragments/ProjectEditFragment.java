@@ -8,6 +8,7 @@ import java.util.Date;
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.provider.SsaContract;
 import org.inftel.ssa.mobile.provider.SsaContract.Projects;
+import org.inftel.ssa.mobile.ui.phone.ProjectListActivity;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -124,7 +125,13 @@ public class ProjectEditFragment extends Fragment implements LoaderCallbacks<Cur
                     Log.w(getClass().getSimpleName(),
                             "Fallo inesperado guardando proyecto: " + e.getMessage(), e);
                 }
-                getActivity().finish();
+                // getActivity().finish();
+                if (mState == STATE_EDIT) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, mContentUri));
+                } else {
+                    startActivity(new Intent(getActivity(), ProjectListActivity.class));
+                }
+
                 return true;
         }
         return onOptionsItemSelected(item);

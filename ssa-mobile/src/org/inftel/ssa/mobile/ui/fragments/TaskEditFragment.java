@@ -10,6 +10,7 @@ import org.inftel.ssa.mobile.provider.SsaContract;
 import org.inftel.ssa.mobile.provider.SsaContract.Projects;
 import org.inftel.ssa.mobile.provider.SsaContract.Tasks;
 import org.inftel.ssa.mobile.provider.SsaContract.Users;
+import org.inftel.ssa.mobile.ui.phone.TaskListActivity;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -291,7 +292,12 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
 
                 }
                 // startActivity(new Intent(ACTION_VIEW, Tasks.CONTENT_URI));
-                getActivity().finish();
+                // getActivity().finish();
+                if (mState == STATE_EDIT) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, mContentUri));
+                } else {
+                    startActivity(new Intent(getActivity(), TaskListActivity.class));
+                }
                 return true;
         }
         return onOptionsItemSelected(item);
