@@ -54,6 +54,8 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
     private EditText mTxtEstimated;
     private EditText mTxtPriority;
     private EditText mTxtSprint;
+    private EditText mTxtUser;
+    private EditText mTxtProject;
     private EditText mTxtStatus;
     private EditText mTxtBeginDate;
     private EditText mTxtEndDate;
