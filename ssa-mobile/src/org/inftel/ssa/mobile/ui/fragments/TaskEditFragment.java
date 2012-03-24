@@ -8,6 +8,7 @@ import java.util.Date;
 import org.inftel.ssa.mobile.R;
 import org.inftel.ssa.mobile.provider.SsaContract;
 import org.inftel.ssa.mobile.provider.SsaContract.Projects;
+import org.inftel.ssa.mobile.provider.SsaContract.Sprints;
 import org.inftel.ssa.mobile.provider.SsaContract.Tasks;
 import org.inftel.ssa.mobile.provider.SsaContract.Users;
 import org.inftel.ssa.mobile.ui.phone.TaskListActivity;
@@ -49,6 +50,8 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
     protected Activity mActivity;
     private Uri mContentUri;
     private Uri mUserUri;
+    private Uri mSprintUri;
+    private Uri mProjectUri;
     private Intent mIntent;
     private String mAction;
     private int mState;
@@ -92,6 +95,7 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
         mTxtDescription = (EditText) view.findViewById(R.id.txtDescription);
         mTxtEstimated = (EditText) view.findViewById(R.id.txtEstimated);
         mTxtPriority = (EditText) view.findViewById(R.id.txtPriority);
+        mTxtProject = (EditText) view.findViewById(R.id.txtProject);
         mTxtSprint = (EditText) view.findViewById(R.id.txtSprint);
         mTxtUser = (EditText) view.findViewById(R.id.txtUser);
         mTxtStatus = (EditText) view.findViewById(R.id.txtStatus);
@@ -127,6 +131,24 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
 
         });
 
+        mTxtSprint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK, Sprints.CONTENT_URI);
+                startActivityForResult(intent, PICK_SPRINT_REQUEST);
+            }
+
+        });
+
+        mTxtProject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK, Projects.CONTENT_URI);
+                startActivityForResult(intent, PICK_PROJECT_REQUEST);
+            }
+
+        });
+
         mTxtBurned = (EditText) view.findViewById(R.id.txtBurned);
         mTxtRemaining = (EditText) view.findViewById(R.id.txtRemaining);
         mTxtComments = (EditText) view.findViewById(R.id.txtComments);
@@ -157,14 +179,15 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
                 Tasks.TASK_DESCRIPTION, // 2
                 Tasks.TASK_ESTIMATED, // 3
                 Tasks.TASK_PRIORITY, // 4
-                Tasks.TASK_SPRINT_ID, // 5
-                Tasks.TASK_USER_ID, // 6
-                Tasks.TASK_STATUS, // 7
-                Tasks.TASK_BEGINDATE, // 8
-                Tasks.TASK_ENDDATE, // 9
-                Tasks.TASK_BURNED, // 10
-                Tasks.TASK_REMAINING, // 11
-                Tasks.TASK_COMMENTS, // 12
+                Tasks.TASK_PROJECT_ID, // 5
+                Tasks.TASK_SPRINT_ID, // 6
+                Tasks.TASK_USER_ID, // 7
+                Tasks.TASK_STATUS, // 8
+                Tasks.TASK_BEGINDATE, // 9
+                Tasks.TASK_ENDDATE, // 10
+                Tasks.TASK_BURNED, // 11
+                Tasks.TASK_REMAINING, // 12
+                Tasks.TASK_COMMENTS, // 13
         };
 
         return new CursorLoader(mActivity, mContentUri, projection, null, null, null);
@@ -180,6 +203,7 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
             final String description = data.getString(data.getColumnIndex(Tasks.TASK_DESCRIPTION));
             final String estimated = data.getString(data.getColumnIndex(Tasks.TASK_ESTIMATED));
             final String priority = data.getString(data.getColumnIndex(Tasks.TASK_PRIORITY));
+            final String project = data.getString(data.getColumnIndex(Tasks.TASK_PROJECT_ID));
             final String sprint = data.getString(data.getColumnIndex(Tasks.TASK_SPRINT_ID));
             final String status = data.getString(data.getColumnIndex(Tasks.TASK_STATUS));
             final String beginDate = data.getString(data.getColumnIndex(Tasks.TASK_BEGINDATE));
@@ -192,7 +216,8 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
             // Update UI
             mHandler.post(new Runnable() {
                 public void run() {
-                    populateView(summary, description, estimated, priority, sprint, status,
+                    populateView(summary, description, estimated, priority, project, sprint,
+                            status,
                             beginDate, user, endDate, burned, remaining, comments);
                 }
 
@@ -201,14 +226,15 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
     }
 
     private void populateView(final String summary, final String description,
-            final String estimated, final String priority, final String sprint,
-            final String status, final String beginDate, final String user,
-            final String endDate, final String burned, final String remaining,
-            final String comments) {
+            final String estimated, final String priority, final String project,
+            final String sprint, final String status, final String beginDate,
+            final String user, final String endDate, final String burned,
+            final String remaining, final String comments) {
         ((TextView) getView().findViewById(R.id.txtSummary)).setText(summary);
         ((TextView) getView().findViewById(R.id.txtDescription)).setText(description);
         ((TextView) getView().findViewById(R.id.txtEstimated)).setText(estimated);
         ((TextView) getView().findViewById(R.id.txtPriority)).setText(priority);
+        ((TextView) getView().findViewById(R.id.txtProject)).setText(project);
         ((TextView) getView().findViewById(R.id.txtSprint)).setText(sprint);
         ((TextView) getView().findViewById(R.id.txtStatus)).setText(status);
         ((TextView) getView().findViewById(R.id.txtBeginDate)).setText(formatDate(beginDate));
@@ -237,19 +263,6 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
 
         Log.d(getClass().getSimpleName(), "Save Task");
 
-        // mTxtSummary = (EditText) getView().findViewById(R.id.txtSummary);
-        // mTxtDescription = (EditText)
-        // getView().findViewById(R.id.txtDescription);
-        // mTxtEstimated = (EditText) getView().findViewById(R.id.txtEstimated);
-        // mTxtPriority = (EditText) getView().findViewById(R.id.txtPriority);
-        // mTxtSprint = (EditText) getView().findViewById(R.id.txtSprint);
-        // mTxtStatus = (EditText) getView().findViewById(R.id.txtStatus);
-        // mTxtBeginDate = (EditText) getView().findViewById(R.id.txtBeginDate);
-        // mTxtEndDate = (EditText) getView().findViewById(R.id.txtEndDate);
-        // mTxtBurned = (EditText) getView().findViewById(R.id.txtBurned);
-        // mTxtRemaining = (EditText) getView().findViewById(R.id.txtRemaining);
-        // mTxtComments = (EditText) getView().findViewById(R.id.txtComments);
-
         ContentResolver cr = mActivity.getContentResolver();
         ContentValues values = new ContentValues();
 
@@ -258,6 +271,7 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
         values.put(Tasks.TASK_ESTIMATED, mTxtEstimated.getText().toString());
         values.put(Tasks.TASK_PRIORITY, mTxtPriority.getText().toString());
         values.put(Tasks.TASK_SPRINT_ID, mTxtSprint.getText().toString());
+        values.put(Tasks.TASK_PROJECT_ID, mTxtProject.getText().toString());
         values.put(Tasks.TASK_USER_ID, mTxtUser.getText().toString());
         values.put(Tasks.TASK_STATUS, mTxtStatus.getText().toString());
         values.put(Tasks.TASK_BEGINDATE, secureEpochDate(mTxtBeginDate.getText().toString()));
@@ -329,34 +343,23 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        String[] projection = new String[] {
-                Users._ID,
-                Users.USER_FULLNAME,
-                Users.USER_NICKNAME,
-                Users.USER_EMAIL,
-                Users.USER_NUMBER,
-                Users.USER_COMPANY,
-                Users.USER_ROLE
-        };
 
-        // If the request went well (OK) and the request was
-        // PICK_CONTACT_REQUEST
-        if (resultCode == Activity.RESULT_OK)
+        if (resultCode == Activity.RESULT_OK) {
             if (requestCode == PICK_USER_REQUEST) {
                 mUserUri = data.getData();
                 final String user = Users.getUserId(mUserUri);
                 ((TextView) getView().findViewById(R.id.txtUser)).setText(user);
+            } else if (requestCode == PICK_SPRINT_REQUEST) {
+                mSprintUri = data.getData();
+                final String sprint = Sprints.getSprintId(mSprintUri);
+                ((TextView) getView().findViewById(R.id.txtSprint)).setText(sprint);
+            } else if (requestCode == PICK_PROJECT_REQUEST) {
+                mProjectUri = data.getData();
+                final String project = Projects.getProjectId(mProjectUri);
+                ((TextView) getView().findViewById(R.id.txtProject)).setText(project);
             }
+        }
 
-        // Cursor cursor = getContentResolver().query(data.getData(),
-        // projection, null, null, null);
-
-        // if (cursor.moveToFirst()) { // True if the cursor is not empty
-        // columnIndex = cursor.getColumnIndex(Contacts.DISPLAY_NAME);
-        // String name = cursor.getString(columnIndex);
-
-        // }
-        // }
     }
 
 }
