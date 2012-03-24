@@ -19,6 +19,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -104,10 +105,9 @@ public class TaskDetailFragment extends Fragment implements
             @Override
             public void onClick(View v) {
 
-                if (!(mSprintId.isEmpty()) && !(mSprintId.trim().equals(""))) {
+                if (!TextUtils.isEmpty(mSprintId)) {
                     startActivity(new Intent(Intent.ACTION_VIEW, Sprints.buildSprintUri(mSprintId)));
-                }
-                else {
+                } else {
                     Toast.makeText(mActivity, "This task hasn't any Sprint associated",
                             Toast.LENGTH_SHORT).show();
                 }
