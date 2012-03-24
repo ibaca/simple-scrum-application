@@ -90,6 +90,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="vnd.android.cursor.dir/vnd.inftel.ssa.sprint" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PICK" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.dir/vnd.inftel.ssa.sprint" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.phone.SprintDetailActivity"
