@@ -41,11 +41,14 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
     private static final int STATE_EDIT = 0;
     private static final int STATE_INSERT = 1;
 
-    private static final int PICK_CONTACT_REQUEST = 1;
+    private static final int PICK_SPRINT_REQUEST = 1;
+    private static final int PICK_USER_REQUEST = 2;
+    private static final int PICK_PROJECT_REQUEST = 3;
 
     protected Handler mHandler = new Handler();
     protected Activity mActivity;
     private Uri mContentUri;
+    private Uri mUserUri;
     private Intent mIntent;
     private String mAction;
     private int mState;
@@ -90,6 +93,7 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
         mTxtEstimated = (EditText) view.findViewById(R.id.txtEstimated);
         mTxtPriority = (EditText) view.findViewById(R.id.txtPriority);
         mTxtSprint = (EditText) view.findViewById(R.id.txtSprint);
+        mTxtUser = (EditText) view.findViewById(R.id.txtUser);
         mTxtStatus = (EditText) view.findViewById(R.id.txtStatus);
         mTxtBeginDate = (EditText) view.findViewById(R.id.txtBeginDate);
         mTxtEndDate = (EditText) view.findViewById(R.id.txtEndDate);
@@ -114,15 +118,11 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
 
         });
 
-        mTxtSprint.setOnClickListener(new View.OnClickListener() {
+        mTxtUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // DateDialogFragment.newInstance(v.getContext(),
-                // mTxtEndDate).show(
-                // getActivity().getSupportFragmentManager(),
-                // "Date Picker Dialog");
-                Intent intent = new Intent(Intent.ACTION_PICK, Tasks.CONTENT_URI);
-                startActivityForResult(intent, PICK_CONTACT_REQUEST);
+                Intent intent = new Intent(Intent.ACTION_PICK, Users.CONTENT_URI);
+                startActivityForResult(intent, PICK_USER_REQUEST);
             }
 
         });
@@ -252,6 +252,7 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
         values.put(Tasks.TASK_ESTIMATED, mTxtEstimated.getText().toString());
         values.put(Tasks.TASK_PRIORITY, mTxtPriority.getText().toString());
         values.put(Tasks.TASK_SPRINT_ID, mTxtSprint.getText().toString());
+        values.put(Tasks.TASK_USER_ID, mTxtUser.getText().toString());
         values.put(Tasks.TASK_STATUS, mTxtStatus.getText().toString());
         values.put(Tasks.TASK_BEGINDATE, secureEpochDate(mTxtBeginDate.getText().toString()));
         values.put(Tasks.TASK_ENDDATE, secureEpochDate(mTxtEndDate.getText().toString()));
@@ -334,8 +335,12 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
 
         // If the request went well (OK) and the request was
         // PICK_CONTACT_REQUEST
-        // if (resultCode == Activity.RESULT_OK && requestCode ==
-        // PICK_CONTACT_REQUEST) {
+        if (resultCode == Activity.RESULT_OK)
+            if (requestCode == PICK_USER_REQUEST) {
+                mUserUri = data.getData();
+                final String user = Users.getUserId(mUserUri);
+                ((TextView) getView().findViewById(R.id.txtUser)).setText(user);
+            }
 
         // Cursor cursor = getContentResolver().query(data.getData(),
         // projection, null, null, null);
