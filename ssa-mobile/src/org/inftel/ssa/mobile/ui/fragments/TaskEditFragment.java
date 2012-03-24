@@ -226,7 +226,7 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
     }
 
     public void saveTask() throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+
         Log.d(getClass().getSimpleName(), "Save Task");
 
         // mTxtSummary = (EditText) getView().findViewById(R.id.txtSummary);
@@ -251,10 +251,8 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
         values.put(Tasks.TASK_PRIORITY, mTxtPriority.getText().toString());
         values.put(Tasks.TASK_SPRINT_ID, mTxtSprint.getText().toString());
         values.put(Tasks.TASK_STATUS, mTxtStatus.getText().toString());
-        values.put(Tasks.TASK_BEGINDATE,
-                String.valueOf(sdf.parse(mTxtBeginDate.getText().toString()).getTime()));
-        values.put(Tasks.TASK_ENDDATE,
-                String.valueOf(sdf.parse(mTxtEndDate.getText().toString()).getTime()));
+        values.put(Tasks.TASK_BEGINDATE, secureEpochDate(mTxtBeginDate.getText().toString()));
+        values.put(Tasks.TASK_ENDDATE, secureEpochDate(mTxtEndDate.getText().toString()));
         values.put(Tasks.TASK_BURNED, mTxtBurned.getText().toString());
         values.put(Tasks.TASK_REMAINING, mTxtRemaining.getText().toString());
         values.put(Tasks.TASK_COMMENTS, mTxtComments.getText().toString());
@@ -271,7 +269,24 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
         } catch (NullPointerException e) {
             Log.e(getClass().getSimpleName(), e.getMessage());
         }
+    }
 
+    SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+
+    private String secureEpochDate(String insecureDate) {
+        try {
+            return String.valueOf(sdf.parse(insecureDate).getTime());
+        } catch (Exception ignored) {
+            return null; // FIXME jeje esto es poco 'elegante'
+        }
+    }
+
+    private String formatDate(final String started) {
+        try {
+            return sdf.format(new Date(Long.parseLong(started)));
+        } catch (Exception ignored) {
+            return "no date"; // FIXME jeje esto es poco 'elegante'
+        }
     }
 
     @Override
@@ -291,7 +306,7 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
                     Log.w(getClass().getSimpleName(), "Formato no correcto de fecha");
 
                 }
-                // startActivity(new Intent(ACTION_VIEW, Tasks.CONTENT_URI));
+                // FIXME
                 // getActivity().finish();
                 if (mState == STATE_EDIT) {
                     startActivity(new Intent(Intent.ACTION_VIEW, mContentUri));

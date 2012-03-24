@@ -125,6 +125,7 @@ public class ProjectEditFragment extends Fragment implements LoaderCallbacks<Cur
                     Log.w(getClass().getSimpleName(),
                             "Fallo inesperado guardando proyecto: " + e.getMessage(), e);
                 }
+                // FIXME
                 // getActivity().finish();
                 if (mState == STATE_EDIT) {
                     startActivity(new Intent(Intent.ACTION_VIEW, mContentUri));
