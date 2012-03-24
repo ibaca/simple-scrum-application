@@ -189,28 +189,34 @@ public class TaskEditFragment extends Fragment implements LoaderCallbacks<Cursor
             final String remaining = data.getString(data.getColumnIndex(Tasks.TASK_REMAINING));
             final String comments = data.getString(data.getColumnIndex(Tasks.TASK_COMMENTS));
 
-            final SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
-
             // Update UI
             mHandler.post(new Runnable() {
                 public void run() {
-                    ((TextView) getView().findViewById(R.id.txtSummary)).setText(summary);
-                    ((TextView) getView().findViewById(R.id.txtDescription)).setText(description);
-                    ((TextView) getView().findViewById(R.id.txtEstimated)).setText(estimated);
-                    ((TextView) getView().findViewById(R.id.txtPriority)).setText(priority);
-                    ((TextView) getView().findViewById(R.id.txtSprint)).setText(sprint);
-                    ((TextView) getView().findViewById(R.id.txtStatus)).setText(status);
-                    ((TextView) getView().findViewById(R.id.txtBeginDate)).setText(sdf
-                            .format(new Date(Long.parseLong(beginDate))));
-                    ((TextView) getView().findViewById(R.id.txtEndDate)).setText(sdf
-                            .format(new Date(Long.parseLong(endDate))));
-                    ((TextView) getView().findViewById(R.id.txtUser)).setText(user);
-                    ((TextView) getView().findViewById(R.id.txtBurned)).setText(burned);
-                    ((TextView) getView().findViewById(R.id.txtRemaining)).setText(remaining);
-                    ((TextView) getView().findViewById(R.id.txtComments)).setText(comments);
+                    populateView(summary, description, estimated, priority, sprint, status,
+                            beginDate, user, endDate, burned, remaining, comments);
                 }
+
             });
         }
+    }
+
+    private void populateView(final String summary, final String description,
+            final String estimated, final String priority, final String sprint,
+            final String status, final String beginDate, final String user,
+            final String endDate, final String burned, final String remaining,
+            final String comments) {
+        ((TextView) getView().findViewById(R.id.txtSummary)).setText(summary);
+        ((TextView) getView().findViewById(R.id.txtDescription)).setText(description);
+        ((TextView) getView().findViewById(R.id.txtEstimated)).setText(estimated);
+        ((TextView) getView().findViewById(R.id.txtPriority)).setText(priority);
+        ((TextView) getView().findViewById(R.id.txtSprint)).setText(sprint);
+        ((TextView) getView().findViewById(R.id.txtStatus)).setText(status);
+        ((TextView) getView().findViewById(R.id.txtBeginDate)).setText(formatDate(beginDate));
+        ((TextView) getView().findViewById(R.id.txtEndDate)).setText(formatDate(endDate));
+        ((TextView) getView().findViewById(R.id.txtUser)).setText(user);
+        ((TextView) getView().findViewById(R.id.txtBurned)).setText(burned);
+        ((TextView) getView().findViewById(R.id.txtRemaining)).setText(remaining);
+        ((TextView) getView().findViewById(R.id.txtComments)).setText(comments);
     }
 
     /**
