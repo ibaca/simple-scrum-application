@@ -72,6 +72,7 @@ public class UserListFragment extends ListFragment implements LoaderCallbacks<Cu
             Intent intent = new Intent();
             intent.setData(userUri);
             getActivity().setResult(-1, intent);
+            getActivity().finish();
         } else {
             System.out.println("no entro en el ACTION_PICK");
             // Launch activity to view/edit the currently selected item
