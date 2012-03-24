@@ -50,7 +50,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     private static final String SYNC_TASKS_LASTUPDATE = "sync_project_lastupdate";
     private static final String TAG = "SyncAdapter";
-    private static final String SYNC_MARKER_KEY = "org.inftel.ssa.mobile.marker";
+    private static final String ACCOUNT_HISTORY_TOKEN = "org.inftel.ssa.mobile.accountHistoryToken";
     // private static final boolean NOTIFY_AUTH_FAILURE = true;
 
     private final AccountManager mAccountManager;
@@ -59,6 +59,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     // Variables compartidas durante el proceso de sincronizacion
     private SsaRequestFactory mRequestFactory;
     private long mLastUpdateCalculator;
+    private Account mAccount;
 
     private final SharedPreferences mPreferences;
 
@@ -77,23 +78,37 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         Log.d(TAG, "onPerformSync: authority=" + authority);
         Log.d(TAG, "onPerformSync: provider=" + provider);
 
+        mAccount = account;
         mRequestFactory = getRequestFactory(mContext, SsaRequestFactory.class);
         final SsaRequestFactory rf = mRequestFactory;
 
         // Perform UPLOADS
         // if (extras.getBoolean("upload")) {
         try {
+            Log.i(TAG, "uploading data to server...");
             uploadProjects(provider, rf);
-        } catch (RemoteException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.w(TAG, "problema durante la subida de actualizaciones: " + e.getMessage(), e);
+            syncResult.stats.numIoExceptions++;
         }
         // Log.i(TAG, "just uploading data... skipping full sync");
         // return;
         // }
 
         // Perform DOWNLOADS
+        try {
+            Log.i(TAG, "downloading data to server...");
+            downloadFromServer(account, provider, syncResult, rf);
+        } catch (Exception e) {
+            Log.w(TAG, "problema durante la descarga de actualizaciones: " + e.getMessage(), e);
+            syncResult.stats.numIoExceptions++;
+        }
 
+        // Performs DELETES
+    }
+
+    private void downloadFromServer(final Account account, final ContentProviderClient provider,
+            final SyncResult syncResult, final SsaRequestFactory rf) {
         // Projects and Users
         final SsaRequestContext projectsAndUsersRequest = rf.ssaRequestContext();
         projectsAndUsersRequest.findUserByEmail(account.name).with("projects.users").to(
@@ -144,8 +159,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         if (mLastUpdateCalculator != lastTasksUpdate.getTime()) {
             mPreferences.edit().putLong(SYNC_TASKS_LASTUPDATE, mLastUpdateCalculator).apply();
         }
-
-        // Performs DELETES
     }
 
     /** Upload DIRTY projects to the server. */
@@ -168,7 +181,9 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                 SyncColumns.STABLE_ID,
                 SyncColumns.SYNC_STATUS
                 ),
-                Projects.SYNC_STATUS + "=? OR " + Projects.SYNC_STATUS + "=?",
+                Projects.SYNC_STATUS + "=? "
+                        + "OR " + Projects.SYNC_STATUS + "=?"
+                        + "OR " + Projects.SYNC_STATUS + " IS NULL",
                 strings(SsaContract.STATUS_DIRTY + "", SsaContract.STATUS_CREATED + ""), null);
         SsaRequestContext remoteUpdateRequest = rf.ssaRequestContext();
         while (cursor.moveToNext()) {
@@ -179,14 +194,57 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
             ProjectProxy edit;
 
             // Prepare ProjectProxy for editing
-            int syncStat = cursor.getInt(cursor.getColumnIndex(Projects.SYNC_STATUS));
+            final String projectId = cursor.getString(cursor.getColumnIndex(Projects._ID));
+            String syncStat = cursor.getString(cursor.getColumnIndex(Projects.SYNC_STATUS));
             String stableId = cursor.getString(cursor.getColumnIndex(SyncColumns.STABLE_ID));
-            if (syncStat == SsaContract.STATUS_CREATED || stableId == null) {
-                // FIXME el caso stableId==null es un fallo interno!
+            if (syncStat == null || Long.parseLong(syncStat) == SsaContract.STATUS_CREATED) {
+                // Se comprueba si ya esta configurado StableId del account
+                String accountStableId = getAccountStableId(provider, mAccount);
+                if (TextUtils.isEmpty(accountStableId)) {
+                    // Si no esta definido se espera ya que en el primer update
+                    // debería
+                    // actualizarse este valor
+                    continue; // se pueden realizar updates, pero no crear
+                              // nuevos proyectos
+                }
                 edit = remoteUpdateRequest.create(ProjectProxy.class);
-                remoteUpdateRequest.persist(edit);
+                remoteUpdateRequest.persistProject(edit).to(new Receiver<ProjectProxy>() {
+                    @Override
+                    public void onSuccess(ProjectProxy response) {
+                        Log.d(TAG, "Upload new project persited received: " + response);
+                        ContentValues values = new ContentValues();
+
+                        // Sync data
+                        final String remoteId = response.getId().toString();
+                        final String stableId = mRequestFactory.getHistoryToken(response.stableId());
+                        values.put(SyncColumns.REMOTE_ID, remoteId);
+                        values.put(SyncColumns.STABLE_ID, stableId);
+                        values.put(SyncColumns.SYNC_STATUS, SsaContract.STATUS_SYNC);
+                        try {
+                            int count = provider.update(Projects.buildProjectUri(projectId),
+                                    values, null, null);
+                            if (count == 0) {
+                                Log.w(TAG, "Updating " + values + " to " + Projects.CONTENT_URI
+                                        + " dont affect any row");
+                            }
+                        } catch (RemoteException e) {
+                            Log.e(TAG, "Updating " + values + " to " + Projects.CONTENT_URI
+                                    + " failed", e);
+                        }
+
+                    }
+                });
+                Set<UserProxy> owner = new HashSet<UserProxy>(1);
+                owner.add(getRemoteUserByStableId(accountStableId));
+                edit.setUsers(owner);
             } else { // STATUS_DIRTY
                 edit = remoteUpdateRequest.edit(getRemoteProjectByStableId(stableId));
+                remoteUpdateRequest.save(edit).to(new Receiver<EntityProxy>() {
+                    @Override
+                    public void onSuccess(EntityProxy response) {
+                        Log.d(TAG, "Upload updated project persited received: " + response);
+                    }
+                });
             }
 
             // Edit ProjectProxy
@@ -459,28 +517,43 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         }
     }
 
-    /**
-     * This helper function fetches the last known high-water-mark we received
-     * from the server - or 0 if we've never synced.
-     * 
-     * @param account the account we're syncing
-     * @return the change high-water-mark
-     */
-    private long getServerSyncMarker(Account account) {
-        String markerString = mAccountManager.getUserData(account, SYNC_MARKER_KEY);
-        if (!TextUtils.isEmpty(markerString)) {
-            return Long.parseLong(markerString);
+    private UserProxy getRemoteUserByStableId(final String stableId) {
+        SsaRequestContext request = mRequestFactory.ssaRequestContext();
+        final List<UserProxy> getResult = new ArrayList<UserProxy>(1);
+        request.find(mRequestFactory.getProxyId(stableId)).fire(
+                new Receiver<EntityProxy>() {
+                    @Override
+                    public void onSuccess(EntityProxy response) {
+                        getResult.add((UserProxy) response);
+                    }
+
+                    @Override
+                    public void onFailure(ServerFailure error) {
+                        Log.w(TAG, "Problema al obtener el usuario remoto " +
+                                "[" + stableId + "]: " + error.getMessage());
+                    }
+                });
+        if (getResult.isEmpty()) {
+            return null;
+        } else {
+            return getResult.iterator().next();
         }
-        return 0;
     }
 
-    /**
-     * Save off the high-water-mark we receive back from the server.
-     * 
-     * @param account The account we're syncing
-     * @param marker The high-water-mark we want to save.
-     */
-    private void setServerSyncMarker(Account account, long marker) {
-        mAccountManager.setUserData(account, SYNC_MARKER_KEY, Long.toString(marker));
+    private String getAccountStableId(ContentProviderClient provider, Account account) {
+        try {
+            Cursor cursor = provider.query(Users.CONTENT_URI, strings(Users.STABLE_ID),
+                    Users.USER_EMAIL + "=?", strings(account.name), null);
+            if (cursor.moveToNext()) {
+                String stableId = cursor.getString(cursor.getColumnIndex(Users.STABLE_ID));
+                if (!TextUtils.isEmpty(stableId)) {
+                    return stableId;
+                }
+            }
+        } catch (RemoteException e) {
+            Log.e(TAG, "Error inesperado obteniendo stableId del account", e);
+        }
+        return null;
     }
+
 }

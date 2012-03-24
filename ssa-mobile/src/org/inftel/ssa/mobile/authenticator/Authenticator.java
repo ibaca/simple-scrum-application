@@ -105,14 +105,14 @@ public class Authenticator extends AbstractAccountAuthenticator {
             final String password) {
         final BlockingQueue<String> authTokenQueue = new ArrayBlockingQueue<String>(1);
         // NetworkUtilities.authenticate(account.name, password);
-        SsaRequestFactory requestFactory = getRequestFactory(context, SsaRequestFactory.class);
+        final SsaRequestFactory requestFactory = getRequestFactory(context, SsaRequestFactory.class);
         SsaRequestContext requestContext = requestFactory.ssaRequestContext();
         requestContext.findUserByEmail(account).fire(new Receiver<UserProxy>() {
 
             @Override
             public void onSuccess(UserProxy response) {
                 if (response != null && account.equals(response.getEmail())) {
-                    authTokenQueue.add("success");
+                    authTokenQueue.add(requestFactory.getHistoryToken(response.stableId()));
                 } else {
                     authTokenQueue.add("");
                 }

@@ -24,9 +24,9 @@ public class SsaApplication extends Application {
         super.onCreate();
         Log.d(TAG, "OnCreate application.");
 
-        // if ("mejorno".equals("mejor" + "no")) {
-        // return;
-        // }
+        if ("mejorno".equals("mejor" + "no")) {
+            return;
+        }
 
         // Algunos datos para hacer pruebas
         ContentResolver cr = getContentResolver();
