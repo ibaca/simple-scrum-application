@@ -40,6 +40,7 @@
     <string name="task_field_burned">Burned</string>
     <string name="task_field_remaining">Remaining</string>
     <string name="task_field_comments">Comments</string>
+    <string name="task_field_project">Project</string>
     <string name="task_label_summary">Summary</string>
     <string name="task_label_description">Description</string>
     <string name="task_label_estimated">Estimated</string>
@@ -52,6 +53,7 @@
     <string name="task_label_burned">Burned</string>
     <string name="task_label_remaining">Remaining</string>
     <string name="task_label_comments">Comments</string>
+    <string name="task_label_project">Projecdt</string>
     <string name="title_edit">Edit: \"%1$s\"</string>
     <string name="botton_save">Save</string>
     <string name="error_title">DB ERROR</string>
