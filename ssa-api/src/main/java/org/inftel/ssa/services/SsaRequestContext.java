@@ -8,6 +8,7 @@ import org.inftel.ssa.domain.ProjectProxy;
 import org.inftel.ssa.domain.TaskProxy;
 import org.inftel.ssa.domain.UserProxy;
 
+import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.ServiceName;
@@ -19,6 +20,8 @@ import com.google.web.bindery.requestfactory.shared.ServiceName;
  */
 @ServiceName(value = "org.inftel.ssa.services.SsaRequestService", locator = "org.inftel.ssa.locators.BeanLocator")
 public interface SsaRequestContext extends RequestContext {
+
+    Request<EntityProxy> save(EntityProxy saveMe);
 
     // Users
 
@@ -32,7 +35,7 @@ public interface SsaRequestContext extends RequestContext {
 
     Request<List<UserProxy>> findUserEntries(int firstResult, int maxResults);
 
-    Request<Void> persist(UserProxy user);
+    Request<UserProxy> persistUser(UserProxy user);
 
     // Projects
 
@@ -44,7 +47,7 @@ public interface SsaRequestContext extends RequestContext {
 
     Request<List<ProjectProxy>> findProjectsSince(Date date);
 
-    Request<Void> persist(ProjectProxy project);
+    Request<ProjectProxy> persistProject(ProjectProxy project);
 
     // Tasks
 
@@ -54,6 +57,6 @@ public interface SsaRequestContext extends RequestContext {
      */
     Request<List<TaskProxy>> findTasksByProjectSince(Long projectId, Date since);
 
-    Request<Void> persist(TaskProxy task);
+    Request<TaskProxy> persistTask(TaskProxy task);
 
 }

@@ -8,6 +8,8 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.inftel.ssa.domain.Project;
 import org.inftel.ssa.domain.ProjectFacade;
@@ -30,6 +32,9 @@ public class SsaRequestService {
 
     @EJB
     private TaskFacade tasks;
+
+    @PersistenceContext(unitName = "ssa-persistence-unit")
+    private EntityManager em;
 
     public SsaRequestService() {
     }
@@ -89,7 +94,7 @@ public class SsaRequestService {
         return tasks.findByProjectSince(projectId, since);
     }
 
-    public void persist(User instance) {
+    public User persistUser(User instance) {
         log.info("creando usuario " + instance);
         if (instance == null) {
             throw new NullPointerException();
@@ -101,9 +106,10 @@ public class SsaRequestService {
             throw new RuntimeException("Un usuario debe crearse con email valido");
         }
         users.create(instance);
+        return instance;
     }
 
-    public void persist(Project instance) {
+    public Project persistProject(Project instance) {
         log.info("creando proyecto " + instance);
         if (instance == null) {
             throw new NullPointerException();
@@ -115,9 +121,10 @@ public class SsaRequestService {
             throw new RuntimeException("Un proyecto debe crearse con nombre valido");
         }
         projects.create(instance);
+        return instance;
     }
 
-    public void persist(Task instance) {
+    public Task persistTask(Task instance) {
         log.info("creando proyecto " + instance);
         if (instance == null) {
             throw new NullPointerException();
@@ -126,6 +133,13 @@ public class SsaRequestService {
             throw new RuntimeException("Id debe ser nulo, es decir, proyecto nuevo");
         }
         tasks.create(instance);
+        return instance;
+    }
+
+    public Object save(Object instance) {
+        log.info("guardando entidad " + instance);
+        em.merge(instance);
+        return instance;
     }
 
     public void remove(User instance) {
