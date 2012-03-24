@@ -152,6 +152,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="vnd.android.cursor.dir/vnd.inftel.ssa.user" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PICK" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.dir/vnd.inftel.ssa.user" />
+            </intent-filter>
         </activity>
         <activity android:name=".ui.phone.UserDetailActivity">
             <intent-filter>
