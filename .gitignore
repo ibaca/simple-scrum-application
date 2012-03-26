@@ -1,0 +1,56 @@
+
+# /
+/target
+/.settings
+/.project
+
+# /ssa-api/
+/ssa-api/target
+/ssa-api/derby.log
+/ssa-api/.settings
+/ssa-api/.project
+/ssa-api/.classpath
+/ssa-api/.factorypath
+
+# /ssa-api-mobile/
+/ssa-api-mobile/.classpath
+/ssa-api-mobile/.project
+/ssa-api-mobile/.settings
+/ssa-api-mobile/target
+
+# /ssa-bundle/
+/ssa-bundle/target
+/ssa-bundle/.project
+/ssa-bundle/.settings
+
+# /ssa-core/
+/ssa-core/target
+/ssa-core/derby.log
+/ssa-core/.settings
+/ssa-core/.classpath
+/ssa-core/.project
+/ssa-core/.factorypath
+
+# /ssa-datamining/
+/ssa-datamining/target
+/ssa-datamining/derby.log
+/ssa-datamining/.classpath
+/ssa-datamining/.settings
+/ssa-datamining/.project
+
+# /ssa-mobile/
+/ssa-mobile/.classpath
+/ssa-mobile/bin
+/ssa-mobile/.settings
+/ssa-mobile/.project
+/ssa-mobile/gen
+/ssa-mobile/target
+
+# /ssa-mobile/assets/
+/ssa-mobile/assets/debugging_prefs.properties
+
+# /ssa-web/
+/ssa-web/target
+/ssa-web/.project
+/ssa-web/.settings
+/ssa-web/.classpath
